@@ -1,4 +1,5 @@
-.vlmenu > li > a:hover, .vlmenu > li.active > a {
+.vlmenu > li > a:hover,
+.vlmenu > li.active > a {
   color: $primary-color;
 }
 
@@ -50,7 +51,9 @@
   margin-top: -2px;
 }
 
-.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
   width: 20px;
   height: 2px;
   background-color: #000;
@@ -65,7 +68,8 @@
   }
 }
 
-.hamburger-inner::before, .hamburger-inner::after {
+.hamburger-inner::before,
+.hamburger-inner::after {
   content: "";
   display: block;
 }
@@ -127,7 +131,7 @@
     top: auto;
     z-index: 10;
     background: $white;
-    padding: .3em 0;
+    padding: 0.3em 0;
     .logo-dark {
       display: block;
       height: 50px;
@@ -141,7 +145,7 @@
     }
   }
 
-  .app-header.transparent-header{
+  .app-header.transparent-header {
     .logo-light {
       display: none;
     }
@@ -173,10 +177,10 @@
     }
   }
 
-  .vlmenu .vl-accordion .fa-angle-down, .nav-extra-link {
+  .vlmenu .vl-accordion .fa-angle-down,
+  .nav-extra-link {
     display: none;
   }
-
 }
 
 @media (max-width: 767px) {
@@ -186,7 +190,6 @@
 }
 
 @media (min-width: 1025px) {
-
   .app-header {
     background: $white;
     position: absolute;
@@ -197,13 +200,13 @@
     .navbar-brand {
       margin-top: 8px;
     }
-    .logo-light{
+    .logo-light {
       display: none;
     }
   }
 
-  .app-header.transparent-header{
-    .logo-light{
+  .app-header.transparent-header {
+    .logo-light {
       display: block;
     }
   }
@@ -215,12 +218,11 @@
     z-index: 1030;
     background: $white;
     box-shadow: 0 1px 10px rgba(151, 164, 175, 0.15);
-    padding: 0 ;
-    animation: smoothScroll .3s forwards;
+    padding: 0;
+    animation: smoothScroll 0.3s forwards;
     .navbar-brand {
       //margin-top: 10px;
     }
-
   }
 
   @keyframes smoothScroll {
@@ -232,15 +234,14 @@
     }
   }
 
-
   .transparent-header {
     background: transparent;
     top: auto;
-    padding-top: 2rem;
-    .vlmenu > li > a{
+    // padding-top: 2rem;
+    .vlmenu > li > a {
       color: $white;
-      &:hover{
-        opacity: .7;
+      &:hover {
+        opacity: 0.7;
       }
     }
     .logo-dark {
@@ -253,9 +254,9 @@
     background: $white;
     box-shadow: 0 1px 10px rgba(151, 164, 175, 0.15);
     top: 0;
-    .vlmenu > li > a{
+    .vlmenu > li > a {
       color: $dark;
-      &:hover{
+      &:hover {
         color: $primary-color;
       }
     }
@@ -275,9 +276,9 @@
   }
 
   .transparent-header-dark-nav {
-    .vlmenu > li > a{
-      color: $dark ;
-      &:hover{
+    .vlmenu > li > a {
+      color: $dark;
+      &:hover {
         color: $primary-color;
       }
 
@@ -299,7 +300,8 @@
     top: 2px;
   }
 
-  .light-sub-menu ul, .light-sub-menu li > div {
+  .light-sub-menu ul,
+  .light-sub-menu li > div {
     box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.1);
     @media screen and (prefers-color-scheme: dark) {
       background-color: $dark-mode-bg;
@@ -308,7 +310,6 @@
   }
 
   .vlmenu {
-
     ul {
       width: 250px;
       padding-top: 15px;
@@ -376,15 +377,15 @@
     display: none;
   }
 
-  .vlmenu .half-nav, .vlmenu .full-nav, .vlmenu ul{
+  .vlmenu .half-nav,
+  .vlmenu .full-nav,
+  .vlmenu ul {
     border-radius: 6px;
   }
 
   .nav-extra-link {
-    .mt-3{
-      margin-top: .85rem !important;
+    .mt-3 {
+      margin-top: 0.85rem !important;
     }
   }
-
 }
-
