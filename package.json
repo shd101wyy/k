@@ -8,7 +8,8 @@
     "build-css": "parcel build --no-source-maps --no-autoinstall --bundle-node-modules -d ./public_content/assets/css --public-url /assets/css ./static_content/assets/sass/index.scss",
     "build-js": "parcel build --no-source-maps --no-autoinstall --bundle-node-modules -d ./public_content/assets/js --public-url /assets/js ./static_content/assets/js/index.js",
     "build-html": "node build-html.js",
-    "serve": "http-server public_content"
+    "serve": "http-server public_content",
+    "deploy": "npm run build && gh-pages-clean && node deploy.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   "author": "K | Runtime Verification",
   "license": "UNLICENSED",
   "devDependencies": {
+    "gh-pages": "^3.1.0",
     "http-server": "^0.12.3",
     "parcel": "^1.12.4",
     "sass": "^1.26.9",
