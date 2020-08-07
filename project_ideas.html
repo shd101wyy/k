@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+/>
+<meta
+  name="description"
+  content="Design and implement your programming language and software analysis tools with mathematical rigor."
+/>
+<meta name="keywords" content="runtime, verification, rv, k" />
+<meta name="author" content="K | Runtime Verification Inc" />
+<meta name="robots" content="index, follow" />
+
+<!--favicon icon-->
+<link rel="icon" type="image/png" href="./assets/img/favicon.ico" />
+
+<title>
+  K | Runtime Verification Inc
+</title>
+
+<!--web fonts-->
+<link
+  href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css?family=Lora:400i"
+  rel="stylesheet"
+/>
+
+<link href="./assets/css/index.css" rel="stylesheet" />
+
+<!--[if (gt IE 9) |!(IE)]><!-->
+<!--<link rel="stylesheet" href="/assets/vendor/custom-nav/css/effects/fade-menu.css"/>-->
+<!-- <link rel="stylesheet" href="./assets/k/vl-nav/css/effects/slide-menu.css" /> -->
+<!--<![endif]-->
+  </head>
+
+  <body>
+<header
+  class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"
+>
+  <a class="" href="./index.html">
+    <img
+      class="logo-dark"
+      srcset="./assets/img/k-logo.png"
+      alt="K"
+      style="height: 48px;"
+    />
+  </a>
+  <ul class="navbar-nav ml-md-auto">
+    <li class="nav-item">
+      <a
+        class="nav-link pl-2 pr-1 mx-1 py-3 my-n2"
+        href="https://github.com/kframework/k"
+        target="_blank"
+        rel="noopener"
+        aria-label="GitHub"
+      >
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  </ul>
+  <a
+    class="btn btn-rv-blue d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="./downloads.html"
+    >Download</a
+  >
+</header>
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+<div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+  <nav class="collapse bd-links" aria-label="Main navigation">
+    <div class="bd-toc-item">
+      <strong style="padding: 0.25rem 1.5rem;">Navigation</strong>
+    </div>
+    <div class="bd-toc-item">
+      <a class="bd-toc-link" href="./index.html">Main Page</a>
+      <a class="bd-toc-link" href="./downloads.html">Downloads</a>
+      <a class="bd-toc-link" href="./people.html">People</a>
+      <a class="bd-toc-link" href="./projects.html">Projects</a>
+      <a class="bd-toc-link" href="./project_ideas.html">Project Ideas</a>
+      <a class="bd-toc-link" href="./publications.html">Publications</a>
+      <a class="bd-toc-link" href="./news.html">News</a>
+      <a class="bd-toc-link" href="./events.html">Events</a>
+      <a class="bd-toc-link" href="./funding.html">Funding</a>
+    </div>
+  </nav>
+</div>
+        <main
+          class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
+          role="main"
+        >
+          <h1>Project Ideas</h1>
+          <h2>Introduction</h2>
+          <h3>Overview</h3>
+          <p>
+            K is a framework for designing new programming languages and
+            formalizing existing ones. K is unique in that the framework scales
+            to very large languages like C (see the C semantics project) and has
+            good tool support (see the K tool). To get a quick taste of K, see
+            our 5-minute demo. To understand it better, do the K Tutorial. For
+            an overview of the tool, see The K Primer (version 2.5); for a
+            theoretical overview, see An Overview of the K Semantic Framework.
+          </p>
+          <p>
+            This page lists project ideas related to the K framework. Although
+            this page was initially created for Google Summer of Code students,
+            it is applicable to any student interested in working with K.
+            Students viewing this page will also be interested in the current
+            list of projects using K and the GSoC2013 information page.
+          </p>
+          <p>
+            <strong>Remember</strong>: Students are not limited to projects on
+            this list! We encourage students to submit proposals for their own
+            ideas. We also encourage students to discuss their ideas with us
+            before submitting a proposal, either via IRC (#fsl on freenode) or
+            our mailing list.
+          </p>
+
+          <h3>Structure of the Ideas list</h3>
+          <p>
+            Besides a description, each project below has some additional
+            information to help students select a project.
+          </p>
+          <h4>Color</h4>
+          <p>
+            <span style="color: green;">Green projects</span> are primarily
+            coding projects and don't require much theoretical background to get
+            started.
+          </p>
+          <p>
+            <span style="color: blue;">Blue projects</span> are like green
+            projects, except require more theoretical background and theoretical
+            insights. These projects may require you to read a paper or two.
+          </p>
+          <p>
+            <span style="color: red;">Red projects</span> are potential research
+            directions but are too large and complex for GSoC. They are included
+            to give a flavor of future directions of our work.
+          </p>
+
+          <h4>Scale</h4>
+          <p>
+            Most project ideas also specify a Scale. The following Scales are
+            used (assuming the student is working on the project full-time):
+          </p>
+          <p>
+            <strong>Summer</strong>: The project can definitely be completed
+            over the summer.
+          </p>
+          <p>
+            <strong>Summer+</strong>: The project can be completed over the
+            summer by an ambitious student.
+          </p>
+          <p>
+            <strong>Summer++</strong>: The project will require extra time
+            beyond the summer to fully complete, but a usable portion of the
+            project can be completed over the summer.
+          </p>
+
+          <h4>Prerequisite experience</h4>
+          <p>
+            For each project idea there is some implicit prerequisite
+            experience. All of the projects require a minimum understanding of
+            what K is, its goals, and the structure of the tool. Tool developers
+            will need to know Java and how to work with ASTs in Java, but will
+            not need to be as familiar with the theory or features of K.
+            Developers of K definitions wont need to know Java, but will need to
+            become more familiar with the theory and features of K. Projects may
+            have additional experience prerequisites specified below.
+          </p>
+
+          <h4>Probable mentors</h4>
+          <p>
+            Most project ideas specify a list of people that are likely to
+            mentor the project. See the <a href="./people.html">People</a> page
+            for a list of potential mentors for all projects and links to their
+            homepages. Note that a project idea without mentors does not mean
+            that there are no mentors available for the project; it means the
+            mentors will be assigned based on the student's proposal.
+          </p>
+
+          <h2>Ideas</h2>
+          <h3>User interfaces</h3>
+          <h4>Eclipse IDE</h4>
+          <p>
+            Integrate the K Semantic Framework with Eclipse to make the
+            framework more accessible and user-friendly. Features we would like
+            in the K/Eclipse IDE include:
+          </p>
+          <ul>
+            <li>
+              Ability to edit, compile, and execute semantics without ever
+              having to leave Eclipse. This would require integration with the
+              compile scripts and the K backends. One possibility is to embed
+              the Maude interpreter into Eclipse.
+            </li>
+            <li>Syntax highlighting for K modules.</li>
+            <li>
+              When typing a cell start tag like "<k>", the end tag "</k>" should
+              automatically be inserted.
+            </li>
+            <li>
+              Autocompletion for cell names, sorts, operators, module names,
+              etc.
+            </li>
+            <li>
+              Integration with static analysis tools. For example, the IDE
+              should add yellow "warning" underlines to indicate named variables
+              on the LHS of a rule that are not used in the RHS.
+            </li>
+          </ul>
+          <div><strong>Scale</strong>: Summer+</div>
+          <div>
+            <strong>Prerequisite experience</strong>: Java. Familiarity with
+            developing Eclipse plug-ins. UI design experience.
+          </div>
+          <div><strong>Probable mentors</strong>: Grigore, Dorel</div>
+
+          <br />
+          <h4>Web interface for K</h4>
+          <p>
+            A web interface for K allows users to learn about and use K without
+            having to install it first. Improve the existing online web
+            interface or (preferably) create a new online interface from
+            scratch. One possibility is to emulate a terminal in the browser
+            that accepts commands that are identical to the commands that would
+            be used to run K locally.
+          </p>
+          <div><strong>Scale</strong>: Summer</div>
+          <div>
+            <strong>Prerequisite experience</strong>: Web programming
+            experience.
+          </div>
+          <div><strong>Probable mentors</strong>: Andrei, David</div>
+
+          <br />
+          <h4>GUI for creating programming languages</h4>
+          <p>
+            Due to the modularity of the K framework, language features (e.g.,
+            side effects, exceptions, threads, continuations, type systems,
+            etc.) can easily be added and removed from a language. Build a GUI
+            that exposes this modularity by letting users create custom
+            programming languages easily. One possibility is to create an
+            interface which allows language features to be combined via
+            drag-and-drop. Regardless, the GUI should support:
+          </p>
+          <ul>
+            <li>Lots of language features</li>
+            <li>Customizable syntax for every language feature</li>
+            <li>Running programs in the custom language directly in the GUI</li>
+            <li>Any other features you may think of</li>
+          </ul>
+          <div><b>Scale</b>: Summer++</div>
+          <div><b>Prerequisite experience</b>: UI design experience.</div>
+          <div><b>Probable mentors</b>>: Grigore</div>
+
+          <br />
+          <h3>Derived tools</h3>
+          <p>
+            Multiple tools can be automatically derived from a single K
+            definition of a language:
+          </p>
+          <ul>
+            <li>Interpreter: given a program, execute it</li>
+            <li>
+              State space search tool: given a program, search for all of its
+              possible behaviors
+            </li>
+            <li>
+              Debugger: given a program, step through its execution with
+              breakpoints, watchpoints, etc.
+            </li>
+            <li>
+              Definedness checker: given a program, determine whether it is
+              defined or not according to the semantics
+            </li>
+            <li>
+              Coverage checker: given a program or a collection of programs,
+              determine how frequently each K rule is used to execute the
+              program(s). This is used to check the coverage of a compiler's
+              test suite.
+            </li>
+            <li>
+              Profiler: given a program, run it and determine which rules are
+              executed most often and which take the most time
+            </li>
+          </ul>
+          <p>
+            The following projects involve improving these tools and making them
+            general enough to work with all K definitions.
+          </p>
+
+          <h4>Interpreter</h4>
+          <p>
+            The krun tool allows a K definition to be used as an interpreter and
+            state space search tool for the language it defines. For example,
+            the command krun collatz.imp executes the collatz program using the
+            definition of the IMP language. The goal of this project is to fix
+            bugs and add features to the (Java version) of krun. One possible
+            task is to add support for querying cells in the output
+            configuration using XPath.
+          </p>
+          <div><b>Scale</b>: Summer</div>
+          <div>
+            <b>Prerequisite experience</b>: Java. Manipulating XML in Java.
+            Experience with existing interpreters and debuggers.
+          </div>
+          <div><b>Probable mentors</b>: David, Emilian</div>
+        </main>
+      </div>
+    </div>
+<footer class="app-footer text-md-left text-center">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-2 mb-md-0 mb-4">
+        <span class="pr-md-5 pr-0 py-3">
+          <a href="https://runtimeverification.com" target="_blank">
+            <picture>
+              <source
+                srcset="./assets/img/rv-logo-dark.png"
+                media="(prefers-color-scheme: dark)"
+              />
+              <img
+                class="pr-3 footer-logo"
+                src="./assets/img/rv-logo.png"
+                alt="Runtime Verification Inc logo"
+              />
+            </picture>
+          </a>
+        </span>
+      </div>
+      <div class="col-md-6 mb-md-0 mb-4"></div>
+      <div class="col-md-4 text-md-right">
+        <p class="copyright">
+          &copy; 2020 Runtime Verification Inc. All right reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "UA-163311512-1");
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
+    <script src="./assets/js/index.js"></script>
+  </body>
+</html>
