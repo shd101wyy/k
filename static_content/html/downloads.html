@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{include/head.html}}
+  </head>
+
+  <body>
+    {{include/header.html}}
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        {{include/sidebar.html}}
+        <main
+          class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
+          role="main"
+        >
+          <h1>K tool binaries</h1>
+          <p>
+            Download the latest
+            <a href="https://github.com/kframework/k/releases/latest"
+              >stable release</a
+            >
+            or prior
+            <a href="https://github.com/kframework/k/releases">releases</a>.
+          </p>
+          <h2>KVM — The K Virtual Machine</h2>
+          <strong>KVM v3.4 </strong>
+          <p>
+            The 3.4 version of the K Virtual Machine
+            <a href="http://www.kframework.org/imgs/releases/kvm-3.4.zip"
+              >http://www.kframework.org/imgs/releases/kvm-3.4.zip</a
+            >
+            provides an already set up and working version of the K Framework.
+          </p>
+        </main>
+      </div>
+    </div>
+    {{include/footer.html}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
+    <script src="./assets/js/index.js"></script>
+  </body>
+</html>

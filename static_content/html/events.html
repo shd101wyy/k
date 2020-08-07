@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{include/head.html}}
+  </head>
+
+  <body>
+    {{include/header.html}}
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        {{include/sidebar.html}}
+        <main
+          class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
+          role="main"
+        >
+          <h1>Events</h1>
+          <ul>
+            <li>
+              <a href="https://fmse.info.uaic.ro/events/SSLF12"
+                >Summer School on Language Frameworks</a
+              >, Sinaia, Romania, July 23-31, 2012.
+            </li>
+            <li>
+              <a
+                href="http://k-framework.org/index.php/K:_A_Rewriting-Based_Language_Definitional_Framework"
+                >K Tutorial at PLDI 2012</a
+              >, Beijing, China, June 16, 2012.
+            </li>
+            <li>
+              <a href="http://k-framework.org/K11/">2011 K Workshop</a>, Cheile
+              Gradistei, Romania, August 8-12, 2011.
+            </li>
+            <li>
+              <a href="http://k-framework.org/K10/">2010 K Workshop</a>, Nags
+              Head, North Carolina, United States, August 15-22, 2010.
+            </li>
+          </ul>
+        </main>
+      </div>
+    </div>
+    {{include/footer.html}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
+    <script src="./assets/js/index.js"></script>
+  </body>
+</html>
