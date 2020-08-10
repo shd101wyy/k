@@ -49,13 +49,13 @@ for (file in files) {
     const match = line.match(regexp);
     var content = line + "\n";
 
-    if (match && match.length == 2 && match[1] !== "ROOT") {
+    if (match && match.length == 2 && !match[1].startsWith("$")) {
       content = fs.readFileSync(basePath + match[1]).toString();
     }
 
     // Fix assets folder path error for github page
     content = content.replace(
-      /('|"){{ROOT}}/g,
+      /('|"){{\$ROOT}}/g,
       ($0, $1) => $1 + (relative || ".")
     );
 
