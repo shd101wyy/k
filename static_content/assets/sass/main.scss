@@ -864,3 +864,10 @@ video.modal-content {
     width: 100%;
   }
 }
+
+.logo-link {
+  color: $fg;
+  @media screen and (prefers-color-scheme: dark) {
+    color: $dark-mode-fg;
+  }
+}

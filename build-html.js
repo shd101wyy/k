@@ -17,6 +17,13 @@ const files = {
   "./static_content/html/news.html": "news.html",
   "./static_content/html/events.html": "events.html",
   "./static_content/html/funding.html": "funding.html",
+  "./static_content/html/tutorials.html": "tutorials.html",
+
+  // Tutorial
+  "./static_content/html/tutorial/1_lambda/lesson1.html":
+    "tutorial/1_lambda/lesson1.html",
+  "./static_content/html/tutorial/2_imp/lesson1.html":
+    "tutorial/2_imp/lesson1.html",
 };
 
 const outPath = "./public_content/";
@@ -28,7 +35,9 @@ for (file in files) {
   const fileName = outPath + files[file];
   const dirname = path.dirname(fileName);
 
-  if (!fs.existsSync(dirname)) fs.mkdirSync(dirname);
+  if (!fs.existsSync(dirname)) fs.mkdirSync(dirname, { recursive: true });
+
+  const relative = path.relative(dirname, outPath);
 
   const output = fs.createWriteStream(fileName);
 
@@ -40,9 +49,12 @@ for (file in files) {
     const match = line.match(regexp);
     var content = line + "\n";
 
-    if (match && match.length == 2) {
-      content = fs.readFileSync(basePath + match[1]);
+    if (match && match.length == 2 && match[1] !== "ROOT") {
+      content = fs.readFileSync(basePath + match[1]).toString();
     }
+
+    // Fix assets folder path error for github page
+    content = content.replace(/('|"){{ROOT}}/g, ($0, $1) => $1 + relative);
 
     output.write(content);
   });
