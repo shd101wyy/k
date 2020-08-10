@@ -54,7 +54,10 @@ for (file in files) {
     }
 
     // Fix assets folder path error for github page
-    content = content.replace(/('|"){{ROOT}}/g, ($0, $1) => $1 + relative);
+    content = content.replace(
+      /('|"){{ROOT}}/g,
+      ($0, $1) => $1 + (relative || ".")
+    );
 
     output.write(content);
   });
