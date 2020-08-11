@@ -1,6 +1,12 @@
 const readline = require("readline");
 const fs = require("fs");
 const path = require("path");
+const MarkdownIt = require("markdown-it");
+
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+});
 
 const files = {
   "./static_content/html/404.html": "404.html",
@@ -18,52 +24,94 @@ const files = {
   "./static_content/html/events.html": "events.html",
   "./static_content/html/funding.html": "funding.html",
   "./static_content/html/tutorials.html": "tutorials.html",
-
-  // Tutorial
-  "./static_content/html/tutorial/1_lambda/lesson1.html":
-    "tutorial/1_lambda/lesson1.html",
-  "./static_content/html/tutorial/2_imp/lesson1.html":
-    "tutorial/2_imp/lesson1.html",
 };
 
 const outPath = "./public_content/";
 const basePath = "static_content/html/";
-
 const regexp = /{{(.*)}}/;
 
-for (file in files) {
-  const fileName = outPath + files[file];
-  const dirname = path.dirname(fileName);
+/**
+ *
+ * @param {string} sourceHTML the HTML content
+ * @param {string} targetFilePath path relative to current __dirname
+ * @param {object} variables variables map
+ */
+function generateOutputWebpage(sourceHTML, targetFilePath, variables = {}) {
+  const filePath = targetFilePath.startsWith("/")
+    ? targetFilePath
+    : path.join(__dirname, outPath, targetFilePath);
+  const dirname = path.dirname(filePath);
 
   if (!fs.existsSync(dirname)) fs.mkdirSync(dirname, { recursive: true });
 
   const relative = path.relative(dirname, outPath);
 
-  const output = fs.createWriteStream(fileName);
+  const resultHTML = sourceHTML
+    .split("\n")
+    .map((line) => {
+      const match = line.match(regexp);
+      let content = line;
 
-  const lineReader = readline.createInterface({
-    input: fs.createReadStream(file),
-  });
+      if (match && match.length == 2 && !match[1].startsWith("$")) {
+        content = fs.readFileSync(basePath + match[1]).toString();
+      }
 
-  lineReader.on("line", function (line) {
-    const match = line.match(regexp);
-    var content = line + "\n";
+      // Fix assets folder path error for github page
+      content = content.replace(/{{\$(.+?)}}/g, (_, variableName) => {
+        if (variableName === "ROOT") {
+          return relative || ".";
+        } else if (variableName in variables) {
+          return variables[variableName];
+        } else {
+          return _;
+        }
+      });
 
-    if (match && match.length == 2 && !match[1].startsWith("$")) {
-      content = fs.readFileSync(basePath + match[1]).toString();
-    }
-
-    // Fix assets folder path error for github page
-    content = content.replace(
-      /('|"){{\$ROOT}}/g,
-      ($0, $1) => $1 + (relative || ".")
-    );
-
-    output.write(content);
-  });
-
-  lineReader.on("close", function () {
-    output.end();
-    console.log("Written file: " + fileName);
-  });
+      return content;
+    })
+    .join("\n");
+  fs.writeFileSync(filePath, resultHTML);
+  console.log("Written file: " + filePath);
 }
+
+function generateTutorialWebpages() {
+  const tutorialTemplate = fs
+    .readFileSync("./static_content/html/tutorial_template.html")
+    .toString("utf-8");
+
+  fs.rmdirSync(path.join(__dirname, "./public_content/tutorial"), {
+    recursive: true,
+  });
+
+  const helper = (dirPath) => {
+    for (const file of fs.readdirSync(dirPath)) {
+      if (fs.statSync(path.resolve(dirPath, file)).isDirectory()) {
+        helper(path.resolve(dirPath, file));
+      } else if (file.endsWith(".md")) {
+        const targetFilePath = path
+          .resolve(
+            dirPath.replace(/\/tutorial\//, "/public_content/tutorial/"),
+            file
+          )
+          .replace(/\.md$/, ".html");
+        const markdown = fs
+          .readFileSync(path.resolve(dirPath, file))
+          .toString("utf-8");
+        const html = md.render(markdown);
+
+        generateOutputWebpage(tutorialTemplate, targetFilePath, {
+          TITLE: targetFilePath,
+          MARKDOWN_HTML: html,
+        });
+      }
+    }
+  };
+  helper(path.join(__dirname, "./tutorial/1_k"));
+  helper(path.join(__dirname, "./tutorial/2_languages"));
+}
+
+for (file in files) {
+  generateOutputWebpage(fs.readFileSync(file).toString("utf-8"), files[file]);
+}
+
+generateTutorialWebpages();

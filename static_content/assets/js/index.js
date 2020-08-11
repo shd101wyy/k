@@ -10,7 +10,6 @@ require("magnific-popup");
 require("owl.carousel");
 require("isotope-layout");
 require("imagesloaded");
-window.MarkdownIt = require("markdown-it");
 
 window.toastr = require("toastr");
 window.WOW = require("wow.js");
