@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+/>
+<meta
+  name="description"
+  content="Design and implement your programming language and software analysis tools with mathematical rigor."
+/>
+<meta name="keywords" content="runtime, verification, rv, k" />
+<meta name="author" content="K | Runtime Verification Inc" />
+<meta name="robots" content="index, follow" />
+
+<!--favicon icon-->
+<link rel="icon" type="image/png" href="../../../../assets/img/favicon.ico" />
+
+<title>
+  K | Runtime Verification Inc
+</title>
+
+<!-- <base href="/k/" /> -->
+
+<!--web fonts-->
+<link
+  href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css?family=Lora:400i"
+  rel="stylesheet"
+/>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css"
+  rel="stylesheet"
+/>
+
+<link href="../../../../assets/css/index.css" rel="stylesheet" />
+
+<!--[if (gt IE 9) |!(IE)]><!-->
+<!--<link rel="stylesheet" href="/assets/vendor/custom-nav/css/effects/fade-menu.css"/>-->
+<!-- <link rel="stylesheet" href="../../../../assets/k/vl-nav/css/effects/slide-menu.css" /> -->
+<!--<![endif]-->
+
+  </head>
+
+  <body>
+<header
+  class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"
+>
+  <a class="logo-link" href="../../../../index.html">
+    <img
+      class="logo-dark"
+      srcset="../../../../assets/img/k-logo.png"
+      alt="K"
+      style="height: 48px;"
+    />
+    Semantic Framework
+  </a>
+  <ul class="navbar-nav ml-md-auto">
+    <li class="nav-item">
+      <a
+        class="nav-link pl-2 pr-1 mx-1 py-3 my-n2"
+        href="https://github.com/kframework/k"
+        target="_blank"
+        rel="noopener"
+        aria-label="GitHub"
+      >
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  </ul>
+  <a
+    class="btn btn-rv-blue d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="../../../../downloads.html"
+    >Download</a
+  >
+</header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+<div class="col-12 col-md-3 col-xl-2 bd-sidebar mb-3">
+  <form
+    role="search"
+    class="bd-search d-flex align-items-center justify-content-between"
+  >
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search..."
+      aria-label="Search for..."
+      autocomplete="false"
+    />
+    <button
+      class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
+      type="button"
+      aria-label="Toggle docs navigation"
+      style="font-size: 1.4rem;"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+  </form>
+  <nav class="collapse bd-links" aria-label="Main navigation">
+    <div class="bd-toc-item">
+      <a class="bd-toc-link" href="../../../../index.html">Homepage</a>
+      <a class="bd-toc-link" href="../../../../downloads.html">Downloads</a>
+      <a class="bd-toc-link" href="../../../../tutorials.html">K Tutorial</a>
+      <a class="bd-toc-link" href="../../../../people.html">People</a>
+      <a class="bd-toc-link" href="../../../../projects.html">Projects</a>
+      <a class="bd-toc-link" href="../../../../project_ideas.html"
+        >Project Ideas</a
+      >
+      <a class="bd-toc-link" href="../../../../publications.html">Publications</a>
+      <a class="bd-toc-link" href="../../../../news.html">News</a>
+      <a class="bd-toc-link" href="../../../../events.html">Events</a>
+      <a class="bd-toc-link" href="../../../../funding.html">Funding</a>
+    </div>
+  </nav>
+</div>
+
+        <main
+          class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
+          role="main"
+        >
+          <h1 class="title"></h1>
+          <p>Go back to <a href="../../../../tutorials.html">K Tutorial.</a></p>
+          <p>
+            <a
+              href="https://github.com/kframework/k/tree/master/k-distribution/tutorial/1_k/1_lambda/lesson_1"
+              >All files</a
+            >
+            in the K tool distribution that were used in this movie.
+          </p>
+          <p>
+            <a
+              href="https://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="../../../../assets/img/try-it-online.jpg" /> Open Full
+              Tool Page</a
+            >
+          </p>
+          <div class="introduction markdown-preview">
+            <hr>
+<h2>copyright: Copyright (c) 2014-2020 K Team. All Rights Reserved.</h2>
+<p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.
+Use the tag <code>k</code> to tell the compiler which blocks to select.</p>
+<p>Inside <code>.k</code> files, C/Java-like comments are available.</p>
+<pre><code class="language-k">// Single line comment
+/* Multiline
+comments */
+</code></pre>
+<h1>Tutorial 1 --- LAMBDA</h1>
+<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+Organization: University of Illinois at Urbana-Champaign</p>
+<h3>Abstract</h3>
+<p>This file defines a simple functional language in <strong>K</strong>, called LAMBDA,
+using a substitution style.  The explicit objective here is to teach some
+<strong>K</strong> concepts and how they work in the K tool, and not to teach
+λ-calculus or to argue for one definitional style against another
+(e.g., some may prefer environment/closure-based definitions of such
+languages).</p>
+<p>Note that the subsequent definition is so simple, that it hardly shows any
+of the strengths of <strong>K</strong>.  Perhaps the most interesting <strong>K</strong> aspect it shows is
+that substitution can be defined fully generically, and then used to give
+semantics to various constructs in various languages.</p>
+<p>Note:
+<strong>K</strong> follows the
+<a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a>
+approach. The various semantic features defined in a <strong>K</strong>
+module can be reordered at will and can be commented using normal
+comments like in C/C++/Java.
+While comments are useful in general, they can annoy the expert user
+of <strong>K</strong>. To turn them off, you can do one of the following (unless you
+want to remove them manually):<br>
+(1) Use an <a href="https://github.com/kframework/k-editor-support">editor</a> which can
+hide or highlight Markdown and conventional C-like comments; or<br>
+(2) Run <code>kompile --debug &lt;def&gt;</code>. Inside <code>./.kompiled-xxx/.md2.k/</code> you will find
+all the K code extracted from the markdown files as used for compilation.</p>
+<h3>Substitution</h3>
+<p>We need the predefined substitution module, so we require it with the command
+below.  Then we should make sure we import its module called SUBSTITUTION
+in our LAMBDA module below.</p>
+<pre><code class="language-k">require &quot;substitution.md&quot;
+
+module LAMBDA
+  imports DOMAINS
+  imports SUBSTITUTION
+</code></pre>
+<h3>Basic Call-by-value λ-Calculus</h3>
+<p>We first define a conventional call-by-value λ-calculus, making sure
+we declare the lambda abstraction construct to be a binder, the
+lambda application to be strict, and the parentheses used for grouping as
+a bracket.</p>
+<p>Note:
+Syntax in <strong>K</strong> is defined using the familiar BNF notation, with
+terminals enclosed in quotes and nonterminals starting with capital
+letters. <strong>K</strong> actually extends BNF with several attributes, which will be
+described in this tutorial.</p>
+<p>Note:
+The <code>strict</code> constructs can evaluate their arguments in any (fully
+interleaved) order.</p>
+<p>The initial syntax of our λ-calculus:</p>
+<pre><code class="language-k">  syntax Val ::= KVar
+               | &quot;lambda&quot; KVar &quot;.&quot; Exp  [binder, latex(\lambda{#1}.{#2})]
+  syntax Exp ::= Val
+               | Exp Exp              [left, strict]
+               | &quot;(&quot; Exp &quot;)&quot;          [bracket]
+  syntax KResult ::= Val
+</code></pre>
+<h3>β-reduction</h3>
+<pre><code class="language-k">  rule (lambda X:KVar . E:Exp) V:Val =&gt; E[V / X]
+</code></pre>
+<h3>Integer and Boolean Builtins</h3>
+<p>The LAMBDA arithmetic and Boolean expression constructs are simply rewritten
+to their builtin counterparts once their arguments are evaluated.
+The annotated operators in the right-hand side of the rules below are
+builtin and come with the corresponding builtin sort. Note that the
+variables appearing in these rules have integer sort. That means that these
+rules will only be applied after the arguments of the arithmetic constructs
+are fully evaluated to <strong>K</strong> results; this will happen thanks to their strictness
+attributes declared as annotations to their syntax declarations (below).</p>
+<pre><code class="language-k">  syntax Val ::= Int | Bool
+  syntax Exp ::= Exp &quot;*&quot; Exp          [strict, left]
+               | Exp &quot;/&quot; Exp          [strict]
+               &gt; Exp &quot;+&quot; Exp          [strict, left]
+               &gt; Exp &quot;&lt;=&quot; Exp         [strict]
+  rule I1 * I2 =&gt; I1 *Int I2
+  rule I1 / I2 =&gt; I1 /Int I2  requires I2 =/=Int 0
+  rule I1 + I2 =&gt; I1 +Int I2
+  rule I1 &lt;= I2 =&gt; I1 &lt;=Int I2
+</code></pre>
+<h3>Conditional</h3>
+<p>Note that the <code>if</code> construct is strict only in its first argument.</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;if&quot; Exp &quot;then&quot; Exp &quot;else&quot; Exp    [strict(1)]
+  rule if true  then E else _ =&gt; E
+  rule if false then _ else E =&gt; E
+</code></pre>
+<h3>Let Binder</h3>
+<p>The let binder is a derived construct, because it can be defined using λ.</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;let&quot; KVar &quot;=&quot; Exp &quot;in&quot; Exp
+  rule let X = E in E':Exp =&gt; (lambda X . E') E                         [macro]
+</code></pre>
+<h3>Letrec Binder</h3>
+<p>We prefer a definition based on the μ construct.  Note that μ is not
+really necessary, but it makes the definition of letrec easier to understand
+and faster to execute.</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;letrec&quot; KVar KVar &quot;=&quot; Exp &quot;in&quot; Exp
+               | &quot;mu&quot; KVar &quot;.&quot; Exp                  [binder, latex(\mu{#1}.{#2})]
+  rule letrec F:KVar X:KVar = E in E' =&gt; let F = mu F . lambda X . E in E' [macro]
+  rule mu X . E =&gt; E[(mu X . E) / X]
+endmodule
+</code></pre>
+
+          </div>
+        </main>
+      </div>
+    </div>
+<footer class="app-footer text-md-left text-center">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-2 mb-md-0 mb-4">
+        <span class="pr-md-5 pr-0 py-3">
+          <a href="https://runtimeverification.com" target="_blank">
+            <picture>
+              <source
+                srcset="../../../../assets/img/rv-logo-dark.png"
+                media="(prefers-color-scheme: dark)"
+              />
+              <img
+                class="pr-3 footer-logo"
+                src="../../../../assets/img/rv-logo.png"
+                alt="Runtime Verification Inc logo"
+              />
+            </picture>
+          </a>
+        </span>
+      </div>
+      <div class="col-md-6 mb-md-0 mb-4"></div>
+      <div class="col-md-4 text-md-right">
+        <p class="copyright">
+          &copy; 2020 Runtime Verification Inc. All right reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "UA-163311512-1");
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
+    <script src="../../../../assets/js/index.js"></script>
+    <script>
+      $(function () {
+        const headerSelector =
+          ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
+        if ($(headerSelector).length) {
+          if ($(headerSelector)[0].innerText.match(/^copyright/)) {
+            $(headerSelector)[0].remove();
+          }
+          if ($(headerSelector).length) {
+            const title = $(headerSelector)[0].innerText;
+            $(".title").text(title);
+            $(headerSelector)[0].remove();
+          }
+        }
+        const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
+        if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
+          const match = youtubeHref.match(/^https?:\/\/youtu.be\/(.+?)$/);
+          if (match && match[1]) {
+            const youtubeId = match[1];
+            const $iframe = $(`<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/${youtubeId}"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+  style="max-width: 100%;"
+></iframe>`);
+            $(".markdown-preview a")[0].replaceWith($iframe[0]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

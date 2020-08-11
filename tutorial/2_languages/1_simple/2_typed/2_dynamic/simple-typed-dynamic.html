@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+/>
+<meta
+  name="description"
+  content="Design and implement your programming language and software analysis tools with mathematical rigor."
+/>
+<meta name="keywords" content="runtime, verification, rv, k" />
+<meta name="author" content="K | Runtime Verification Inc" />
+<meta name="robots" content="index, follow" />
+
+<!--favicon icon-->
+<link rel="icon" type="image/png" href="../../../../../assets/img/favicon.ico" />
+
+<title>
+  K | Runtime Verification Inc
+</title>
+
+<!-- <base href="/k/" /> -->
+
+<!--web fonts-->
+<link
+  href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css?family=Lora:400i"
+  rel="stylesheet"
+/>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css"
+  rel="stylesheet"
+/>
+
+<link href="../../../../../assets/css/index.css" rel="stylesheet" />
+
+<!--[if (gt IE 9) |!(IE)]><!-->
+<!--<link rel="stylesheet" href="/assets/vendor/custom-nav/css/effects/fade-menu.css"/>-->
+<!-- <link rel="stylesheet" href="../../../../../assets/k/vl-nav/css/effects/slide-menu.css" /> -->
+<!--<![endif]-->
+
+  </head>
+
+  <body>
+<header
+  class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"
+>
+  <a class="logo-link" href="../../../../../index.html">
+    <img
+      class="logo-dark"
+      srcset="../../../../../assets/img/k-logo.png"
+      alt="K"
+      style="height: 48px;"
+    />
+    Semantic Framework
+  </a>
+  <ul class="navbar-nav ml-md-auto">
+    <li class="nav-item">
+      <a
+        class="nav-link pl-2 pr-1 mx-1 py-3 my-n2"
+        href="https://github.com/kframework/k"
+        target="_blank"
+        rel="noopener"
+        aria-label="GitHub"
+      >
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  </ul>
+  <a
+    class="btn btn-rv-blue d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="../../../../../downloads.html"
+    >Download</a
+  >
+</header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+<div class="col-12 col-md-3 col-xl-2 bd-sidebar mb-3">
+  <form
+    role="search"
+    class="bd-search d-flex align-items-center justify-content-between"
+  >
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search..."
+      aria-label="Search for..."
+      autocomplete="false"
+    />
+    <button
+      class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
+      type="button"
+      aria-label="Toggle docs navigation"
+      style="font-size: 1.4rem;"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+  </form>
+  <nav class="collapse bd-links" aria-label="Main navigation">
+    <div class="bd-toc-item">
+      <a class="bd-toc-link" href="../../../../../index.html">Homepage</a>
+      <a class="bd-toc-link" href="../../../../../downloads.html">Downloads</a>
+      <a class="bd-toc-link" href="../../../../../tutorials.html">K Tutorial</a>
+      <a class="bd-toc-link" href="../../../../../people.html">People</a>
+      <a class="bd-toc-link" href="../../../../../projects.html">Projects</a>
+      <a class="bd-toc-link" href="../../../../../project_ideas.html"
+        >Project Ideas</a
+      >
+      <a class="bd-toc-link" href="../../../../../publications.html">Publications</a>
+      <a class="bd-toc-link" href="../../../../../news.html">News</a>
+      <a class="bd-toc-link" href="../../../../../events.html">Events</a>
+      <a class="bd-toc-link" href="../../../../../funding.html">Funding</a>
+    </div>
+  </nav>
+</div>
+
+        <main
+          class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
+          role="main"
+        >
+          <h1 class="title"></h1>
+          <p>Go back to <a href="../../../../../tutorials.html">K Tutorial.</a></p>
+          <p>
+            <a
+              href="https://github.com/kframework/k/tree/master/k-distribution/tutorial/1_k/1_lambda/lesson_1"
+              >All files</a
+            >
+            in the K tool distribution that were used in this movie.
+          </p>
+          <p>
+            <a
+              href="https://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="../../../../../assets/img/try-it-online.jpg" /> Open Full
+              Tool Page</a
+            >
+          </p>
+          <div class="introduction markdown-preview">
+            <hr>
+<h2>copyright: Copyright (c) 2014-2020 K Team. All Rights Reserved.</h2>
+<h1>SIMPLE — Typed — Dynamic</h1>
+<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+Organization: University of Illinois at Urbana-Champaign</p>
+<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+Organization: University of Bucharest</p>
+<h3>Abstract</h3>
+<p>This is the <strong>K</strong> dynamic semantics of the typed SIMPLE language.
+It is very similar to the semantics of the untyped SIMPLE, the
+difference being that we now dynamically check the typing policy
+described in the static semantics of typed SIMPLE.  Because of the
+dynamic nature of the semantics, we can also perform some additional
+checks which were not possible in the static semantics, such as
+memory leaks due to accessing an array out of its bounds.  We will
+highlight the differences between the dynamically typed and the
+untyped SIMPLE as we proceed with the semantics.  We recommend the
+reader to consult the typing policy and the syntax of types discussed
+in the static semantics of the typed SIMPLE language.</p>
+<pre><code class="language-k">module SIMPLE-TYPED-DYNAMIC-SYNTAX
+  imports DOMAINS-SYNTAX
+</code></pre>
+<h3>Syntax</h3>
+<p>The syntax of typed SIMPLE extends that of untyped SIMPLE with support
+for declaring types to variables and functions.</p>
+<p>The syntax below is identical to that of the static semantics of typed
+SIMPLE.  However, the <strong>K</strong> strictness attributes are like those of the untyped
+SIMPLE, to capture the desired evaluation strategies of the various language
+constructs.</p>
+<pre><code class="language-k">  syntax Id ::= &quot;main&quot; [token]
+</code></pre>
+<h3>Types</h3>
+<pre><code class="language-k">  syntax Type ::= &quot;void&quot; | &quot;int&quot; | &quot;bool&quot; | &quot;string&quot;
+                | Type &quot;[&quot; &quot;]&quot;
+                &gt; Types &quot;-&gt;&quot; Type
+                | &quot;(&quot; Type &quot;)&quot;           [bracket]
+  syntax Types ::= List{Type,&quot;,&quot;}
+</code></pre>
+<h3>Declarations</h3>
+<pre><code class="language-k">  syntax Param ::= Type Id
+  syntax Params ::= List{Param,&quot;,&quot;}
+
+  syntax Decl ::= Type Exps &quot;;&quot;
+                | Type Id &quot;(&quot; Params &quot;)&quot; Block
+</code></pre>
+<h3>Expressions</h3>
+<pre><code class="language-k">  syntax Exp ::= Int | Bool | String | Id
+               | &quot;(&quot; Exp &quot;)&quot;             [bracket]
+               | &quot;++&quot; Exp
+               &gt; Exp &quot;[&quot; Exps &quot;]&quot;        [strict]
+               &gt; Exp &quot;(&quot; Exps &quot;)&quot;        [strict]
+               | &quot;-&quot; Exp                 [strict]
+               | &quot;sizeOf&quot; &quot;(&quot; Exp &quot;)&quot;    [strict]
+               | &quot;read&quot; &quot;(&quot; &quot;)&quot;
+               &gt; left:
+                 Exp &quot;*&quot; Exp             [strict, left]
+               | Exp &quot;/&quot; Exp             [strict, left]
+               | Exp &quot;%&quot; Exp             [strict, left]
+               &gt; left:
+                 Exp &quot;+&quot; Exp             [strict, left]
+               | Exp &quot;-&quot; Exp             [strict, left]
+               &gt; non-assoc:
+                 Exp &quot;&lt;&quot; Exp             [strict, non-assoc]
+               | Exp &quot;&lt;=&quot; Exp            [strict, non-assoc]
+               | Exp &quot;&gt;&quot; Exp             [strict, non-assoc]
+               | Exp &quot;&gt;=&quot; Exp            [strict, non-assoc]
+               | Exp &quot;==&quot; Exp            [strict, non-assoc]
+               | Exp &quot;!=&quot; Exp            [strict, non-assoc]
+               &gt; &quot;!&quot; Exp                 [strict]
+               &gt; left:
+                 Exp &quot;&amp;&amp;&quot; Exp            [strict(1), left]
+               | Exp &quot;||&quot; Exp            [strict(1), left]
+               &gt; &quot;spawn&quot; Block
+               &gt; Exp &quot;=&quot; Exp             [strict(2), right]
+</code></pre>
+<p>Like in the static semantics, there is no need for lists of identifiers
+(because we now have lists of parameters).</p>
+<pre><code class="language-k">  syntax Exps ::= List{Exp,&quot;,&quot;}          [strict]
+  syntax Val
+  syntax Vals ::= List{Val,&quot;,&quot;}
+</code></pre>
+<h3>Statements</h3>
+<pre><code class="language-k">  syntax Block ::= &quot;{&quot; &quot;}&quot;
+                | &quot;{&quot; Stmts &quot;}&quot;
+
+  syntax Stmt ::= Decl | Block
+                | Exp &quot;;&quot;                               [strict]
+                | &quot;if&quot; &quot;(&quot; Exp &quot;)&quot; Block &quot;else&quot; Block   [avoid, strict(1)]
+                | &quot;if&quot; &quot;(&quot; Exp &quot;)&quot; Block
+                | &quot;while&quot; &quot;(&quot; Exp &quot;)&quot; Block
+            | &quot;for&quot; &quot;(&quot; Stmts Exp &quot;;&quot; Exp &quot;)&quot; Block
+                | &quot;print&quot; &quot;(&quot; Exps &quot;)&quot; &quot;;&quot;              [strict]
+                | &quot;return&quot; Exp &quot;;&quot;                      [strict]
+                | &quot;return&quot; &quot;;&quot;
+                | &quot;try&quot; Block &quot;catch&quot; &quot;(&quot; Param &quot;)&quot; Block
+            | &quot;throw&quot; Exp &quot;;&quot;                       [strict]
+                | &quot;join&quot; Exp &quot;;&quot;                        [strict]
+                | &quot;acquire&quot; Exp &quot;;&quot;                     [strict]
+                | &quot;release&quot; Exp &quot;;&quot;                     [strict]
+                | &quot;rendezvous&quot; Exp &quot;;&quot;                  [strict]
+
+  syntax Stmts ::= Stmt
+                 | Stmts Stmts                          [right]
+</code></pre>
+<p>The same desugaring macros like in the statically typed SIMPLE.</p>
+<pre><code class="language-k">  rule if (E) S =&gt; if (E) S else {}                                     [macro]
+  rule for(Start Cond; Step) {S:Stmts} =&gt; {Start while(Cond){S Step;}}  [macro]
+  rule for(Start Cond; Step) {} =&gt; {Start while(Cond){Step;}}           [macro]
+  rule T:Type E1:Exp, E2:Exp, Es:Exps; =&gt; T E1; T E2, Es;               [macro-rec]
+  rule T:Type X:Id = E; =&gt; T X; X = E;                                  [macro]
+
+endmodule
+
+
+module SIMPLE-TYPED-DYNAMIC
+  imports SIMPLE-TYPED-DYNAMIC-SYNTAX
+  imports DOMAINS
+</code></pre>
+<h2>Semantics</h2>
+<h3>Values and results</h3>
+<p>These are similar to those of untyped SIMPLE, except that the array
+references and the function abstrations now also hold their types.
+These types are needed in order to easily compute the type of any
+value in the language (see the auxiliary <code>typeOf</code> operation at
+the end of this module).</p>
+<pre><code class="language-k">  syntax Val ::= Int | Bool | String
+               | array(Type,Int,Int)
+               | lambda(Type,Params,Stmts)
+  syntax Exp ::= Val
+  syntax Exps ::= Vals
+  syntax KResult ::= Val
+                   | Vals  // TODO: should not need this
+</code></pre>
+<h3>Configuration</h3>
+<p>The configuration is almost identical to that of untyped SIMPLE,
+except for a <code>return</code> cell inside the <code>control</code> cell.
+This <code>return</code> cell will hold, like in the static semantics of
+typed SIMPLE, the expected type of the value returned by the function
+being executed.  The contents of this cell will be set whenever a
+function is invoked and will be checked whenever the evaluation of the
+function body encounters an explicit <code>return</code> statement.</p>
+<pre><code class="language-k">  // the syntax declarations below are required because the sorts are
+  // referenced directly by a production and, because of the way KIL to KORE
+  // is implemented, the configuration syntax is not available yet
+  // should simply work once KIL is removed completely
+  // check other definitions for this hack as well
+
+  syntax ControlCell
+  syntax ControlCellFragment
+
+  configuration &lt;T color=&quot;red&quot;&gt;
+                  &lt;threads color=&quot;orange&quot;&gt;
+                    &lt;thread multiplicity=&quot;*&quot; color=&quot;yellow&quot;&gt;
+                      &lt;k color=&quot;green&quot;&gt; ($PGM:Stmts ~&gt; execute) &lt;/k&gt;
+//                      &lt;br/&gt;
+                      &lt;control color=&quot;cyan&quot;&gt;
+                        &lt;fstack color=&quot;blue&quot;&gt; .List &lt;/fstack&gt;
+                        &lt;xstack color=&quot;purple&quot;&gt; .List &lt;/xstack&gt;
+                        &lt;returnType color=&quot;LimeGreen&quot;&gt; void &lt;/returnType&gt;
+                       &lt;/control&gt;
+//                      &lt;br/&gt;
+                      &lt;env color=&quot;violet&quot;&gt; .Map &lt;/env&gt;
+                      &lt;holds color=&quot;black&quot;&gt; .Map &lt;/holds&gt;
+                      &lt;id color=&quot;pink&quot;&gt; 0 &lt;/id&gt;
+                    &lt;/thread&gt;
+                  &lt;/threads&gt;
+//                  &lt;br/&gt;
+                  &lt;genv color=&quot;pink&quot;&gt; .Map &lt;/genv&gt;
+                  &lt;store color=&quot;white&quot;&gt; .Map &lt;/store&gt;
+                  &lt;busy color=&quot;cyan&quot;&gt;.Set&lt;/busy&gt;
+                  &lt;terminated color=&quot;red&quot;&gt; .Set &lt;/terminated&gt;
+                  &lt;input color=&quot;magenta&quot; stream=&quot;stdin&quot;&gt; .List &lt;/input&gt;
+                  &lt;output color=&quot;brown&quot; stream=&quot;stdout&quot;&gt; .List &lt;/output&gt;
+                  &lt;nextLoc color=&quot;gray&quot;&gt; 0 &lt;/nextLoc&gt;
+                &lt;/T&gt;
+</code></pre>
+<h2>Declarations and Initialization</h2>
+<h3>Variable Declaration</h3>
+<p>The <code>undefined</code> construct is now parameterized by a type.
+A main difference between untyped SIMPLE and dynamically typed SIMPLE
+is that the latter assigns a type to each of its locations and that
+type cannot be changed during the execution of the program.  We do not
+do any memory management in our semantic definitions here, so
+locations cannot be reclaimed, garbage collected and/or reused.  Each
+location corresponds precisely to an allocated variable or array
+element, whose type was explicitly or implicitly declared in the
+program and does not change.  It is therefore safe to type each
+location and then never allow that type to change.  The typed
+undefined values effectively assign both a type and an undefined value
+to a location.</p>
+<pre><code class="language-k">  syntax KItem ::= undefined(Type)  [latex(\bot_{#1})]
+
+  rule &lt;k&gt; T:Type X:Id; =&gt; . ...&lt;/k&gt;
+       &lt;env&gt; Env =&gt; Env[X &lt;- L] &lt;/env&gt;
+       &lt;store&gt;... .Map =&gt; L |-&gt; undefined(T) ...&lt;/store&gt;
+       &lt;nextLoc&gt; L:Int =&gt; L +Int 1 &lt;/nextLoc&gt;
+</code></pre>
+<h3>Array Declaration</h3>
+<p>The dynamic semantics of typed array declarations is similar to that
+in untyped SIMPLE, but we have to make sure that we associate the
+right type to the allocated locations.</p>
+<pre><code class="language-k">  rule &lt;k&gt; T:Type X:Id[N:Int]; =&gt; . ...&lt;/k&gt;
+       &lt;env&gt; Env =&gt; Env[X &lt;- L] &lt;/env&gt;
+       &lt;store&gt;... .Map =&gt; L |-&gt; array(T, L +Int 1, N)
+                          (L +Int 1)...(L +Int N) |-&gt; undefined(T) ...&lt;/store&gt;
+       &lt;nextLoc&gt; L:Int =&gt; L +Int 1 +Int N &lt;/nextLoc&gt;
+    when N &gt;=Int 0
+
+  context _:Type _::Exp[HOLE::Exps];
+</code></pre>
+<p>The desugaring of multi-dimensional arrays into unidimensional
+ones is also similar to that in untyped SIMPLE, although we have to
+make sure that all the declared variables have the right types.  The
+auxiliary operation <code>T&lt;Vs&gt;</code>, defined at the end of the file,
+adds the length of <code>Vs</code> dimensions to the type <code>T</code>.</p>
+<pre><code class="language-k">// TODO: Check the desugaring below to be consistent with the one for untyped simple
+
+  syntax Id ::= &quot;$1&quot; | &quot;$2&quot;
+  rule T:Type X:Id[N1:Int, N2:Int, Vs:Vals];
+    =&gt; T[]&lt;Vs&gt; X[N1];
+       {
+         T[][]&lt;Vs&gt; $1=X;
+         for(int $2=0; $2 &lt;= N1 - 1; ++$2) {
+           T X[N2,Vs];
+           $1[$2] = X;
+         }
+       }
+    [structural]
+</code></pre>
+<h3>Function declaration</h3>
+<p>Store all function parameters, as well as the return type, as part
+of the lambda abstraction.  In the spirit of dynamic typing, we will
+make sure that parameters are well typed when the function is invoked.</p>
+<pre><code class="language-k">  rule &lt;k&gt; T:Type F:Id(Ps:Params) S =&gt; . ...&lt;/k&gt;
+       &lt;env&gt; Env =&gt; Env[F &lt;- L] &lt;/env&gt;
+       &lt;store&gt;... .Map =&gt; L |-&gt; lambda(T, Ps, S) ...&lt;/store&gt;
+       &lt;nextLoc&gt; L =&gt; L +Int 1 &lt;/nextLoc&gt;
+</code></pre>
+<h3>Calling <code>main()</code></h3>
+<p>When done with the first pass, call <code>main()</code>.</p>
+<pre><code class="language-k">  syntax KItem ::= &quot;execute&quot;
+  rule &lt;k&gt; execute =&gt; main(.Exps); &lt;/k&gt;
+       &lt;env&gt; Env &lt;/env&gt;
+       &lt;genv&gt; .Map =&gt; Env &lt;/genv&gt;  [structural]
+</code></pre>
+<h3>Expressions</h3>
+<h3>Variable lookup</h3>
+<pre><code class="language-k">  rule &lt;k&gt; X:Id =&gt; V ...&lt;/k&gt;
+       &lt;env&gt;... X |-&gt; L ...&lt;/env&gt;
+       &lt;store&gt;... L |-&gt; V:Val ...&lt;/store&gt;  [lookup]
+</code></pre>
+<h3>Variable/Array increment</h3>
+<pre><code class="language-k">  context ++(HOLE =&gt; lvalue(HOLE))
+  rule &lt;k&gt; ++loc(L) =&gt; I +Int 1 ...&lt;/k&gt;
+       &lt;store&gt;... L |-&gt; (I:Int =&gt; I +Int 1) ...&lt;/store&gt;  [increment]
+</code></pre>
+<h3>Arithmetic operators</h3>
+<pre><code class="language-k">  rule I1 + I2 =&gt; I1 +Int I2
+  rule Str1 + Str2 =&gt; Str1 +String Str2
+  rule I1 - I2 =&gt; I1 -Int I2
+  rule I1 * I2 =&gt; I1 *Int I2
+  rule I1 / I2 =&gt; I1 /Int I2 when I2 =/=K 0
+  rule I1 % I2 =&gt; I1 %Int I2 when I2 =/=K 0
+  rule - I =&gt; 0 -Int I
+  rule I1 &lt; I2 =&gt; I1 &lt;Int I2
+  rule I1 &lt;= I2 =&gt; I1 &lt;=Int I2
+  rule I1 &gt; I2 =&gt; I1 &gt;Int I2
+  rule I1 &gt;= I2 =&gt; I1 &gt;=Int I2
+  rule V1:Val == V2:Val =&gt; V1 ==K V2
+  rule V1:Val != V2:Val =&gt; V1 =/=K V2
+  rule ! T =&gt; notBool(T)
+  rule true  &amp;&amp; E =&gt; E
+  rule false &amp;&amp; _ =&gt; false
+  rule true  || _ =&gt; true
+  rule false || E =&gt; E
+</code></pre>
+<h3>Array lookup</h3>
+<p>Check array bounds, as part of the dynamic typing policy.</p>
+<pre><code class="language-k">// Same comment as for simple untyped regarding [anywhere]
+  rule V:Val[N1:Int, N2:Int, Vs:Vals] =&gt; V[N1][N2, Vs]
+    [structural, anywhere]
+
+// Same comment as for simple untyped regarding [anywhere]
+  rule array(_:Type, L:Int, M:Int)[N:Int] =&gt; lookup(L +Int N)
+    when N &gt;=Int 0 andBool N &lt;Int M  [structural, anywhere]
+</code></pre>
+<h3>Size of an array</h3>
+<pre><code class="language-k">  rule sizeOf(array(_,_,N)) =&gt; N
+</code></pre>
+<h3>Function call</h3>
+<p>Define function call and return together, to see their relationship.
+Note that the operation <code>mkDecls</code> now declares properly typed
+instantiated variables, and that the semantics of <code>return</code> also
+checks that that type of the returned value is expected one.</p>
+<pre><code class="language-k">  syntax KItem ::= (Type,Map,K,ControlCellFragment)
+
+  rule &lt;k&gt; lambda(T,Ps,S)(Vs:Vals) ~&gt; K =&gt; mkDecls(Ps,Vs) S return; &lt;/k&gt;
+       &lt;control&gt;
+         &lt;fstack&gt; .List =&gt; ListItem((T',Env,K,C)) ...&lt;/fstack&gt;
+         &lt;returnType&gt; T' =&gt; T &lt;/returnType&gt;
+         C
+       &lt;/control&gt;
+       &lt;env&gt; Env =&gt; GEnv &lt;/env&gt;
+       &lt;genv&gt; GEnv &lt;/genv&gt;
+
+  rule &lt;k&gt; return V:Val; ~&gt; _ =&gt; V ~&gt; K &lt;/k&gt;
+       &lt;control&gt;
+         &lt;fstack&gt; ListItem((T',Env,K,C)) =&gt; .List ...&lt;/fstack&gt;
+         &lt;returnType&gt; T =&gt; T' &lt;/returnType&gt;
+         (_ =&gt; C)
+       &lt;/control&gt;
+       &lt;env&gt; _ =&gt; Env &lt;/env&gt;
+    when typeOf(V) ==K T   // check the type of the returned value
+</code></pre>
+<p>Like the <code>undefined</code> above, <code>nothing</code> also gets
+tagged with a type now.  The empty <code>return</code> statement is
+completed to return the <code>nothing</code> value tagged as expected.</p>
+<pre><code class="language-k">  syntax Val ::= nothing(Type)
+  rule &lt;k&gt; return; =&gt; return nothing(T); ...&lt;/k&gt; &lt;returnType&gt; T &lt;/returnType&gt;
+    [structural]
+</code></pre>
+<h3>Read</h3>
+<pre><code class="language-k">  rule &lt;k&gt; read() =&gt; I ...&lt;/k&gt; &lt;input&gt; ListItem(I:Int) =&gt; .List ...&lt;/input&gt;  [read]
+</code></pre>
+<h3>Assignment</h3>
+<p>The assignment now checks that the type of the assigned location is
+preserved:</p>
+<pre><code class="language-k">  context (HOLE =&gt; lvalue(HOLE)) = _
+
+  rule &lt;k&gt; loc(L) = V:Val =&gt; V ...&lt;/k&gt; &lt;store&gt;... L |-&gt; (V' =&gt; V) ...&lt;/store&gt;
+    when typeOf(V) ==K typeOf(V')  [assignment]
+</code></pre>
+<h3>Statements</h3>
+<h3>Blocks</h3>
+<pre><code class="language-k">  rule {} =&gt; .  [structural]
+  rule &lt;k&gt; { S } =&gt; S ~&gt; setEnv(Env) ...&lt;/k&gt;  &lt;env&gt; Env &lt;/env&gt;  [structural]
+</code></pre>
+<h3>Sequential composition</h3>
+<pre><code class="language-k">  rule S1:Stmts S2:Stmts =&gt; S1 ~&gt; S2  [structural]
+</code></pre>
+<h3>Expression statements</h3>
+<pre><code class="language-k">  rule _:Val; =&gt; .
+</code></pre>
+<h3>Conditional</h3>
+<pre><code class="language-k">  rule if ( true) S else _ =&gt; S
+  rule if (false) _ else S =&gt; S
+</code></pre>
+<h3>While loop</h3>
+<pre><code class="language-k">  rule while (E) S =&gt; if (E) {S while(E)S}  [structural]
+</code></pre>
+<h3>Print</h3>
+<p>We only allow printing integers and strings:</p>
+<pre><code class="language-k">  rule &lt;k&gt; print(V:Val, Es =&gt; Es); ...&lt;/k&gt; &lt;output&gt;... .List =&gt; ListItem(V) &lt;/output&gt;
+    when typeOf(V) ==K int orBool typeOf(V) ==K string  [print]
+  rule print(.Vals); =&gt; .  [structural]
+</code></pre>
+<h3>Exceptions</h3>
+<p>Exception parameters are now typed, but note that the semantics below
+works correctly only when the thrown exception has the same type as
+the innermost try-catch paramete.  To keep things simple, for the time
+being we can assume that SIMPLE only throws and catches integer
+values, in which case our semantics below works fine:</p>
+<pre><code class="language-k">  syntax KItem ::= (Param,Stmt,K,Map,ControlCellFragment)  // Param instead of Id
+
+  syntax KItem ::= &quot;popx&quot;
+
+  rule &lt;k&gt; (try S1 catch(P) S2 =&gt; S1 ~&gt; popx) ~&gt; K &lt;/k&gt;
+       &lt;control&gt;
+         &lt;xstack&gt; .List =&gt; ListItem((P, S2, K, Env, C)) ...&lt;/xstack&gt;
+         C
+       &lt;/control&gt;
+       &lt;env&gt; Env &lt;/env&gt;
+
+  rule &lt;k&gt; popx =&gt; . ...&lt;/k&gt;
+       &lt;xstack&gt; ListItem(_) =&gt; .List ...&lt;/xstack&gt;
+
+  rule &lt;k&gt; throw V:Val; ~&gt; _ =&gt; { T X = V; S2 } ~&gt; K &lt;/k&gt;
+       &lt;control&gt;
+         &lt;xstack&gt; ListItem((T:Type X:Id, S2, K, Env, C)) =&gt; .List ...&lt;/xstack&gt;
+         (_ =&gt; C)
+       &lt;/control&gt;
+       &lt;env&gt; _ =&gt; Env &lt;/env&gt;
+</code></pre>
+<h3>Threads</h3>
+<h3>Thread creation</h3>
+<pre><code class="language-k">   rule &lt;thread&gt;...
+          &lt;k&gt; spawn S =&gt; !T:Int ...&lt;/k&gt;
+          &lt;env&gt; Env &lt;/env&gt;
+        ...&lt;/thread&gt;
+        (.Bag =&gt; &lt;thread&gt;...
+                &lt;k&gt; S &lt;/k&gt;
+                &lt;env&gt; Env &lt;/env&gt;
+                &lt;id&gt; !T &lt;/id&gt;
+              ...&lt;/thread&gt;)
+</code></pre>
+<h3>Thread termination</h3>
+<pre><code class="language-k">   rule (&lt;thread&gt;... &lt;k&gt;.&lt;/k&gt; &lt;holds&gt;H&lt;/holds&gt; &lt;id&gt;T&lt;/id&gt; ...&lt;/thread&gt; =&gt; .Bag)
+        &lt;busy&gt; Busy =&gt; Busy -Set keys(H) &lt;/busy&gt;
+        &lt;terminated&gt;... .Set =&gt; SetItem(T) ...&lt;/terminated&gt;
+</code></pre>
+<h3>Thread joining</h3>
+<pre><code class="language-k">   rule &lt;k&gt; join T:Int; =&gt; . ...&lt;/k&gt;
+        &lt;terminated&gt;... SetItem(T) ...&lt;/terminated&gt;
+</code></pre>
+<h3>Acquire lock</h3>
+<pre><code class="language-k">   rule &lt;k&gt; acquire V:Val; =&gt; . ...&lt;/k&gt;
+        &lt;holds&gt;... .Map =&gt; V |-&gt; 0 ...&lt;/holds&gt;
+        &lt;busy&gt; Busy (.Set =&gt; SetItem(V)) &lt;/busy&gt;
+     when (notBool(V in Busy:Set))  [acquire]
+
+   rule &lt;k&gt; acquire V; =&gt; . ...&lt;/k&gt;
+        &lt;holds&gt;... V:Val |-&gt; (N:Int =&gt; N +Int 1) ...&lt;/holds&gt;
+</code></pre>
+<h3>Release lock</h3>
+<pre><code class="language-k">   rule &lt;k&gt; release V:Val; =&gt; . ...&lt;/k&gt;
+        &lt;holds&gt;... V |-&gt; (N =&gt; N:Int -Int 1) ...&lt;/holds&gt;
+      when N &gt;Int 0
+
+   rule &lt;k&gt; release V; =&gt; . ...&lt;/k&gt; &lt;holds&gt;... V:Val |-&gt; 0 =&gt; .Map ...&lt;/holds&gt;
+        &lt;busy&gt;... SetItem(V) =&gt; .Set ...&lt;/busy&gt;
+</code></pre>
+<h3>Rendezvous synchronization</h3>
+<pre><code class="language-k">   rule &lt;k&gt; rendezvous V:Val; =&gt; . ...&lt;/k&gt;
+        &lt;k&gt; rendezvous V; =&gt; . ...&lt;/k&gt;  [rendezvous]
+</code></pre>
+<h3>Auxiliary declarations and operations</h3>
+<p>Turns a list of parameters and a list of instance values for them
+into a list of variable declarations.</p>
+<pre><code class="language-k">  syntax Stmts ::= mkDecls(Params,Vals)  [function]
+  rule mkDecls((T:Type X:Id, Ps:Params), (V:Val, Vs:Vals))
+    =&gt; T X=V; mkDecls(Ps,Vs)
+  rule mkDecls(.Params,.Vals) =&gt; {}
+</code></pre>
+<p>Location lookup.</p>
+<pre><code class="language-k">  syntax Exp ::= lookup(Int)  // see NOTES.md for why Exp instead of KItem
+  rule &lt;k&gt; lookup(L) =&gt; V ...&lt;/k&gt; &lt;store&gt;... L |-&gt; V:Val ...&lt;/store&gt;  [lookup]
+</code></pre>
+<p>Environment recovery.</p>
+<pre><code class="language-k">// TODO: same comment regarding setEnv(...) as for simple untyped
+
+  syntax KItem ::= setEnv(Map)
+  rule &lt;k&gt; setEnv(Env) =&gt; . ...&lt;/k&gt;  &lt;env&gt; _ =&gt; Env &lt;/env&gt;  [structural]
+  rule (setEnv(_) =&gt; .) ~&gt; setEnv(_)  [structural]
+</code></pre>
+<p>lvalue and loc</p>
+<pre><code class="language-k">  syntax Exp ::= lvalue(K)
+  syntax Val ::= loc(Int)
+
+  rule &lt;k&gt; lvalue(X:Id =&gt; loc(L)) ...&lt;/k&gt;  &lt;env&gt;... X |-&gt; L:Int ...&lt;/env&gt;
+    [structural]
+
+  //context lvalue(_[HOLE])
+  //context lvalue(HOLE[_])
+  context lvalue(_::Exp[HOLE::Exps])
+  context lvalue(HOLE::Exp[_::Exps])
+
+  rule lvalue(lookup(L:Int) =&gt; loc(L))  [structural]
+</code></pre>
+<p>Adds the corresponding depth to an array type</p>
+<pre><code class="language-k">  syntax Type ::= Type &quot;&lt;&quot; Vals &quot;&gt;&quot;  [function]
+  rule T:Type&lt;_,Vs:Vals&gt; =&gt; T[]&lt;Vs&gt;
+  rule T:Type&lt;.Vals&gt; =&gt; T
+</code></pre>
+<p>Sequences of locations.</p>
+<pre><code class="language-k">  syntax Map ::= Int &quot;...&quot; Int &quot;|-&gt;&quot; K
+    [function, latex({#1}\ldots{#2}\mapsto{#3})]
+  rule N...M |-&gt; _ =&gt; .Map  when N &gt;Int M
+  rule N...M |-&gt; K =&gt; N |-&gt; K (N +Int 1)...M |-&gt; K  when N &lt;=Int M
+
+// Type of a value.
+  syntax Type ::= typeOf(K)  [function]
+  rule typeOf(_:Int) =&gt; int
+  rule typeOf(_:Bool) =&gt; bool
+  rule typeOf(_:String) =&gt; string
+  rule typeOf(array(T,_,_)) =&gt; (T[])   // () needed! K parses [] as &quot;no tags&quot;
+  rule typeOf(lambda(T,Ps,_)) =&gt; getTypes(Ps) -&gt; T
+  rule typeOf(undefined(T)) =&gt; T
+  rule typeOf(nothing(T)) =&gt; T
+</code></pre>
+<p>List of types of a parameter.</p>
+<pre><code class="language-k">  syntax Types ::= getTypes(Params)  [function]
+  rule getTypes(T:Type _:Id) =&gt; T, .Types   // I would like to not use .Types
+  rule getTypes(T:Type _:Id, P, Ps) =&gt; T, getTypes(P,Ps)
+  rule getTypes(.Params) =&gt; void, .Types
+endmodule
+</code></pre>
+
+          </div>
+        </main>
+      </div>
+    </div>
+<footer class="app-footer text-md-left text-center">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-2 mb-md-0 mb-4">
+        <span class="pr-md-5 pr-0 py-3">
+          <a href="https://runtimeverification.com" target="_blank">
+            <picture>
+              <source
+                srcset="../../../../../assets/img/rv-logo-dark.png"
+                media="(prefers-color-scheme: dark)"
+              />
+              <img
+                class="pr-3 footer-logo"
+                src="../../../../../assets/img/rv-logo.png"
+                alt="Runtime Verification Inc logo"
+              />
+            </picture>
+          </a>
+        </span>
+      </div>
+      <div class="col-md-6 mb-md-0 mb-4"></div>
+      <div class="col-md-4 text-md-right">
+        <p class="copyright">
+          &copy; 2020 Runtime Verification Inc. All right reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "UA-163311512-1");
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
+    <script src="../../../../../assets/js/index.js"></script>
+    <script>
+      $(function () {
+        const headerSelector =
+          ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
+        if ($(headerSelector).length) {
+          if ($(headerSelector)[0].innerText.match(/^copyright/)) {
+            $(headerSelector)[0].remove();
+          }
+          if ($(headerSelector).length) {
+            const title = $(headerSelector)[0].innerText;
+            $(".title").text(title);
+            $(headerSelector)[0].remove();
+          }
+        }
+        const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
+        if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
+          const match = youtubeHref.match(/^https?:\/\/youtu.be\/(.+?)$/);
+          if (match && match[1]) {
+            const youtubeId = match[1];
+            const $iframe = $(`<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/${youtubeId}"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+  style="max-width: 100%;"
+></iframe>`);
+            $(".markdown-preview a")[0].replaceWith($iframe[0]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
