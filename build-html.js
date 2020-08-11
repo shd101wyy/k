@@ -74,7 +74,7 @@ function generateOutputWebpage(sourceHTML, targetFilePath, variables = {}) {
   console.log("Written file: " + filePath);
 }
 
-function generateTutorialWebpages() {
+function generateWebpages() {
   const tutorialTemplate = fs
     .readFileSync("./static_content/html/tutorial_template.html")
     .toString("utf-8");
@@ -90,7 +90,9 @@ function generateTutorialWebpages() {
       } else if (file.endsWith(".md")) {
         const targetFilePath = path
           .resolve(
-            dirPath.replace(/\/tutorial\//, "/public_content/tutorial/"),
+            dirPath
+              .replace(/\/tutorial\//, "/public_content/tutorial/")
+              .replace(/\/pages\//, "/public_content/"),
             file
           )
           .replace(/\.md$/, ".html");
@@ -106,12 +108,12 @@ function generateTutorialWebpages() {
       }
     }
   };
-  helper(path.join(__dirname, "./tutorial/1_k"));
-  helper(path.join(__dirname, "./tutorial/2_languages"));
+  helper(path.join(__dirname, "./tutorial/"));
+  helper(path.join(__dirname, "./pages/"));
 }
 
 for (file in files) {
   generateOutputWebpage(fs.readFileSync(file).toString("utf-8"), files[file]);
 }
 
-generateTutorialWebpages();
+generateWebpages();
