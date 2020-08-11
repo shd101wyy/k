@@ -1,4 +1,3 @@
-const readline = require("readline");
 const fs = require("fs");
 const path = require("path");
 const MarkdownIt = require("markdown-it");
@@ -11,12 +10,7 @@ const md = new MarkdownIt({
 const files = {
   "./static_content/html/404.html": "404.html",
   "./static_content/html/500.html": "500.html",
-  "./static_content/html/index.html": "index.html",
-  "./static_content/html/downloads.html": "downloads.html",
-  "./static_content/html/overview.html": "overview.html",
   "./static_content/html/faq.html": "faq.html",
-  "./static_content/html/editor_support.html": "editor_support.html",
-  "./static_content/html/people.html": "people.html",
   "./static_content/html/projects.html": "projects.html",
   "./static_content/html/project_ideas.html": "project_ideas.html",
   "./static_content/html/publications.html": "publications.html",
@@ -75,18 +69,14 @@ function generateOutputWebpage(sourceHTML, targetFilePath, variables = {}) {
 }
 
 function generateWebpages() {
-  const tutorialTemplate = fs
-    .readFileSync("./static_content/html/tutorial_template.html")
-    .toString("utf-8");
-
   fs.rmdirSync(path.join(__dirname, "./public_content/tutorial"), {
     recursive: true,
   });
 
-  const helper = (dirPath) => {
+  const helper = (dirPath, template = "") => {
     for (const file of fs.readdirSync(dirPath)) {
       if (fs.statSync(path.resolve(dirPath, file)).isDirectory()) {
-        helper(path.resolve(dirPath, file));
+        helper(path.resolve(dirPath, file), template);
       } else if (file.endsWith(".md")) {
         const targetFilePath = path
           .resolve(
@@ -101,15 +91,23 @@ function generateWebpages() {
           .toString("utf-8");
         const html = md.render(markdown);
 
-        generateOutputWebpage(tutorialTemplate, targetFilePath, {
+        generateOutputWebpage(template, targetFilePath, {
           TITLE: targetFilePath,
           MARKDOWN_HTML: html,
         });
       }
     }
   };
-  helper(path.join(__dirname, "./tutorial/"));
-  helper(path.join(__dirname, "./pages/"));
+
+  const tutorialTemplate = fs
+    .readFileSync("./static_content/html/tutorial_template.html")
+    .toString("utf-8");
+  const pageTemplate = fs
+    .readFileSync("./static_content/html/page_template.html")
+    .toString("utf-8");
+
+  helper(path.join(__dirname, "./tutorial/"), tutorialTemplate);
+  helper(path.join(__dirname, "./pages/"), pageTemplate);
 }
 
 for (file in files) {
