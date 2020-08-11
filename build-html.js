@@ -10,13 +10,7 @@ const md = new MarkdownIt({
 const files = {
   "./static_content/html/404.html": "404.html",
   "./static_content/html/500.html": "500.html",
-  "./static_content/html/faq.html": "faq.html",
-  "./static_content/html/projects.html": "projects.html",
-  "./static_content/html/project_ideas.html": "project_ideas.html",
   "./static_content/html/publications.html": "publications.html",
-  "./static_content/html/news.html": "news.html",
-  "./static_content/html/events.html": "events.html",
-  "./static_content/html/funding.html": "funding.html",
   "./static_content/html/tutorials.html": "tutorials.html",
 };
 
