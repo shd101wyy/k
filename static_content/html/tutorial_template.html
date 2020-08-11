@@ -47,9 +47,14 @@
         const headerSelector =
           ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
         if ($(headerSelector).length) {
-          const title = $(headerSelector)[0].innerText;
-          $(".title").text(title);
-          $(headerSelector)[0].remove();
+          if ($(headerSelector)[0].innerText.match(/^copyright/)) {
+            $(headerSelector)[0].remove();
+          }
+          if ($(headerSelector).length) {
+            const title = $(headerSelector)[0].innerText;
+            $(".title").text(title);
+            $(headerSelector)[0].remove();
+          }
         }
         const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
         if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
