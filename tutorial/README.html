@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+/>
+<meta
+  name="description"
+  content="Design and implement your programming language and software analysis tools with mathematical rigor."
+/>
+<meta name="keywords" content="runtime, verification, rv, k" />
+<meta name="author" content="K | Runtime Verification Inc" />
+<meta name="robots" content="index, follow" />
+
+<!--favicon icon-->
+<link rel="icon" type="image/png" href="../assets/img/favicon.ico" />
+
+<title>
+  K | Runtime Verification Inc
+</title>
+
+<!-- <base href="/k/" /> -->
+
+<!--web fonts-->
+<link
+  href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css?family=Lora:400i"
+  rel="stylesheet"
+/>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css"
+  rel="stylesheet"
+/>
+
+<link href="../assets/css/index.css" rel="stylesheet" />
+
+<!--[if (gt IE 9) |!(IE)]><!-->
+<!--<link rel="stylesheet" href="/assets/vendor/custom-nav/css/effects/fade-menu.css"/>-->
+<!-- <link rel="stylesheet" href="../assets/k/vl-nav/css/effects/slide-menu.css" /> -->
+<!--<![endif]-->
+
+  </head>
+
+  <body>
+<header
+  class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"
+>
+  <a class="logo-link" href="../index.html">
+    <img
+      class="logo-dark"
+      srcset="../assets/img/k-logo.png"
+      alt="K"
+      style="height: 48px;"
+    />
+    Semantic Framework
+  </a>
+  <ul class="navbar-nav ml-md-auto">
+    <li class="nav-item">
+      <a
+        class="nav-link pl-2 pr-1 mx-1 py-3 my-n2"
+        href="https://github.com/kframework/k"
+        target="_blank"
+        rel="noopener"
+        aria-label="GitHub"
+      >
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  </ul>
+  <a
+    class="btn btn-rv-blue d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="../downloads.html"
+    >Download</a
+  >
+</header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+<div class="col-12 col-md-3 col-xl-2 bd-sidebar mb-3">
+  <form
+    role="search"
+    class="bd-search d-flex align-items-center justify-content-between"
+  >
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search..."
+      aria-label="Search for..."
+      autocomplete="false"
+    />
+    <button
+      class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
+      type="button"
+      aria-label="Toggle docs navigation"
+      style="font-size: 1.4rem;"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+  </form>
+  <nav class="collapse bd-links" aria-label="Main navigation">
+    <div class="bd-toc-item">
+      <a class="bd-toc-link" href="../index.html">Homepage</a>
+      <a class="bd-toc-link" href="../downloads.html">Downloads</a>
+      <a class="bd-toc-link" href="../tutorials.html">K Tutorial</a>
+      <a class="bd-toc-link" href="../people.html">People</a>
+      <a class="bd-toc-link" href="../projects.html">Projects</a>
+      <a class="bd-toc-link" href="../project_ideas.html"
+        >Project Ideas</a
+      >
+      <a class="bd-toc-link" href="../publications.html">Publications</a>
+      <a class="bd-toc-link" href="../news.html">News</a>
+      <a class="bd-toc-link" href="../events.html">Events</a>
+      <a class="bd-toc-link" href="../funding.html">Funding</a>
+    </div>
+  </nav>
+</div>
+
+        <main
+          class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
+          role="main"
+        >
+          <h1 class="title"></h1>
+          <p>Go back to <a href="../tutorials.html">K Tutorial.</a></p>
+          <p>
+            <a
+              href="https://github.com/kframework/k/tree/master/k-distribution/tutorial/1_k/1_lambda/lesson_1"
+              >All files</a
+            >
+            in the K tool distribution that were used in this movie.
+          </p>
+          <p>
+            <a
+              href="https://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="../assets/img/try-it-online.jpg" /> Open Full
+              Tool Page</a
+            >
+          </p>
+          <div class="introduction markdown-preview">
+            <hr>
+<h2>copyright: Copyright (c) 2014-2020 K Team. All Rights Reserved.</h2>
+<h1>K Tutorial</h1>
+<p><a href="http://fsl.cs.illinois.edu/grosu"><em>Grigore Rosu</em></a> (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)</p>
+<p>In this tutorial you will learn how to use the K tool by means of a series of
+lectures illustrating several simple languages defined using K.  Almost all
+the material is presented in two forms: as ordinary text and as a short
+screencast movie.
+We recommend to either download the K tool from its URL
+(<a href="http://kframework.org">http://kframework.org</a>) and install it on your machine (K is implemented
+in Java, so it is platform-independent) or use the provided online interface
+to execute the tutorial lessons and do the proposed exercises.
+The objective of this tutorial is twofold: to learn K (in folder
+<a href="1_k/README.md">1_k</a>) and to learn how to define languages across
+various paradigms using K (in folder <a href="2_languages/README.md">2_languages</a>).</p>
+<p>It is recommended to study the languages defined in this folder in the
+order indicated by their name, because K features already discussed in
+a previous language definition will likely not be rediscussed in
+latter definitions.</p>
+<p>Below we discuss some of the high-level features of the K framework
+and of the current K tool prototype, which you may find useful to know
+about before starting to type and execute the tutorial examples.</p>
+<p>Subscribe to the <a href="https://lists.cs.illinois.edu/lists/info/k-user">K user</a>
+list for technical questions and news on major tool updates.  Ask general,
+non-technical questions at <a href="mailto:info@kframework.org">info@kframework.org</a>.</p>
+<h2>K Framework Overview</h2>
+<p>[
+<a href="http://fsl.cs.uiuc.edu/k-overview/k-overview_player.html">MOVIE (kframework.org) [9'59&quot;]</a>
+|
+<a href="http://youtu.be/eSaIKHQOo4c">MOVIE (YouTube) [9'59&quot;]</a>
+|
+<a href="http://www.kframework.org/images/e/e4/K-Overview.zip">SLIDES (PPT)</a>
+|
+<a href="http://www.kframework.org/images/e/eb/K-Overview.pdf">SLIDES (PDF)</a>
+]</p>
+<p>K is an executable semantic framework in which programming languages,
+calculi, as well as type systems or formal analysis tools can be
+defined by making use of configurations, computations and rules:</p>
+<ul>
+<li>Configurations organize the system/program state in units called
+cells, which are labeled and can be nested.</li>
+<li>Computations carry computational meaning as special nested list
+structures sequentializing computational tasks, such as fragments of
+program; in particular, computations extend the original language or
+calculus syntax.</li>
+<li>K (rewrite) rules generalize conventional rewrite rules by making it
+explicit which parts of the term they read-only, write-only, or do
+not care about.  This distinction makes K a suitable framework for
+defining truly concurrent languages or calculi even in the presence
+of sharing.</li>
+</ul>
+<p>Since computations can be handled like any other terms in a rewriting
+environment, that is, they can be matched, moved from one place to
+another in the original term, modified, or even deleted, K is
+particularly suitable for defining control-intensive language features
+such as abrupt termination, exceptions, call/cc, concurrency, etc.</p>
+<h2>The K Tool Prototype</h2>
+<p>The K tool prototype, called the &quot;K tool&quot; or the &quot;K prototype&quot; from
+here on, is a prototype implementation of the K Framework written in
+Java and Maude.  The K prototype is implemented by a joint team of
+faculty and students from the University of Illinois at
+Urbana-Champaign, USA (the FSL group, led by professor Grigore Rosu),
+the University Alexandru Ioan Cuza, Iasi, Romania (the FMSE group, led
+by professor Dorel Lucanu), and the University of Bucharest, Romania
+(professor Traian Florin Serbanuta), developers from
+<a href="https://runtimeverification.com">Runtime Verification, Inc.</a>,
+and several individual enthusiasts.
+A current list of the people involved in the project and their
+specific roles can be accessed from <a href="http://kframework.org">http://kframework.org</a>.</p>
+<h3>Usage</h3>
+<p>Some of the languages defined so far using the K framework can be found in
+the <a href="2_languages/">2_languages</a> directory, and many others
+in the <a href="/samples/">samples</a> directory.  For example, the directory</p>
+<pre><code>2_languages/1_simple/1_untyped
+</code></pre>
+<p>contains the definition of the untyped version of the SIMPLE language, while</p>
+<pre><code>2_languages/1_simple/2_typed/1_static
+</code></pre>
+<p>contains the static semantics, i.e., the type checker.</p>
+<p>We encourage you to contribute with examples to our distribution.
+Please see the README file under <a href="/samples/">samples</a> for instructions on how
+to do it.</p>
+<h3>How It Works</h3>
+<p>We recommend the papers listed at <a href="http://kframework.org">http://kframework.org</a> for a
+deeper understanding of K.  Here we only discuss how our current K
+tool works, reminding important facts about K in general by-need.</p>
+<p>By default, the tool uses the syntax module of a definition to generate a
+parser for that definition which can be used to parse programs and turn
+them into their corresponding K-AST (KAST) format.  We briefly outline the
+process below, using the untyped SIMPLE language
+(<a href="2_languages/1_simple/1_untyped">2_languages/1_simple/1_untyped</a>).</p>
+<h4>Parsing Programs</h4>
+<p>You may prefer to first define the syntax and then the semantics.
+That is how most of the languages in this directory are
+defined.  This reduces ambiguities in the parser and therefore might
+be able to parse more programs.  For example, suppose that we want to
+define a language LANGUAGE and that we have already defined its syntax
+in a module LANGUAGE-SYNTAX.  Before even attempting to define the
+semantics, it is a good idea to test the syntax by parsing a large
+variety of programs.</p>
+<p>In the examples provided with the tool, programs are generally kept in
+a subdirectory in the directory containing the syntax definition.</p>
+<p>As explained in detail in the papers about K, the entire language
+syntax is automatically included as constructors for the builtin sort
+K of computation structures, or simply just computations.  Concrete
+syntax plays no role whatsoever in the mathematical foundations of K.
+That means, in particular, that the distinction between
+concrete/abstract syntax and its representation as computations of
+sort K is irrelevant in the theory of K.  However, it becomes quite
+relevant in implementations of K tools, because we want to use the
+defined language syntax as much as possible in the semantics, which
+means that we need to combine a parser for the defined language with a
+parser for K in order to parse the semantic rules.  It is also possble
+to use an external parser for programs in K; type <code>krun --help</code>.</p>
+<p>In our current implementation of K, the internal representation of the
+syntactic terms follows the simple abstract-syntax-tree (AST) syntax:</p>
+<pre><code>K ::= KLabel &quot;(&quot; KList &quot;)&quot;
+</code></pre>
+<p><code>KList</code> is a non-terminal standing for lists of K terms.  This way, from
+an internal representation point of view, a language syntax is nothing but
+a finite set of <code>KLabel</code> constants.  The <code>kast</code> tool can be used to parse
+a program and see its KAST form.  By running</p>
+<pre><code>$ kompile simple-untyped.k
+$ kast tests/diverse/factorial.simple
+</code></pre>
+<p>from the
+<a href="2_languages/1_simple/1_untyped">2_languages/1_simple/1_untyped</a>
+directory, you get the internal representation of the factorial program.
+Typically, you should not need to execute the <code>kast</code> tool directly, as it will
+be executed by the <code>krun</code> tool (below) when necessary.  However, executing it
+directly can be useful to test and understand your syntax.</p>
+<p>Our current implementation allows you to use either concrete syntax or
+abstract syntax (as displayed by the <code>kast</code> command above) in your
+semantic rules.  We typically prefer the concrete syntax, but you may
+need to use the abstract syntax instead when your syntax confuses the K parser.</p>
+<h4>Running Programs</h4>
+<p>The <code>krun</code> tool can be used to execute programs, or explore their
+behaviors.  What the <code>krun</code> tool basically does is:</p>
+<ol>
+<li>put the internal representation of the program in the initial
+configuration described in the definition;</li>
+<li>call the rewrite engine to execute the program by rewriting the
+resulting initial configuration; and</li>
+<li>post-process the output of the rewrite engine and display it in
+a more appealing format.</li>
+</ol>
+<p>To run our sample program <code>factorial</code>, all we need to do is:</p>
+<pre><code>$ kompile simple-untyped.k
+$ krun tests/diverse/factorial.simple --output none
+Input a natural number: 5
+Factorial of 5 is: 120
+</code></pre>
+<p>The <code>--output none</code> option tells <code>krun</code> to not display the
+configuration.  Instead, it only displays output produced by the
+program.  Try running it without this option to see the resulting
+configuration.</p>
+<p>You can also use the krun command to search for all possible final
+states which could be obtained upon running the program, to model
+check non-deterministic or concurrent programs, and even to
+deductively verify programs.  These are all explained in the various
+lectures in the tutorial.</p>
+<h2>Reporting Issues/Bugs/Feature requests</h2>
+<p>Please report issues at <a href="https://github.com/kframework/k/issues">https://github.com/kframework/k/issues</a>.
+Simply post your test case and briefly explain your problem.  If you
+want to help us the most, please also propose a test case to the
+repository using the style in <a href="/tests/issues/">tests/issues</a> (do this
+in addition to posting an issue, because you need the issue number).</p>
+
+          </div>
+        </main>
+      </div>
+    </div>
+<footer class="app-footer text-md-left text-center">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-2 mb-md-0 mb-4">
+        <span class="pr-md-5 pr-0 py-3">
+          <a href="https://runtimeverification.com" target="_blank">
+            <picture>
+              <source
+                srcset="../assets/img/rv-logo-dark.png"
+                media="(prefers-color-scheme: dark)"
+              />
+              <img
+                class="pr-3 footer-logo"
+                src="../assets/img/rv-logo.png"
+                alt="Runtime Verification Inc logo"
+              />
+            </picture>
+          </a>
+        </span>
+      </div>
+      <div class="col-md-6 mb-md-0 mb-4"></div>
+      <div class="col-md-4 text-md-right">
+        <p class="copyright">
+          &copy; 2020 Runtime Verification Inc. All right reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "UA-163311512-1");
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
+    <script src="../assets/js/index.js"></script>
+    <script>
+      $(function () {
+        const headerSelector =
+          ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
+        if ($(headerSelector).length) {
+          if ($(headerSelector)[0].innerText.match(/^copyright/)) {
+            $(headerSelector)[0].remove();
+          }
+          if ($(headerSelector).length) {
+            const title = $(headerSelector)[0].innerText;
+            $(".title").text(title);
+            $(headerSelector)[0].remove();
+          }
+        }
+        const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
+        if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
+          const match = youtubeHref.match(/^https?:\/\/youtu.be\/(.+?)$/);
+          if (match && match[1]) {
+            const youtubeId = match[1];
+            const $iframe = $(`<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/${youtubeId}"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+  style="max-width: 100%;"
+></iframe>`);
+            $(".markdown-preview a")[0].replaceWith($iframe[0]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
