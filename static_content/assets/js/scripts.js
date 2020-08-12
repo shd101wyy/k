@@ -37,5 +37,19 @@
         }
       } catch (error) {}
     });
+
+    // Search box
+    $("#search-box").keydown((event) => {
+      if (event.which === 13) {
+        event.stopPropagation();
+        event.preventDefault();
+        window.open(
+          `https://www.google.com/search?q=site:${
+            location.hostname
+          }%20${encodeURIComponent($("#search-box").val())}`,
+          "_blank"
+        );
+      }
+    });
   });
 })(jQuery);
