@@ -1,4 +1,4 @@
-<a style="color:red" href="./join_team.md">Join the K Team!</a>
+<a style="color:#F44336" href="./join_team.md">Join the K Team!</a>
 
 <b style="font-size: 36px; line-height: 1;">K</b> is a rewrite-based
 executable semantic framework in which programming languages, type

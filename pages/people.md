@@ -1,6 +1,6 @@
 # People
 
-<a style="color:red" href="./join_team.md">Join the K Team!</a>
+<a style="color:#F44336" href="./join_team.md">Join the K Team!</a>
 
 K was initiated by [Grigore Rosu](./people/grigore_rosu.md) in 2003 and it has been continuously developed since then jointly with his FSL research group at the University of Illinois at Urbana-Champaign, USA. Starting with 2010, the K framework is being developed jointly by the FSL group at UIUC together with the FMSE group led by [Dorel Lucanu](./people/dorel_lucanu.md) at the Alexandru Ioan Cuza University of Iasi, Romania.
 

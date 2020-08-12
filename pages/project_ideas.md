@@ -16,11 +16,11 @@ Besides a description, each project below has some additional information to hel
 
 #### Color
 
-<span style="color:green;">Green projects</span> are primarily coding projects and don't require much theoretical background to get started.
+<span style="color:#4CAF50;">Green projects</span> are primarily coding projects and don't require much theoretical background to get started.
 
-<span style="color:blue;">Blue projects</span> are like green projects, except require more theoretical background and theoretical insights. These projects may require you to read a paper or two.
+<span style="color:#2196F3;">Blue projects</span> are like green projects, except require more theoretical background and theoretical insights. These projects may require you to read a paper or two.
 
-<span style="color:red;">Red projects</span> are potential research directions but are too large and complex for GSoC. They are included to give a flavor of future directions of our work.
+<span style="color:#F44336;">Red projects</span> are potential research directions but are too large and complex for GSoC. They are included to give a flavor of future directions of our work.
 
 #### Scale
 
@@ -44,7 +44,7 @@ Most project ideas specify a list of people that are likely to mentor the projec
 
 ### User interfaces
 
-#### <span style="color:green;">Eclipse IDE</span>
+#### <span style="color:#4CAF50;">Eclipse IDE</span>
 
 Integrate the K Semantic Framework with Eclipse to make the framework more accessible and user-friendly. Features we would like in the K/Eclipse IDE include:
 
@@ -58,7 +58,7 @@ Integrate the K Semantic Framework with Eclipse to make the framework more acces
 **Prerequisite experience**: Java. Familiarity with developing Eclipse plug-ins. UI design experience.  
 **Probable mentors**: Grigore, Dorel
 
-#### <span style="color:green;">Web interface for K</span>
+#### <span style="color:#4CAF50;">Web interface for K</span>
 
 A web interface for K allows users to learn about and use K without having to install it first. Improve the [existing online web interface](https://fmse.info.uaic.ro/tools/K/) or (preferably) create a new online interface from scratch. One possibility is to emulate a terminal in the browser that accepts commands that are identical to the commands that would be used to run K locally.
 
@@ -66,7 +66,7 @@ A web interface for K allows users to learn about and use K without having to in
 **Prerequisite experience**: Web programming experience.  
 **Probable mentors**: Andrei, David
 
-#### <span style="color:blue;">GUI for creating programming languages</span>
+#### <span style="color:#2196F3;">GUI for creating programming languages</span>
 
 Due to the modularity of the K framework, language features (e.g., side effects, exceptions, threads, continuations, type systems, etc.) can easily be added and removed from a language. Build a GUI that exposes this modularity by letting users create custom programming languages easily. One possibility is to create an interface which allows language features to be combined via drag-and-drop. Regardless, the GUI should support:
 
@@ -92,7 +92,7 @@ Multiple tools can be automatically derived from a single K definition of a lang
 
 The following projects involve improving these tools and making them general enough to work with all K definitions.
 
-#### <span style="color:green">Interpreter</span>
+#### <span style="color:#4CAF50">Interpreter</span>
 
 The krun tool allows a K definition to be used as an interpreter and state space search tool for the language it defines. For example, the command krun collatz.imp executes the collatz program using the definition of the IMP language. The goal of this project is to fix bugs and add features to the (Java version) of krun. One possible task is to add support for querying cells in the output configuration using XPath.
 
@@ -100,7 +100,7 @@ The krun tool allows a K definition to be used as an interpreter and state space
 **Prerequisite experience**: Java. Manipulating XML in Java. Experience with existing interpreters and debuggers.  
 **Probable mentors**: David, Emilian
 
-#### <span style="color:green">Profiler</span>
+#### <span style="color:#4CAF50">Profiler</span>
 
 The [C semantics](https://code.google.com/p/c-semantics/) project already has a profiler specific to C. Extract this tool from the C project and make it available to all K definitions. This will allow all users of K to benchmark their definitions and to profile programs that are executed in the definition.
 
@@ -108,7 +108,7 @@ The [C semantics](https://code.google.com/p/c-semantics/) project already has a 
 **Prerequisite experience**: Ability to read Perl (since the C profiling tool is written in Perl).  
 **Probable mentors**: Chucky
 
-#### <span style="color:green">Visual stepper</span>
+#### <span style="color:#4CAF50">Visual stepper</span>
 
 Create a variant of [Maude Stepper](http://fsl.cs.illinois.edu/index.php/Special:MaudeStepperOnline) that is specialized for K. This would let users execute programs visually, allowing users to explore a program's different behaviors by putting the language's non-deterministic choices in their hands. Ideally, this tool would easily integrate with a web interface for K or an IDE for K.
 
@@ -116,7 +116,7 @@ Create a variant of [Maude Stepper](http://fsl.cs.illinois.edu/index.php/Special
 **Prerequisite experience**: Experience with computer graphics and user interfaces is a big plus.  
 **Probable mentors**: Traian
 
-#### <span style="color:blue">Automatic test case generation</span>
+#### <span style="color:#2196F3">Automatic test case generation</span>
 
 Create a tool that generates valid programs from a programming language's K definition. Students working on this project will need to come up with an ingenious idea for accomplishing this task.
 
@@ -125,7 +125,7 @@ Create a tool that generates valid programs from a programming language's K defi
 
 ### K definitions
 
-#### <span style="color:blue">Define an existing language</span>
+#### <span style="color:#2196F3">Define an existing language</span>
 
 Many _real_ programming languages have been formally defined in K, including C, Scheme, and Verilog. Formal definitions are also being developed for LLVM IR, Haskell, Javascript, and Python. This project involves giving formal semantics in K to an existing programming language. These are some examples of languages we think would be interesting to give formal semantics to and that would benefit the K framework:
 
@@ -161,14 +161,14 @@ Many _real_ programming languages have been formally defined in K, including C, 
 
 **Prerequisite experience**: Proficiency or expertise in the language to be defined.
 
-#### <span style="color:blue">Create a new language</span>
+#### <span style="color:#2196F3">Create a new language</span>
 
 K is a tool for creating new programming languages, not just defining existing ones. If you have a great idea for a new programming language or Domain Specific Language (DSL), implement it using K! Your proposal for this project should include the merits of your new language and comparisons to existing languages.
 
 **Scale**: Summer+  
 **Prerequisite experience**: Some prior experience with language design. Proficiency in languages similar to the language you're creating.
 
-#### <span style="color:blue">Model other systems in K</span>
+#### <span style="color:#2196F3">Model other systems in K</span>
 
 K is not limited to defining programming languages. For example, it has been used to model algorithms and problems in computer science. The [trunk/examples/algorithms](https://code.google.com/p/k-framework/source/browse/trunk/examples/algorithms) subdirectory in the K framework SVN contains executable K definitions of Dijkstra's algorithm and algorithms for solving the Sudoku puzzle, among other simple algorithms. What other algorithms or areas could K be applied to besides programming languages? Pick an algorithm or class of algorithms to define in K. Or attempt to model some other system entirely, for example:
 
@@ -183,7 +183,7 @@ K is not limited to defining programming languages. For example, it has been use
 
 The current K tool has one frontend and two backends: a K definition can be compiled into Maude for execution, or it can be compiled into LaTeX for viewing. These projects involve creating new backends for K and improving the frontend.
 
-#### <span style="color:green">Java/SDF frontend</span>
+#### <span style="color:#4CAF50">Java/SDF frontend</span>
 
 The frontend parses K definitions (using [SDF](http://www.syntax-definition.org/)) and generates the K Intermediate Language code corresponding to the definition. Since a K definition contains multiple syntaxes, it is difficult to parse them accurately. Furthermore, most of the work in extending K happens in the frontend. This project involves fixing issues related to the frontend and adding features to K that primarily involve frontend work (see the [issue tracker](https://code.google.com/p/k-framework/issues/list)).
 
@@ -191,7 +191,7 @@ The frontend parses K definitions (using [SDF](http://www.syntax-definition.org/
 **Prerequisite experience**: Parsing. Some experience with SDF.  
 **Probable mentors**: Radu, Andrei
 
-#### <span style="color:green">Maude backend</span>
+#### <span style="color:#4CAF50">Maude backend</span>
 
 Currently, the compiler from K to Maude is written in Maude itself. Unfortunately, this Maude code is hard to extend and hard to maintain. Luckily, the compilation process is broken up into several self-contained source-to-source transformations. Replace each transformation that's written in Maude with an equivalent transformation in Java that operates on the K Intermediate Language (KIL).
 
@@ -199,7 +199,7 @@ Currently, the compiler from K to Maude is written in Maude itself. Unfortunatel
 **Prerequisite experience**: Ability to work with XML and ASTs in Java. Some experience writing a compiler is beneficial but not necessary.  
 **Probable mentors**: Traian, Andrei
 
-#### <span style="color:blue">Ocaml or Haskell backend</span>
+#### <span style="color:#2196F3">Ocaml or Haskell backend</span>
 
 Although defining a language in K gives you an interpreter for free (via the Maude backend), this interpreter is usually not fast enough for general purpose use. By putting some restrictions on K rules, we have been able to compile K definitions into OCaml interpreters for a tremendous speed boost. See the [K Compiler](http://fsl.cs.illinois.edu/index.php/K_Compiler?action=render). Expand on this previous work in the following ways:
 
@@ -211,7 +211,7 @@ Although defining a language in K gives you an interpreter for free (via the Mau
 **Prerequisite experience**: OCaml or Haskell.  
 **Probable mentors**: Chucky, David
 
-#### <span style="color:blue">Coq or Isabelle backend</span>
+#### <span style="color:#2196F3">Coq or Isabelle backend</span>
 
 Create a backend for K that compiles K definitions into a proof assistant language, such as Coq or Isabelle. This would allow us to formally reason (prove properties) about K definitions.
 
@@ -221,7 +221,7 @@ Create a backend for K that compiles K definitions into a proof assistant langua
 
 ### Miscellaneous
 
-#### <span style="color:green">Static analysis tools for K</span>
+#### <span style="color:#4CAF50">Static analysis tools for K</span>
 
 As with any other programming language, mistakes can be made when writing K definitions. The scope of this project is to create a lint-like tool that detects (and possibly fixes) common errors that appear in K definitions. These can range from stylistic errors to more serious semantic errors:
 
@@ -234,7 +234,7 @@ As with any other programming language, mistakes can be made when writing K defi
 **Scale**: Summer
 **Probable mentors**: Chucky
 
-#### <span style="color:red">Deriving semantics using genetic algorithms</span>
+#### <span style="color:#F44336">Deriving semantics using genetic algorithms</span>
 
 Given the syntax of a programming language and an interpreter for it, can we use genetic algorithms to derive a semantics for the programming language?
 
