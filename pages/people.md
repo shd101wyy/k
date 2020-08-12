@@ -32,8 +32,8 @@ K was initiated by [Grigore Rosu](./people/grigore_rosu.md) in 2003 and it has b
 
 ## Former Members
 
-- [Michael Adams](./people/michael_adams.md)
-- [Ömer Sinan Ağacan](./people/omer_sinan_agacan.md)
+- Michael Adams
+- Ömer Sinan Ağacan
 - [Mihail Asavoae](./people/mihail_asavoae.md)
 - [Irina Asavoae](./people/irina_asavoae.md)
 - [Kyle Blocher](./people/kyle_blocher.md)
@@ -41,7 +41,7 @@ K was initiated by [Grigore Rosu](./people/grigore_rosu.md) in 2003 and it has b
 - [Peter Dinges](./people/peter_dinges.md)
 - [Cansu Erdogan](http://fsl.cs.uiuc.edu/index.php/Cansu_Erdogan)
 - [Mark Hills](./people/mark_hills.md)
-- [Michael Ilseman](./people/michael_ilseman.md)
+- [Michael Ilseman](http://fsl.cs.illinois.edu/index.php/Michael_Ilseman?action=render)
 - [Chucky Ellison](./people/chucky_ellison.md)
-- [David Lazar](./people/david_lazar.md)
+- [David Lazar](https://davidlazar.org/)
 - [Patrick Meredith](http://fsl.cs.uiuc.edu/index.php/Patrick_Meredith)

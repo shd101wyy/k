@@ -3,7 +3,7 @@
 Here is a list of projects involving K. Send us a message if you want your project listed here. Feel free to contact us or the authors if you are interested in any particular project below.
 
 - [K Tool](http://k-framework.googlecode.com/)  
-  [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md), [Andrei Arusoae](./people/andrei_arusoaie.md), [Chucky Ellison](./people/chucky_ellison.md), [David Lazar](./people/david_lazar.md), [Dorel Lucanu](./people/dorel_lucanu.md), [Radu Mereuta](./people/radu_mereuta.md), [Grigore Rosu](./people/grigore_rosu.md)  
+  [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md), [Andrei Arusoae](./people/andrei_arusoaie.md), [Chucky Ellison](./people/chucky_ellison.md), [David Lazar](https://davidlazar.org/), [Dorel Lucanu](./people/dorel_lucanu.md), [Radu Mereuta](./people/radu_mereuta.md), [Grigore Rosu](./people/grigore_rosu.md)  
   Collection of K utilities (interpreters, visualizers, state-space searchers, model checkers)
 
 - [Matching Logic](http://www.matching-logic.org/)  
@@ -27,7 +27,7 @@ Here is a list of projects involving K. Send us a message if you want your proje
   Defining a semantics of Scheme in K
 
 * [Haskell Semantics](http://github.com/davidlazar/haskell-semantics)  
-  [David Lazar](./people/david_lazar.md)  
+  [David Lazar](https://davidlazar.org/)  
   Defining a semantics of Haskell in K
 
 * [Verilog Semantics](http://fsl.cs.uiuc.edu/index.php/Verilog_Semantics)  
@@ -35,11 +35,11 @@ Here is a list of projects involving K. Send us a message if you want your proje
   Defining a semantics of Verilog in K
 
 * [LLVM IR Semantics](http://github.com/davidlazar/llvm-semantics)  
-  [David Lazar](./people/david_lazar.md), [Chucky Ellison](./people/chucky_ellison.md)  
+  [David Lazar](https://davidlazar.org/), [Chucky Ellison](./people/chucky_ellison.md)  
   Defining a semantics of LLVM IR in K
 
 * [Esolang Semantics](http://esolang-semantics.googlecode.com/)  
-  [Chucky Ellison](./people/chucky_ellison.md), [David Lazar](./people/david_lazar.md)  
+  [Chucky Ellison](./people/chucky_ellison.md), [David Lazar](https://davidlazar.org/)  
   Formal semantics of esoteric programming languages in K
 
 * OCAML Compiler for K  
