@@ -109,4 +109,4 @@ ere woul will learn how to design functional programming languages using K. FUN 
 
 Here you will learn how to design a logic programming language using K.
 
-[??'??"]   [Lesson 1, LOGIK](./tutorial/2_languages/4_logik/basic/logik.html)
+- [??'??"]   [Lesson 1, LOGIK](./tutorial/2_languages/4_logik/basic/logik.html)
