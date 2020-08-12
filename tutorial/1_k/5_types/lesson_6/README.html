@@ -137,11 +137,7 @@
             in the K tool distribution that were used in this movie.
           </p>
           <p>
-            <a
-              href="https://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k"
-              target="_blank"
-              rel="noopener"
-            >
+            <a id="try-it-online-link" target="_blank" rel="noopener">
               <img src="../../../../assets/img/try-it-online.jpg" /> Open Full
               Tool Page</a
             >
@@ -149,6 +145,7 @@
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. -->
 <h3>Parallel Type Checkers/Inferencers</h3>
+<p><a href="http://kframework.org/tool/run/?autoload=tutorial/1_k/5_types/lesson_6/lambda.k">Try it online</a></p>
 <p>In this lesson you learn how to define parallel type checkers or
 inferencers. For the sake of a choice, we will parallelize the one in
 the previous lesson, but the ideas are general. We are using the same
@@ -248,6 +245,7 @@ Everything should work.</p>
 Lesson 5, not to improve its expressiveness; it still has the same
 limitations in terms of polymorphism. The next lessons are dedicated
 to polymorphic type inferencers.</p>
+<p>Go to <a href="../lesson_7/README.md">Lesson 7, Type Systems: A Naive Substitution-based Polymorphic Type Inferencer</a>.</p>
 
           </div>
         </main>
@@ -300,6 +298,7 @@ to polymorphic type inferencers.</p>
     <script src="../../../../assets/js/index.js"></script>
     <script>
       $(function () {
+        // Set header
         const headerSelector =
           ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
         if ($(headerSelector).length) {
@@ -312,12 +311,19 @@ to polymorphic type inferencers.</p>
             $(headerSelector)[0].remove();
           }
         }
-        const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
-        if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
-          const match = youtubeHref.match(/^https?:\/\/youtu.be\/(.+?)$/);
-          if (match && match[1]) {
-            const youtubeId = match[1];
-            const $iframe = $(`<iframe
+
+        const anchorElements = document.querySelectorAll(".markdown-preview a");
+        for (let i = 0; i < anchorElements.length; i++) {
+          if (i > 3) {
+            break;
+          }
+          const anchorElement = anchorElements[i];
+          const href = anchorElement.getAttribute("href");
+          if (href.match(/^https?:\/\/youtu.be\//)) {
+            const match = href.match(/^https?:\/\/youtu.be\/(.+?)$/);
+            if (match && match[1]) {
+              const youtubeId = match[1];
+              const $iframe = $(`<iframe
   width="560"
   height="315"
   src="https://www.youtube.com/embed/${youtubeId}"
@@ -326,8 +332,19 @@ to polymorphic type inferencers.</p>
   allowfullscreen
   style="max-width: 100%;"
 ></iframe>`);
-            $(".markdown-preview a")[0].replaceWith($iframe[0]);
+              $(".markdown-preview a")[0].replaceWith($iframe[0]);
+            }
+          } else if (anchorElement.innerText.match(/Try it online/i)) {
+            anchorElement.remove();
+            document
+              .getElementById("try-it-online-link")
+              .setAttribute("href", href);
           }
+        }
+        if (
+          !document.getElementById("try-it-online-link").getAttribute("href")
+        ) {
+          document.getElementById("try-it-online-link").remove();
         }
       });
     </script>

@@ -137,11 +137,7 @@
             in the K tool distribution that were used in this movie.
           </p>
           <p>
-            <a
-              href="https://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k"
-              target="_blank"
-              rel="noopener"
-            >
+            <a id="try-it-online-link" target="_blank" rel="noopener">
               <img src="../../../../assets/img/try-it-online.jpg" /> Open Full
               Tool Page</a
             >
@@ -149,6 +145,7 @@
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. -->
 <h3>A Naive Environment-Based Type Inferencer</h3>
+<p><a href="http://kframework.org/tool/run/?autoload=tutorial/1_k/5_types/lesson_5/lambda.k">Try it online</a></p>
 <p>In this lesson you learn how to define a naive environment-based type
 inferencer for a higher-order language. Specifically, we take the
 substitution-based type inferencer for LAMBDA defined in Lesson 4 and
@@ -194,6 +191,7 @@ in letrec f x = if x &lt;= 0
 in terms of polymorphism, as the one in Lesson 4. In the next
 lesson we will see how it can be parallelized, and in further lessons
 how to make it polymorphic.</p>
+<p>Go to <a href="../lesson_6/README.md">Lesson 6, Type Systems: Parallel Type Checkers/Inferencers</a>.</p>
 
           </div>
         </main>
@@ -246,6 +244,7 @@ how to make it polymorphic.</p>
     <script src="../../../../assets/js/index.js"></script>
     <script>
       $(function () {
+        // Set header
         const headerSelector =
           ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
         if ($(headerSelector).length) {
@@ -258,12 +257,19 @@ how to make it polymorphic.</p>
             $(headerSelector)[0].remove();
           }
         }
-        const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
-        if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
-          const match = youtubeHref.match(/^https?:\/\/youtu.be\/(.+?)$/);
-          if (match && match[1]) {
-            const youtubeId = match[1];
-            const $iframe = $(`<iframe
+
+        const anchorElements = document.querySelectorAll(".markdown-preview a");
+        for (let i = 0; i < anchorElements.length; i++) {
+          if (i > 3) {
+            break;
+          }
+          const anchorElement = anchorElements[i];
+          const href = anchorElement.getAttribute("href");
+          if (href.match(/^https?:\/\/youtu.be\//)) {
+            const match = href.match(/^https?:\/\/youtu.be\/(.+?)$/);
+            if (match && match[1]) {
+              const youtubeId = match[1];
+              const $iframe = $(`<iframe
   width="560"
   height="315"
   src="https://www.youtube.com/embed/${youtubeId}"
@@ -272,8 +278,19 @@ how to make it polymorphic.</p>
   allowfullscreen
   style="max-width: 100%;"
 ></iframe>`);
-            $(".markdown-preview a")[0].replaceWith($iframe[0]);
+              $(".markdown-preview a")[0].replaceWith($iframe[0]);
+            }
+          } else if (anchorElement.innerText.match(/Try it online/i)) {
+            anchorElement.remove();
+            document
+              .getElementById("try-it-online-link")
+              .setAttribute("href", href);
           }
+        }
+        if (
+          !document.getElementById("try-it-online-link").getAttribute("href")
+        ) {
+          document.getElementById("try-it-online-link").remove();
         }
       });
     </script>

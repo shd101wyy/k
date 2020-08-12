@@ -137,11 +137,7 @@
             in the K tool distribution that were used in this movie.
           </p>
           <p>
-            <a
-              href="https://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k"
-              target="_blank"
-              rel="noopener"
-            >
+            <a id="try-it-online-link" target="_blank" rel="noopener">
               <img src="../../../../assets/img/try-it-online.jpg" /> Open Full
               Tool Page</a
             >
@@ -149,6 +145,7 @@
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. -->
 <h3>Abrupt Changes of Control</h3>
+<p><a href="http://kframework.org/tool/run/?autoload=tutorial/1_k/3_lambda%2b%2b/lesson_1/lambda.k">Try it online</a></p>
 <p><a href="http://youtu.be/UZ9iaus024g">MOVIE [6'28&quot;]</a></p>
 <p>Here we add <em>call-with-current-continuation</em> (<code>callcc</code>) to the definition of
 LAMBDA completed in Tutorial 1, and call the resulting language LAMBDA++.
@@ -247,6 +244,7 @@ in the next lesson we take a fresh look at LAMBDA and define it using
 an environment-based style, which avoids the complexity of substitution
 (e.g., having to deal with variable capture) and is closer in spirit to how
 functional languages are implemented.</p>
+<p>Go to <a href="../lesson_2/README.md">Lesson 2, LAMBDA++: Semantic (Non-Syntactic) Computation Items</a>.</p>
 
           </div>
         </main>
@@ -299,6 +297,7 @@ functional languages are implemented.</p>
     <script src="../../../../assets/js/index.js"></script>
     <script>
       $(function () {
+        // Set header
         const headerSelector =
           ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
         if ($(headerSelector).length) {
@@ -311,12 +310,19 @@ functional languages are implemented.</p>
             $(headerSelector)[0].remove();
           }
         }
-        const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
-        if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
-          const match = youtubeHref.match(/^https?:\/\/youtu.be\/(.+?)$/);
-          if (match && match[1]) {
-            const youtubeId = match[1];
-            const $iframe = $(`<iframe
+
+        const anchorElements = document.querySelectorAll(".markdown-preview a");
+        for (let i = 0; i < anchorElements.length; i++) {
+          if (i > 3) {
+            break;
+          }
+          const anchorElement = anchorElements[i];
+          const href = anchorElement.getAttribute("href");
+          if (href.match(/^https?:\/\/youtu.be\//)) {
+            const match = href.match(/^https?:\/\/youtu.be\/(.+?)$/);
+            if (match && match[1]) {
+              const youtubeId = match[1];
+              const $iframe = $(`<iframe
   width="560"
   height="315"
   src="https://www.youtube.com/embed/${youtubeId}"
@@ -325,8 +331,19 @@ functional languages are implemented.</p>
   allowfullscreen
   style="max-width: 100%;"
 ></iframe>`);
-            $(".markdown-preview a")[0].replaceWith($iframe[0]);
+              $(".markdown-preview a")[0].replaceWith($iframe[0]);
+            }
+          } else if (anchorElement.innerText.match(/Try it online/i)) {
+            anchorElement.remove();
+            document
+              .getElementById("try-it-online-link")
+              .setAttribute("href", href);
           }
+        }
+        if (
+          !document.getElementById("try-it-online-link").getAttribute("href")
+        ) {
+          document.getElementById("try-it-online-link").remove();
         }
       });
     </script>

@@ -137,11 +137,7 @@
             in the K tool distribution that were used in this movie.
           </p>
           <p>
-            <a
-              href="https://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k"
-              target="_blank"
-              rel="noopener"
-            >
+            <a id="try-it-online-link" target="_blank" rel="noopener">
               <img src="../../../../assets/img/try-it-online.jpg" /> Open Full
               Tool Page</a
             >
@@ -149,6 +145,7 @@
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. -->
 <h3>Multiple Binding Constructs</h3>
+<p><a href="http://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_8/lambda.k">Try it online</a></p>
 <p><a href="http://youtu.be/Ox4uXDpcY64">MOVIE [2'40&quot;]</a></p>
 <p>Here we learn how multiple language constructs that bind variables can
 coexist. We will also learn about or recall another famous binder besides
@@ -193,6 +190,7 @@ needed to solve the Hanoi tower problem, etc.</p>
 write interesting functional programs.  In the next lesson we will learn how
 to fully document our language definition, in order to disseminate it, to ship
 it to colleagues or friends, to publish it, to teach it, and so on.</p>
+<p>Go to <a href="../lesson_9/README.md">Lesson 9, LAMBDA: A Complete and Commented Definition</a>.</p>
 
           </div>
         </main>
@@ -245,6 +243,7 @@ it to colleagues or friends, to publish it, to teach it, and so on.</p>
     <script src="../../../../assets/js/index.js"></script>
     <script>
       $(function () {
+        // Set header
         const headerSelector =
           ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
         if ($(headerSelector).length) {
@@ -257,12 +256,19 @@ it to colleagues or friends, to publish it, to teach it, and so on.</p>
             $(headerSelector)[0].remove();
           }
         }
-        const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
-        if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
-          const match = youtubeHref.match(/^https?:\/\/youtu.be\/(.+?)$/);
-          if (match && match[1]) {
-            const youtubeId = match[1];
-            const $iframe = $(`<iframe
+
+        const anchorElements = document.querySelectorAll(".markdown-preview a");
+        for (let i = 0; i < anchorElements.length; i++) {
+          if (i > 3) {
+            break;
+          }
+          const anchorElement = anchorElements[i];
+          const href = anchorElement.getAttribute("href");
+          if (href.match(/^https?:\/\/youtu.be\//)) {
+            const match = href.match(/^https?:\/\/youtu.be\/(.+?)$/);
+            if (match && match[1]) {
+              const youtubeId = match[1];
+              const $iframe = $(`<iframe
   width="560"
   height="315"
   src="https://www.youtube.com/embed/${youtubeId}"
@@ -271,8 +277,19 @@ it to colleagues or friends, to publish it, to teach it, and so on.</p>
   allowfullscreen
   style="max-width: 100%;"
 ></iframe>`);
-            $(".markdown-preview a")[0].replaceWith($iframe[0]);
+              $(".markdown-preview a")[0].replaceWith($iframe[0]);
+            }
+          } else if (anchorElement.innerText.match(/Try it online/i)) {
+            anchorElement.remove();
+            document
+              .getElementById("try-it-online-link")
+              .setAttribute("href", href);
           }
+        }
+        if (
+          !document.getElementById("try-it-online-link").getAttribute("href")
+        ) {
+          document.getElementById("try-it-online-link").remove();
         }
       });
     </script>

@@ -137,11 +137,7 @@
             in the K tool distribution that were used in this movie.
           </p>
           <p>
-            <a
-              href="https://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k"
-              target="_blank"
-              rel="noopener"
-            >
+            <a id="try-it-online-link" target="_blank" rel="noopener">
               <img src="../../../../assets/img/try-it-online.jpg" /> Open Full
               Tool Page</a
             >
@@ -149,6 +145,7 @@
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. -->
 <h3>Imperative, Environment-Based Type Systems</h3>
+<p><a href="http://kframework.org/tool/run/?autoload=tutorial/1_k/5_types/lesson_1/imp.k">Try it online</a></p>
 <p><a href="http://youtu.be/WyUxdo7GhtE">MOVIE [10'11&quot;]</a></p>
 <p>In this lesson you learn how to define a type system for an imperative
 language (the IMP++ language defined in Part 4 of the tutorial), using a style
@@ -253,6 +250,7 @@ is needed anyway, to type empty blocks <code>{}</code> (together with the block 
 <p><code>kompile</code> <code>imp.k</code> and <code>krun</code> all the programs in Part 4 of the tutorial.  They
 should all type to <code>stmt</code>.</p>
 <p>In the next lesson we will define a substitution-based type system for LAMBDA.</p>
+<p>Go to <a href="../lesson_2/README.md">Lesson 2, Type Systems: Substitution-Based Higher-Order Type Systems</a>.</p>
 
           </div>
         </main>
@@ -305,6 +303,7 @@ should all type to <code>stmt</code>.</p>
     <script src="../../../../assets/js/index.js"></script>
     <script>
       $(function () {
+        // Set header
         const headerSelector =
           ".markdown-preview h1, .markdown-preview h2, .markdown-preview h3";
         if ($(headerSelector).length) {
@@ -317,12 +316,19 @@ should all type to <code>stmt</code>.</p>
             $(headerSelector)[0].remove();
           }
         }
-        const youtubeHref = $(".markdown-preview a")[0].getAttribute("href");
-        if (youtubeHref.match(/^https?:\/\/youtu.be\//)) {
-          const match = youtubeHref.match(/^https?:\/\/youtu.be\/(.+?)$/);
-          if (match && match[1]) {
-            const youtubeId = match[1];
-            const $iframe = $(`<iframe
+
+        const anchorElements = document.querySelectorAll(".markdown-preview a");
+        for (let i = 0; i < anchorElements.length; i++) {
+          if (i > 3) {
+            break;
+          }
+          const anchorElement = anchorElements[i];
+          const href = anchorElement.getAttribute("href");
+          if (href.match(/^https?:\/\/youtu.be\//)) {
+            const match = href.match(/^https?:\/\/youtu.be\/(.+?)$/);
+            if (match && match[1]) {
+              const youtubeId = match[1];
+              const $iframe = $(`<iframe
   width="560"
   height="315"
   src="https://www.youtube.com/embed/${youtubeId}"
@@ -331,8 +337,19 @@ should all type to <code>stmt</code>.</p>
   allowfullscreen
   style="max-width: 100%;"
 ></iframe>`);
-            $(".markdown-preview a")[0].replaceWith($iframe[0]);
+              $(".markdown-preview a")[0].replaceWith($iframe[0]);
+            }
+          } else if (anchorElement.innerText.match(/Try it online/i)) {
+            anchorElement.remove();
+            document
+              .getElementById("try-it-online-link")
+              .setAttribute("href", href);
           }
+        }
+        if (
+          !document.getElementById("try-it-online-link").getAttribute("href")
+        ) {
+          document.getElementById("try-it-online-link").remove();
         }
       });
     </script>
