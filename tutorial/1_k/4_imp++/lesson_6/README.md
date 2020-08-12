@@ -2,6 +2,8 @@
 
 ### Adding/Deleting Cells Dynamically; Configuration Abstraction, Part 2
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/4_imp%2b%2b/lesson_6/imp.k)
+
 [MOVIE [11'40"]](http://youtu.be/DpJPP3Qtqno)
 
 In this lesson we add dynamic thread creation and termination to IMP, and
@@ -210,3 +212,5 @@ Instead, it provides the functionality to let you decide it.
 
 We currently have no mechanism for thread synchronization. In the next lesson
 we add a `join` statement, which allows a thread to wait until another completes.
+
+Go to [Lesson 7, IMP++: Everything Changes: Syntax, Configuration, Semantics](../lesson_7/README.md).

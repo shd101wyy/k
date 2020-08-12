@@ -2,6 +2,8 @@
 
 ### Defining a Configuration
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/2_imp/lesson_2/imp.k)
+
 [MOVIE [04'21"]](http://youtu.be/jkwLyGdt70U)
 
 Here we learn how to define a configuration in K. We also learn how to
@@ -87,3 +89,6 @@ Compile again with the `--pdf` option and take a look at the new configuration.
 The cells should be now colored as indicated.
 
 In the next lesson we will learn how to write rules that involve cells.
+
+Go to [Lesson 3, IMP: Computations, Results, Strictness; Rules Involving Cells](../lesson_3/README.md).
+

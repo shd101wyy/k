@@ -2,6 +2,8 @@
 
 ### Configuration Abstraction, Part 1; Types of Rules
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/2_imp/lesson_4/imp.k)
+
 [MOVIE [09'16"]](http://youtu.be/fR2VEfGHtho)
 
 Here we will complete the K definition of IMP and, while doing so, we will
@@ -143,3 +145,5 @@ documentation. The assignment rule should particularly be of interest,
 because it contains two local rewrites.
 
 In the next lesson we comment the IMP definition and conclude this tutorial.
+
+Go to [Lesson 5, IMP: Completing and Documenting IMP](../lesson_5/README.md).

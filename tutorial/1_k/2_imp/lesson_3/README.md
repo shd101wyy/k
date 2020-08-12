@@ -2,6 +2,8 @@
 
 ### Computations, Results, Strictness; Rules Involving Cells
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/2_imp/lesson_3/imp.k)
+
 [MOVIE [10'30"]](http://youtu.be/gYPkhiT2SxA)
 
 In this lesson we will learn about the syntactic category `K` of computations,
@@ -201,3 +203,5 @@ underlined, and its replacement is written underneath the line.
 
 In the next lesson we define the complete K semantics of IMP and
 run the programs we parsed in the first lesson.
+
+Go to [Lesson 4, IMP: Configuration Abstraction, Part 1; Types of Rules](../lesson_4/README.md).

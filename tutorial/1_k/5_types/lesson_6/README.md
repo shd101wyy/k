@@ -2,6 +2,8 @@
 
 ### Parallel Type Checkers/Inferencers
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/5_types/lesson_6/lambda.k)
+
 In this lesson you learn how to define parallel type checkers or
 inferencers. For the sake of a choice, we will parallelize the one in
 the previous lesson, but the ideas are general. We are using the same
@@ -117,3 +119,6 @@ In this lesson we only aimed at parallelizing the type inferencer in
 Lesson 5, not to improve its expressiveness; it still has the same
 limitations in terms of polymorphism. The next lessons are dedicated
 to polymorphic type inferencers.
+
+Go to [Lesson 7, Type Systems: A Naive Substitution-based Polymorphic Type Inferencer](../lesson_7/README.md).  
+

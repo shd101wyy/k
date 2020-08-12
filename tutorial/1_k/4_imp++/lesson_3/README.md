@@ -2,6 +2,8 @@
 
 ### Tagging; Transition Kompilation Option
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/4_imp%2b%2b/lesson_3/imp.k)
+
 [MOVIE [06'56"]](http://youtu.be/uwCUfWt7n-o)
 
 In this lesson we add the semantics of variable increment. In doing so, we
@@ -127,3 +129,6 @@ want to bother inventing tag names and calling `kompile` with options.
 
 In the next lesson we add input/output to our language and learn how to
 generate a model of it which behaves like an interactive interpreter!
+
+Go to [Lesson 4, IMP++: Semantic Lists; Input/Output Streaming](../lesson_4/README.md).
+

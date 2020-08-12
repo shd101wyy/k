@@ -2,6 +2,8 @@
 
 ### Deleting, Saving and Restoring Cell Contents
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/4_imp%2b%2b/lesson_5/imp.k)
+
 [MOVIE [04'30"]](http://youtu.be/Hr1yfcnee_c)
 
 In this lesson we will see how easily we can delete, save and/or restore
@@ -57,3 +59,5 @@ unlike LAMBDA++'s expressions, evaluate to nothing (`.`).
 
 In the next lesson we will give semantics to the `spawn S` construct, which
 dynamically creates a concurrent shared-memory thread executing statement `S`.
+
+Go to [Lesson 6, IMP++: Adding/Deleting Cells Dynamically; Configuration Abstraction, Part 2](../lesson_6/README.md).

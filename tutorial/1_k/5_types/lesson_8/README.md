@@ -2,6 +2,8 @@
 
 ### A Naive Environment-based Polymorphic Type Inferencer
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/5_types/lesson_8/lambda.k)
+
 In this short lesson we discuss how to quickly turn a naive
 environment-based monomorphic type inferencer into a naive let-polymorphic
 one. Like in the previous lesson, we only need to change a few
@@ -47,3 +49,6 @@ again in each place where the let-bound variable occurs.
 In the next lesson we will discuss a type inferencer based on the
 classic Damas-Hindley-Milner type system, which maximizes the reuse of
 typing work by means of parametric types.
+
+Go to [Lesson 9, Type Systems: Let-Polymorphic Type Inferencer (Damas-Hindley-Milner)](../lesson_9/README.md).
+

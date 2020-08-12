@@ -2,6 +2,8 @@
 
 ### Environment-Based Higher-Order Type Systems
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/5_types/lesson_3/lambda.k)
+
 In this lesson you learn how to define an environment-based type system for
 a higher-order language, namely the LAMBDA language defined in Part 1 of the
 tutorial.
@@ -60,3 +62,6 @@ rule <k> _:Type ~> (Rho => .) ...</k> <tenv> _ => Rho </tenv>
 The changes that we applied to the substitution-based definition were
 therefore quite systematic: each substitution invocation was replaced with
 an appropriate type environment update/recovery.
+
+Go to [Lesson 4, Type Systems: A Naive Substitution-Based Type Inferencer](../lesson_4/README.md).
+

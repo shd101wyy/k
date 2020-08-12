@@ -2,6 +2,8 @@
 
 ### Syntax Modules and Basic K Commands
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/1_lambda/lesson_1/lambda.k)
+
 [MOVIE [4'07"]](http://youtu.be/y5Tf1EZVj8E)
 
 Here we define our first K module, which contains the initial syntax of the
@@ -109,3 +111,5 @@ parser generates error messages.
 In the next lesson we will see how to define semantic rules that iteratively
 rewrite expressions over the defined syntax until they evaluate to a result.
 This way, we obtain our first programming language defined using K.
+
+Go to [Lesson 2, LAMBDA: Module Importing, Rules, Variables](../lesson_2/README.md)

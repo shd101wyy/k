@@ -2,6 +2,8 @@
 
 ### Everything Changes: Syntax, Configuration, Semantics
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/4_imp%2b%2b/lesson_7/imp.k)
+
 In this lesson we add thread joining, one of the simplest thread
 synchronization mechanisms. In doing so, we need to add unique ids
 to threads in the configuration, and to modify the syntax to allow `spawn`
@@ -87,3 +89,5 @@ Also, compact definitions are desirable in general, because they are easier
 to read and easier to change if needed later.
 
 In the next lesson we wrap up and document the definition of IMP++.
+
+Go to [Lesson 8, IMP++: Wrapping up Larger Languages](../lesson_8/README.md).

@@ -2,6 +2,8 @@
 
 ### Defining a More Complex Syntax
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/2_imp/lesson_1/imp.k)
+
 [MOVIE [09'15"]](http://youtu.be/F39Ta1stiCM)
 
 Here we learn how to define a more complex language syntax than LAMBDA's,
@@ -181,3 +183,5 @@ syntax because of tool limitations, we would like to know. Please tell us.
 
 Until now we have only seen default configurations. In the next lesson we
 will learn how to define a K custom configuration.
+
+Go to [Lesson 2, IMP: Defining a Configuration](../lesson_2/README.md).

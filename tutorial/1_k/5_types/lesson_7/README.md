@@ -2,6 +2,8 @@
 
 ### A Naive Substitution-based Polymorphic Type Inferencer
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/5_types/lesson_7/lambda.k)
+
 In this lesson you learn how little it takes to turn a naive monomorphic
 type inferencer into a naive polymorphic one, basically only changing
 a few characters. In terms of the K framework, you will learn that
@@ -122,3 +124,6 @@ let-polymorphic type inferencer in Lesson 9, which is based on
 environments, we first quickly discuss in Lesson 8 an intermediate
 step, namely a naive environment-based variant of the inferencer
 defined here.
+
+Go to [Lesson 8, Type Systems: A Naive Environment-based Polymorphic Type Inferencer](../lesson_8/README.md).
+

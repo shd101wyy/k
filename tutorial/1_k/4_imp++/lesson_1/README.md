@@ -2,6 +2,8 @@
 
 ### Extending/Changing an Existing Language Syntax
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/4_imp%2b%2b/lesson_1/imp.k)
+
 [MOVIE [07'47"]](http://youtu.be/hWqJ8k9NNp8)
 
 Here we learn how to extend the syntax of an existing language, both with
@@ -94,3 +96,5 @@ In the next lesson we will prepare the configuration for the new constructs,
 and will see what it takes to adapt the semantics to the new configuration.
 Specifically, we will split the state cell into an environment cell and a
 store cell, like in LAMBDA++ in Part 3 of the tutorial.
+
+Go to [Lesson 2, IMP++: Configuration Refinement; Freshness](../lesson_2/README.md).

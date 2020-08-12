@@ -2,6 +2,8 @@
 
 ### Configuration Refinement; Freshness
 
+[Try it online](http://kframework.org/tool/run/?autoload=tutorial/1_k/4_imp%2b%2b/lesson_2/imp.k)
+
 [MOVIE [04'06"]](http://youtu.be/f-qrqs8cMcU)
 
 To prepare for the semantics of threads and local variables, in this lesson we
@@ -73,3 +75,5 @@ configuration.
 In the next lesson we will add the semantics of variable increment, and see
 how that yields non-deterministic behaviors in programs and how to explore
 those behaviors using the K tool.
+
+Go to [Lesson 3, IMP++: Tagging; Superheat/Supercool Kompilation Options](../lesson_3/README.md).
