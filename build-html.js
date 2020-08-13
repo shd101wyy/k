@@ -60,21 +60,28 @@ function generateOutputWebpage(sourceHTML, targetFilePath, variables = {}) {
   console.log("Written file: " + filePath);
 }
 
-function generateWebpages() {
-  fs.rmdirSync(path.join(__dirname, "./public_content/tutorial"), {
-    recursive: true,
-  });
-
-  const helper = (dirPath, template = "") => {
+/**
+ *
+ * @param {string} sourceDirectory
+ * @param {string} outputDirectory
+ * @param {string} template
+ */
+function generatePagesFromMarkdownFiles(
+  sourceDirectory,
+  outputDirectory,
+  template = ""
+) {
+  const helper = (dirPath) => {
     for (const file of fs.readdirSync(dirPath)) {
       if (fs.statSync(path.resolve(dirPath, file)).isDirectory()) {
-        helper(path.resolve(dirPath, file), template);
+        helper(path.resolve(dirPath, file));
       } else if (file.endsWith(".md")) {
         const targetFilePath = path
           .resolve(
-            dirPath
-              .replace(/\/tutorial\//, "/public_content/tutorial/")
-              .replace(/\/pages\//, "/public_content/"),
+            path.resolve(
+              outputDirectory,
+              path.relative(sourceDirectory, dirPath)
+            ),
             file
           )
           .replace(/\.md$/, ".html");
@@ -90,20 +97,29 @@ function generateWebpages() {
       }
     }
   };
-
-  const tutorialTemplate = fs
-    .readFileSync("./static_content/html/tutorial_template.html")
-    .toString("utf-8");
-  const pageTemplate = fs
-    .readFileSync("./static_content/html/page_template.html")
-    .toString("utf-8");
-
-  helper(path.join(__dirname, "./tutorial/"), tutorialTemplate);
-  helper(path.join(__dirname, "./pages/"), pageTemplate);
+  helper(sourceDirectory, template);
 }
 
 for (file in files) {
   generateOutputWebpage(fs.readFileSync(file).toString("utf-8"), files[file]);
 }
 
-generateWebpages();
+fs.rmdirSync(path.join(__dirname, "./public_content/tutorial"), {
+  recursive: true,
+});
+const tutorialTemplate = fs
+  .readFileSync("./static_content/html/tutorial_template.html")
+  .toString("utf-8");
+const pageTemplate = fs
+  .readFileSync("./static_content/html/page_template.html")
+  .toString("utf-8");
+generatePagesFromMarkdownFiles(
+  path.resolve(__dirname, "./tutorial/"),
+  path.resolve(__dirname, "./public_content/tutorial/"),
+  tutorialTemplate
+);
+generatePagesFromMarkdownFiles(
+  path.resolve(__dirname, "./pages/"),
+  path.resolve(__dirname, "./public_content/"),
+  pageTemplate
+);

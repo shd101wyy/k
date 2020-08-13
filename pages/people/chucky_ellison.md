@@ -1,6 +1,6 @@
 # Chucky Ellison
 
-[Chucky Ellison](http://fsl.cs.uiuc.edu/celliso2) is a former grad student from the University of Illinois at Urbana-Champaign working with prof. [Grigore Rosu](http://www.kframework.org/index.php/Grigore_Rosu). He graduated in 2012. 
+[Chucky Ellison](http://fsl.cs.uiuc.edu/celliso2) is a former grad student from the University of Illinois at Urbana-Champaign working with prof. [Grigore Rosu](./grigore_rosu.md). He graduated in 2012. 
 
 His new website can be found here: <http://www.freefour.com/>. 
 
@@ -8,7 +8,7 @@ His new website can be found here: <http://www.freefour.com/>.
 
 - Working on the semantics of C. 
 - Gave formal semantics to a number of esoteric languages including BF and Befunge. 
-- Involved in the [Matching Logic](http://www.kframework.org/index.php/Matching_Logic) project. 
+- Involved in the [Matching Logic](http://www.matching-logic.org/index.php/Matching_Logic) project. 
 
 ## Publications Related to the K Framework
 

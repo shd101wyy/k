@@ -45,7 +45,9 @@
         event.preventDefault();
         window.open(
           `https://www.google.com/search?q=site:${
-            location.hostname
+            location.hostname.match(/\.github\.io/)
+              ? location.hostname + "/k"
+              : location.hostname
           }%20${encodeURIComponent($("#search-box").val())}`,
           "_blank"
         );

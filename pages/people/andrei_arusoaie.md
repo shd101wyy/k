@@ -1,6 +1,6 @@
 # Andrei Arusoaie
 
-[Andrei Arusoaie](http://sites.google.com/site/andreiarusoaiepage/) is a PhD student at the Alexandru Ioan-Cuza University in Iasi, Romania, under the supervision of Prof. [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu). 
+[Andrei Arusoaie](http://sites.google.com/site/andreiarusoaiepage/) is a PhD student at the Alexandru Ioan-Cuza University in Iasi, Romania, under the supervision of Prof. [Dorel Lucanu](./dorel_lucanu.md). 
 
 **Role in the K Framework Project**
 

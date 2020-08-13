@@ -1,6 +1,6 @@
 # Feng Chen
 
-[Feng Chen](http://fsl.cs.uiuc.edu/index.php/Feng_Chen) completed his PhD under [Grigore Rosu](http://www.kframework.org/index.php/Grigore_Rosu) in 2009. 
+[Feng Chen](http://fsl.cs.uiuc.edu/index.php/Feng_Chen) completed his PhD under [Grigore Rosu](./grigore_rosu.md) in 2009. 
 
 **Role in the K Framework Project**
 

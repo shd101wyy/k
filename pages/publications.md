@@ -21,25 +21,25 @@ Here are the most relevant publications to learn about K and what you can do wit
 
 - A brief introduction to the current K tool:  
   _[The K Primer (version 3.3)](<http://fsl.cs.uiuc.edu/index.php/The_K_Primer_(version\*3.3)>)_  
-  [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Andrei Arusoaie](./people/andrei_arusoaie.md) and [David Lazar](https://davidlazar.org/) and [Chucky Ellison](./people/chucky_ellison.md) and [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu) and [Grigore Rosu](./people/grigore_rosu.md)
+  [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Andrei Arusoaie](./people/andrei_arusoaie.md) and [David Lazar](https://davidlazar.org/) and [Chucky Ellison](./people/chucky_ellison.md) and [Dorel Lucanu](./people/dorel_lucanu.md) and [Grigore Rosu](./people/grigore_rosu.md)
   _**K'11**_, ENTCS 304, pp 57-80. 2014  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2013/k-primer-2013-v32/k-primer-2013-v32-public.pdf), [K](http://kframework.org/), [DOI](http://dx.doi.org/10.1016/j.entcs.2014.05.003), [K'11](http://www.kframework.org/K11/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2013/k-primer-2013-v32/k-primer-2013-v32-ref.bib)
 
 - A non-trivial application of K, the most complete formal definition of C to date:  
   _[Defining the Undefinedness of C](http://fsl.cs.uiuc.edu/index.php/Defining_the_Undefinedness_of_C)_  
-  [Chris Hathhorn](http://www.kframework.org/index.php/Chris_Hathhorn) and [Chucky Ellison](./people/chucky_ellison.md) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Chris Hathhorn](https://runtimeverification.com/team#chris-hathhorn) and [Chucky Ellison](./people/chucky_ellison.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_PLDI'15_**, ACM, pp 336-345. 2015  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2015/hathhorn-ellison-rosu-2015-pldi/hathhorn-ellison-rosu-2015-pldi-public.pdf), [C Semantics](https://github.com/kframework/c-semantics), [DOI](http://dx.doi.org/10.1145/2813885.2737979), [PLDI'15](http://conf.researchr.org/home/pldi2015), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2015/hathhorn-ellison-rosu-2015-pldi/hathhorn-ellison-rosu-2015-pldi-ref.bib)
 
 - A non-trivial application of K, the most complete formal definition of Java to date:  
   _[K-Java: A Complete Semantics of Java](http://fsl.cs.uiuc.edu/index.php/K-Java:_A_Complete_Semantics_of_Java)_  
-  [Denis Bogdanas](http://www.kframework.org/index.php/Denis_Bogdanas) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Denis Bogdanas](https://runtimeverification.com/team/#denis-bogdanas) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_POPL'15_**, ACM, pp 445-456. 2015  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2015/bogdanas-rosu-2015-popl/bogdanas-rosu-2015-popl-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2015/2015-01-16-K-Java-POPL/2015-01-16-K-Java-POPL.pdf), [K-Java](https://github.com/kframework/java-semantics), [DOI](http://dx.doi.org/10.1145/2676726.2676982), [POPL'15](http://popl.mpi-sws.org/2015/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2015/bogdanas-rosu-2015-popl/bogdanas-rosu-2015-popl-ref.bib)
 
 - A non-trivial application of K, the most complete formal definition of JavaScript to date:  
   _[KJS: A Complete Formal Semantics of JavaScript](http://fsl.cs.uiuc.edu/index.php/KJS:_A_Complete_Formal_Semantics_of_JavaScript)_  
-  [Daejun Park](http://www.kframework.org/index.php/Daejun_Park) and [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Daejun Park](https://runtimeverification.com/team/#daejun-park) and [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_PLDI'15_**, ACM, pp 346-356. 2015  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2015/park-stefanescu-rosu-2015-pldi/park-stefanescu-rosu-2015-pldi-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2015/2015-06-16-park-stefanescu-rosu-PLDI.pdf), [Semantics](https://github.com/kframework/javascript-semantics), [DOI](http://dx.doi.org/10.1145/2737924.2737991), [PLDI'15](http://conf.researchr.org/home/pldi2015), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2015/park-stefanescu-rosu-2015-pldi/park-stefanescu-rosu-2015-pldi-ref.bib)
 
@@ -48,7 +48,7 @@ Here are the most relevant publications to learn about K and what you can do wit
 Here are all publications about K, in reverse chronological order.
 
 - _[A Complete Formal Semantics of x86-64 User-Level Instruction Set Architecture](http://fsl.cs.uiuc.edu/index.php/A_Complete_Formal_Semantics_of_x86-64_User-Level_Instruction_Set_Architecture)_  
-   [Sandeep Dasgupta](http://www.kframework.org/index.php/Sandeep_Dasgupta) and [Daejun Park](http://www.kframework.org/index.php/Daejun_Park) and [Theodoros Kasampalis](https://runtimeverification.com/team/#theodoros-kasampalis) and [Vikram S. Adve](http://www.kframework.org/index.php/Vikram_S._Adve) and [Grigore Rosu](./people/grigore_rosu.md)  
+   Sandeep Dasgupta and [Daejun Park](https://runtimeverification.com/team/#daejun-park) and [Theodoros Kasampalis](https://runtimeverification.com/team/#theodoros-kasampalis) and [Vikram S. Adve](https://vikram.cs.illinois.edu/) and [Grigore Rosu](./people/grigore_rosu.md)  
    **_PLDI'19_**, ACM, pp 1133-1148. 2019  
    [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2019/dasgupta-park-kasampalis-adve-rosu-2019-pldi/dasgupta-park-kasampalis-adve-rosu-2019-pldi-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2019/2019-06-26-PLDI.pdf), [Semantics](https://github.com/kframework/X86-64-semantics), [DOI](http://dx.doi.org/10.1145/3314221.3314601), [PLDI'19](https://conf.researchr.org/home/pldi-2019), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2019/dasgupta-park-kasampalis-adve-rosu-2019-pldi/dasgupta-park-kasampalis-adve-rosu-2019-pldi-ref.bib)
 
@@ -63,17 +63,17 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2018/chen-rosu-2018-isola/chen-rosu-2018-isola-public.pdf), [Slides(PPTX)](http://fslweb.cs.illinois.edu/FSL/presentations/2018/2018-11-09-ISoLA.pptx), [DOI](https://doi.org/10.1007/978-3-030-03421-4_7), [ISoLA'18](https://link.springer.com/chapter/10.1007/978-3-030-03421-4_7), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2018/chen-rosu-2018-isola/chen-rosu-2018-isola-ref.bib)
 
 - _[A Language-Independent Approach to Smart Contract Verification](http://fsl.cs.uiuc.edu/index.php/A_Language-Independent_Approach_to_Smart_Contract_Verification)_  
-  [Xiaohong Chen](http://fsl.cs.illinois.edu/index.php/Xiaohong_Chen?action=render) and [Daejun Park](http://www.kframework.org/index.php/Daejun_Park) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Xiaohong Chen](http://fsl.cs.illinois.edu/index.php/Xiaohong_Chen?action=render) and [Daejun Park](https://runtimeverification.com/team/#daejun-park) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_ISoLA'18_**, Springer, pp 405-413. 2018  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2018/chen-park-rosu-2018-isola/chen-park-rosu-2018-isola-public.pdf), [Slides(PPTX)](http://fslweb.cs.illinois.edu/FSL/presentations/2018/2018-11-05-ISoLA.pptx), [Formally Verified Smart Contracts](https://github.com/runtimeverification/verified-smart-contracts/), [DOI](https://doi.org/10.1007/978-3-030-03427-6_30), [ISoLA'18](https://link.springer.com/chapter/10.1007/978-3-030-03427-6_30), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2018/chen-park-rosu-2018-isola/chen-park-rosu-2018-isola-ref.bib)
 
 - _[A Formal Verification Tool for Ethereum VM Bytecode](http://fsl.cs.uiuc.edu/index.php/A_Formal_Verification_Tool_for_Ethereum_VM_Bytecode)_  
-  [Daejun Park](http://www.kframework.org/index.php/Daejun_Park) and [Yi Zhang](http://fsl.cs.illinois.edu/index.php/Yi_Zhang?action=render) and [Manasvi Saxena](http://fsl.cs.illinois.edu/index.php/Manasvi_Saxena?action=render) and [Philip Daian](http://fsl.cs.illinois.edu/index.php/Philip_Daian?action=render) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Daejun Park](https://runtimeverification.com/team/#daejun-park) and [Yi Zhang](http://fsl.cs.illinois.edu/index.php/Yi_Zhang?action=render) and [Manasvi Saxena](http://fsl.cs.illinois.edu/index.php/Manasvi_Saxena?action=render) and [Philip Daian](http://fsl.cs.illinois.edu/index.php/Philip_Daian?action=render) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_ESEC/FSE'18_**, ACM, pp 912-915. 2018  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2018/park-zhang-saxena-daian-rosu-2018-fse/park-zhang-saxena-daian-rosu-2018-fse-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2018/2018-11-07-park-zhang-saxena-daian-rosu-FSE.pdf), [Formally Verified Smart Contracts](https://github.com/runtimeverification/verified-smart-contracts/), [DOI](http://dx.doi.org/10.1145/3236024.3264591), [ESEC/FSE'18](https://conf.researchr.org/home/fse-2018), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2018/park-zhang-saxena-daian-rosu-2018-fse/park-zhang-saxena-daian-rosu-2018-fse-ref.bib)
 
 - _[IELE: An Intermediate-Level Blockchain Language Designed and Implemented Using Formal Semantics](http://fsl.cs.uiuc.edu/index.php/IELE:_An_Intermediate-Level_Blockchain_Language_Designed_and_Implemented_Using_Formal_Semantics)_  
-  [Theodoros Kasampalis](https://runtimeverification.com/team/#theodoros-kasampalis) and [Dwight Guth](https://runtimeverification.com/team/#dwight-guth) and [Brandon Moore](https://runtimeverification.com/team/#brandon-moore) and [Traian Serbanuta](./people/traian_florin_serbanuta.md) and [Virgil Serbanuta](https://runtimeverification.com/team/#virgil-%C8%99erb%C4%83nu%C8%9B%C4%83) and [Daniele Filaretti](http://www.kframework.org/index.php/Daniele_Filaretti) and [Grigore Rosu](./people/grigore_rosu.md) and [Ralph Johnson](https://runtimeverification.com/team/#ralph-johnson)  
+  [Theodoros Kasampalis](https://runtimeverification.com/team/#theodoros-kasampalis) and [Dwight Guth](https://runtimeverification.com/team/#dwight-guth) and [Brandon Moore](https://runtimeverification.com/team/#brandon-moore) and [Traian Serbanuta](./people/traian_florin_serbanuta.md) and [Virgil Serbanuta](https://runtimeverification.com/team/#virgil-%C8%99erb%C4%83nu%C8%9B%C4%83) and Daniele Filaretti and [Grigore Rosu](./people/grigore_rosu.md) and [Ralph Johnson](https://runtimeverification.com/team/#ralph-johnson)  
   **_Technical Report_** <http://hdl.handle.net/2142/100320>, July 2018  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2018/kasampalis-guth-moore-serbanuta-serbanuta-filaretti-rosu-johnson-2018-tr/kasampalis-guth-moore-serbanuta-serbanuta-filaretti-rosu-johnson-2018-tr-public.pdf), [IELE](https://github.com/runtimeverification/iele-semantics), [DOI](http://hdl.handle.net/2142/100320), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2018/kasampalis-guth-moore-serbanuta-serbanuta-filaretti-rosu-johnson-2018-tr/kasampalis-guth-moore-serbanuta-serbanuta-filaretti-rosu-johnson-2018-tr-ref.bib)
 
@@ -83,7 +83,7 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2018/kheradmand-rosu-2018-tr/kheradmand-rosu-2018-tr-public.pdf), [P4K](https://github.com/kframework/p4-semantics/), [DOI](https://arxiv.org/abs/1804.01468), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2018/kheradmand-rosu-2018-tr/kheradmand-rosu-2018-tr-ref.bib)
 
 - _[KEVM: A Complete Semantics of the Ethereum Virtual Machine](http://fsl.cs.uiuc.edu/index.php/KEVM:_A_Complete_Semantics_of_the_Ethereum_Virtual_Machine)_  
-  [Everett Hildenbrandt](http://fsl.cs.illinois.edu/index.php/Everett_Hildenbrandt?action=render) and [Manasvi Saxena](http://fsl.cs.illinois.edu/index.php/Manasvi_Saxena?action=render) and Xiaoran Zhu and [Nishant Rodrigues](https://runtimeverification.com/team/#nishant-rodrigues) and [Philip Daian](http://fsl.cs.illinois.edu/index.php/Philip_Daian?action=render) and [Dwight Guth](https://runtimeverification.com/team/#dwight-guth) and [Brandon Moore](https://runtimeverification.com/team/#brandon-moore) and [Yi Zhang](http://fsl.cs.illinois.edu/index.php/Yi_Zhang?action=render) and [Daejun Park](http://www.kframework.org/index.php/Daejun_Park) and [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Everett Hildenbrandt](http://fsl.cs.illinois.edu/index.php/Everett_Hildenbrandt?action=render) and [Manasvi Saxena](http://fsl.cs.illinois.edu/index.php/Manasvi_Saxena?action=render) and Xiaoran Zhu and [Nishant Rodrigues](https://runtimeverification.com/team/#nishant-rodrigues) and [Philip Daian](http://fsl.cs.illinois.edu/index.php/Philip_Daian?action=render) and [Dwight Guth](https://runtimeverification.com/team/#dwight-guth) and [Brandon Moore](https://runtimeverification.com/team/#brandon-moore) and [Yi Zhang](http://fsl.cs.illinois.edu/index.php/Yi_Zhang?action=render) and [Daejun Park](https://runtimeverification.com/team/#daejun-park) and [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_CSF 2018_**, IEEE, pp 204-217. 2018  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2018/hildenbrandt-saxena-zhu-rodrigues-daian-guth-moore-zhang-park-rosu-2018-csf/hildenbrandt-saxena-zhu-rodrigues-daian-guth-moore-zhang-park-rosu-2018-csf-public.pdf), [KEVM](http://github.com/kframework/evm-semantics/), [CSF 2018](https://www.cs.ox.ac.uk/conferences/csf2018/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2018/hildenbrandt-saxena-zhu-rodrigues-daian-guth-moore-zhang-park-rosu-2018-csf/hildenbrandt-saxena-zhu-rodrigues-daian-guth-moore-zhang-park-rosu-2018-csf-ref.bib)
 
@@ -98,22 +98,22 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2017/rosu-2017-marktoberdorf/rosu-2017-marktoberdorf-public.pdf), [K](http://kframework.org/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2017/rosu-2017-marktoberdorf/rosu-2017-marktoberdorf-ref.bib)
 
 - _[Semantics-Based Program Verifiers for All Languages](http://fsl.cs.uiuc.edu/index.php/Semantics-Based_Program_Verifiers_for_All_Languages)_  
-  [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Daejun Park](http://www.kframework.org/index.php/Daejun_Park) and [Shijiao Yuwen](http://fsl.cs.illinois.edu/index.php/Shijiao_Yuwen?action=render) and [Yilong Li](http://fsl.cs.illinois.edu/index.php/Yilong_Li?action=render) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Daejun Park](https://runtimeverification.com/team/#daejun-park) and [Shijiao Yuwen](http://fsl.cs.illinois.edu/index.php/Shijiao_Yuwen?action=render) and [Yilong Li](http://fsl.cs.illinois.edu/index.php/Yilong_Li?action=render) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_OOPSLA'16_**, ACM, pp 74-91. 2016  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2016/stefanescu-park-yuwen-li-rosu-2016-oopsla/stefanescu-park-yuwen-li-rosu-2016-oopsla-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2016/2016-11-02-stefanescu-park-yuwen-li-rosu-OOPSLA.pdf), [Matching Logic](http://matching-logic.org/), [DOI](http://dx.doi.org/10.1145/2983990.2984027), [OOPSLA'16](http://2016.splashcon.org/track/splash-2016-oopsla), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2016/stefanescu-park-yuwen-li-rosu-2016-oopsla/stefanescu-park-yuwen-li-rosu-2016-oopsla-ref.bib)
 
 - _[RV-Match: Practical Semantics-Based Program Analysis](http://fsl.cs.uiuc.edu/index.php/RV-Match:_Practical_Semantics-Based_Program_Analysis)_  
-  [Dwight Guth](https://runtimeverification.com/team/#dwight-guth) and [Chris Hathhorn](http://www.kframework.org/index.php/Chris_Hathhorn) and [Manasvi Saxena](http://fsl.cs.illinois.edu/index.php/Manasvi_Saxena?action=render) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Dwight Guth](https://runtimeverification.com/team/#dwight-guth) and [Chris Hathhorn](https://runtimeverification.com/team#chris-hathhorn) and [Manasvi Saxena](http://fsl.cs.illinois.edu/index.php/Manasvi_Saxena?action=render) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_CAV'16_**, LNCS 9779, pp 447-453. 2016  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2016/guth-hathhorn-saxena-rosu-2016-cav/guth-hathhorn-saxena-rosu-2016-cav-public.pdf), [RV-Match](https://runtimeverification.com/match), [DOI](http://dx.doi.org/10.1007/978-3-319-41528-4_24), [CAV'16](http://i-cav.org/2016/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2016/guth-hathhorn-saxena-rosu-2016-cav/guth-hathhorn-saxena-rosu-2016-cav-ref.bib)
 
 - _[A Language-Independent Proof System for Full Program Equivalence](http://fsl.cs.uiuc.edu/index.php/A_Language-Independent_Proof_System_for_Full_Program_Equivalence)_  
-  [Stefan Ciobaca](http://www.kframework.org/index.php/Stefan_Ciobaca) and [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu) and [Vlad Rusu](http://www.kframework.org/index.php/Vlad_Rusu) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Stefan Ciobaca](http://thor.info.uaic.ro/~stefan.ciobaca) and [Dorel Lucanu](./people/dorel_lucanu.md) and [Vlad Rusu](./people/vlad_rusu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_J.FAOC_**, Volume 28(3), pp 469-497. 2016  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2016/ciobaca-lucanu-rusu-rosu-2016-faoc/ciobaca-lucanu-rusu-rosu-2016-faoc-public.pdf), [Matching Logic](http://matching-logic.org/), [DOI](http://dx.doi.org/10.1007/s00165-016-0361-7), [J.FAOC](http://link.springer.com/journal/165), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2016/ciobaca-lucanu-rusu-rosu-2016-faoc/ciobaca-lucanu-rusu-rosu-2016-faoc-ref.bib)
 
 - _[Towards a Kool Future](http://fsl.cs.uiuc.edu/index.php/Towards_a_Kool_Future)_  
-  [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu) and [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Dorel Lucanu](./people/dorel_lucanu.md) and [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_Boer's Festschrift_**, LNCS 9660, pp 325-343. 2016  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2016/lucanu-serbanuta-rosu-2016-boer/lucanu-serbanuta-rosu-2016-boer-public.pdf), [K](http://kframework.org/), [DOI](http://dx.doi.org/10.1007/978-3-319-30734-3_22), [Boer's Festschrift](http://www.springer.com/us/book/9783319307336), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2016/lucanu-serbanuta-rosu-2016-boer/lucanu-serbanuta-rosu-2016-boer-ref.bib)
 
@@ -123,22 +123,22 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2015/rosu-2015-meseguer/rosu-2015-meseguer-public.pdf), [Slides(PPTX)](http://fslweb.cs.illinois.edu/FSL/presentations/2015/2015-09-24-Meseguer.pptx), [K](http://kframework.org/), [DOI](http://dx.doi.org/10.1007/978-3-319-23165-5_28), [Meseguer's Festschrift](http://meseguer-fest.ifi.uio.no/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2015/rosu-2015-meseguer/rosu-2015-meseguer-ref.bib)
 
 - _[Defining the Undefinedness of C](http://fsl.cs.uiuc.edu/index.php/Defining_the_Undefinedness_of_C)_  
-  [Chris Hathhorn](http://www.kframework.org/index.php/Chris_Hathhorn) and [Chucky Ellison](./people/chucky_ellison.md) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Chris Hathhorn](https://runtimeverification.com/team#chris-hathhorn) and [Chucky Ellison](./people/chucky_ellison.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_PLDI'15_**, ACM, pp 336-345. 2015  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2015/hathhorn-ellison-rosu-2015-pldi/hathhorn-ellison-rosu-2015-pldi-public.pdf), [C Semantics](https://github.com/kframework/c-semantics), [DOI](http://dx.doi.org/10.1145/2813885.2737979), [PLDI'15](http://conf.researchr.org/home/pldi2015), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2015/hathhorn-ellison-rosu-2015-pldi/hathhorn-ellison-rosu-2015-pldi-ref.bib)
 
 - _[KJS: A Complete Formal Semantics of JavaScript](http://fsl.cs.uiuc.edu/index.php/KJS:_A_Complete_Formal_Semantics_of_JavaScript)_  
-  [Daejun Park](http://www.kframework.org/index.php/Daejun_Park) and [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Daejun Park](https://runtimeverification.com/team/#daejun-park) and [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_PLDI'15_**, ACM, pp 346-356. 2015  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2015/park-stefanescu-rosu-2015-pldi/park-stefanescu-rosu-2015-pldi-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2015/2015-06-16-park-stefanescu-rosu-PLDI.pdf), [Semantics](https://github.com/kframework/javascript-semantics), [DOI](http://dx.doi.org/10.1145/2737924.2737991), [PLDI'15](http://conf.researchr.org/home/pldi2015), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2015/park-stefanescu-rosu-2015-pldi/park-stefanescu-rosu-2015-pldi-ref.bib)
 
 - _[K-Java: A Complete Semantics of Java](http://fsl.cs.uiuc.edu/index.php/K-Java:_A_Complete_Semantics_of_Java)_  
-  [Denis Bogdanas](http://www.kframework.org/index.php/Denis_Bogdanas) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Denis Bogdanas](https://runtimeverification.com/team/#denis-bogdanas) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_POPL'15_**, ACM, pp 445-456. 2015  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2015/bogdanas-rosu-2015-popl/bogdanas-rosu-2015-popl-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2015/2015-01-16-K-Java-POPL/2015-01-16-K-Java-POPL.pdf), [K-Java](https://github.com/kframework/java-semantics), [DOI](http://dx.doi.org/10.1145/2676726.2676982), [POPL'15](http://popl.mpi-sws.org/2015/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2015/bogdanas-rosu-2015-popl/bogdanas-rosu-2015-popl-ref.bib)
 
 - _[A Language-Independent Proof System for Mutual Program Equivalence](http://fsl.cs.uiuc.edu/index.php/A_Language-Independent_Proof_System_for_Mutual_Program_Equivalence)_  
-  [Stefan Ciobaca](http://www.kframework.org/index.php/Stefan_Ciobaca) and [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu) and [Vlad Rusu](http://www.kframework.org/index.php/Vlad_Rusu) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Stefan Ciobaca](http://thor.info.uaic.ro/~stefan.ciobaca) and [Dorel Lucanu](./people/dorel_lucanu.md) and [Vlad Rusu](./people/vlad_rusu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_ICFEM'14_**, LNCS 8829, pp 75-90. 2014  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2014/ciobaca-lucanu-rusu-rosu-2014-icfem/ciobaca-lucanu-rusu-rosu-2014-icfem-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2014/2014-11-05-ICFEM.pdf), [Matching Logic](http://matching-logic.org/), [DOI](http://dx.doi.org/10.1007/978-3-319-11737-9_6), [ICFEM'14](http://icfem2014.uni.lu/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2014/ciobaca-lucanu-rusu-rosu-2014-icfem/ciobaca-lucanu-rusu-rosu-2014-icfem-ref.bib)
 
@@ -153,7 +153,7 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2013/girlea-rosu-2013-k/girlea-rosu-2013-k-public.pdf), [K](http://kframework.org/), [DOI](http://dx.doi.org/10.1016/j.entcs.2014.05.007), [K'11](http://www.kframework.org/K11/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2013/girlea-rosu-2013-k/girlea-rosu-2013-k-ref.bib)
 
 - _[The K Primer (version 3.3)](<http://fsl.cs.uiuc.edu/index.php/The_K_Primer_(version*3.3)>)*  
-  [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Andrei Arusoaie](./people/andrei_arusoaie.md) and [David Lazar](https://davidlazar.org/) and [Chucky Ellison](./people/chucky_ellison.md) and [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Andrei Arusoaie](./people/andrei_arusoaie.md) and [David Lazar](https://davidlazar.org/) and [Chucky Ellison](./people/chucky_ellison.md) and [Dorel Lucanu](./people/dorel_lucanu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_K'11_**, ENTCS 304, pp 57-80. 2014  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2013/k-primer-2013-v32/k-primer-2013-v32-public.pdf), [K](http://kframework.org/), [DOI](http://dx.doi.org/10.1016/j.entcs.2014.05.003), [K'11](http://www.kframework.org/K11/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2013/k-primer-2013-v32/k-primer-2013-v32-ref.bib)
 
@@ -173,7 +173,7 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2013/rosu-2013-synasc/rosu-2013-synasc-public.pdf), [Slides(PPTX)](http://fslweb.cs.illinois.edu/FSL/presentations/2013/2013-09-24-SYNASC.pptx), [K](http://kframework.org/), [DOI](http://dx.doi.org/10.1109/SYNASC.2013.81), [SYNASC'13](http://synasc.ro/synasc2013/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2013/rosu-2013-synasc/rosu-2013-synasc-ref.bib)
 
 - _[One-Path Reachability Logic](http://fsl.cs.uiuc.edu/index.php/One-Path_Reachability_Logic)_  
-  [Grigore Rosu](./people/grigore_rosu.md) and [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Stefan Ciobaca](http://www.kframework.org/index.php/Stefan_Ciobaca) and [Brandon Moore](https://runtimeverification.com/team/#brandon-moore)  
+  [Grigore Rosu](./people/grigore_rosu.md) and [Andrei Stefanescu](./people/andrei_stefanescu.md) and [Stefan Ciobaca](http://thor.info.uaic.ro/~stefan.ciobaca) and [Brandon Moore](https://runtimeverification.com/team/#brandon-moore)  
   **_LICS'13_**, IEEE, pp 358-367. 2013  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2013/rosu-stefanescu-ciobaca-moore-2013-lics/rosu-stefanescu-ciobaca-moore-2013-lics-public.pdf), [Slides(PPTX)](http://fslweb.cs.illinois.edu/FSL/presentations/2013/2013-06-27-LICS.pptx), [Reachability Logic](http://fsl.cs.uiuc.edu/RL), [LICS'13](http://lii.rwth-aachen.de/lics/lics13/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2013/rosu-stefanescu-ciobaca-moore-2013-lics/rosu-stefanescu-ciobaca-moore-2013-lics-ref.bib)
 
@@ -193,9 +193,9 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/rosu-stefanescu-2012-fm/rosu-stefanescu-2012-fm-public.pdf), [Slides(PPTX)](http://fslweb.cs.illinois.edu/FSL/presentations/2012/2012-08-30-rosu-stefanescu-FM.pptx), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2012/2012-08-30-rosu-stefanescu-FM.pdf), [Matching Logic](http://matching-logic.org/), [DOI](http://dx.doi.org/10.1007/978-3-642-32759-9_32), [FM'12](http://fm2012.cnam.fr/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/rosu-stefanescu-2012-fm/rosu-stefanescu-2012-fm-ref.bib)
 
 - _[Executing Formal Semantics with the K Tool](http://fsl.cs.uiuc.edu/index.php/Executing_Formal_Semantics_with_the_K_Tool)_  
-  [David Lazar](https://davidlazar.org/) and [Andrei Arusoaie](./people/andrei_arusoaie.md) and [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Chucky Ellison](./people/chucky_ellison.md) and [Radu Mereuta](./people/radu_mereuta.md) and [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [David Lazar](https://davidlazar.org/) and [Andrei Arusoaie](./people/andrei_arusoaie.md) and [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Chucky Ellison](./people/chucky_ellison.md) and [Radu Mereuta](./people/radu_mereuta.md) and [Dorel Lucanu](./people/dorel_lucanu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_FM'12_**, LNCS 7436, pp 267-271. 2012  
-  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/lazar-arusoaie-serbanuta-ellison-mereuta-lucanu-rosu-2012-fm/lazar-arusoaie-serbanuta-ellison-mereuta-lucanu-rosu-2012-fm-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2012/fm-2012-slides.pdf), [K](http://www.kframework.org/index.php/Main_Page), [DOI](http://dx.doi.org/10.1007/978-3-642-32759-9_23), [FM'12](http://fm2012.cnam.fr/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/lazar-arusoaie-serbanuta-ellison-mereuta-lucanu-rosu-2012-fm/lazar-arusoaie-serbanuta-ellison-mereuta-lucanu-rosu-2012-fm-ref.bib)
+  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/lazar-arusoaie-serbanuta-ellison-mereuta-lucanu-rosu-2012-fm/lazar-arusoaie-serbanuta-ellison-mereuta-lucanu-rosu-2012-fm-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2012/fm-2012-slides.pdf), [K](./index.md), [DOI](http://dx.doi.org/10.1007/978-3-642-32759-9_23), [FM'12](http://fm2012.cnam.fr/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/lazar-arusoaie-serbanuta-ellison-mereuta-lucanu-rosu-2012-fm/lazar-arusoaie-serbanuta-ellison-mereuta-lucanu-rosu-2012-fm-ref.bib)
 
 - _[Towards a Unified Theory of Operational and Axiomatic Semantics](http://fsl.cs.uiuc.edu/index.php/Towards_a_Unified_Theory_of_Operational_and_Axiomatic_Semantics)_  
   [Grigore Rosu](./people/grigore_rosu.md) and [Andrei Stefanescu](./people/andrei_stefanescu.md)  
@@ -205,7 +205,7 @@ Here are all publications about K, in reverse chronological order.
 - _[Defining the Undefinedness of C](http://fsl.cs.uiuc.edu/index.php/Defining_the_Undefinedness_of_C)_  
   [Chucky Ellison](./people/chucky_ellison.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_Technical Report_** <http://hdl.handle.net/2142/30780>, April 2012  
-  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/ellison-rosu-2012-tr/ellison-rosu-2012-tr-public.pdf), [K](http://www.kframework.org/index.php/Main_Page), [DOI](http://hdl.handle.net/2142/30780), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/ellison-rosu-2012-tr/ellison-rosu-2012-tr-ref.bib)
+  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/ellison-rosu-2012-tr/ellison-rosu-2012-tr-public.pdf), [K](./index.md), [DOI](http://hdl.handle.net/2142/30780), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/ellison-rosu-2012-tr/ellison-rosu-2012-tr-ref.bib)
 
 - _[Making Maude Definitions more Interactive](http://fsl.cs.uiuc.edu/index.php/Making_Maude_Definitions_more_Interactive)_  
   [Andrei Arusoaie](./people/andrei_arusoaie.md) and [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Chucky Ellison](./people/chucky_ellison.md) and [Grigore Rosu](./people/grigore_rosu.md)  
@@ -213,7 +213,7 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/arusoaie-serbanuta-ellison-rosu-2012-wrla/arusoaie-serbanuta-ellison-rosu-2012-wrla-public.pdf), [K](http://www.kframework.org/), [DOI](http://dx.doi.org/10.1007/978-3-642-34005-5_5), [WRLA'12](http://wrla2012.lcc.uma.es/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/arusoaie-serbanuta-ellison-rosu-2012-wrla/arusoaie-serbanuta-ellison-rosu-2012-wrla-ref.bib)
 
 - _[K Framework Distilled](http://fsl.cs.uiuc.edu/index.php/K_Framework_Distilled)_  
-  [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu) and [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Dorel Lucanu](./people/dorel_lucanu.md) and [Traian Florin Serbanuta](./people/traian_florin_serbanuta.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_WRLA'12_**, LNCS 7571, pp 31-53. 2012  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/lucanu-rosu-serbanuta-2012-wrla/lucanu-rosu-serbanuta-2012-wrla-public.pdf), [K](http://www.kframework.org/), [DOI](http://dx.doi.org/10.1007/978-3-642-34005-5_3), [WRLA'12](http://wrla2012.lcc.uma.es/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/lucanu-rosu-serbanuta-2012-wrla/lucanu-rosu-serbanuta-2012-wrla-ref.bib)
 
@@ -233,7 +233,7 @@ Here are all publications about K, in reverse chronological order.
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2011/ellison-rosu-2011-tr/ellison-rosu-2011-tr-public.pdf), [C Semantics](https://github.com/kframework/c-semantics), [DOI](http://hdl.handle.net/2142/25816), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2011/ellison-rosu-2011-tr/ellison-rosu-2011-tr-ref.bib)
 
 - _[Towards Semantics-Based WCET Analysis](http://fsl.cs.uiuc.edu/index.php/Towards_Semantics-Based_WCET_Analysis)_  
-  [Mihail Asavoae](./people/mihail_asavoae.md) and [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu) and [Grigore Rosu](./people/grigore_rosu.md)  
+  [Mihail Asavoae](./people/mihail_asavoae.md) and [Dorel Lucanu](./people/dorel_lucanu.md) and [Grigore Rosu](./people/grigore_rosu.md)  
   **_WCET'11_**. 2011  
   [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2011/asavoae-lucanu-rosu-2011-wcet/asavoae-lucanu-rosu-2011-wcet-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2011/2011-07-WCET.pdf), [Matching Logic](http://matching-logic.org/), [WCET'11](http://www.artist-embedded.org/artist/Overview,2317.html), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2011/asavoae-lucanu-rosu-2011-wcet/asavoae-lucanu-rosu-2011-wcet-ref.bib)
 

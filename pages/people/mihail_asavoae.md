@@ -1,6 +1,6 @@
 # Mihail Asavoae
 
-[Mihail Asavoaie](http://fmse.info.uaic.ro/member/6/) is a PhD student at University Al. I. Cuza of Iași, working with prof. [Dorel Lucanu](http://www.kframework.org/index.php/Dorel_Lucanu). 
+[Mihail Asavoaie](http://fmse.info.uaic.ro/member/6/) is a PhD student at University Al. I. Cuza of Iași, working with prof. [Dorel Lucanu](./dorel_lucanu.md). 
 
 **Role in the K Framework Project**
 

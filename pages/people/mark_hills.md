@@ -1,6 +1,6 @@
 # Mark Hills
 
-[Mark Hills](http://homepages.cwi.nl/~hills) completed his PhD under [Grigore Rosu](http://www.kframework.org/index.php/Grigore_Rosu) in 2009. 
+[Mark Hills](http://homepages.cwi.nl/~hills) completed his PhD under [Grigore Rosu](./grigore_rosu.md) in 2009. 
 
 **Role in the K Framework Project**
 

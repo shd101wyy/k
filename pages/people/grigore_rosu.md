@@ -143,7 +143,7 @@ Lead by providing a project vision and roadmap.
 - *[A Truly Concurrent Semantics for the K Framework Based on Graph Transformations](http://fsl.cs.uiuc.edu/index.php/A_Truly_Concurrent_Semantics_for_the_K_Framework_Based_on_Graph_Transformations)*  
   [Traian Florin Serbanuta](./traian_florin_serbanuta.md) and **Grigore Rosu**  
   ***ICGT'12***, LNCS 7562, pp 294-310. 2012  
-  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/serbanuta-rosu-2012-icgt/serbanuta-rosu-2012-icgt-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2012/serbanuta-rosu-2012-icgt-slides.pdf), [K](http://www.kframework.org/), [DOI](http://dx.doi.org/10.1007/978-3-642-33654-6_20), [ICGT'12](http://www.informatik.uni-bremen.de/icgt2012), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/serbanuta-rosu-2012-icgt/serbanuta-rosu-2012-icgt-ref.bib)
+  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/serbanuta-rosu-2012-icgt/serbanuta-rosu-2012-icgt-public.pdf), [Slides(PDF)](http://fslweb.cs.illinois.edu/FSL/presentations/2012/serbanuta-rosu-2012-icgt-slides.pdf), [K](../index.md), [DOI](http://dx.doi.org/10.1007/978-3-642-33654-6_20), [ICGT'12](http://www.informatik.uni-bremen.de/icgt2012), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/serbanuta-rosu-2012-icgt/serbanuta-rosu-2012-icgt-ref.bib)
   
 - *[From Hoare Logic to Matching Logic Reachability](http://fsl.cs.uiuc.edu/index.php/From_Hoare_Logic_to_Matching_Logic_Reachability)*  
   **Grigore Rosu** and [Andrei Stefanescu](./andrei_stefanescu.md)  
@@ -168,12 +168,12 @@ Lead by providing a project vision and roadmap.
 - *[Making Maude Definitions more Interactive](http://fsl.cs.uiuc.edu/index.php/Making_Maude_Definitions_more_Interactive)*  
   [Andrei Arusoaie](./andrei_arusoaie.md) and [Traian Florin Serbanuta](./traian_florin_serbanuta.md) and [Chucky Ellison](./chucky_ellison.md) and **Grigore Rosu**  
   ***WRLA'12***, LNCS 7571, pp 83-98. 2012  
-  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/arusoaie-serbanuta-ellison-rosu-2012-wrla/arusoaie-serbanuta-ellison-rosu-2012-wrla-public.pdf), [K](http://www.kframework.org/), [DOI](http://dx.doi.org/10.1007/978-3-642-34005-5_5), [WRLA'12](http://wrla2012.lcc.uma.es/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/arusoaie-serbanuta-ellison-rosu-2012-wrla/arusoaie-serbanuta-ellison-rosu-2012-wrla-ref.bib)
+  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/arusoaie-serbanuta-ellison-rosu-2012-wrla/arusoaie-serbanuta-ellison-rosu-2012-wrla-public.pdf), [K](../index.md), [DOI](http://dx.doi.org/10.1007/978-3-642-34005-5_5), [WRLA'12](http://wrla2012.lcc.uma.es/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/arusoaie-serbanuta-ellison-rosu-2012-wrla/arusoaie-serbanuta-ellison-rosu-2012-wrla-ref.bib)
   
 - *[K Framework Distilled](http://fsl.cs.uiuc.edu/index.php/K_Framework_Distilled)*  
   [Dorel Lucanu](./dorel_lucanu.md) and [Traian Florin Serbanuta](./traian_florin_serbanuta.md) and **Grigore Rosu**  
   ***WRLA'12***, LNCS 7571, pp 31-53. 2012  
-  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/lucanu-rosu-serbanuta-2012-wrla/lucanu-rosu-serbanuta-2012-wrla-public.pdf), [K](http://www.kframework.org/), [DOI](http://dx.doi.org/10.1007/978-3-642-34005-5_3), [WRLA'12](http://wrla2012.lcc.uma.es/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/lucanu-rosu-serbanuta-2012-wrla/lucanu-rosu-serbanuta-2012-wrla-ref.bib)
+  [PDF](http://fslweb.cs.illinois.edu/FSL/papers/2012/lucanu-rosu-serbanuta-2012-wrla/lucanu-rosu-serbanuta-2012-wrla-public.pdf), [K](../index.md), [DOI](http://dx.doi.org/10.1007/978-3-642-34005-5_3), [WRLA'12](http://wrla2012.lcc.uma.es/), [BIB](http://fslweb.cs.illinois.edu/FSL/papers/2012/lucanu-rosu-serbanuta-2012-wrla/lucanu-rosu-serbanuta-2012-wrla-ref.bib)
   
 - *[An Executable Formal Semantics of C with Applications](http://fsl.cs.uiuc.edu/index.php/An_Executable_Formal_Semantics_of_C_with_Applications)*  
   [Chucky Ellison](./chucky_ellison.md) and **Grigore Rosu**  
