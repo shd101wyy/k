@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+/>
+<meta
+  name="description"
+  content="Design and implement your programming language and software analysis tools with mathematical rigor."
+/>
+<meta name="keywords" content="runtime, verification, rv, k" />
+<meta name="author" content="K | Runtime Verification Inc" />
+<meta name="robots" content="index, follow" />
+
+<!--favicon icon-->
+<link rel="icon" type="image/png" href="../../../../../../../assets/img/favicon.ico" />
+
+<title>
+  K | Runtime Verification Inc
+</title>
+
+<!-- <base href="/k/" /> -->
+
+<!--web fonts-->
+<link
+  href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css?family=Lora:400i"
+  rel="stylesheet"
+/>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css"
+  rel="stylesheet"
+/>
+
+<link href="../../../../../../../assets/css/index.css" rel="stylesheet" />
+
+<!--[if (gt IE 9) |!(IE)]><!-->
+<!--<link rel="stylesheet" href="/assets/vendor/custom-nav/css/effects/fade-menu.css"/>-->
+<!-- <link rel="stylesheet" href="../../../../../../../assets/k/vl-nav/css/effects/slide-menu.css" /> -->
+<!--<![endif]-->
+
+  </head>
+
+  <body>
+<header
+  class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"
+>
+  <a class="logo-link" href="../../../../../../../index.html">
+    <img
+      class="logo-dark"
+      srcset="../../../../../../../assets/img/k-logo.png"
+      alt="K"
+      style="height: 48px;"
+    />
+    Semantic Framework
+  </a>
+  <ul class="navbar-nav ml-md-auto">
+    <li class="nav-item">
+      <a
+        class="nav-link pl-2 pr-1 mx-1 py-3 my-n2"
+        href="https://github.com/kframework/k"
+        target="_blank"
+        rel="noopener"
+        aria-label="GitHub"
+      >
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  </ul>
+  <a
+    class="btn btn-rv-blue d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+    href="../../../../../../../downloads"
+    >Download</a
+  >
+</header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+<div class="col-12 col-md-3 col-xl-2 bd-sidebar mb-3">
+  <form
+    role="search"
+    class="bd-search d-flex align-items-center justify-content-between"
+  >
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search..."
+      aria-label="Search for..."
+      autocomplete="false"
+      id="search-box"
+    />
+    <button
+      class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
+      type="button"
+      aria-label="Toggle docs navigation"
+      style="font-size: 1.4rem;"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+  </form>
+  <nav class="collapse bd-links" aria-label="Main navigation">
+    <div class="bd-toc-item">
+      <a class="bd-toc-link" href="../../../../../../../">Homepage</a>
+      <a class="bd-toc-link" href="../../../../../../../downloads">Downloads</a>
+      <a class="bd-toc-link" href="../../../../../../../k-distribution/tutorial"
+        >K Tutorial</a
+      >
+      <a class="bd-toc-link" href="../../../../../../../projects/">Projects</a>
+      <a class="bd-toc-link" href="../../../../../../../news/">News</a>
+      <a class="bd-toc-link" href="../../../../../../../events/">Events</a>
+      <a class="bd-toc-link" href="../../../../../../../funding/">Funding</a>
+    </div>
+  </nav>
+</div>
+
+        <main
+          class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
+          role="main"
+        >
+          <div class="introduction markdown-preview">
+            <h1>FUN — Untyped — Environment</h1>
+<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+Organization: University of Illinois at Urbana-Champaign</p>
+<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+Organization: University of Bucharest</p>
+<h2>Abstract</h2>
+<p>This is the <strong>K</strong> semantic definition of the untyped FUN language.
+FUN is a pedagogical and research language that captures the essence
+of the functional programming paradigm, extended with several features
+often encountered in functional programming languages.
+Like many functional languages, FUN is an expression language, that
+is, everything, including the main program, is an expression.
+Functions can be declared anywhere and are first class values in the
+language.
+FUN is call-by-value here, but it has been extended (as student
+homework assignments) with other parameter-passing styles.
+To make it more interesting and to highlight some of <strong>K</strong>'s strengths,
+FUN includes the following features:</p>
+<ul>
+<li>
+<p>The basic builtin data-types of integers, booleans and strings.</p>
+</li>
+<li>
+<p>Builtin lists, which can hold any elements, including other lists.
+Lists are enclosed in square brackets and their elements are
+comma-separated; e.g., <code>[1,2,3]</code>.</p>
+</li>
+<li>
+<p>User-defined data-types, by means of constructor terms.
+Constructor names start with a capital letter (while any other
+identifier in the language starts with a lowercase letter), and they
+can be followed by an arbitrary number of comma-separated arguments
+enclosed in parentheses; parentheses are not needed when the
+constructor takes no arguments.
+For example, <code>Pair(5,7)</code> is a constructor term holding two
+numbers, <code>Cons(1,Cons(2,Cons(3,Nil)))</code> is a list-like
+constructor term holding 3 elements, and
+<code>Tree(Tree(Leaf(1), Leaf(2)), Leaf(3))</code> is a tree-like
+constructor term holding 3 elements.
+In the untyped version of the FUN language, no type checking or
+inference is performed to ensure that the data constructors are used
+correctly.
+The execution will simply get stuck when they are misused.
+Moreover, since no type checking is performed, the data-types are not
+even declared in the untyped version of FUN.</p>
+</li>
+<li>
+<p>Functions and <code>let</code>/<code>letrec</code> binders can take
+multiple space-separated arguments, but these are desugared to
+ones that only take one argument, by currying.  For example, the
+expressions</p>
+<pre><code>fun x y -&gt; x y
+let x y = y in x
+</code></pre>
+<p>are desugared, respectively, into the following expressions:</p>
+<pre><code>fun x -&gt; fun y -&gt; x y
+let x = fun y -&gt; y in x
+</code></pre>
+</li>
+<li>
+<p>Functions can be defined using pattern matching over the
+available data-types.  For example, the program</p>
+<pre><code>letrec max = fun [h] -&gt; h
+             |   [h|t] -&gt; let x = max t
+                          in  if h &gt; x then h else x
+in max [1, 3, 5, 2, 4, 0, -1, -5]
+</code></pre>
+<p>defines a function <code>max</code> that calculates the maximum element of
+a non-empty list, and the function</p>
+<pre><code>letrec ack = fun Pair(0,n) -&gt; n + 1
+             |   Pair(m,0) -&gt; ack Pair(m - 1, 1)
+             |   Pair(m,n) -&gt; ack Pair(m - 1, ack Pair(m, n - 1))
+in ack Pair(2,3)
+</code></pre>
+<p>calculates the Ackermann function applied to a particular pair of numbers.
+Patterns can be nested.  Patterns can currently only be used in function
+definitions, and not directly in <code>let</code>/<code>letrec</code> binders.
+For example, this is not allowed:</p>
+<pre><code>letrec Pai(x,y) = Pair(1,2) in x+y
+</code></pre>
+<p>But this is allowed:</p>
+<pre><code>let f Pair(x,y) = x+y in f Pair(1,2)
+</code></pre>
+<p>because it is first reduced to</p>
+<pre><code>let f = fun Pair(x,y) -&gt; x+y in f Pair(1,2)
+</code></pre>
+<p>by uncurrying of the <code>let</code> binder, and pattern matching is
+allowed in function arguments.</p>
+</li>
+<li>
+<p>We include a <code>callcc</code> construct, for two reasons: first,
+several functional languages support this construct; second, some
+semantic frameworks have difficulties defining it.  Not <strong>K</strong>.</p>
+</li>
+<li>
+<p>Finally, we include mutables by means of referencing an
+expression, getting the reference of a variable, dereferencing and
+assignment.  We include these for the same reasons as above: there are
+languages which have them, and they are not easy to define in some
+semantic frameworks.</p>
+</li>
+</ul>
+<p>Like in many other languages, some of FUN's constructs can be
+desugared into a smaller set of basic constructs.  We do that as usual,
+using macros, and then we only give semantics to the core constructs.</p>
+<p><strong>Note:</strong><br>
+We recommend the reader to first consult the dynamic semantics of the
+LAMBDA++ language in the first part of the K Tutorial.
+To keep the comments below small and focused, we will not re-explain
+functional or <strong>K</strong> features that have already been explained in there.</p>
+<h2>Syntax</h2>
+<pre><code class="language-k">//require &quot;modules/pattern-matching.k&quot;
+
+module FUN-UNTYPED-COMMON
+  imports DOMAINS-SYNTAX
+</code></pre>
+<p>FUN is an expression language.  The constructs below fall into
+several categories: names, arithmetic constructs, conventional
+functional constructs, patterns and pattern matching, data constructs,
+lists, references, and call-with-current-continuation (callcc).
+The arithmetic constructs are standard; they are present in almost all
+our <strong>K</strong> language definitions.  The meaning of FUN's constructs are
+discussed in more depth when we define their semantics in the next
+module.</p>
+<h2>The Syntactic Constructs</h2>
+<p>We start with the syntactic definition of FUN names.
+We have several categories of names: ones to be used for functions and
+variables, others to be used for data constructors, others for types and
+others for type variables.  We will introduce them as needed, starting
+with the former category.  We prefer the names of variables and functions
+to start with lower case letters.  We take the freedom to tacitly introduce
+syntactic lists/sequences for each nonterminal for which we need them:</p>
+<pre><code class="language-k">  syntax Name
+  syntax Names ::= List{Name,&quot;,&quot;}
+</code></pre>
+<p>Expression constructs will be defined throughtout the syntax module.
+Below are the very basic ones, namely the builtins, the names, and the
+parentheses used as brackets for grouping.  Lists of expressions are
+declared strict, so all expressions in the list get evaluated whenever
+the list is on a position which can be evaluated:</p>
+<pre><code class="language-k">  syntax Exp ::= Int | Bool | String | Name
+               | &quot;(&quot; Exp &quot;)&quot;                       [bracket]
+  syntax Exps  ::= List{Exp,&quot;,&quot;}                   [strict]
+  syntax Val
+  syntax Vals ::= List{Val,&quot;,&quot;}
+  syntax Bottom
+  syntax Bottoms ::= List{Bottom,&quot;,&quot;}
+</code></pre>
+<p>We next define the syntax of arithmetic constructs, together with
+their relative priorities and left-/non-associativities.  We also
+tag all these rules with a new tag, &quot;arith&quot;, so we can more easily
+define global syntax priirities later (at the end of the syntax module).</p>
+<pre><code class="language-k">  syntax Exp ::= left:
+                 Exp &quot;*&quot; Exp                       [strict, arith]
+               | Exp &quot;/&quot; Exp                       [strict, arith]
+               | Exp &quot;%&quot; Exp                       [strict, arith]
+               &gt; left:
+                 Exp &quot;+&quot; Exp                       [strict, left, arith]
+               | Exp &quot;^&quot; Exp                       [strict, left, arith]
+// left attribute should not be necessary; currently a parsing bug
+               | Exp &quot;-&quot; Exp                       [strict, prefer, arith]
+// the &quot;prefer&quot; attribute above is to not parse x-1 as x(-1)
+// Due to some parsing problems, we currently cannot add unary minus:
+               | &quot;-&quot; Exp                           [strict, arith]
+               &gt; non-assoc:
+                 Exp &quot;&lt;&quot; Exp                       [strict, arith]
+               | Exp &quot;&lt;=&quot; Exp                      [strict, arith]
+               | Exp &quot;&gt;&quot; Exp                       [strict, arith]
+               | Exp &quot;&gt;=&quot; Exp                      [strict, arith]
+               | Exp &quot;==&quot; Exp                      [strict, arith]
+               | Exp &quot;!=&quot; Exp                      [strict, arith]
+               &gt; &quot;!&quot; Exp                           [strict, arith]
+               &gt; Exp &quot;&amp;&amp;&quot; Exp                      [strict(1), left, arith]
+               &gt; Exp &quot;||&quot; Exp                      [strict(1), left, arith]
+</code></pre>
+<p>The conditional construct has the expected evaluation strategy,
+stating that only the first argument is evaluate:</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;if&quot; Exp &quot;then&quot; Exp &quot;else&quot; Exp    [strict(1)]
+</code></pre>
+<p>FUN's builtin lists are formed by enclosing comma-separated
+sequences of expressions (i.e., terms of sort <code>Exps</code>) in square
+brackets.  The list constructor <code>cons</code> adds a new element to the
+top of the list, <code>head</code> and <code>tail</code> get the first element
+and the tail sublist of a list if they exist, respectively, and get
+stuck otherwise, and <code>null??</code> tests whether a list is empty or
+not; syntactically, these are just expression constants.
+In function patterns, we are also going to allow patterns following the
+usual head/tail notation; for example, the pattern <code>[x_1,...,x_n|t]</code>
+binds <code>x_1</code>, ..., <code>x_n</code> to the first elements of the matched list,
+and <code>t</code> to the list formed with the remaining elements.  We define list
+patterns as ordinary expression constructs, although we will make sure that
+we do not give them semantics if they appear in any other place then in a
+function case pattern.</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;[&quot; Exps &quot;]&quot;                             [strict]
+               | &quot;cons&quot; |  &quot;head&quot; | &quot;tail&quot; | &quot;null?&quot;
+               | &quot;[&quot; Exps &quot;|&quot; Exp &quot;]&quot;
+  syntax Val ::= &quot;[&quot; Vals &quot;]&quot;
+</code></pre>
+<p>Data constructors start with capital letters and they may or may
+not have arguments.  We need to use the attribute &quot;prefer&quot; to make
+sure that, e.g., <code>Cons(a)</code> parses as constructor <code>Cons</code> with
+argument <code>a</code>, and not as the expression <code>Cons</code> (because
+constructor names are also expressions) regarded as a function applied
+to the expression <code>a</code>.  Also, note that the constructor is strict
+in its second argument, because we want to evaluate its arguments but
+not the constuctor name itsef.</p>
+<pre><code class="language-k">  syntax ConstructorName
+  syntax Exp ::= ConstructorName
+               | ConstructorName &quot;(&quot; Exps &quot;)&quot;    [prefer, strict(2)]
+  syntax Val ::= ConstructorName &quot;(&quot; Vals &quot;)&quot;
+</code></pre>
+<p>A function is essentially a <code>|</code>-separated ordered
+sequence of cases, each case of the form <code>pattern -&gt; expression</code>,
+preceded by the language construct <code>fun</code>.  Patterns will be defined
+shortly, both for the builtin lists and for user-defined constructors.
+Recall that the syntax we define in <strong>K</strong> is not meant to serve as a
+ultimate parser for the defined language, but rather as a convenient
+notation for <strong>K</strong> abstract syntax trees, which we prefer when we write
+the semantic rules.  It is therefore often the case that we define a
+more ``generous'' syntax than we want to allow programs to use.
+We do it here, too.  Specifically, the syntax of <code>Cases</code>
+below allows any expressions to appear as pattern.  This syntactic
+relaxation permits many wrong programs to be parsed, but that is not a
+problem because we are not going to give semantics to wrong combinations,
+so those programs will get stuck; moreover, our type inferencer will reject
+those programs anyway.  Function application is just concatenation of
+expressions, without worrying about type correctness.  Again, the type
+system will reject type-incorrect programs.</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;fun&quot; Cases
+               | Exp Exp                              [strict, left]
+// NOTE: We would like eventually to also have Exp &quot;(&quot; Exps &quot;)
+  syntax Case  ::= Exp &quot;-&gt;&quot; Exp
+  syntax Cases ::= List{Case, &quot;|&quot;}
+</code></pre>
+<p>The <code>let</code> and <code>letrec</code> binders have the usual syntax
+and functional meaning.  We allow multiple <code>and</code>-separated bindings.
+Like for the function cases above, we allow a more generous syntax for
+the left-hand sides of bindings, noting that the semantics will get stuck
+on incorrect bindings and that the type system will reject those programs.</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;let&quot; Bindings &quot;in&quot; Exp
+               | &quot;letrec&quot; Bindings &quot;in&quot; Exp                 [prefer]
+// The &quot;prefer&quot; attribute for letrec currently needed due to tool bug,
+// to make sure that &quot;letrec&quot; is not parsed as &quot;let rec&quot;.
+  syntax Binding  ::= Exp &quot;=&quot; Exp
+  syntax Bindings ::= List{Binding,&quot;and&quot;}
+</code></pre>
+<p>References are first class values in FUN.  The construct <code>ref</code>
+takes an expression, evaluates it, and then it stores the resulting value
+at a fresh location in the store and returns that reference.  Syntactically,
+<code>ref</code> is just an expression constant.  The construct <code>&amp;</code>
+takes a name as argument and evaluates to a reference, namely the store
+reference where the variable passed as argument stores its value; this
+construct is a bit controversial and is further discussed in the
+environment-based semantics of the FUN language, where we desugar
+<code>ref</code> to it.  The construct <code>@</code> takes a reference
+and evaluates to the value stored there.  The construct <code>:=</code> takes
+two expressions, the first expected to evaluate to a reference; the value
+of its second argument will be stored at the location to which the first
+points (the old value is thus lost).  Finally, since expression evaluation
+now has side effects, it makes sense to also add a sequential composition
+construct, which is sequentially strict.  This evaluates to the value of
+its second argument; the value of the first argument is lost (which has
+therefore been evaluated only for its side effects.</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;ref&quot;
+               | &quot;&amp;&quot; Name
+               | &quot;@&quot; Exp                                     [strict]
+               | Exp &quot;:=&quot; Exp                                [strict]
+               | Exp &quot;;&quot; Exp                       [strict(1), right]
+</code></pre>
+<p>Call-with-current-continuation, named <code>callcc</code> in FUN, is a
+powerful control operator that originated in the Scheme programming
+language, but it now exists in many other functional languages.  It works
+by evaluating its argument, expected to evaluate to a function, and by
+passing the current continuation, or evaluation context (or computation,
+in <strong>K</strong> terminology), as a special value to it.  When/If this special value
+is invoked, the current context is discarded and replaced with the one
+held by the special value and the computation continues from there.
+It is like taking a snapshot of the execution context at some moment
+in time and then, when desired, being able to get back in time to that
+point.  If you like games, it is like saving the game now (so you can
+work on your homework!) and then continuing the game tomorrow or whenever
+you wish.  To issustrate the strength of <code>callcc</code>, we also
+allow exceptions in FUN by means of a conventional <code>try-catch</code>
+construct, which will desugar to <code>callcc</code>.  We also need to
+introduce the special expression contant <code>throw</code>, but we need to
+use it as a function argument name in the desugaring macro, so we define
+it as a name instead of as an expression constant:</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;callcc&quot;
+               | &quot;try&quot; Exp &quot;catch&quot; &quot;(&quot; Name &quot;)&quot; Exp
+  syntax Name ::= &quot;throw&quot; [token]
+</code></pre>
+<p>Finally, FUN also allows polymorphic datatype declarations.  These
+will be useful when we define the type system later on.</p>
+<pre><code class="language-k">  syntax Exp ::= &quot;datatype&quot; Type &quot;=&quot; TypeCases Exp
+// NOTE: In a future version of K, we want the datatype declaration
+// to be a construct by itself, but that is not possible currently
+// because K's parser wronly identifies the __ operation allowing
+// a declaration to appear in front of an expression with the function
+// application construct, giving ambiguous parsing errors.
+</code></pre>
+<p>We next need to define the syntax of types and type cases that appear
+in datatype declarations.</p>
+<p>Like in many functional languages, type parameters/variables in
+user-defined types are quoted identifiers.</p>
+<pre><code class="language-k">  syntax TypeVar
+  syntax TypeVars ::= List{TypeVar,&quot;,&quot;}
+</code></pre>
+<p>Types can be basic types, function types, or user-defined
+parametric types.  In the dynamic semantics we are going to simply ignore
+all the type declations, so here the syntax of types below is only useful
+for generating the desired parser.  To avoid syntactic ambiguities with
+the arrow construct for function cases, we use the symbol <code>--&gt;</code> as
+a constructor for function types:</p>
+<pre><code class="language-k">  syntax TypeName
+  syntax Type ::= &quot;int&quot; | &quot;bool&quot; | &quot;string&quot;
+                | Type &quot;--&gt;&quot; Type                            [right]
+                | &quot;(&quot; Type &quot;)&quot;                             [bracket]
+                | TypeVar
+                | TypeName             [klabel(TypeName), avoid]
+                | Type TypeName   [klabel(Type-TypeName)]
+                | &quot;(&quot; Types &quot;)&quot; TypeName                    [prefer]
+  syntax Types ::= List{Type,&quot;,&quot;}
+  syntax Types ::= TypeVars
+
+  syntax TypeCase ::= ConstructorName
+                    | ConstructorName &quot;(&quot; Types &quot;)&quot;
+  syntax TypeCases ::= List{TypeCase,&quot;|&quot;}     [klabel(_|TypeCase_)]
+</code></pre>
+<h2>Additional Priorities</h2>
+<pre><code class="language-k">  syntax priorities @__FUN-UNTYPED-COMMON
+                  &gt; ___FUN-UNTYPED-COMMON
+                  &gt; arith
+                  &gt; _:=__FUN-UNTYPED-COMMON
+                  &gt; let_in__FUN-UNTYPED-COMMON
+                    letrec_in__FUN-UNTYPED-COMMON
+                    if_then_else__FUN-UNTYPED-COMMON
+                  &gt; _;__FUN-UNTYPED-COMMON
+                  &gt; fun__FUN-UNTYPED-COMMON
+                  &gt; datatype_=___FUN-UNTYPED-COMMON
+endmodule
+
+module FUN-UNTYPED-MACROS
+  imports FUN-UNTYPED-COMMON
+</code></pre>
+<h2>Desugaring macros</h2>
+<p>We desugar the list non-constructor operations to functions matching
+over list patterns.  In order to do that we need some new variables; for
+those, we follow the same convention like in the <strong>K</strong> tutorial, where we
+added them as new identifier constructs starting with the character <code>$</code>,
+so we can easily recognize them when we debug or trace the semantics.</p>
+<pre><code class="language-k">  syntax Name ::= &quot;$h&quot; | &quot;$t&quot;
+  rule head =&gt; fun [$h|$t] -&gt; $h                             [macro]
+  rule tail =&gt; fun [$h|$t] -&gt; $t                             [macro]
+  rule null? =&gt; fun [.Exps] -&gt; true | [$h|$t] -&gt; false       [macro]
+</code></pre>
+<p>Multiple-head list patterns desugar into successive one-head patterns:</p>
+<pre><code class="language-k">  rule [E1,E2,Es:Exps|T] =&gt; [E1|[E2,Es|T]]                   [macro-rec]
+</code></pre>
+<p>Uncurrying of multiple arguments in functions and binders:</p>
+<pre><code class="language-k">  rule P1 P2 -&gt; E =&gt; P1 -&gt; fun P2 -&gt; E                       [macro-rec]
+  rule F P = E =&gt; F = fun P -&gt; E                             [macro-rec]
+</code></pre>
+<p>We desugar the <code>try-catch</code> construct into callcc:</p>
+<pre><code class="language-k">  syntax Name ::= &quot;$k&quot; | &quot;$v&quot;
+  rule try E catch(X) E'
+    =&gt; callcc (fun $k -&gt; (fun throw -&gt; E)(fun X -&gt; $k E'))   [macro]
+</code></pre>
+<p>For uniformity, we reduce all types to their general form:</p>
+<pre><code class="language-k">//  rule TypeName(Tn:TypeName) =&gt; (.TypeVars) Tn               [macro]
+  rule `Type-TypeName`(T:Type, Tn:TypeName) =&gt; (T) Tn          [macro]
+</code></pre>
+<p>The dynamic semantics ignores all the type declarations:</p>
+<pre><code class="language-k">  rule datatype T = TCs E =&gt; E                               [macro]
+
+endmodule
+
+
+module FUN-UNTYPED-SYNTAX
+  imports FUN-UNTYPED-COMMON
+  imports BUILTIN-ID-TOKENS
+
+  syntax Name ::= r&quot;[a-z][_a-zA-Z0-9]*&quot;           [token, prec(2)]
+                | #LowerId                        [token]
+  syntax ConstructorName ::= #UpperId             [token]
+  syntax TypeVar  ::= r&quot;['][a-z][_a-zA-Z0-9]*&quot;    [token]
+  syntax TypeName ::= Name                        [token]
+endmodule
+</code></pre>
+<h2>Semantics</h2>
+<p>The semantics below is environment-based.  A substitution-based
+definition of FUN is also available, but that drops the <code>&amp;</code>
+construct as explained above.</p>
+<pre><code class="language-k">module FUN-UNTYPED
+  imports FUN-UNTYPED-COMMON
+  imports FUN-UNTYPED-MACROS
+  imports DOMAINS
+  //imports PATTERN-MATCHING
+</code></pre>
+<h2>Configuration</h2>
+<p>The <code>k</code>, <code>env</code>, and <code>store</code> cells are standard
+(see, for example, the definition of LAMBDA++ or IMP++ in the first
+part of the <strong>K</strong> tutorial).</p>
+<pre><code class="language-k">  configuration &lt;T color=&quot;yellow&quot;&gt;
+                  &lt;k color=&quot;green&quot;&gt; $PGM:Exp &lt;/k&gt;
+                  &lt;env color=&quot;violet&quot;&gt; .Map &lt;/env&gt;
+                  &lt;store color=&quot;white&quot;&gt; .Map &lt;/store&gt;
+                &lt;/T&gt;
+</code></pre>
+<h2>Values and results</h2>
+<p>We only define integers, Booleans and strings as values here, but will
+add more values later.</p>
+<pre><code class="language-k">  syntax Val ::= Int | Bool | String
+  syntax Exp ::= Val
+  syntax Exps ::= Vals
+  syntax Vals ::= Bottoms
+  syntax KResult ::= Val
+</code></pre>
+<h2>Lookup</h2>
+<pre><code class="language-k">  rule &lt;k&gt; X:Name =&gt; V ...&lt;/k&gt;
+       &lt;env&gt;... X |-&gt; L ...&lt;/env&gt;
+       &lt;store&gt;... L |-&gt; V ...&lt;/store&gt;
+</code></pre>
+<h2>Arithmetic expressions</h2>
+<pre><code class="language-k">  rule I1 * I2 =&gt; I1 *Int I2
+  rule I1 / I2 =&gt; I1 /Int I2 when I2 =/=K 0
+  rule I1 % I2 =&gt; I1 %Int I2 when I2 =/=K 0
+  rule I1 + I2 =&gt; I1 +Int I2
+  rule S1 ^ S2 =&gt; S1 +String S2
+  rule I1 - I2 =&gt; I1 -Int I2
+  rule - I =&gt; 0 -Int I
+  rule I1 &lt; I2 =&gt; I1 &lt;Int I2
+  rule I1 &lt;= I2 =&gt; I1 &lt;=Int I2
+  rule I1 &gt; I2 =&gt; I1 &gt;Int I2
+  rule I1 &gt;= I2 =&gt; I1 &gt;=Int I2
+  rule V1:Val == V2:Val =&gt; V1 ==K V2
+  rule V1:Val != V2:Val =&gt; V1 =/=K V2
+  rule ! T =&gt; notBool(T)
+  rule true  &amp;&amp; E =&gt; E
+  rule false &amp;&amp; _ =&gt; false
+  rule true  || _ =&gt; true
+  rule false || E =&gt; E
+</code></pre>
+<h2>Conditional</h2>
+<pre><code class="language-k">  rule if  true then E else _ =&gt; E
+  rule if false then _ else E =&gt; E
+</code></pre>
+<h2>Lists</h2>
+<p>We have already declared the syntactic list of expressions strict, so
+we can assume that all the elements that appear in a FUN list are
+evaluated.  The only thing left to do is to state that a list of
+values is a value itself, that is, that the list square-bracket
+construct is indeed a constructor, and to give the semantics of
+<code>cons</code>.  Since <code>cons</code> is a builtin function and is
+expected to take two arguments, we have to also state that
+<code>cons</code> itself is a value (specifically, a function/closure
+value, but we do not need that level of detail here), and also that
+<code>cons</code> applied to a value is a value (specifically, it would be
+a function/closure value that expects the second, list argument):</p>
+<pre><code class="language-k">  rule isVal(cons) =&gt; true
+  rule isVal(cons V:Val) =&gt; true
+  rule cons V:Val [Vs:Vals] =&gt; [V,Vs]
+</code></pre>
+<h2>Data Constructors</h2>
+<p>Constructors take values as arguments and produce other values:</p>
+<pre><code class="language-k">  syntax Val ::= ConstructorName
+</code></pre>
+<h2>Functions and Closures</h2>
+<p>Like in the environment-based semantics of LAMBDA++ in the first part
+of the <strong>K</strong> tutorial, functions evaluate to closures.  A closure includes
+the current environment besides the function contents; the environment
+will be used at execution time to lookup all the variables that appear
+free in the function body (we want static scoping in FUN).</p>
+<pre><code class="language-k">  syntax Val ::= closure(Map,Cases)
+  rule &lt;k&gt; fun Cases =&gt; closure(Rho,Cases) ...&lt;/k&gt;  &lt;env&gt; Rho &lt;/env&gt;
+</code></pre>
+<p><strong>Note:</strong> The reader may want to get familiar with
+how the pre-defined pattern matching works before proceeding.
+The best way to do that is to consult
+<code>k/include/modules/pattern-matching.k</code>.</p>
+<!--- To set up the pattern matching mechanism we need to specify what K
+terms act as variables (for pattern matching, substitution, etc.).
+This is currently done my subsorting those terms to the builtin
+`Variable` sort.  In our case, we only want to allow the
+`Name` identifiers to act as variables for pattern matching;
+note that the `ConstructorName` identifiers are `not`
+variables (they construct data values):
+
+  syntax KVariable ::= Name
+--->
+<p>We distinguish two cases when the closure is applied.
+If the first pattern matches, then we pick the first case: switch to
+the closed environment, get the matching map and bind all its
+variables, and finally evaluate the function body of the first case,
+making sure that the environment is properly recovered afterwards.
+If the first pattern does not match, then we drop it and thus move on
+to the next one.</p>
+<pre><code class="language-k">  rule (. =&gt; getMatching(P, V)) ~&gt; closure(_, P-&gt;_ | _) V:Val
+  rule &lt;k&gt; matchResult(M:Map) ~&gt; closure(Rho, _-&gt;E | _) _
+           =&gt; bindMap(M) ~&gt; E ~&gt; setEnv(Rho') ...&lt;/k&gt;
+       &lt;env&gt; Rho' =&gt; Rho &lt;/env&gt;
+  rule (matchFailure =&gt; .) ~&gt; closure(_, (_-&gt;_ | Cs:Cases =&gt; Cs)) _
+//  rule &lt;k&gt; closure(Rho, P-&gt;E | _) V:Val
+//           =&gt; bindMap(getMatching(P,V)) ~&gt; E ~&gt; setEnv(Rho') ...&lt;/k&gt;
+//       &lt;env&gt; Rho' =&gt; Rho &lt;/env&gt;  when isMatching(P,V)
+//  rule closure(_, (P-&gt;_ | Cs:Cases =&gt; Cs)) V:Val  when notBool isMatching(P,V)
+</code></pre>
+<h2>Let and Letrec</h2>
+<p>To highlight the similarities and differences between <code>let</code> and
+<code>letrec</code>, we prefer to give them direct semantics instead of
+to desugar them like in LAMBDA.  See the formal definitions of
+<code>bindTo</code>, <code>bind</code>, and <code>assignTo</code> at the end of
+this module.  Informally, <code>bindTo(Xs, Es)</code> first
+evaluates the expressions <code>Es</code> in <code>Exps</code> in the current
+environment (i.e., it is strict in its second argument), then it binds
+the variables in <code>Xs</code> in <code>Names</code> to new locations and adds
+those bindings to the environment, and finally writes the values
+previously obtained after evaluating the expressions <code>Es</code> to those
+new locations; <code>bind(Xs)</code> does only the bindings of
+<code>Xs</code> to new locations and adds those bindings to the environment;
+and <code>assignTo(Xs,Es)</code> evaluates the expressions
+<code>Es</code> in the current environment and then it writes the resulting
+values to the locations to which the variables <code>Xs</code> are already
+bound to in the environment.</p>
+<p>Therefore, <code>let Xs = Es in E</code> first
+evaluates <code>Es</code> in the current environment, then adds new
+bindings for <code>Xs</code> to fresh locations in the environment, then
+writes the values of <code>Es</code> to those locations, and finally
+evaluates <code>E</code> in the new environment, making sure that the
+environment is properly recovered after the evaluation of <code>E</code>.
+On the other hand, <code>letrec</code> does the same things but in a
+different order: it first adds new bindings for <code>Xs</code> to fresh
+locations in the environment, then it evaluates <code>Es</code> in the new
+environment, then it writes the resulting values to their
+corresponding locations, and finally it evaluates <code>E</code> and
+recovers the environment.  The crucial difference is that the
+expressions <code>Es</code> now see the locations of the variables <code>Xs</code>
+in the environment, so if they are functions, which is typically the
+case with <code>letrec</code>, their closures will encapsulate in their
+environments the bindings of all the bound variables, including
+themselves (thus, we may have a closure value stored at location
+<code>L</code>, whose environment contains a binding of the form
+<code>F ↦ L</code>; this way, the closure can invoke
+itself).</p>
+<pre><code class="language-k">  rule &lt;k&gt; let Bs in E
+        =&gt; bindTo(names(Bs),exps(Bs)) ~&gt; E ~&gt; setEnv(Rho) ...&lt;/k&gt;
+       &lt;env&gt; Rho &lt;/env&gt;
+
+  rule &lt;k&gt; letrec Bs in E
+        =&gt; bind(names(Bs))~&gt;assignTo(names(Bs),exps(Bs))~&gt;E~&gt;setEnv(Rho)...&lt;/k&gt;
+       &lt;env&gt; Rho &lt;/env&gt;
+</code></pre>
+<p>Recall that our syntax allows <code>let</code> and <code>letrec</code> to
+take any expression in place of its binding.  This allows us to use
+the already existing function application construct to bind names to
+functions, such as, e.g., <code>let x y = y in ...</code>.
+The desugaring macro in the syntax module uncurries such declarations,
+and then the semantic rules above only work when the remaining
+bindings are identifiers, so the semantics will get stuck on programs
+that misuse the <code>let</code> and <code>letrec</code> binders.</p>
+<h2>References</h2>
+<p>The semantics of references is self-explanatory, except maybe for the
+desugaring rule of <code>ref</code>, which is further discussed.  Note
+that <code>&amp;X</code> grabs the location of <code>X</code> from the environment.
+Sequential composition, which is needed only to accumulate the
+side effects due to assignments, was strict in the first argument.
+Once evaluated, its first argument is simply discarded:</p>
+<pre><code class="language-k">  syntax Name ::= &quot;$x&quot;
+  rule ref =&gt; fun $x -&gt; &amp; $x                                 [macro]
+  rule &lt;k&gt; &amp; X =&gt; L ...&lt;/k&gt;  &lt;env&gt;... X |-&gt; L ...&lt;/env&gt;
+  rule &lt;k&gt; @ L:Int =&gt; V:Val ...&lt;/k&gt;  &lt;store&gt;... L |-&gt; V ...&lt;/store&gt;
+  rule &lt;k&gt; L:Int := V:Val =&gt; V ...&lt;/k&gt;  &lt;store&gt;... L |-&gt; (_=&gt;V) ...&lt;/store&gt;
+  rule V:Val; E =&gt; E
+</code></pre>
+<p>The desugaring rule of <code>ref</code> (first rule above) works
+because <code>&amp;</code> takes a variable and returns its location (like in C).
+Note that some ``pure'' functional programming researchers strongly dislike
+the <code>&amp;</code> construct, but favor <code>ref</code>.  We refrain from having
+a personal opinion on this issue here, but support <code>&amp;</code> in the
+environment-based definition of FUN because it is, technically speaking,
+more powerful than <code>ref</code>.  From a language design perspective, it
+would be equally easy to drop <code>&amp;</code> and instead give a direct
+semantics to <code>ref</code>.  In fact, this is precisely what we do in the
+substitution-based definition of FUN, because there appears to be no way
+to give a substitution-based definition to the <code>&amp;</code> construct.</p>
+<h2>Callcc</h2>
+<p>As we know it from the LAMBDA++ tutorial, call-with-current-continuation
+is quite easy to define in <strong>K</strong>.  We first need to define a special
+value wrapping an execution context, that is, an environment saying
+where the variables should be looked up, and a computation structure
+saying what is left to execute (in a substitution-based definition,
+this special value would be even simpler, as it would only need to
+wrap the computation structure---see, for example, the
+substitution-based semantics of LAMBDA++ in the the first part of the
+<strong>K</strong> tutorial, or the substitution-based definition of FUN).  Then
+<code>callcc</code> creates such a value containing the current
+environment and the current remaining computation, and passes it to
+its argument function.  When/If invoked, the special value replaces
+the current execution context with its own and continues the execution
+normally.</p>
+<pre><code class="language-k">  syntax Val ::= cc(Map,K)
+  rule isVal(callcc) =&gt; true
+  rule &lt;k&gt; (callcc V:Val =&gt; V cc(Rho,K)) ~&gt; K &lt;/k&gt;  &lt;env&gt; Rho &lt;/env&gt;
+  rule &lt;k&gt; cc(Rho,K) V:Val ~&gt; _ =&gt; V ~&gt; K &lt;/k&gt;  &lt;env&gt; _ =&gt; Rho &lt;/env&gt;
+</code></pre>
+<h2>Auxiliary operations</h2>
+<h2>Environment recovery</h2>
+<p>The environment recovery operation is the same as for the LAMBDA++
+language in the <strong>K</strong> tutorial and many other languages provided with the
+<strong>K</strong> distribution.  The first ``anywhere'' rule below shows an elegant
+way to achieve the benefits of tail recursion in <strong>K</strong>.</p>
+<pre><code class="language-k">  syntax KItem ::= setEnv(Map)  // TODO: get rid of env
+  //rule (setEnv(_) =&gt; .) ~&gt; setEnv(_)  [anywhere]
+  rule &lt;k&gt; _:Val ~&gt; (setEnv(Rho) =&gt; .) ...&lt;/k&gt; &lt;env&gt; _ =&gt; Rho &lt;/env&gt;
+    [structural]
+</code></pre>
+<h2><code>bindTo</code>, <code>bind</code> and <code>assignTo</code></h2>
+<p>The meaning of these operations has already been explained when we
+discussed the <code>let</code> and <code>letrec</code> language constructs
+above.</p>
+<pre><code class="language-k">  syntax KItem ::= bindTo(Names,Exps)         [strict(2)]
+                 | bindMap(Map)
+                 | bind(Names)
+
+  rule (. =&gt; getMatchingAux(Xs,Vs)) ~&gt; bindTo(Xs:Names,Vs:Vals)
+  rule matchResult(M:Map) ~&gt; bindTo(_:Names, _:Vals) =&gt; bindMap(M)
+
+  rule bindMap(.Map) =&gt; .  [structural]
+  rule &lt;k&gt; bindMap((X:Name |-&gt; V:Val =&gt; .Map) _:Map) ...&lt;/k&gt;
+       &lt;env&gt; Rho =&gt; Rho[X &lt;- !L:Int] &lt;/env&gt;
+       &lt;store&gt;... .Map =&gt; !L |-&gt; V ...&lt;/store&gt;
+    [structural]
+
+  rule bind(.Names) =&gt; .                  [structural]
+  rule &lt;k&gt; bind(X:Name,Xs =&gt; Xs) ...&lt;/k&gt;
+       &lt;env&gt; Rho =&gt; Rho[X &lt;- !L:Int] &lt;/env&gt;
+    [structural]
+
+  syntax KItem ::= assignTo(Names,Exps)  [strict(2)]
+
+  rule &lt;k&gt; assignTo(.Names,.Vals) =&gt; . ...&lt;/k&gt;            [structural]
+  rule &lt;k&gt; assignTo((X:Name,Xs =&gt; Xs),(V:Val,Vs:Vals =&gt; Vs)) ...&lt;/k&gt;
+       &lt;env&gt;... X |-&gt; L ...&lt;/env&gt;
+       &lt;store&gt;... .Map =&gt; L |-&gt; V ...&lt;/store&gt;             [structural]
+</code></pre>
+<h2>Getters</h2>
+<p>The following auxiliary operations extract the list of identifiers
+and of expressions in a binding, respectively.</p>
+<pre><code class="language-k">  syntax Names ::= names(Bindings)  [function]
+  rule names(.Bindings) =&gt; .Names
+  rule names(X:Name=_ and Bs) =&gt; (X,names(Bs))::Names
+
+  syntax Exps ::= exps(Bindings)  [function]
+  rule exps(.Bindings) =&gt; .Exps
+  rule exps(_:Name=E and Bs) =&gt; E,exps(Bs)
+
+  /* Extra kore stuff */
+  syntax KResult ::= Vals
+  syntax Exps ::= Names
+  syntax Names ::= Bottoms
+
+  /* Matching */
+  syntax MatchResult ::= getMatching(Exp, Val)                      [function]
+                       | getMatchingAux(Exps, Vals)                 [function]
+                       | mergeMatching(MatchResult, MatchResult)    [function]
+                       | matchResult(Map)
+                       | &quot;matchFailure&quot;
+
+  rule getMatching(C:ConstructorName(Es:Exps), C(Vs:Vals)) =&gt; getMatchingAux(Es, Vs)
+  rule getMatching([Es:Exps], [Vs:Vals])                   =&gt; getMatchingAux(Es, Vs)
+  rule getMatching(C:ConstructorName, C) =&gt; matchResult(.Map)
+  rule getMatching(B:Bool, B)            =&gt; matchResult(.Map)
+  rule getMatching(I:Int, I)             =&gt; matchResult(.Map)
+  rule getMatching(S:String, S)          =&gt; matchResult(.Map)
+  rule getMatching(N:Name, V:Val) =&gt; matchResult(N |-&gt; V)
+  rule getMatching(_, _) =&gt; matchFailure        [owise]
+
+  rule getMatchingAux((E:Exp, Es:Exps), (V:Val, Vs:Vals)) =&gt; mergeMatching(getMatching(E, V), getMatchingAux(Es, Vs))
+  rule getMatchingAux(.Exps, .Vals)                       =&gt; matchResult(.Map)
+  rule getMatchingAux(_, _) =&gt; matchFailure     [owise]
+
+  rule mergeMatching(matchResult(M1:Map), matchResult(M2:Map)) =&gt; matchResult(M1 M2)
+    requires intersectSet(keys(M1), keys(M2)) ==K .Set
+  //rule mergeMatching(_, _) =&gt; matchFailure      [owsie]
+  rule mergeMatching(matchResult(_:Map), matchFailure) =&gt; matchFailure
+  rule mergeMatching(matchFailure, matchResult(_:Map)) =&gt; matchFailure
+  rule mergeMatching(matchFailure, matchFailure)       =&gt; matchFailure
+</code></pre>
+<p>Besides the generic decomposition rules for patterns and values,
+we also want to allow <code>[head|tail]</code> matching for lists, so we add
+the following custom pattern decomposition rule:</p>
+<pre><code class="language-k">  rule getMatching([H:Exp | T:Exp], [V:Val, Vs:Vals])
+    =&gt; getMatchingAux((H, T), (V, [Vs]))
+endmodule
+</code></pre>
+<p>Go to <a href="../2_substitution/fun-untyped.md">Lesson 2, FUN untyped, Substitution-Based</a>.</p>
+
+          </div>
+        </main>
+      </div>
+    </div>
+<footer class="app-footer text-md-left text-center">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-2 mb-md-0 mb-4">
+        <span class="pr-md-5 pr-0 py-3">
+          <a href="https://runtimeverification.com" target="_blank">
+            <picture>
+              <source
+                srcset="../../../../../../../assets/img/rv-logo-dark.png"
+                media="(prefers-color-scheme: dark)"
+              />
+              <img
+                class="pr-3 footer-logo"
+                src="../../../../../../../assets/img/rv-logo.png"
+                alt="Runtime Verification Inc logo"
+              />
+            </picture>
+          </a>
+        </span>
+      </div>
+      <div class="col-md-6 mb-md-0 mb-4"></div>
+      <div class="col-md-4 text-md-right">
+        <p class="copyright">
+          &copy; 2020 Runtime Verification Inc. All right reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "UA-163311512-1");
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
+    <script src="../../../../../../../assets/js/index.js"></script>
+    <script>
+      $(function () {
+        // Render youtube video
+        const anchorElements = document.querySelectorAll(".markdown-preview a");
+        for (let i = anchorElements.length - 1; i >= 0; i--) {
+          if (anchorElements.length - 1 - i > 3) {
+            break;
+          }
+          const anchorElement = anchorElements[i];
+          const href = anchorElement.getAttribute("href");
+          if (href.match(/^https?:\/\/youtu.be\//)) {
+            const match = href.match(/^https?:\/\/youtu.be\/(.+?)$/);
+            if (match && match[1]) {
+              const youtubeId = match[1];
+              const $iframe = $(`
+<div style="text-align:center;">
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/${youtubeId}"
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    style="max-width: 100%;"
+  ></iframe>
+  <p>The video is out of date</p>
+</div>
+`);
+              $(anchorElement).replaceWith($iframe[0]);
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
