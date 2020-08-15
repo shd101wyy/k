@@ -112,10 +112,14 @@
       <a class="bd-toc-link" href="../../../../../../k-distribution/tutorial"
         >K Tutorial</a
       >
-      <a class="bd-toc-link" href="../../../../../../projects/">Projects</a>
-      <a class="bd-toc-link" href="../../../../../../news/">News</a>
-      <a class="bd-toc-link" href="../../../../../../events/">Events</a>
-      <a class="bd-toc-link" href="../../../../../../funding/">Funding</a>
+      <a class="bd-toc-link" href="../../../../../../pending-documentation/"
+        >User documentation</a
+      >
+      <a
+        class="bd-toc-link"
+        href="../../../../../../k-distribution/include/kframework/builtin/"
+        >Builtins</a
+      >
     </div>
   </nav>
 </div>
@@ -191,8 +195,8 @@ tool into an interactive interpreter for the defined language.</li>
 <li>How to exhaustively search for the non-deterministic behaviors
 of a program using the <code>search</code> option of <code>krun</code>.</li>
 </ul>
-<pre><code class="language-k">module IMP-SYNTAX
-  imports DOMAINS-SYNTAX
+<pre class="hljs"><code><span class="hljs-keyword">module</span> IMP-SYNTAX<span class="hljs-keyword">
+  imports</span> DOMAINS-SYNTAX
 </code></pre>
 <h3>Syntax</h3>
 <p>IMP++ adds several syntactic constructs to IMP. Also, since the
@@ -227,41 +231,41 @@ evaluated. Note also that we have now defined sequential composition
 of statements as a whitespace-separated list of statements, aliased with
 the nonterminal <code>Stmts</code>, and block as such a (possibly empty) sequence
 of statements surrounded by curly brackets.</p>
-<pre><code class="language-k">  syntax AExp  ::= Int | String | Id
-                 | &quot;++&quot; Id
-                 | &quot;read&quot; &quot;(&quot; &quot;)&quot;
-                 | &quot;-&quot; AExp                   [strict]
-                 &gt; AExp &quot;/&quot; AExp              [left, strict, division]
-                 &gt; AExp &quot;+&quot; AExp              [left, strict]
-                 &gt; &quot;spawn&quot; Block
-                 &gt; Id &quot;=&quot; AExp                [strict(2)]
-                 | &quot;(&quot; AExp &quot;)&quot;               [bracket]
-  syntax BExp  ::= Bool
-                 | AExp &quot;&lt;=&quot; AExp             [seqstrict, latex({#1}\leq{#2})]
-                 | &quot;!&quot; BExp                   [strict]
-                 &gt; BExp &quot;&amp;&amp;&quot; BExp             [left, strict(1)]
-                 | &quot;(&quot; BExp &quot;)&quot;               [bracket]
-  syntax Block ::= &quot;{&quot; Stmts &quot;}&quot;
-  syntax Stmt  ::= Block
-                 | AExp &quot;;&quot;                   [strict]
-                 | &quot;if&quot; &quot;(&quot; BExp &quot;)&quot;
-                   Block &quot;else&quot; Block         [strict(1)]
-                 | &quot;while&quot; &quot;(&quot; BExp &quot;)&quot; Block
-                 | &quot;int&quot; Ids &quot;;&quot;
-                 | &quot;print&quot; &quot;(&quot; AExps &quot;)&quot; &quot;;&quot;
-                 | &quot;halt&quot; &quot;;&quot;
-                 &gt; &quot;join&quot; AExp &quot;;&quot;            [strict]
+<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> AExp  ::=<span class="hljs-keyword"> Int</span> |<span class="hljs-keyword"> String</span> |<span class="hljs-keyword"> Id</span>
+                 | <span class="hljs-string">&quot;++&quot;</span><span class="hljs-keyword"> Id</span>
+                 | <span class="hljs-string">&quot;read&quot;</span> <span class="hljs-string">&quot;(&quot;</span> <span class="hljs-string">&quot;)&quot;</span>
+                 | <span class="hljs-string">&quot;-&quot;</span> AExp                   [<span class="hljs-literal">strict</span>]
+                 &gt; AExp <span class="hljs-string">&quot;/&quot;</span> AExp              [<span class="hljs-literal">left</span>, <span class="hljs-literal">strict</span>, division]
+                 &gt; AExp <span class="hljs-string">&quot;+&quot;</span> AExp              [<span class="hljs-literal">left</span>, <span class="hljs-literal">strict</span>]
+                 &gt; <span class="hljs-string">&quot;spawn&quot;</span> Block
+                 &gt;<span class="hljs-keyword"> Id</span> <span class="hljs-string">&quot;=&quot;</span> AExp                [<span class="hljs-literal">strict</span>(<span class="hljs-number">2</span>)]
+                 | <span class="hljs-string">&quot;(&quot;</span> AExp <span class="hljs-string">&quot;)&quot;</span>               [<span class="hljs-literal">bracket</span>]<span class="hljs-keyword">
+  syntax</span> BExp  ::=<span class="hljs-keyword"> Bool</span>
+                 | AExp <span class="hljs-string">&quot;&lt;=&quot;</span> AExp             [<span class="hljs-literal">seqstrict</span>, <span class="hljs-literal">latex</span>({#<span class="hljs-number">1</span>}\leq{#<span class="hljs-number">2</span>})]
+                 | <span class="hljs-string">&quot;!&quot;</span> BExp                   [<span class="hljs-literal">strict</span>]
+                 &gt; BExp <span class="hljs-string">&quot;&amp;&amp;&quot;</span> BExp             [<span class="hljs-literal">left</span>, <span class="hljs-literal">strict</span>(<span class="hljs-number">1</span>)]
+                 | <span class="hljs-string">&quot;(&quot;</span> BExp <span class="hljs-string">&quot;)&quot;</span>               [<span class="hljs-literal">bracket</span>]<span class="hljs-keyword">
+  syntax</span> Block ::= <span class="hljs-string">&quot;{&quot;</span> Stmts <span class="hljs-string">&quot;}&quot;</span><span class="hljs-keyword">
+  syntax</span> Stmt  ::= Block
+                 | AExp <span class="hljs-string">&quot;;&quot;</span>                   [<span class="hljs-literal">strict</span>]
+                 | <span class="hljs-string">&quot;if&quot;</span> <span class="hljs-string">&quot;(&quot;</span> BExp <span class="hljs-string">&quot;)&quot;</span>
+                   Block <span class="hljs-string">&quot;else&quot;</span> Block         [<span class="hljs-literal">strict</span>(<span class="hljs-number">1</span>)]
+                 | <span class="hljs-string">&quot;while&quot;</span> <span class="hljs-string">&quot;(&quot;</span> BExp <span class="hljs-string">&quot;)&quot;</span> Block
+                 | <span class="hljs-string">&quot;int&quot;</span> Ids <span class="hljs-string">&quot;;&quot;</span>
+                 | <span class="hljs-string">&quot;print&quot;</span> <span class="hljs-string">&quot;(&quot;</span> AExps <span class="hljs-string">&quot;)&quot;</span> <span class="hljs-string">&quot;;&quot;</span>
+                 | <span class="hljs-string">&quot;halt&quot;</span> <span class="hljs-string">&quot;;&quot;</span>
+                 &gt; <span class="hljs-string">&quot;join&quot;</span> AExp <span class="hljs-string">&quot;;&quot;</span>            [<span class="hljs-literal">strict</span>]<span class="hljs-keyword">
 
-  syntax Ids   ::= List{Id,&quot;,&quot;}
-  syntax AExps ::= List{AExp,&quot;,&quot;}
-  syntax Stmts ::= List{Stmt,&quot;&quot;}
-  syntax AExps ::= Ids
-endmodule
+  syntax</span> Ids   ::= List{<span class="hljs-keyword">Id</span>,<span class="hljs-string">&quot;,&quot;</span>}<span class="hljs-keyword">
+  syntax</span> AExps ::= List{AExp,<span class="hljs-string">&quot;,&quot;</span>}<span class="hljs-keyword">
+  syntax</span> Stmts ::= List{Stmt,<span class="hljs-string">&quot;&quot;</span>}<span class="hljs-keyword">
+  syntax</span> AExps ::= Ids<span class="hljs-keyword">
+endmodule</span><span class="hljs-keyword">
 
 
-module IMP
-  imports IMP-SYNTAX
-  imports DOMAINS
+module</span> IMP<span class="hljs-keyword">
+  imports</span> IMP-SYNTAX<span class="hljs-keyword">
+  imports</span> DOMAINS
 </code></pre>
 <h3>Semantics</h3>
 <p>We next give the semantics of IMP++. We start by first defining its
@@ -290,33 +294,33 @@ is important for <strong>K</strong>'s <em>configuration abstraction</em> process
 definition, choose to not mention the entire configuration context.
 The <code>in</code> and <code>out</code> cells hold the input and the output
 buffers as lists of items.</p>
-<pre><code class="language-k">  configuration &lt;T color=&quot;yellow&quot;&gt;
-                  &lt;threads color=&quot;orange&quot;&gt;
-                    &lt;thread multiplicity=&quot;*&quot; color=&quot;blue&quot;&gt;
-                      &lt;k color=&quot;green&quot;&gt; $PGM:Stmts &lt;/k&gt;
-                      &lt;env color=&quot;LightSkyBlue&quot;&gt; .Map &lt;/env&gt;
-                      &lt;id color=&quot;black&quot;&gt; 0 &lt;/id&gt;
+<pre class="hljs"><code><span class="hljs-keyword">  configuration</span> &lt;T color=<span class="hljs-string">&quot;yellow&quot;</span>&gt;
+                  &lt;threads color=<span class="hljs-string">&quot;orange&quot;</span>&gt;
+                    &lt;thread multiplicity=<span class="hljs-string">&quot;*&quot;</span> color=<span class="hljs-string">&quot;blue&quot;</span>&gt;
+                      &lt;k color=<span class="hljs-string">&quot;green&quot;</span>&gt; $PGM:Stmts &lt;/k&gt;
+                      &lt;env color=<span class="hljs-string">&quot;LightSkyBlue&quot;</span>&gt; .Map &lt;/env&gt;
+                      &lt;id color=<span class="hljs-string">&quot;black&quot;</span>&gt; <span class="hljs-number">0</span> &lt;/id&gt;
                     &lt;/thread&gt;
                   &lt;/threads&gt;
-//                &lt;br/&gt;
-                  &lt;store color=&quot;red&quot;&gt; .Map &lt;/store&gt;
-//                  &lt;input color=&quot;magenta&quot;&gt; .List &lt;/input&gt;
-//                  &lt;output color=&quot;Orchid&quot;&gt; .List &lt;/output&gt;
-                  &lt;input color=&quot;magenta&quot; stream=&quot;stdin&quot;&gt; .List &lt;/input&gt;
-                  &lt;output color=&quot;Orchid&quot; stream=&quot;stdout&quot;&gt; .List &lt;/output&gt;
+<span class="hljs-comment">//                &lt;br/&gt;</span>
+                  &lt;store color=<span class="hljs-string">&quot;red&quot;</span>&gt; .Map &lt;/store&gt;
+<span class="hljs-comment">//                  &lt;input color=&quot;magenta&quot;&gt; .List &lt;/input&gt;</span>
+<span class="hljs-comment">//                  &lt;output color=&quot;Orchid&quot;&gt; .List &lt;/output&gt;</span>
+                  &lt;input color=<span class="hljs-string">&quot;magenta&quot;</span> stream=<span class="hljs-string">&quot;stdin&quot;</span>&gt; .List &lt;/input&gt;
+                  &lt;output color=<span class="hljs-string">&quot;Orchid&quot;</span> stream=<span class="hljs-string">&quot;stdout&quot;</span>&gt; .List &lt;/output&gt;
                 &lt;/T&gt;
-// Replace the &lt;input/&gt; and &lt;output/&gt; cells with the next two in order to
-// initialize the input buffer through krun
-//     &lt;input color=&quot;magenta&quot;&gt; $IN:List &lt;/input&gt;
-//     &lt;output color=&quot;Orchid&quot;&gt; .List &lt;/output&gt;
-// Replace the &lt;input/&gt; and &lt;output/&gt; cells with the next two to connect the
-// input/output buffers to stdin/stdout through krun
-//     &lt;input color=&quot;magenta&quot; stream=&quot;stdin&quot;&gt; .List &lt;/input&gt;
-//     &lt;output color=&quot;Orchid&quot; stream=&quot;stdout&quot;&gt; .List &lt;/output&gt;
-// Replace the &lt;input/&gt; and &lt;output/&gt; cells with the next two to connect the
-// input/output buffers to stdin/stdout and also allow input through krun
-//     &lt;input color=&quot;magenta&quot; stream=&quot;stdin&quot;&gt; $IN:List &lt;/input&gt;
-//     &lt;output color=&quot;Orchid&quot; stream=&quot;stdout&quot;&gt; .List &lt;/output&gt;
+<span class="hljs-comment">// Replace the &lt;input/&gt; and &lt;output/&gt; cells with the next two in order to</span>
+<span class="hljs-comment">// initialize the input buffer through krun</span>
+<span class="hljs-comment">//     &lt;input color=&quot;magenta&quot;&gt; $IN:List &lt;/input&gt;</span>
+<span class="hljs-comment">//     &lt;output color=&quot;Orchid&quot;&gt; .List &lt;/output&gt;</span>
+<span class="hljs-comment">// Replace the &lt;input/&gt; and &lt;output/&gt; cells with the next two to connect the
+// input/output buffers to stdin/stdout through krun</span>
+<span class="hljs-comment">//     &lt;input color=&quot;magenta&quot; stream=&quot;stdin&quot;&gt; .List &lt;/input&gt;</span>
+<span class="hljs-comment">//     &lt;output color=&quot;Orchid&quot; stream=&quot;stdout&quot;&gt; .List &lt;/output&gt;</span>
+<span class="hljs-comment">// Replace the &lt;input/&gt; and &lt;output/&gt; cells with the next two to connect the
+// input/output buffers to stdin/stdout and also allow input through krun</span>
+<span class="hljs-comment">//     &lt;input color=&quot;magenta&quot; stream=&quot;stdin&quot;&gt; $IN:List &lt;/input&gt;</span>
+<span class="hljs-comment">//     &lt;output color=&quot;Orchid&quot; stream=&quot;stdout&quot;&gt; .List &lt;/output&gt;</span>
 </code></pre>
 <p>We can also use configuration variables to initialize
 the configuration through <code>krun</code>. For example, we may want to
@@ -338,13 +342,13 @@ placed into this cell by any rule will be promptly sent to the
 standard output. This way, <code>krun</code> can be used to obtain
 interactive interpreters based directly on the <strong>K</strong> semantics of the
 language. For example:</p>
-<pre><code class="language-shell">sh$ krun sum-io.imp --output none
+<pre class="hljs"><code><span class="hljs-meta">sh$</span><span class="bash"> krun sum-io.imp --output none</span>
 Add numbers up to (&lt;= 0 to quit)? 10
 Sum = 55
 Add numbers up to (&lt;= 0 to quit)? 1000
 Sum = 500500
 Add numbers up to (&lt;= 0 to quit)? 0
-sh$
+<span class="hljs-meta">sh$</span>
 </code></pre>
 <p>The option <code>--output none</code> instructs <code>krun</code> to not
 display the resulting configuration after the program executes. The
@@ -399,23 +403,23 @@ In terms of rewriting, these two rules can &quot;compete&quot; with each other o
 some program configurations, in the sense that they can both match at the
 same time and different behaviors may be obtained depending upon which of
 them is chosen first.</p>
-<pre><code class="language-k">  syntax KResult ::= Int | Bool
+<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KResult ::=<span class="hljs-keyword"> Int</span> |<span class="hljs-keyword"> Bool</span>
 </code></pre>
 <h3>Variable lookup</h3>
-<pre><code class="language-k">  rule &lt;k&gt; X:Id =&gt; I ...&lt;/k&gt;
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; X:<span class="hljs-keyword">Id</span> =&gt; I ...&lt;/k&gt;
        &lt;env&gt;... X |-&gt; N ...&lt;/env&gt;
        &lt;store&gt;... N |-&gt; I ...&lt;/store&gt;  [lookup]
 </code></pre>
 <h3>Arithmetic constructs</h3>
-<pre><code class="language-k">  rule I1 / I2 =&gt; I1 /Int I2  when I2 =/=Int 0
-  rule I1 + I2 =&gt; I1 +Int I2
-  rule - I =&gt; 0 -Int I
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> I1 / I2 =&gt; I1 /<span class="hljs-keyword">Int</span> I2  when I2 =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
+  rule</span> I1 + I2 =&gt; I1 +<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
+  rule</span> - I =&gt; <span class="hljs-number">0</span> -<span class="hljs-keyword">Int</span> I
 </code></pre>
 <h3>Boolean constructs</h3>
-<pre><code class="language-k">  rule I1 &lt;= I2 =&gt; I1 &lt;=Int I2
-  rule ! T =&gt; notBool T
-  rule true &amp;&amp; B =&gt; B
-  rule false &amp;&amp; _ =&gt; false
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> I1 &lt;= I2 =&gt; I1 &lt;=<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
+  rule</span> ! T =&gt; notBool T<span class="hljs-keyword">
+  rule</span> true &amp;&amp; B =&gt; B<span class="hljs-keyword">
+  rule</span> false &amp;&amp; _ =&gt; false
 </code></pre>
 <h3>Variable assignment</h3>
 <p>Note that the old IMP assignment statement <code>X = I;</code> is now composed of two
@@ -423,8 +427,8 @@ constructs: an assignment expression construct <code>X = I</code>, followed by a
 semicolon <code>;</code> turning the expression into a statement. The rationale behind
 this syntactic restructuring has been explained in Lesson 7. Here is the
 semantics of the two constructs:</p>
-<pre><code class="language-k">  rule _:Int; =&gt; .
-  rule &lt;k&gt; X = I:Int =&gt; I ...&lt;/k&gt;
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> _:<span class="hljs-keyword">Int</span>; =&gt; .<span class="hljs-keyword">
+  rule</span> &lt;k&gt; X = I:<span class="hljs-keyword">Int</span> =&gt; I ...&lt;/k&gt;
        &lt;env&gt;... X |-&gt; N ...&lt;/env&gt;
        &lt;store&gt;... N |-&gt; (_ =&gt; I) ...&lt;/store&gt;  [assignment]
 </code></pre>
@@ -434,19 +438,19 @@ list of statements. Recall that syntactic lists are actually syntactic
 sugar for cons-lists. Therefore, the following two rules eventually
 sequentialize a syntactic list of statements <code>s1 s2 ... sn..</code> into the
 corresponding computation <code>s1 ~&gt; s2 ~&gt; ... ~&gt; sn</code>.</p>
-<pre><code class="language-k">   rule .Stmts =&gt; .
-   rule S:Stmt Ss:Stmts =&gt; S ~&gt; Ss  [structural]
+<pre class="hljs"><code><span class="hljs-keyword">   rule</span> .Stmts =&gt; .<span class="hljs-keyword">
+   rule</span> S:Stmt Ss:Stmts =&gt; S ~&gt; Ss  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h3>Conditional statement</h3>
-<pre><code class="language-k">  rule if (true)  S else _ =&gt; S
-  rule if (false) _ else S =&gt; S
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> if (true)  S else _ =&gt; S<span class="hljs-keyword">
+  rule</span> if (false) _ else S =&gt; S
 </code></pre>
 <h3>While loop</h3>
 <p>The only thing to notice here is that the empty block has been replaced
 with the block holding the explicit empty sequence. That's because in
 the semantics all empty lists become explicit corresponding dots
 (to avoid parsing ambiguities)</p>
-<pre><code class="language-k">  rule while (B) S =&gt; if (B) {S while (B) S} else {.Stmts}  [structural]
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> while (B) S =&gt; if (B) {S while (B) S} else {.Stmts}  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h3>The new IMP++ constructs</h3>
 <p>We next discuss the semantics of the new IMP++ constructs.</p>
@@ -455,8 +459,8 @@ the semantics all empty lists become explicit corresponding dots
 Second, we give the semantics of IMP++ string concatenation (which
 uses the already existing addition symbol <code>+</code> from IMP) by
 reduction to the built-in string concatenation operation.</p>
-<pre><code class="language-k">  syntax KResult ::= String
-  rule Str1 + Str2 =&gt; Str1 +String Str2
+<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KResult ::=<span class="hljs-keyword"> String</span><span class="hljs-keyword">
+  rule</span> Str1 + Str2 =&gt; Str1 +<span class="hljs-keyword">String</span> Str2
 </code></pre>
 <h3>Variable increment</h3>
 <p>Like variable lookup, this is also meant to be a supercool transition: we
@@ -465,9 +469,9 @@ it in the computation and in the non-determinism due to thread
 interleavings. This rule also relies on <strong>K</strong>'s configuration abstraction.
 Without abstraction, you would have to also include the <code>thread</code> and
 <code>threads</code> cells.</p>
-<pre><code class="language-k">  rule &lt;k&gt; ++X =&gt; I +Int 1 ...&lt;/k&gt;
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; ++X =&gt; I +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span> ...&lt;/k&gt;
        &lt;env&gt;... X |-&gt; N ...&lt;/env&gt;
-       &lt;store&gt;... N |-&gt; (I =&gt; I +Int 1) ...&lt;/store&gt;  [increment]
+       &lt;store&gt;... N |-&gt; (I =&gt; I +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>) ...&lt;/store&gt;  [increment]
 </code></pre>
 <h3>Read</h3>
 <p>The <code>read()</code> construct evaluates to the first integer in the
@@ -477,8 +481,8 @@ potentially non-deterministic transitions when we kompile the definition;
 we want to do that because two or more threads can &quot;compete&quot; on
 reading the next integer from the input buffer, and different choices
 for the next transition can lead to different behaviors.</p>
-<pre><code class="language-k">  rule &lt;k&gt; read() =&gt; I ...&lt;/k&gt;
-       &lt;input&gt; ListItem(I:Int) =&gt; .List ...&lt;/input&gt;  [read]
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; read() =&gt; I ...&lt;/k&gt;
+       &lt;input&gt; ListItem(I:<span class="hljs-keyword">Int</span>) =&gt; .List ...&lt;/input&gt;  [read]
 </code></pre>
 <h3>Print</h3>
 <p>The <code>print</code> statement is strict, so all its arguments are
@@ -496,17 +500,17 @@ because we want to include it in the list of transitions when we kompile;
 different threads may compete on the output buffer and we want to capture
 all behaviors. The second rule is structural because we do not want it to
 count as a computational step.</p>
-<pre><code class="language-k">  syntax Printable ::= Int | String
+<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Printable ::=<span class="hljs-keyword"> Int</span> |<span class="hljs-keyword"> String</span>
 
-/* currently it is necessary to subsort Printable to AExp,
-  but future K should be able to infer that automatically. */
-  syntax AExp ::= Printable
+<span class="hljs-comment">/* currently it is necessary to subsort Printable to AExp,
+  but future K should be able to infer that automatically. */</span><span class="hljs-keyword">
+  syntax</span> AExp ::= Printable<span class="hljs-keyword">
 
-  context print(HOLE:AExp, AEs:AExps);
+  context</span> print(HOLE:AExp, AEs:AExps);<span class="hljs-keyword">
 
-  rule &lt;k&gt; print(P:Printable,AEs =&gt; AEs); ...&lt;/k&gt;
-       &lt;output&gt;... .List =&gt; ListItem(P) &lt;/output&gt;  [print]
-  rule print(.AExps); =&gt; .  [structural]
+  rule</span> &lt;k&gt; print(P:Printable,AEs =&gt; AEs); ...&lt;/k&gt;
+       &lt;output&gt;... .List =&gt; ListItem(P) &lt;/output&gt;  [print]<span class="hljs-keyword">
+  rule</span> print(.AExps); =&gt; .  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h3>Halt</h3>
 <p>The <code>halt</code> statement empties the computation, so the rewriting process
@@ -517,7 +521,7 @@ statement that halts the entire program, then you need to discard the entire
 contents of the <code>threads</code> cell, so the entire computation abruptly
 terminates the entire program, no matter how many concurrent threads it has,
 because there is nothing else to rewrite.</p>
-<pre><code class="language-k">  rule &lt;k&gt; halt; ~&gt; _ =&gt; . &lt;/k&gt;
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; halt; ~&gt; _ =&gt; . &lt;/k&gt;
 </code></pre>
 <h3>Spawn thread</h3>
 <p>A spawned thread is passed its parent's environment at creation time.
@@ -548,7 +552,7 @@ also in a <code>thread</code> cell. Once the rule applies, the spawning
 thread cell will add a new thread cell next to it, which is consistent
 with the declared configuration cell multiplicity. The unique identifier
 of the new thread is generated using the <code>fresh</code> side condition.</p>
-<pre><code class="language-k">  rule &lt;k&gt; spawn S =&gt; !T:Int ...&lt;/k&gt; &lt;env&gt; Rho &lt;/env&gt;
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; spawn S =&gt; !T:<span class="hljs-keyword">Int</span> ...&lt;/k&gt; &lt;env&gt; Rho &lt;/env&gt;
        (.Bag =&gt; &lt;thread&gt;... &lt;k&gt; S &lt;/k&gt; &lt;env&gt; Rho &lt;/env&gt; &lt;id&gt; !T &lt;/id&gt; ...&lt;/thread&gt;)
 </code></pre>
 <h3>Join thread</h3>
@@ -556,7 +560,7 @@ of the new thread is generated using the <code>fresh</code> side condition.</p>
 the computation of <code>T</code> becomes empty. When that happens, the
 join statement is simply dissolved. The terminated thread is not removed,
 because we want to allow possible other join statements to also dissolve.</p>
-<pre><code class="language-k">  rule &lt;k&gt; join(T); =&gt; . ...&lt;/k&gt; &lt;thread&gt;... &lt;k&gt;.&lt;/k&gt; &lt;id&gt;T&lt;/id&gt; ...&lt;/thread&gt;
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; join(T); =&gt; . ...&lt;/k&gt; &lt;thread&gt;... &lt;k&gt;.&lt;/k&gt; &lt;id&gt;T&lt;/id&gt; ...&lt;/thread&gt;
 </code></pre>
 <h3>Blocks</h3>
 <p>The body statement of a block is executed normally, making sure
@@ -581,15 +585,15 @@ eliminate shadowing and thus environment saving/restoring. The rule
 below can be structural, because what it effectively does is to take a
 snapshot of the current environment; this operation is arguably not a
 computational step.</p>
-<pre><code class="language-k">  rule &lt;k&gt; {Ss} =&gt; Ss ~&gt; Rho ...&lt;/k&gt; &lt;env&gt; Rho &lt;/env&gt;  [structural]
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; {Ss} =&gt; Ss ~&gt; Rho ...&lt;/k&gt; &lt;env&gt; Rho &lt;/env&gt;  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h3>Variable declaration</h3>
 <p>We allocate a fresh location for each newly declared variable and
 initialize it with 0.</p>
-<pre><code class="language-k">  rule &lt;k&gt; int (X,Xs =&gt; Xs); ...&lt;/k&gt;
-       &lt;env&gt; Rho =&gt; Rho[X &lt;- !N:Int] &lt;/env&gt;
-       &lt;store&gt;... .Map =&gt; !N |-&gt; 0 ...&lt;/store&gt;
-  rule int .Ids; =&gt; .  [structural]
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; int (X,Xs =&gt; Xs); ...&lt;/k&gt;
+       &lt;env&gt; Rho =&gt; Rho[X &lt;- !N:<span class="hljs-keyword">Int</span>] &lt;/env&gt;
+       &lt;store&gt;... .Map =&gt; !N |-&gt; <span class="hljs-number">0</span> ...&lt;/store&gt;<span class="hljs-keyword">
+  rule</span> int .Ids; =&gt; .  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h3>Auxiliary operations</h3>
 <p>We only have one auxiliary operation in IMP++, the environment
@@ -597,20 +601,20 @@ recovery. Its role is to discard the current environment in the
 <code>env</code> cell and replace it with the environment that it holds.
 This rule is structural: we do not want them to count as computational
 steps in the transition system of a program.</p>
-<pre><code class="language-k">  rule &lt;k&gt; Rho =&gt; . ...&lt;/k&gt; &lt;env&gt; _ =&gt; Rho &lt;/env&gt;    [structural]
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; Rho =&gt; . ...&lt;/k&gt; &lt;env&gt; _ =&gt; Rho &lt;/env&gt;    [<span class="hljs-literal">structural</span>]
 </code></pre>
 <p>If you want to avoid useless environment recovery steps and keep the size
 of the computation structure smaller, then you can also add the rule</p>
-<pre><code>  rule (_:Map =&gt; .) ~&gt; _:Map  [structural]
+<pre class="hljs"><code>  rule (_:Map =&gt; .) ~&gt; _:Map  [structural]
 </code></pre>
 <p>This rule acts like a ``tail recursion'' optimization, but for blocks. */</p>
-<pre><code class="language-k">// verification ids
-  syntax Id ::= &quot;n&quot;     [token]
-              | &quot;sum&quot;   [token]
-              | &quot;a&quot;     [token]
-              | &quot;b&quot;     [token]
-              | &quot;c&quot;     [token]
-endmodule
+<pre class="hljs"><code><span class="hljs-comment">// verification ids</span><span class="hljs-keyword">
+  syntax</span><span class="hljs-keyword"> Id</span> ::= <span class="hljs-string">&quot;n&quot;</span>     [<span class="hljs-literal">token</span>]
+              | <span class="hljs-string">&quot;sum&quot;</span>   [<span class="hljs-literal">token</span>]
+              | <span class="hljs-string">&quot;a&quot;</span>     [<span class="hljs-literal">token</span>]
+              | <span class="hljs-string">&quot;b&quot;</span>     [<span class="hljs-literal">token</span>]
+              | <span class="hljs-string">&quot;c&quot;</span>     [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
+endmodule</span>
 </code></pre>
 <h3>On Kompilation Options</h3>
 <p>We are done with the IMP++ semantics. The next step is to kompile the
@@ -621,7 +625,7 @@ these options.</p>
 <p>To tell the <strong>K</strong> tool to exhaustively explore all the behaviors due to the
 non-determinism of addition, division, and threads, we have to kompile
 with the command:</p>
-<pre><code class="language-shell">kompile imp.k --transition=&quot;addition division lookup assignment increment read print&quot;
+<pre class="hljs"><code>kompile imp.k --transition=&quot;addition division lookup assignment increment read print&quot;
 </code></pre>
 <p>As already mentioned, the syntax and rule tags play no theoretical or
 foundational role in <strong>K</strong>. They are only a means to allow <code>kompile</code> to
@@ -634,7 +638,7 @@ exhaustive analysis.</p>
 unconstrained by side conditions as we showed in the semantics of IMP.
 For example, the theoretical heating/cooling rules corresponding to the
 <code>strict</code> attribute of division are the following:</p>
-<pre><code>E₁ / E₂ ⇒ E₁ ⤳ □ / E₂
+<pre class="hljs"><code>E₁ / E₂ ⇒ E₁ ⤳ □ / E₂
 E₁ ⤳ □ / E₂ ⇒ E₁ / E₂
 E₁ / E₂ ⇒ E₂ ⤳ E₁ / □
 E₂ ⤳ E₁ / □ ⇒ E₁ / E₂
@@ -653,7 +657,7 @@ well with other implementation choices made in the current <strong>K</strong> to
 Recall from the detailed description of the IMP language semantics that
 (theoretical) reversible rules like above are restricted by default
 to complementary conditional rules of the form</p>
-<pre><code>E₁ / E₂ ⇒ E₁ ⤳ □ / E₂
+<pre class="hljs"><code>E₁ / E₂ ⇒ E₁ ⤳ □ / E₂
    if E₁ not in KResult
 E₁ ⤳ □ / E₂ ⇒ E₁ / E₂
    if E₁ in KResult
@@ -679,7 +683,7 @@ For example, with the semantics of IMP++ given above, the <code>krun</code>
 command with the <code>--search</code> option detects all five behaviors
 of the following IMP++ program (<code>x</code> can be 0, 1, 2, 3, or undefined
 due to division-by-zero):</p>
-<pre><code>  int x,y;
+<pre class="hljs"><code>  int x,y;
   x = 1;
   y = ++x / (++x / x);
 </code></pre>
