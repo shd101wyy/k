@@ -129,7 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>Balances Module Specifications</h1>
+            <html><head></head><body><h1>Balances Module Specifications</h1>
 <pre class="hljs"><code><span class="hljs-keyword">requires</span> <span class="hljs-string">&quot;set-balance.md&quot;</span><span class="hljs-keyword">
 
 module</span> VERIFICATION<span class="hljs-keyword">
@@ -156,35 +156,35 @@ module</span> SET-BALANCE-SPEC<span class="hljs-keyword">
 <p>This property shows that <code>set_balance</code> will not result in a zero-balance attack.
 <strong>TODO</strong>: Generalize to any EntryAction.
 <strong>TODO</strong>: Assertions about log events.</p>
-<pre class="hljs"><code>    rule &lt;k&gt; set_balance(Root, WHO, FREE_BALANCE', RESERVED_BALANCE') =&gt; . ... &lt;/k&gt;
-         &lt;totalIssuance&gt; TOTAL_ISSUANCE =&gt; TOTAL_ISSUANCE +Int ( FREE_BALANCE' -Int FREE_BALANCE ) +Int ( RESERVED_BALANCE' -Int RESERVED_BALANCE ) &lt;/totalIssuance&gt;
+<pre class="hljs"><code>    rule &lt;k&gt; set_balance(Root, WHO, FREE_BALANCE&apos;, RESERVED_BALANCE&apos;) =&gt; . ... &lt;/k&gt;
+         &lt;totalIssuance&gt; TOTAL_ISSUANCE =&gt; TOTAL_ISSUANCE +Int ( FREE_BALANCE&apos; -Int FREE_BALANCE ) +Int ( RESERVED_BALANCE&apos; -Int RESERVED_BALANCE ) &lt;/totalIssuance&gt;
          &lt;existentialDeposit&gt; EXISTENTIAL_DEPOSIT &lt;/existentialDeposit&gt;
          &lt;account&gt;
            &lt;accountID&gt; WHO &lt;/accountID&gt;
-           &lt;freeBalance&gt; FREE_BALANCE =&gt; FREE_BALANCE' &lt;/freeBalance&gt;
-           &lt;reservedBalance&gt; RESERVED_BALANCE =&gt; RESERVED_BALANCE' &lt;/reservedBalance&gt;
+           &lt;freeBalance&gt; FREE_BALANCE =&gt; FREE_BALANCE&apos; &lt;/freeBalance&gt;
+           &lt;reservedBalance&gt; RESERVED_BALANCE =&gt; RESERVED_BALANCE&apos; &lt;/reservedBalance&gt;
            ...
          &lt;/account&gt;
-      requires #inWidth(96, TOTAL_ISSUANCE +Int (FREE_BALANCE' -Int FREE_BALANCE))
-       andBool #inWidth(96, TOTAL_ISSUANCE +Int (FREE_BALANCE' -Int FREE_BALANCE) +Int (RESERVED_BALANCE' -Int RESERVED_BALANCE))
-       andBool EXISTENTIAL_DEPOSIT &lt;=Int FREE_BALANCE'
-       andBool EXISTENTIAL_DEPOSIT &lt;=Int RESERVED_BALANCE'
+      requires #inWidth(96, TOTAL_ISSUANCE +Int (FREE_BALANCE&apos; -Int FREE_BALANCE))
+       andBool #inWidth(96, TOTAL_ISSUANCE +Int (FREE_BALANCE&apos; -Int FREE_BALANCE) +Int (RESERVED_BALANCE&apos; -Int RESERVED_BALANCE))
+       andBool EXISTENTIAL_DEPOSIT &lt;=Int FREE_BALANCE&apos;
+       andBool EXISTENTIAL_DEPOSIT &lt;=Int RESERVED_BALANCE&apos;
 </code></pre>
-<pre class="hljs"><code><span class="hljs-keyword">    rule</span> &lt;k&gt; set_balance_reserved ( WHO , RESERVED_BALANCE&#x27; ) =&gt; . ... &lt;/k&gt;
+<pre class="hljs"><code><span class="hljs-keyword">    rule</span> &lt;k&gt; set_balance_reserved ( WHO , RESERVED_BALANCE&apos; ) =&gt; . ... &lt;/k&gt;
          &lt;existentialDeposit&gt; EXISTENTIAL_DEPOSIT &lt;/existentialDeposit&gt;
-         &lt;totalIssuance&gt; TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> ( FREE_BALANCE&#x27; -<span class="hljs-keyword">Int</span> FREE_BALANCE ) =&gt; TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> ( FREE_BALANCE&#x27; -<span class="hljs-keyword">Int</span> FREE_BALANCE ) +<span class="hljs-keyword">Int</span> ( RESERVED_BALANCE&#x27; -<span class="hljs-keyword">Int</span> RESERVED_BALANCE ) &lt;/totalIssuance&gt;
+         &lt;totalIssuance&gt; TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> ( FREE_BALANCE&apos; -<span class="hljs-keyword">Int</span> FREE_BALANCE ) =&gt; TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> ( FREE_BALANCE&apos; -<span class="hljs-keyword">Int</span> FREE_BALANCE ) +<span class="hljs-keyword">Int</span> ( RESERVED_BALANCE&apos; -<span class="hljs-keyword">Int</span> RESERVED_BALANCE ) &lt;/totalIssuance&gt;
          &lt;account&gt;
            &lt;accountID&gt; WHO &lt;/accountID&gt;
-           &lt;freeBalance&gt; FREE_BALANCE&#x27; &lt;/freeBalance&gt;
-           &lt;reservedBalance&gt; RESERVED_BALANCE =&gt; RESERVED_BALANCE&#x27; &lt;/reservedBalance&gt;
+           &lt;freeBalance&gt; FREE_BALANCE&apos; &lt;/freeBalance&gt;
+           &lt;reservedBalance&gt; RESERVED_BALANCE =&gt; RESERVED_BALANCE&apos; &lt;/reservedBalance&gt;
            ...
          &lt;/account&gt;<span class="hljs-keyword">
-      requires</span> #inWidth(<span class="hljs-number">96</span>, TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> (FREE_BALANCE&#x27; -<span class="hljs-keyword">Int</span> FREE_BALANCE) +<span class="hljs-keyword">Int</span> (RESERVED_BALANCE&#x27; -<span class="hljs-keyword">Int</span> RESERVED_BALANCE))
-       andBool EXISTENTIAL_DEPOSIT &lt;=<span class="hljs-keyword">Int</span> RESERVED_BALANCE&#x27;
+      requires</span> #inWidth(<span class="hljs-number">96</span>, TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> (FREE_BALANCE&apos; -<span class="hljs-keyword">Int</span> FREE_BALANCE) +<span class="hljs-keyword">Int</span> (RESERVED_BALANCE&apos; -<span class="hljs-keyword">Int</span> RESERVED_BALANCE))
+       andBool EXISTENTIAL_DEPOSIT &lt;=<span class="hljs-keyword">Int</span> RESERVED_BALANCE&apos;
 </code></pre>
 <pre class="hljs"><code><span class="hljs-keyword">endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

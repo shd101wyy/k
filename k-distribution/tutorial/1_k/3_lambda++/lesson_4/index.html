@@ -129,13 +129,12 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. -->
-<h1>Do Not Reuse Blindly!</h1>
+            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Do Not Reuse Blindly!</h1>
 <p>It may be tempting to base your decision to reuse an existing semantics of
 a language feature solely on syntactic considerations; for example, to reuse
 whenever the parser does not complain.  As seen in this lesson, this could
 be quite risky.</p>
-<p>Let's try (and fail) to reuse the definition of <code>callcc</code> from Lesson 1:</p>
+<p>Let&apos;s try (and fail) to reuse the definition of <code>callcc</code> from Lesson 1:</p>
 <pre><code>syntax Exp ::= &quot;callcc&quot; Exp  [strict]
 syntax Val ::= cc(K)
 rule &lt;k&gt; (callcc V:Val =&gt; V cc(K)) ~&gt; K &lt;/k&gt;
@@ -144,7 +143,7 @@ rule &lt;k&gt; cc(K) V ~&gt; _ =&gt;  V ~&gt; K &lt;/k&gt;
 <p>The <code>callcc</code> examples that we tried in Lesson 1 work, so it may look it works.</p>
 <p>However, the problem is that <code>cc(K)</code> should also include an environment,
 and that environment should also be restored when <code>cc(K)</code> is invoked.
-Let's try to illustrate this bug with <code>callcc-env1.lambda</code></p>
+Let&apos;s try to illustrate this bug with <code>callcc-env1.lambda</code></p>
 <pre><code>let x = 1 in
   ((callcc lambda k . (let x = 2 in (k x))) + x)
 </code></pre>
@@ -167,7 +166,7 @@ and we would indeed get two possible value results: 3 and 4.</p>
 of <code>+</code>, and thus that all we need to do is to enforce a deterministic order
 in which the arguments of + are evaluated.  Let us follow this path to
 see what happens.  There are two simple ways to make the evaluation order
-of <code>+</code>'s arguments deterministic.  One is to make <code>+</code> <code>seqstrict</code> in the
+of <code>+</code>&apos;s arguments deterministic.  One is to make <code>+</code> <code>seqstrict</code> in the
 semantics, to enforce its evaluation from left-to-right.  Do it and then
 run the program above again; you should get only one behavior for the
 program above, 4, which therefore shows that copying-and-pasting our old
@@ -190,7 +189,7 @@ of whether <code>+</code> is declared to be <code>seqstrict</code> or just <code
 possible?  The problem is now the non-deterministic evaluation strategy of
 the function application construct.  Indeed, recall that the semantics of
 the let-in construct is defined by desugaring to lambda application:</p>
-<pre><code>rule let X = E in E' =&gt; (lambda X . E') E     [macro]
+<pre><code>rule let X = E in E&apos; =&gt; (lambda X . E&apos;) E     [macro]
 </code></pre>
 <p>With this, the program above eventually reduces to</p>
 <pre><code>(lambda a . ((lambda b . a + b) x))
@@ -211,9 +210,9 @@ evaluate to 4.</p>
 <code>cc</code> also wrap an environment, besides a computation.  We will also give a more
 direct semantics to recursion, based on environments instead of fixed-point
 combinators.</p>
-<p>Go to <a href="../lesson_5/README.md">Lesson 5, LAMBDA++: More Semantic Computation Items</a>.</p>
-<p><a href="http://youtu.be/OXvtklaSaSQ">MOVIE (out of date) [3'37&quot;]</a></p>
-
+<p>Go to <a href="../lesson_5/">Lesson 5, LAMBDA++: More Semantic Computation Items</a>.</p>
+<p><a href="http://youtu.be/OXvtklaSaSQ" target="_blank" rel="noopener">MOVIE (out of date) [3&apos;37&quot;]</a></p>
+</body></html>
           </div>
         </main>
       </div>

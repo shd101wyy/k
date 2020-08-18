@@ -129,8 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. -->
-<h1>Computations, Results, Strictness; Rules Involving Cells</h1>
+            <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Computations, Results, Strictness; Rules Involving Cells</h1>
 <p>In this lesson we will learn about the syntactic category <code>K</code> of computations,
 about how strictness attributes are in fact syntactic sugar for rewrite rules
 over computations, and why it is important to tell the tool which
@@ -205,7 +204,7 @@ non-termination.</p>
 <h2>Strictness in Practice; K Results</h2>
 <p>To break the reversibility of the theoretical heating/cooling rules, and,
 moreover, to efficiently execute K definitions, the current implementation of
-the K tool relies on users giving explicit definitions of their languages'
+the K tool relies on users giving explicit definitions of their languages&apos;
 results.</p>
 <p>The K tool provides a predicate <code>isKResult</code>, which is automatically defined
 as we add syntactic constructs to <code>KResult</code> (in fact the K tool defines such
@@ -234,14 +233,14 @@ comprises all program behaviors. This latter model is obviously more general
 from a theoretical perspective, but, in practice, it is also slower to execute.
 The <code>kompile</code> tool strives to give you the best model of the language for the
 task you are interested in.</p>
-<h2>Can't Results be Inferred Automatically?</h2>
+<h2>Can&apos;t Results be Inferred Automatically?</h2>
 <p>This is a long story, but the short answer is: <em>No!</em>. Maybe in some cases
 it is possible, but we prefer to not attempt it in the K tool. For example,
 you most likely do not want any stuck computation to count as a result,
 since some of them can happen simply because you forgot a semantic rule that
 could have further reduce it! Besides, in our experience with defining large
 languages, it is quite useful to take your time and think of what the results
-of your language's computations are. This fact in itself may help you improve
+of your language&apos;s computations are. This fact in itself may help you improve
 your overall language design. We typically do it at the same time with
 defining the evaluation strategies of our languages. Although in theory K
 could infer the results of your language as the stuck computations, based on
@@ -249,7 +248,7 @@ the above we have deliberately decided to not provide this feature, in spite
 of requests from some users. So you currently do have to explicitly define
 your K results if you want to effectively use the K tool. Note, however, that
 theoretical definitions, not meant to be executed, need not worry about
-defining results (that's because in theory semantic rules apply <em>modulo</em> the
+defining results (that&apos;s because in theory semantic rules apply <em>modulo</em> the
 reversible heating/cooling rules, so results are not necessary).</p>
 <h2>A K Rule Involving Cells</h2>
 <p>All our K rules so far in the tutorial were of the form</p>
@@ -269,7 +268,7 @@ of things, ordered or not. The <code>...</code>s, which we also call cell <em>fr
 stand for <em>more stuff there, which we do not care about</em>.</p>
 <p>The rewrite relation <code>=&gt;</code> is allowed in K to appear anywhere in a term, its
 meaning being that the corresponding subterm is rewritten as indicated in the
-shown context. We say that K's rewriting is <em>local</em>.</p>
+shown context. We say that K&apos;s rewriting is <em>local</em>.</p>
 <p>The rule above says that if the identifier <code>X</code> is the first task in the <code>k</code>
 cell, and if <code>X</code> is bound to <code>I</code> somewhere in the <code>state</code>, then <code>X</code> rewrites
 to <code>I</code> <em>locally</em> in the <code>k</code> cell. Therefore, IMP variables need to be already
@@ -297,9 +296,9 @@ horizontal line: specifically, the subterm which rewrites, <code>X</code>, is
 underlined, and its replacement is written underneath the line.</p>
 <p>In the next lesson we define the complete K semantics of IMP and
 run the programs we parsed in the first lesson.</p>
-<p>Go to <a href="../lesson_4/README.md">Lesson 4, IMP: Configuration Abstraction, Part 1; Types of Rules</a>.</p>
-<p><a href="http://youtu.be/gYPkhiT2SxA">MOVIE (out of date) [10'30&quot;]</a></p>
-
+<p>Go to <a href="../lesson_4/">Lesson 4, IMP: Configuration Abstraction, Part 1; Types of Rules</a>.</p>
+<p><a href="http://youtu.be/gYPkhiT2SxA" target="_blank" rel="noopener">MOVIE (out of date) [10&apos;30&quot;]</a></p>
+</body></html>
           </div>
         </main>
       </div>

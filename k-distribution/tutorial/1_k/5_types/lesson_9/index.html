@@ -129,8 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. -->
-<h1>Let-Polymorphic Type Inferencer (Damas-Hindley-Milner)</h1>
+            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Let-Polymorphic Type Inferencer (Damas-Hindley-Milner)</h1>
 <p>In this lesson we discuss a type inferencer based on what we call today
 <em>the Damas-Hindley-Milner type system</em>, which is at the core of many
 modern functional programming languages. The first variant of it was
@@ -147,17 +146,17 @@ change one existing rule (the rule of the let binder) and to add a new
 one. We will also learn some new predefined features of K, which make
 the above possible.</p>
 <p>The main idea is to replace the rule</p>
-<pre><code>rule let X = E in E' =&gt; E'[E/X]  [macro]
+<pre><code>rule let X = E in E&apos; =&gt; E&apos;[E/X]  [macro]
 </code></pre>
-<p>which creates potentially many copies of <code>E</code> within <code>E'</code> with a rule
+<p>which creates potentially many copies of <code>E</code> within <code>E&apos;</code> with a rule
 which types <code>E</code> once and then reuses that type in each place where <code>X</code>
-occurs free in <code>E'</code>. The simplest K way to type <code>E</code> is to declare the
+occurs free in <code>E&apos;</code>. The simplest K way to type <code>E</code> is to declare the
 let construct <code>strict(2)</code>. Now we cannot simply bind <code>X</code> to the type
 of <code>E</code>, because we would obtain a variant of the naive type inferencer
 we already discussed, together with its limitations, in Lesson 5 of this
 tutorial. The trick here is to parameterize the type of <code>E</code> in all its
 unconstrained fresh types, and then create fresh copies of those
-parameters in each free occurrence of <code>X</code> in <code>E'</code>.</p>
+parameters in each free occurrence of <code>X</code> in <code>E&apos;</code>.</p>
 <p>Let us discuss some examples, before we go into the technical details.
 Consider the first let-polymorphic example which failed to be typed
 with our first naive type-inferencer:</p>
@@ -178,7 +177,7 @@ where <em>rule schemas</em> stand for infinitely many concrete instances of
 them. For this reason, parametric types are also called <em>type schemas</em>.</p>
 <p>Now each time <code>id</code> is looked up within the let-body, we create a fresh
 copy of the parameter <code>t</code>, which can this way be independently
-constrained by each local context. Let's suppose that the three <code>id</code>
+constrained by each local context. Let&apos;s suppose that the three <code>id</code>
 lookups yield the types <code>t1 -&gt; t1</code>, <code>t2 -&gt; t2</code>, and respectively <code>t3 -&gt; t3</code>.
 Then <code>t1</code> will be constrained to be <code>bool</code>, and <code>t2</code> and <code>t3</code> to be <code>int</code>,
 so we can now safely type the program above to <code>int</code>.</p>
@@ -203,7 +202,7 @@ naively parameterize in all fresh variables, that is in both <code>tz</code> and
 <code>tx</code> obtaining the type schema <code>(forall tz,tx) tz -&gt; tx</code>, then there will
 be no way to infer that the type of <code>x</code>, <code>tx</code>, must be a <code>bool</code>! The
 inferred type of this expression would then wrongly be <code>tx -&gt; t</code> for
-some fresh types <code>tx</code> and <code>t</code>. That's because the parameters are replaced
+some fresh types <code>tx</code> and <code>t</code>. That&apos;s because the parameters are replaced
 with fresh copies in each occurrence of <code>y</code>, and thus their relationship
 to the original <code>x</code> is completely lost. This tells us that we cannot
 parameterize in all fresh types that appear in the type of the
@@ -250,7 +249,7 @@ of a type schema will always be a set of fresh types. We also declare
 this construct to be a <code>binder</code>, so that we can make use of the generic
 free variable function provided by the K tool.</p>
 <p>We now replace the old macro of <code>let</code></p>
-<pre><code>rule let X = E in E' =&gt; E'[E/X]  [macro]
+<pre><code>rule let X = E in E&apos; =&gt; E&apos;[E/X]  [macro]
 </code></pre>
 <p>with the following rule:</p>
 <pre><code>rule &lt;k&gt; let X = T:Type in E =&gt; E ~&gt; tenv(TEnv) ...&lt;/k&gt;
@@ -286,7 +285,7 @@ definitions, so they are predefined in module <code>substitution.k</code>.</p>
 <p>Our definition of this let-polymorphic type inferencer is now
 complete. To test it, <code>kompile</code> it and then <code>krun</code> all the LAMBDA
 programs discussed since Lesson 4. They should all work as expected.</p>
-
+</body></html>
           </div>
         </main>
       </div>

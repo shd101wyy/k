@@ -129,8 +129,8 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>IMP++</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>IMP++</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
 <h3>Abstract</h3>
 <p>This is the <strong>K</strong> semantic definition of the IMP++ language.
@@ -166,7 +166,7 @@ starts a new concurrent thread that executes statement <code>s</code>,
 which is expected to be a block, and evaluates immediately to a fresh
 thread identifier that is also assigned to the newly created thread.
 The new thread is given at creation time the <code>environment</code> of its
-parent, so it can access all its parent's variables. This allows for
+parent, so it can access all its parent&apos;s variables. This allows for
 the parent thread, and the child thread to communicate; it also allows
 for races and &quot;unexpected&quot; behaviors, so be careful.
 For thread synchronization, IMP++ provides a thread join statement
@@ -176,7 +176,7 @@ completes its computation. For simplicity, we here assume a
 sequentially consistent shared memory model. To experiment with other
 memory models, see the definition of KERNELC.</p>
 <p><strong>Blocks and local variables.</strong> IMP++ allows blocks enclosed by
-curly brackets. Also, IMP's global variable declaration construct is
+curly brackets. Also, IMP&apos;s global variable declaration construct is
 generalized to be used anywhere as a statement, not only at the
 beginning of the program. As expected, the scope of the declared
 variables is from their declaration point till the end of the most
@@ -209,7 +209,7 @@ except when their syntax has been subtly modified (such as, for
 example, the syntax of the previous &quot;statement&quot; assignment which
 is now obtained by composing the new assignment expression, and the
 new expression statement constructs); go the last lesson of
-Tutorial 2 if you are interested in IMP's constructs. For execution
+Tutorial 2 if you are interested in IMP&apos;s constructs. For execution
 purposes, we tag the addition and division operations with the
 <code>addition</code> and <code>division</code> tags. These attributes have
 no theoretical significance, in that they do not affect the semantics
@@ -274,7 +274,7 @@ configuration.</p>
 <p>The original configuration of IMP has been extended to include
 all the various additional cells needed for IMP++.
 To facilitate the semantics of threads, more specifically
-to naturally give them access to their parent's variables, we prefer a
+to naturally give them access to their parent&apos;s variables, we prefer a
 (rather conventional) split of the program state into an
 <code>environment</code> and a <code>store</code>. An environment maps
 variable names into <code>locations</code>, while a store maps locations
@@ -289,7 +289,7 @@ shared by all threads. For simplicity, we assume a sequentially consistent
 memory model in IMP++. Note that the <code>thread</code> cell has multiplicity
 <code>*</code>, meaning that there could be zero, one, or more instances of that cell
 in the configuration at any given time. This multiplicity information
-is important for <strong>K</strong>'s <em>configuration abstraction</em> process: it tells
+is important for <strong>K</strong>&apos;s <em>configuration abstraction</em> process: it tells
 <strong>K</strong> how to complete rules which, in order to increase the modularity of the
 definition, choose to not mention the entire configuration context.
 The <code>in</code> and <code>out</code> cells hold the input and the output
@@ -353,7 +353,7 @@ Add numbers up to (&lt;= 0 to quit)? 0
 <p>The option <code>--output none</code> instructs <code>krun</code> to not
 display the resulting configuration after the program executes. The
 input/output streaming works with or without this option, although
-if you don't use the option then a configuration with empty
+if you don&apos;t use the option then a configuration with empty
 <code>in</code> and <code>out</code> cells will be displayed after the program
 is executed. You can also initialize the configuration using
 configuration variables and stream the contents of the cells to
@@ -361,7 +361,7 @@ standard input/output at the same time. For example, if you use a
 configuration variable in the <code>in</code> cell and pass contents to it
 through <code>krun</code>, then that contents will be first consumed and
 then the user will be prompted to introduce additional input if the
-program's execution encounters more <code>read()</code> constructs.</p>
+program&apos;s execution encounters more <code>read()</code> constructs.</p>
 <h3>The old IMP constructs</h3>
 <p>The semantics of the old IMP constructs is almost identical to their
 semantics in the original IMP language, except for those constructs
@@ -369,7 +369,7 @@ making use of the program state and for those whose syntax has slightly
 changed. Indeed, the rules for variable lookup and assignment in IMP
 accessed the <code>state</code> cell, but that cell is not available in IMP++
 anymore. Instead, we have to use the combination of environment and store
-cells. Thanks to <strong>K</strong>'s implicit configuration abstraction, we do not have
+cells. Thanks to <strong>K</strong>&apos;s implicit configuration abstraction, we do not have
 to mention the <code>thread</code> and <code>threads</code> cells: these are
 automatically inferred (and added by the <strong>K</strong> tool at compile time) from the
 definition of the configuration above, as there is only one correct
@@ -447,7 +447,7 @@ corresponding computation <code>s1 ~&gt; s2 ~&gt; ... ~&gt; sn</code>.</p>
 </code></pre>
 <h3>While loop</h3>
 <p>The only thing to notice here is that the empty block has been replaced
-with the block holding the explicit empty sequence. That's because in
+with the block holding the explicit empty sequence. That&apos;s because in
 the semantics all empty lists become explicit corresponding dots
 (to avoid parsing ambiguities)</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> while (B) S =&gt; if (B) {S while (B) S} else {.Stmts}  [<span class="hljs-literal">structural</span>]
@@ -466,7 +466,7 @@ reduction to the built-in string concatenation operation.</p>
 <p>Like variable lookup, this is also meant to be a supercool transition: we
 want it to count both in the non-determinism due to strict operations above
 it in the computation and in the non-determinism due to thread
-interleavings. This rule also relies on <strong>K</strong>'s configuration abstraction.
+interleavings. This rule also relies on <strong>K</strong>&apos;s configuration abstraction.
 Without abstraction, you would have to also include the <code>thread</code> and
 <code>threads</code> cells.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; ++X =&gt; I +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span> ...&lt;/k&gt;
@@ -494,7 +494,7 @@ strings, so we define a <code>Printable</code> syntactic category including
 only these and define the <code>print</code> statement to only print
 <code>Printable</code> elements. Alternatively, we could have had two
 similar rules, one for integers and one for strings. Recall that,
-currently, <strong>K</strong>'s lists are cons-lists, so we cannot simply rewrite the
+currently, <strong>K</strong>&apos;s lists are cons-lists, so we cannot simply rewrite the
 head of a list (<code>P</code>) into a list (<code>.</code>). The first rule below is tagged,
 because we want to include it in the list of transitions when we kompile;
 different threads may compete on the output buffer and we want to capture
@@ -524,7 +524,7 @@ because there is nothing else to rewrite.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; halt; ~&gt; _ =&gt; . &lt;/k&gt;
 </code></pre>
 <h3>Spawn thread</h3>
-<p>A spawned thread is passed its parent's environment at creation time.
+<p>A spawned thread is passed its parent&apos;s environment at creation time.
 The <code>spawn</code> expression in the parent thread is immediately
 replaced by the unique identifier of the newly created thread, so the
 parent thread can continue its execution. We only consider a sequentially
@@ -532,10 +532,10 @@ consistent shared memory model for IMP++, but other memory models can also
 be defined in <strong>K</strong>; see, for example, the definition of KERNELC. Note that
 the rule below does not need to be tagged in order to make it a transition
 when we kompile, because the creation of the thread itself does not interfere
-with the execution of other threads. Also, note that <strong>K</strong>'s configuration
+with the execution of other threads. Also, note that <strong>K</strong>&apos;s configuration
 abstraction is at heavy work here, in two different places. First, the
-parent thread's <code>k</code> and <code>env</code> cells are wrapped within a
-<code>thread</code> cell. Second, the child thread's <code>k</code>, <code>env</code>
+parent thread&apos;s <code>k</code> and <code>env</code> cells are wrapped within a
+<code>thread</code> cell. Second, the child thread&apos;s <code>k</code>, <code>env</code>
 and <code>id</code> cells are also wrapped within a <code>thread</code> cell. Why
 that way and not putting all these four cells together within the
 same thread, or even create an additional <code>threads</code> cell at top
@@ -607,7 +607,7 @@ steps in the transition system of a program.</p>
 of the computation structure smaller, then you can also add the rule</p>
 <pre class="hljs"><code>  rule (_:Map =&gt; .) ~&gt; _:Map  [structural]
 </code></pre>
-<p>This rule acts like a ``tail recursion'' optimization, but for blocks. */</p>
+<p>This rule acts like a ``tail recursion&apos;&apos; optimization, but for blocks. */</p>
 <pre class="hljs"><code><span class="hljs-comment">// verification ids</span><span class="hljs-keyword">
   syntax</span><span class="hljs-keyword"> Id</span> ::= <span class="hljs-string">&quot;n&quot;</span>     [<span class="hljs-literal">token</span>]
               | <span class="hljs-string">&quot;sum&quot;</span>   [<span class="hljs-literal">token</span>]
@@ -629,7 +629,7 @@ with the command:</p>
 </code></pre>
 <p>As already mentioned, the syntax and rule tags play no theoretical or
 foundational role in <strong>K</strong>. They are only a means to allow <code>kompile</code> to
-refer to them in its options, like we did above. By default, <code>kompile</code>'s
+refer to them in its options, like we did above. By default, <code>kompile</code>&apos;s
 transition option is empty, because this yields the fastest language model when
 executed. Transitions may slow down the execution, but they instrument
 the language model to allow for formal analysis of program behaviors, even for
@@ -638,10 +638,10 @@ exhaustive analysis.</p>
 unconstrained by side conditions as we showed in the semantics of IMP.
 For example, the theoretical heating/cooling rules corresponding to the
 <code>strict</code> attribute of division are the following:</p>
-<pre class="hljs"><code>E₁ / E₂ ⇒ E₁ ⤳ □ / E₂
-E₁ ⤳ □ / E₂ ⇒ E₁ / E₂
-E₁ / E₂ ⇒ E₂ ⤳ E₁ / □
-E₂ ⤳ E₁ / □ ⇒ E₁ / E₂
+<pre class="hljs"><code>E&#x2081; / E&#x2082; &#x21D2; E&#x2081; &#x2933; &#x25A1; / E&#x2082;
+E&#x2081; &#x2933; &#x25A1; / E&#x2082; &#x21D2; E&#x2081; / E&#x2082;
+E&#x2081; / E&#x2082; &#x21D2; E&#x2082; &#x2933; E&#x2081; / &#x25A1;
+E&#x2082; &#x2933; E&#x2081; / &#x25A1; &#x21D2; E&#x2081; / E&#x2082;
 </code></pre>
 <p>The other semantic rules apply <code>modulo</code> such structural rules.
 For example, using heating rules we can bring a redex (a subterm which
@@ -657,14 +657,14 @@ well with other implementation choices made in the current <strong>K</strong> to
 Recall from the detailed description of the IMP language semantics that
 (theoretical) reversible rules like above are restricted by default
 to complementary conditional rules of the form</p>
-<pre class="hljs"><code>E₁ / E₂ ⇒ E₁ ⤳ □ / E₂
-   if E₁ not in KResult
-E₁ ⤳ □ / E₂ ⇒ E₁ / E₂
-   if E₁ in KResult
-E₁ / E₂ ⇒ E₂ ⤳ E₁ / □
-   if E₂ not in KResult
-E₂ ⤳ E₁ / □  ⇒ E₁ / E₂
-   if  E₂ in KResult
+<pre class="hljs"><code>E&#x2081; / E&#x2082; &#x21D2; E&#x2081; &#x2933; &#x25A1; / E&#x2082;
+   if E&#x2081; not in KResult
+E&#x2081; &#x2933; &#x25A1; / E&#x2082; &#x21D2; E&#x2081; / E&#x2082;
+   if E&#x2081; in KResult
+E&#x2081; / E&#x2082; &#x21D2; E&#x2082; &#x2933; E&#x2081; / &#x25A1;
+   if E&#x2082; not in KResult
+E&#x2082; &#x2933; E&#x2081; / &#x25A1;  &#x21D2; E&#x2081; / E&#x2082;
+   if  E&#x2082; in KResult
 </code></pre>
 <p>Therefore, our tool eagerly heats and lazily cools the computation.
 In other words, heating rules apply until a redex gets placed on the
@@ -700,13 +700,13 @@ and hereby as transitions in the transition system associated to the
 program, in practice that may yield a tremendous number of step
 interleavings to consider. Most of these interleavings are behaviorally
 equivalent for most purposes. For example, the fact that a thread computes
-a step <code>8+3 ⇒ 11</code> is likely irrelevant for the other
+a step <code>8+3 &#x21D2; 11</code> is likely irrelevant for the other
 threads, so one may not want to consider it as an observable transition in
 the space of interleavings. Since the K tool cannot know without help which
 transitions need to be explored and which do not, our approach is to
 let the user say so explicitly using the <code>transition</code> option of
 <code>kompile</code>.</p>
-
+</body></html>
           </div>
         </main>
       </div>

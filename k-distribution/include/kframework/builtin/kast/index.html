@@ -129,7 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>K Language Features</h1>
+            <html><head></head><body><h1>K Language Features</h1>
 <p>Defined below is a series of modules used to parse inner syntax in K (ie, the
 contents of rules, configuration declarations, and contexts).</p>
 <p>Much of this file exists in tight correspondence with the K implementation, and
@@ -191,7 +191,7 @@ module</span> KAST<span class="hljs-keyword">
   syntax</span> KLabel ::= r<span class="hljs-string">&quot;`(\\\\`|\\\\\\\\|[^`\\\\\\n\\r])+`&quot;</span> [<span class="hljs-literal">token</span>]
                   | #LowerId                                   [<span class="hljs-literal">token</span>]
                   | r<span class="hljs-string">&quot;(?&lt;![a-zA-Z0-9])[#a-z][a-zA-Z0-9]*&quot;</span>               [<span class="hljs-literal">token</span>, prec(<span class="hljs-number">1</span>)]
-                       <span class="hljs-comment">// something that doesn&#x27;t collide with meta-variables</span><span class="hljs-keyword">
+                       <span class="hljs-comment">// something that doesn&apos;t collide with meta-variables</span><span class="hljs-keyword">
 
   syntax</span> KList ::= K
                  | <span class="hljs-string">&quot;.KList&quot;</span>          [klabel(#EmptyKList), symbol]
@@ -282,11 +282,11 @@ Note that this may not be distinct from values produced via other means.</li>
 quantified and begin with a <code>?</code>. They are not required to appear on the
 left-hand-side prior to appearing on the right-hand-side, and generally
 refer to symbolic quantities that are introduced during rewriting. Refer to
-K's documentation for more details.</li>
+K&apos;s documentation for more details.</li>
 <li>Set variables. These are denoted by variables that begin with a <code>@</code>.
 These variables refer to a set of values and are generally used when writing
 simplification rules in the Haskell Backend. For more information, refer to
-K's documentation.</li>
+K&apos;s documentation.</li>
 </ol>
 <p>There is also a fifth type of &quot;variable&quot;, although it is not technically a
 variable. This refers to configuration variables, which are used to insert
@@ -305,9 +305,9 @@ module</span> KSEQ-SYMBOLIC<span class="hljs-keyword">
   imports</span> ML-SYNTAX<span class="hljs-keyword">
   imports</span> KVARIABLE-SYNTAX<span class="hljs-keyword">
 
-  syntax</span> #KVariable ::= r<span class="hljs-string">&quot;(?&lt;![A-Za-z0-9_\\$!\\?@])(\\!|\\?|@)?([A-Z][A-Za-z0-9&#x27;_]*|_|_[A-Z][A-Za-z0-9&#x27;_]*)&quot;</span>   [<span class="hljs-literal">token</span>, prec(<span class="hljs-number">1</span>)]
+  syntax</span> #KVariable ::= r<span class="hljs-string">&quot;(?&lt;![A-Za-z0-9_\\$!\\?@])(\\!|\\?|@)?([A-Z][A-Za-z0-9&apos;_]*|_|_[A-Z][A-Za-z0-9&apos;_]*)&quot;</span>   [<span class="hljs-literal">token</span>, prec(<span class="hljs-number">1</span>)]
                       | #UpperId                                                          [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
-  syntax</span> KConfigVar ::= r<span class="hljs-string">&quot;(?&lt;![A-Za-z0-9_\\$!\\?@])(\\$)([A-Z][A-Za-z0-9&#x27;_]*)&quot;</span>            [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
+  syntax</span> KConfigVar ::= r<span class="hljs-string">&quot;(?&lt;![A-Za-z0-9_\\$!\\?@])(\\$)([A-Z][A-Za-z0-9&apos;_]*)&quot;</span>            [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
   syntax</span> KBott      ::= #KVariable<span class="hljs-keyword">
   syntax</span> KBott      ::= KConfigVar<span class="hljs-keyword">
   syntax</span> KLabel     ::= #KVariable<span class="hljs-keyword">
@@ -348,7 +348,7 @@ endmodule</span>
 be placed immediately after the start of the cell or immediately before the
 end. In a cell whose contents are commutative, these are equivalent to one
 another and are also equivalent to placing <code>...</code> in both places. This means
-that what is placed in the cell will be combined with the cell contents'
+that what is placed in the cell will be combined with the cell contents&apos;
 concatenation operator with an unnamed variable. In other words, you match on
 some number of elements in the collection and do not care about the rest of
 the collection.</p>
@@ -363,7 +363,7 @@ appear on at most one side in a single rule.</p>
   imports</span> KCELLS<span class="hljs-keyword">
   imports</span> RULE-LISTS
   <span class="hljs-comment">// if this module is imported, the parser automatically</span>
-  <span class="hljs-comment">// generates, for all productions that have the attribute &#x27;cell&#x27; or &#x27;maincell&#x27;,</span>
+  <span class="hljs-comment">// generates, for all productions that have the attribute &apos;cell&apos; or &apos;maincell&apos;,</span>
   <span class="hljs-comment">// a production like below:</span>
   <span class="hljs-comment">//syntax Cell ::= &quot;&lt;top&gt;&quot; #OptionalDots K #OptionalDots &quot;&lt;/top&gt;&quot; [klabel(&lt;top&gt;)]</span><span class="hljs-keyword">
 
@@ -469,12 +469,12 @@ module</span> PROGRAM-LISTS<span class="hljs-keyword">
   imports</span> SORT-K
   <span class="hljs-comment">// if this module is imported, the parser automatically</span>
   <span class="hljs-comment">// replaces the default productions for lists:</span>
-  <span class="hljs-comment">// Es ::= E &quot;,&quot; Es [userList(&quot;*&quot;), klabel(&#x27;_,_)]</span>
-  <span class="hljs-comment">//      | &quot;.Es&quot;    [userList(&quot;*&quot;), klabel(&#x27;.Es)]</span>
+  <span class="hljs-comment">// Es ::= E &quot;,&quot; Es [userList(&quot;*&quot;), klabel(&apos;_,_)]</span>
+  <span class="hljs-comment">//      | &quot;.Es&quot;    [userList(&quot;*&quot;), klabel(&apos;.Es)]</span>
   <span class="hljs-comment">// into a series of productions more suitable for programs:</span>
-  <span class="hljs-comment">// Es#Terminator ::= &quot;&quot;      [klabel(&#x27;.Es)]</span>
-  <span class="hljs-comment">// Ne#Es ::= E &quot;,&quot; Ne#Es     [klabel(&#x27;_,_)]</span>
-  <span class="hljs-comment">//         | E Es#Terminator [klabel(&#x27;_,_)]</span>
+  <span class="hljs-comment">// Es#Terminator ::= &quot;&quot;      [klabel(&apos;.Es)]</span>
+  <span class="hljs-comment">// Ne#Es ::= E &quot;,&quot; Ne#Es     [klabel(&apos;_,_)]</span>
+  <span class="hljs-comment">//         | E Es#Terminator [klabel(&apos;_,_)]</span>
   <span class="hljs-comment">// Es ::= Ne#Es</span>
   <span class="hljs-comment">//      | Es#Terminator      // if the list is *</span><span class="hljs-keyword">
 endmodule</span><span class="hljs-keyword">
@@ -489,8 +489,8 @@ endmodule</span><span class="hljs-keyword">
 module</span> RECORD-PRODUCTIONS
   <span class="hljs-comment">// if this module is imported, prefix productions of the form</span>
   <span class="hljs-comment">// syntax Sort ::= name(Args)</span>
-  <span class="hljs-comment">// will be able to be parsed with don&#x27;t-care variables according</span>
-  <span class="hljs-comment">// to their nonterminal&#x27;s names</span><span class="hljs-keyword">
+  <span class="hljs-comment">// will be able to be parsed with don&apos;t-care variables according</span>
+  <span class="hljs-comment">// to their nonterminal&apos;s names</span><span class="hljs-keyword">
 endmodule</span><span class="hljs-keyword">
 
 module</span> SORT-PREDICATES
@@ -502,7 +502,7 @@ endmodule</span>
 </code></pre>
 <h2>Additional Syntax for K Terms in Rules</h2>
 <p>Certain additional features are available when parsing the contents of rules
-and contexts. For more information on each of these, refer to K's
+and contexts. For more information on each of these, refer to K&apos;s
 documentation.</p>
 <pre class="hljs"><code><span class="hljs-keyword">module</span> KREWRITE<span class="hljs-keyword">
   syntax</span> {Sort} Sort ::= Sort <span class="hljs-string">&quot;=&gt;&quot;</span> Sort [klabel(#KRewrite), symbol]<span class="hljs-keyword">
@@ -558,7 +558,7 @@ certain types of text, such as whitespace and comments. However, the specific
 syntax which each language must ignore is a little different from language
 to language, and thus you wish to specify it manually. You can do this by
 defining productions of the <code>#Layout</code> sort. For more information, refer to
-K's documentation. However, this module will be implicitly imported if no
+K&apos;s documentation. However, this module will be implicitly imported if no
 productions are declared of sort <code>#Layout</code>. This module will also be used
 for the purposes of parsing K rules. If you wish to declare a language with
 no layout productions, simply create a sort declaration for the <code>#Layout</code> sort
@@ -595,9 +595,9 @@ regular K rules to disambiguate as necessary.</p>
 endmodule</span>
 </code></pre>
 <h2>Annotating Parses with Locations</h2>
-<p>Another feature of K's Bison parser is the ability to annotate terms parsed
+<p>Another feature of K&apos;s Bison parser is the ability to annotate terms parsed
 with location information about the file and line where they occurred. For
-more information about how to use this, refer to K's documentation. However,
+more information about how to use this, refer to K&apos;s documentation. However,
 the below module exists to provide a user syntax for the annotations that
 are generated by the parser.</p>
 <pre class="hljs"><code><span class="hljs-keyword">module</span> K-LOCATIONS<span class="hljs-keyword">
@@ -609,7 +609,7 @@ are generated by the parser.</p>
 
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

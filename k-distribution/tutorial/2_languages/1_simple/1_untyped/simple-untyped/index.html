@@ -129,10 +129,10 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>SIMPLE — Untyped</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>SIMPLE &#x2014; Untyped</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+<p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2>Abstract</h2>
 <p>This is the <strong>K</strong> semantic definition of the untyped SIMPLE language.
@@ -143,7 +143,7 @@ A program consists of a set of global variable declarations and
 function definitions.  Like in C, function definitions cannot be
 nested and each program must have one function called <code>main</code>,
 which is invoked when the program is executed.  To make it more
-interesting and to highlight some of <strong>K</strong>'s strengths, SIMPLE includes
+interesting and to highlight some of <strong>K</strong>&apos;s strengths, SIMPLE includes
 the following features in addition to the conventional imperative
 expression and statement constructs:</p>
 <ul>
@@ -186,7 +186,7 @@ until the joined thread completes, via re-entrant locks which can be acquired
 and released, as well as through rendezvous commands.</p>
 </li>
 </ul>
-<p>Like in many other languages, some of SIMPLE's constructs can be
+<p>Like in many other languages, some of SIMPLE&apos;s constructs can be
 desugared into a smaller set of basic constructs.  We do that at the end
 of the syntax module, and then we only give semantics to the core constructs.</p>
 <p><strong>Note</strong>: This definition is commented slightly more than others, because it is
@@ -354,7 +354,7 @@ of syntactic mismatch.</p>
 // With that, I could have also eliminated the empty block</span>
 </code></pre>
 <h2>Desugared Syntax</h2>
-<p>This part desugars some of SIMPLE's language constructs into core ones.
+<p>This part desugars some of SIMPLE&apos;s language constructs into core ones.
 We only want to give semantics to core constructs, so we get rid of the
 derived ones before we start the semantics.  All desugaring macros below are
 straightforward.</p>
@@ -393,9 +393,9 @@ one to define it.</p>
 <p>We here define the values of the language that the various fragments of
 programs evaluate to.  First, integers and Booleans are values.  As discussed,
 arrays evaluate to special array reference values holding (1) a location from
-where the array's elements are contiguously allocated in the store, and
+where the array&apos;s elements are contiguously allocated in the store, and
 (2) the size of the array.  Functions evaluate to function values as
-λ-abstractions (we do not need to evaluate functions to closures
+&#x3BB;-abstractions (we do not need to evaluate functions to closures
 because each function is executed in the fixed global environment and
 function definitions cannot be nested).  Like in IMP and other
 languages, we finally tell the tool that values are <strong>K</strong> results.</p>
@@ -439,7 +439,7 @@ control structures needed to jump to certain points of interest in the program
 execution, a local environment map cell <code>env</code> mapping the thread local
 variables to locations in the store, and finally a <code>holds</code> map cell
 indicating what locks have been acquired by the thread and not released so far
-and how many times (SIMPLE's locks are re-entrant).  The <code>control</code> cell
+and how many times (SIMPLE&apos;s locks are re-entrant).  The <code>control</code> cell
 currently contains only two subcells, a function stack <code>fstack</code> which
 is a list and an exception stack <code>xstack</code> which is also a list.
 One can add more control structures in the <code>control</code> cell, such as a
@@ -495,23 +495,23 @@ form <code>var X;</code> on top of the <code>k</code> cell
 (indeed, note that the <code>k</code> cell is complete, or round, to the
 left, and is torn, or ruptured, to the right), allocates a fresh
 location <code>L</code> in the store which is initialized with a special value
-<code>⊥</code> (indeed, the unit <code>.</code>, or nothing, is matched anywhere
-in the map ‒note the tears at both sides‒ and replaced with the
-mapping <code>L ↦ ⊥</code>), and binds <code>X</code> to <code>L</code> in the local
+<code>&#x22A5;</code> (indeed, the unit <code>.</code>, or nothing, is matched anywhere
+in the map &#x2012;note the tears at both sides&#x2012; and replaced with the
+mapping <code>L &#x21A6; &#x22A5;</code>), and binds <code>X</code> to <code>L</code> in the local
 environment shadowing previous declarations of <code>X</code>, if any.
 This possible shadowing of <code>X</code> requires us to therefore update the
 entire environment map, which is expensive and can significantly slow
 down the execution of larger programs.  On the other hand, since we know
 that <code>L</code> is not already bound in the store, we simply add the binding
-<code>L ↦ ⊥</code> to the store, thus avoiding a potentially complete
+<code>L &#x21A6; &#x22A5;</code> to the store, thus avoiding a potentially complete
 traversal of the the store map in order to update it.  We prefer the approach
 used for updating the store whenever possible, because, in addition to being
 faster, it offers more true concurrency than the latter; indeed, according
 to the concurrent semantics of <code>K</code>, the store is not frozen while
-<code>L ↦ ⊥</code> is added to it, while the environment is frozen during the
+<code>L &#x21A6; &#x22A5;</code> is added to it, while the environment is frozen during the
 update operation <code>Env[L/X]</code>.  The variable declaration command is
 also removed from the top of the computation cell and the fresh location
-counter is incremented.  The undefined symbol <code>⊥</code> added in the store
+counter is incremented.  The undefined symbol <code>&#x22A5;</code> added in the store
 is of sort <code>KItem</code>, instead of <code>Val</code>, on purpose; this way, the
 store lookup rules will get stuck when one attempts to lookup an
 uninitialized location.  All the above happen in one transactional step,
@@ -539,9 +539,9 @@ an array of size <code>N</code>, the additional location (chosen to be the first
 one allocated) holding the array reference value.  The array reference
 value <code>array(L,N)</code> states that the array has size <code>N</code> and its
 elements are located contiguously in the store starting with location
-<code>L</code>.  The operation <code>L … L' ↦ V</code>, defined at the end of this
+<code>L</code>.  The operation <code>L &#x2026; L&apos; &#x21A6; V</code>, defined at the end of this
 file in the auxiliary operation section, initializes each location in
-the list <code>L … L'</code> to <code>V</code>.  Note that, since the dimensions of
+the list <code>L &#x2026; L&apos;</code> to <code>V</code>.  Note that, since the dimensions of
 array declarations can be arbitrary expressions, this virtually means
 that we can dynamically allocate memory in SIMPLE by means of array
 declarations.</p>
@@ -558,7 +558,7 @@ declarations.</p>
 desugar them all into uni-dimensional arrays by code transformation.
 This way, we only need to give semantics to uni-dimensional arrays.
 First, note that the context rule above actually evaluates all the array
-dimensions (that's why we defined the expression lists strict!):
+dimensions (that&apos;s why we defined the expression lists strict!):
 Upon evaluating the array dimensions, the code generation rule below
 desugars multi-dimensional array declaration to uni-dimensional declarations.
 To this aim, we introduce two special unique variable identifiers,
@@ -586,7 +586,7 @@ propagated each time the expression is evaluated in the desugaring code (note
 that both the loop condition and the nested multi-dimensional declaration
 would need to evaluate the expressions given as array dimensions).</p>
 <h2>Function declaration</h2>
-<p>Functions are evaluated to λ-abstractions and stored like any other
+<p>Functions are evaluated to &#x3BB;-abstractions and stored like any other
 values in the store.  A binding is added into the environment for the function
 name to the location holding its body.  Similarly to the C language, SIMPLE
 only allows function declarations at the top level of the program.  More
@@ -595,7 +595,7 @@ respects this requirement.  Indeed, the simplistic context-free parser
 generated by the grammar above is more generous than we may want, in that it
 allows function declarations anywhere any declaration is allowed, including
 inside arbitrary blocks.  However, as the rule below shows, we are <code>not</code>
-storing the declaration environment with the λ-abstraction value as
+storing the declaration environment with the &#x3BB;-abstraction value as
 closures do.  Instead, as seen shortly, we switch to the global environment
 whenever functions are invoked, which is consistent with our requirement that
 functions should only be declared at the top.  Thus, if one declares local
@@ -640,7 +640,7 @@ store, then we rewrite <code>X</code> into <code>V</code>:</p>
        &lt;env&gt;... X |-&gt; L ...&lt;/env&gt;
        &lt;store&gt;... L |-&gt; V:Val ...&lt;/store&gt;  [lookup]
 </code></pre>
-<p>Note that the rule above excludes reading <code>⊥</code>, because <code>⊥</code> is not
+<p>Note that the rule above excludes reading <code>&#x22A5;</code>, because <code>&#x22A5;</code> is not
 a value and <code>V</code> is checked at runtime to be a value.</p>
 <h2>Variable/Array increment</h2>
 <p>This is tricky, because we want to allow both <code>++x</code> and <code>++a[5]</code>.
@@ -713,7 +713,7 @@ and is defined at the end of the file.</p>
 <h2>Function call</h2>
 <p>Function application was strict in both its arguments, so we can
 assume that both the function and its arguments are evaluated to
-values (the former expected to be a λ-abstraction).  The first
+values (the former expected to be a &#x3BB;-abstraction).  The first
 rule below matches a well-formed function application on top of the
 computation and performs the following steps atomically: it switches
 to the function body followed by <code>return;</code> (for the case in
@@ -721,8 +721,8 @@ which the function does not use an explicit return statement); it
 pushes the remaining computation, the current environment, and the
 current control data onto the function stack (the remaining
 computation can thus also be discarded from the computation cell,
-because an unavoidable subsequent <code>return</code> statement ‒see
-above‒ will always recover it from the stack); it switches the
+because an unavoidable subsequent <code>return</code> statement &#x2012;see
+above&#x2012; will always recover it from the stack); it switches the
 current environment (which is being pushed on the function stack) to
 the global environment, which is where the free variables in the
 function body should be looked up; it binds the formal parameters to
@@ -771,7 +771,7 @@ may not evaluate at all (be undefined).  If one wants to make sure that
 such artificial values are never misused, then one needs to define a static
 checker (also using <strong>K</strong>, like our the type checker in
 <code>examples/simple/typed/static</code>) and reject programs that do.
-Note that, unlike the undefined symbol <code>⊥</code> which had the sort <code>K</code>
+Note that, unlike the undefined symbol <code>&#x22A5;</code> which had the sort <code>K</code>
 instead of <code>Val</code>, we defined <code>nothing</code> to be a value.  That
 is because, as explained above, we do not want the program to get
 stuck when nothing is returned by a function.  Instead, we want the
@@ -833,9 +833,9 @@ and efficiency (especially since rewrite engines have built-in techniques to
 lazily copy terms, by need, thus not creating unnecessary copies),
 so it is the one that we follow in general.</p>
 <h2>Sequential composition</h2>
-<p>Sequential composition is desugared into <strong>K</strong>'s builtin sequentialization
+<p>Sequential composition is desugared into <strong>K</strong>&apos;s builtin sequentialization
 operation (recall that, like in C, the semi-colon <code>;</code> is not a
-statement separator in SIMPLE — it is either a statement terminator or a
+statement separator in SIMPLE &#x2014; it is either a statement terminator or a
 construct for a statement from an expression).  The rule below is
 structural, so it does not count as a computational step.  One can make it
 computational if one wants it to count as a step.  Note that <strong>K</strong> allows
@@ -844,12 +844,12 @@ dissolve from the top of the computation when they are completed; this is in
 sharp contrast to (artificially) <code>evaluating</code> them to a special
 <code>skip</code> statement value and then getting rid of that special value, as
 it is the case in other semantic approaches (where everything must evaluate
-to something).  This means that once <code>S₁</code> completes in the rule below, <code>S₂</code>
+to something).  This means that once <code>S&#x2081;</code> completes in the rule below, <code>S&#x2082;</code>
 becomes automatically the next computation item without any additional
 (explicit or implicit) rules.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> S1:Stmts S2:Stmts =&gt; S1 ~&gt; S2  [<span class="hljs-literal">structural</span>]
 </code></pre>
-<p>A subtle aspect of the rule above is that <code>S₁</code> is declared to have sort
+<p>A subtle aspect of the rule above is that <code>S&#x2081;</code> is declared to have sort
 <code>Stmts</code> and not <code>Stmt</code>.  That is because desugaring macros can indeed
 produce left associative sequential composition of statements.  For example,
 the code <code>var x=0; x=1;</code> is desugared to
@@ -879,7 +879,7 @@ proceed (otherwise the rewriting process gets stuck).</p>
 <p>The simplest way to give the semantics of the while loop is by unrolling.
 Note, however, that its unrolling is only allowed when the while loop reaches
 the top of the computation (to avoid non-termination of unrolling).  We prefer
-the rule below to be structural, because we don't want the unrolling of the
+the rule below to be structural, because we don&apos;t want the unrolling of the
 while loop to count as a computational step; this is unavoidable in
 conventional semantics, but it is possible in <strong>K</strong> thanks to its distinction
 between structural and computational rules.  The simple while loop semantics
@@ -899,24 +899,24 @@ its evaluated arguments to the output buffer, and discard the residual
 </code></pre>
 <h2>Exceptions</h2>
 <p>SIMPLE allows parametric exceptions, in that one can throw and catch a
-particular value.  The statement <code>try S₁ catch(X) S₂</code>
-proceeds with the evaluation of <code>S₁</code>.  If <code>S₁</code> evaluates normally, i.e.,
-without any exception thrown, then <code>S₂</code> is discarded and the execution
-continues normally.  If <code>S₁</code> throws an exception with a statement of the
+particular value.  The statement <code>try S&#x2081; catch(X) S&#x2082;</code>
+proceeds with the evaluation of <code>S&#x2081;</code>.  If <code>S&#x2081;</code> evaluates normally, i.e.,
+without any exception thrown, then <code>S&#x2082;</code> is discarded and the execution
+continues normally.  If <code>S&#x2081;</code> throws an exception with a statement of the
 form <code>throw E</code>, then <code>E</code> is first evaluated to some value <code>V</code>
 (<code>throw</code> was declared to be strict), then <code>V</code> is bound to <code>X</code>, then
-<code>S₂</code> is evaluated in the new environment while the reminder of <code>S₁</code> is
+<code>S&#x2082;</code> is evaluated in the new environment while the reminder of <code>S&#x2081;</code> is
 discarded, then the environment is recovered and the execution continues
-normally with the statement following the <code>try S₁ catch(X) S₂</code> statement.
+normally with the statement following the <code>try S&#x2081; catch(X) S&#x2082;</code> statement.
 Exceptions can be nested and the statements in the
-<code>catch</code> part (<code>S₂</code> in our case) can throw exceptions to the
+<code>catch</code> part (<code>S&#x2082;</code> in our case) can throw exceptions to the
 upper level.  One should be careful with how one handles the control data
 structures here, so that the abrupt changes of control due to exception
 throwing and to function returns interact correctly with each other.
-For example, we want to allow function calls inside the statement <code>S₁</code> in
-a <code>try S₁ catch(X) S₂</code> block which can throw an exception
+For example, we want to allow function calls inside the statement <code>S&#x2081;</code> in
+a <code>try S&#x2081; catch(X) S&#x2082;</code> block which can throw an exception
 that is not caught by the function but instead is propagated to the
-<code>try S₁ catch(X) S₂</code> block that called the function.
+<code>try S&#x2081; catch(X) S&#x2082;</code> block that called the function.
 Therefore, we have to make sure that the function stack as well as other
 potential control structures are also properly modified when the exception
 is thrown to correctly recover the execution context.  This can be easily
@@ -943,15 +943,15 @@ exception stack.  The three rules below modularly do precisely the above.</p>
        &lt;/control&gt;
        &lt;env&gt; _ =&gt; Env &lt;/env&gt;
 </code></pre>
-<p>The catch statement <code>S₂</code> needs to be executed in the original environment,
+<p>The catch statement <code>S&#x2082;</code> needs to be executed in the original environment,
 but where the thrown value <code>V</code> is bound to the catch variable <code>X</code>.  We here
 chose to rely on two previously defined constructs when giving semantics to
 the catch part of the statement: (1) the variable declaration with
 initialization, for binding <code>X</code> to <code>V</code>; and (2) the block construct for
 preventing <code>X</code> from shadowing variables in the original environment upon the
-completion of <code>S₂</code>.</p>
+completion of <code>S&#x2082;</code>.</p>
 <h2>Threads</h2>
-<p>SIMPLE's threads can be created and terminated dynamically, and can
+<p>SIMPLE&apos;s threads can be created and terminated dynamically, and can
 synchronize by acquiring and releasing re-entrant locks and by rendezvous.
 We discuss the seven rules giving the semantics of these operations below.</p>
 <h2>Thread creation</h2>
@@ -961,8 +961,8 @@ of the newly created thread and, at the same time, a new thread cell is added
 into the configuration, initialized with the <code>S</code> statement and sharing the
 same environment with the parent thread.  Note that the newly created
 <code>thread</code> cell is torn.  That means that the remaining cells are added
-and initialized automatically as described in the definition of SIMPLE's
-configuration.  This is part of <strong>K</strong>'s configuration abstraction mechanism.</p>
+and initialized automatically as described in the definition of SIMPLE&apos;s
+configuration.  This is part of <strong>K</strong>&apos;s configuration abstraction mechanism.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;thread&gt;...
          &lt;k&gt; spawn S =&gt; !T:<span class="hljs-keyword">Int</span> ...&lt;/k&gt;
          &lt;env&gt; Env &lt;/env&gt;
@@ -1041,7 +1041,7 @@ threads happen to have an identical rendezvous statement as their next
 statement, then precisely two of them will synchronize and the other will
 remain blocked until another thread reaches a similar rendezvous statement.
 The rule below is as simple as it can be.  Note, however, that, again, it is
-<strong>K</strong>'s mechanism for configuration abstraction that makes it work as desired:
+<strong>K</strong>&apos;s mechanism for configuration abstraction that makes it work as desired:
 since the only cell which can multiply containing a <code>k</code> cell inside is
 the <code>thread</code> cell, the only way to concretize the rule below to the
 actual configuration of SIMPLE is to include each <code>k</code> cell in a
@@ -1084,7 +1084,7 @@ unrolling semantics of the while loop, will yield a computation
 structure in the <code>k</code> cell that increasingly grows, adding a new
 environment recovery task right in front of the already existing sequence of
 similar environment recovery tasks (this phenomenon is similar to the ``tail
-recursion'' problem).  Of course, when we have a sequence of environment
+recursion&apos;&apos; problem).  Of course, when we have a sequence of environment
 recovery tasks, we only need to keep the last one.  The elegant rule below
 does precisely that, thus avoiding the unnecessary computation explosion
 problem:</p>
@@ -1151,8 +1151,8 @@ including rule tags such as lookup, increment, acquire, etc.  See the
 IMP++ tutorial for what the transition option means how to use it.</p>
 <pre class="hljs"><code><span class="hljs-keyword">endmodule</span>
 </code></pre>
-<p>Go to <a href="../2_typed/1_static/simple-typed-static.md">Lesson 2, SIMPLE typed static</a></p>
-
+<p>Go to <a href="../../2_typed/1_static/simple-typed-static/">Lesson 2, SIMPLE typed static</a></p>
+</body></html>
           </div>
         </main>
       </div>

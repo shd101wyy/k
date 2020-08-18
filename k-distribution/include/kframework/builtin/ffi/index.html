@@ -129,13 +129,13 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>K Foreign Function Interface</h1>
+            <html><head></head><body><h1>K Foreign Function Interface</h1>
 <p>The K Foreign Function Interface (FFI) module provides a way to call native
 functions directly from a K semantics using the C ABI. It also provides
 utilities for allocating and deallocating byte buffers with static addresses
 that are suitable for being passed to native code.</p>
 <p>It is built off of the underlying libffi library
-(<a href="https://sourceware.org/libffi/">https://sourceware.org/libffi/</a>) and is subject to some of the same
+(<a href="https://sourceware.org/libffi/" target="_blank" rel="noopener">https://sourceware.org/libffi/</a>) and is subject to some of the same
 limitations as that library. Bear in mind, because this library exposes
 a number of unsafe C APIs directly, misuse of the library is likely to lead
 to memory corruption in your interpreter and can cause segmentation faults or
@@ -217,7 +217,7 @@ value of the function as a <code>Bytes</code>.</p>
 </code></pre>
 <h2>Symbol Lookup</h2>
 <p>The FFI module provides a mechanism to look up any function symbol and return
-that function's address.</p>
+that function&apos;s address.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span><span class="hljs-keyword"> Int</span> ::= <span class="hljs-string">&quot;#functionAddress&quot;</span> <span class="hljs-string">&quot;(&quot;</span><span class="hljs-keyword"> String</span> <span class="hljs-string">&quot;)&quot;</span> [function, hook(FFI.address)]
 </code></pre>
 <h2>Direct Memory Management</h2>
@@ -258,7 +258,7 @@ currently evaluating rule. The function returns <code>.K</code>.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> K ::= <span class="hljs-string">&quot;#free&quot;</span> <span class="hljs-string">&quot;(&quot;</span> KItem <span class="hljs-string">&quot;)&quot;</span> [function, hook(FFI.free)]<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

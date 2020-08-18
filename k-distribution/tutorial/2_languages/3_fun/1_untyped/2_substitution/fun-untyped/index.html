@@ -129,10 +129,10 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>FUN — Untyped — Substitution</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>FUN &#x2014; Untyped &#x2014; Substitution</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+<p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2>Abstract</h2>
 <p>This is the substitution-based definition of FUN.  For additional
@@ -253,7 +253,7 @@ module</span> FUN-UNTYPED-MACROS<span class="hljs-keyword">
 
   rule</span> [E1,E2,Es:Exps|T] =&gt; [E1|[E2,Es|T]]                   [<span class="hljs-literal">macro</span>-rec]
 
-<span class="hljs-comment">//  rule &#x27;TypeName(Tn:TypeName) =&gt; (.TypeVars) Tn              [macro]</span><span class="hljs-keyword">
+<span class="hljs-comment">//  rule &apos;TypeName(Tn:TypeName) =&gt; (.TypeVars) Tn              [macro]</span><span class="hljs-keyword">
   rule</span> `Type-TypeName`(T:Type, Tn:TypeName) =&gt; (T) Tn          [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
 
   syntax</span> Name ::= <span class="hljs-string">&quot;$h&quot;</span> | <span class="hljs-string">&quot;$t&quot;</span><span class="hljs-keyword">
@@ -262,8 +262,8 @@ module</span> FUN-UNTYPED-MACROS<span class="hljs-keyword">
   rule</span> null? =&gt; fun [.Exps] -&gt; true | [$h|$t] -&gt; false       [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
 
   syntax</span> Name ::= <span class="hljs-string">&quot;$k&quot;</span> | <span class="hljs-string">&quot;$v&quot;</span><span class="hljs-keyword">
-  rule</span> try E catch(X) E&#x27;
-    =&gt; callcc (fun $k -&gt; (fun throw -&gt; E)(fun X -&gt; $k E&#x27;))   [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
+  rule</span> try E catch(X) E&apos;
+    =&gt; callcc (fun $k -&gt; (fun throw -&gt; E)(fun X -&gt; $k E&apos;))   [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
 
   rule</span> datatype T = TCs E =&gt; E                               [<span class="hljs-literal">macro</span>]
 </code></pre>
@@ -281,7 +281,7 @@ module</span> FUN-UNTYPED-SYNTAX<span class="hljs-keyword">
   syntax</span> Name ::= r<span class="hljs-string">&quot;[a-z][_a-zA-Z0-9]*&quot;</span>            [<span class="hljs-literal">token</span>, prec(<span class="hljs-number">2</span>)]
                 | #LowerId                         [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
   syntax</span> ConstructorName ::= #UpperId              [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
-  syntax</span> TypeVar  ::= r<span class="hljs-string">&quot;[&#x27;][a-z][_a-zA-Z0-9]*&quot;</span>     [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
+  syntax</span> TypeVar  ::= r<span class="hljs-string">&quot;[&apos;][a-z][_a-zA-Z0-9]*&quot;</span>     [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
   syntax</span> TypeName ::= Name                         [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
@@ -356,7 +356,7 @@ Multipe bindings are left as an exercise.</p>
 <pre class="hljs"><code>  <span class="hljs-comment">// changed because of parsing error</span>
   <span class="hljs-comment">//rule mu X:Name -&gt; E =&gt; E[(mu X -&gt; E) / X]</span><span class="hljs-keyword">
   rule</span> mu X:Name -&gt; E =&gt; E[X |-&gt; (mu X -&gt; E)]<span class="hljs-keyword">
-  rule</span> letrec F:Name = E in E&#x27; =&gt; let F = (mu F -&gt; E) in E&#x27;  [<span class="hljs-literal">macro</span>]
+  rule</span> letrec F:Name = E in E&apos; =&gt; let F = (mu F -&gt; E) in E&apos;  [<span class="hljs-literal">macro</span>]
 </code></pre>
 <p>We cannot have <code>&amp;</code> anymore, but we can give direct
 semantics to <code>ref</code>.  We also have to declare <code>ref</code> to
@@ -420,7 +420,7 @@ the following custom pattern decomposition rule:</p>
     =&gt; getMatchingAux((H, T), (V, [Vs]))<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

@@ -129,7 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>Installing K Framework Package</h1>
+            <html><head></head><body><h1>Installing K Framework Package</h1>
 <p>We currently strive to provide packages for the following platforms:</p>
 <ul>
 <li>Ubuntu Bionic (18.04)</li>
@@ -141,11 +141,11 @@
 </ul>
 <p><strong>NOTE</strong>: We do not currently support running K on native Windows. To use K on
 Windows, you are encouraged to install
-<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>
+<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener">Windows Subsystem for Linux</a>
 and follow the instructions for Ubuntu Bionic.</p>
 <h2>Download Packages</h2>
 <p>Download the appropriate package from the GitHub, via the
-<a href="https://github.com/kframework/k/releases">Releases</a> page.
+<a href="https://github.com/kframework/k/releases" target="_blank" rel="noopener">Releases</a> page.
 Releases are generated as often as possible from <code>master</code> build.</p>
 <h2>Install Packages</h2>
 <p>For version <code>X.Y.Z</code>, disto <code>DISTRO</code>, and package ID <code>ID</code>, the following
@@ -163,7 +163,7 @@ brew install kframework--X.Y.Z.ID.bottle.BN.tar.gz -v
 </code></pre>
 <h3>Docker Images</h3>
 <p>Docker images with K pre-installed are available at the
-<a href="https://hub.docker.com/repository/docker/runtimeverificationinc/kframework-k">runtimeverification/kframework-k Docker Hub repository</a>.</p>
+<a href="https://hub.docker.com/repository/docker/runtimeverificationinc/kframework-k" target="_blank" rel="noopener">runtimeverification/kframework-k Docker Hub repository</a>.</p>
 <p>Each release at <code>COMMIT_ID</code> has an image associated with it at
 <code>runtimeverificationinc/kframework-k:ubuntu-bionic-COMMIT_ID</code>.
 The latest <code>master</code> build Docker image can be accessed with <code>COMMIT_ID</code> set to
@@ -205,7 +205,7 @@ mv k /PATH/TO/INSTALL/k
 instead of the OCaml backend. The OCaml backend is being sunsetted.</p>
 <p>To use the OCAML backend requires an installation of the OCAML package
 manager OPAM. Instructions on installing OPAM are available here:
-<a href="https://opam.ocaml.org/doc/Install.html">https://opam.ocaml.org/doc/Install.html</a>.
+<a href="https://opam.ocaml.org/doc/Install.html" target="_blank" rel="noopener">https://opam.ocaml.org/doc/Install.html</a>.
 You should install on Windows by following the instructions for the Linux
 distribution you installed for Windows Subsystem for Linux.</p>
 <p>Once opam is installed, you can prepare the installation to run the OCAML
@@ -226,7 +226,7 @@ backends for concrete execution and the Haskell/Java backend for symbolic
 execution and program verification (with <code>kompile --backend [haskell|java]</code>).</p>
 </li>
 </ol>
-
+</body></html>
           </div>
         </main>
       </div>

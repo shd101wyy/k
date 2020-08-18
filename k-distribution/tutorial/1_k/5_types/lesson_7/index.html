@@ -129,8 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. -->
-<h1>A Naive Substitution-based Polymorphic Type Inferencer</h1>
+            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>A Naive Substitution-based Polymorphic Type Inferencer</h1>
 <p>In this lesson you learn how little it takes to turn a naive monomorphic
 type inferencer into a naive polymorphic one, basically only changing
 a few characters. In terms of the K framework, you will learn that
@@ -138,17 +137,17 @@ you can have complex combinations of substitutions in K, both over
 expressions and over types.</p>
 <p>Let us start directly with the change. All we have to do is to take
 the LAMBDA type inferencer in Lesson 4 and only change the macro</p>
-<pre><code>rule let X = E in E' =&gt; (lambda X . E') E  [macro]
+<pre><code>rule let X = E in E&apos; =&gt; (lambda X . E&apos;) E  [macro]
 </code></pre>
 <p>as follows:</p>
-<pre><code>rule let X = E in E' =&gt; E'[E/X]  [macro]
+<pre><code>rule let X = E in E&apos; =&gt; E&apos;[E/X]  [macro]
 </code></pre>
 <p>In other words, we are inlining the beta-reduction rule of
 lambda-calculus within the original rule. In terms of typing,
 the above forces the type inferencer to type <code>E</code> in place for each
-occurrence of <code>X</code> in <code>E'</code>. Unlike in the first rule, where <code>X</code> had to get
-one type only which satisfied the constrains of all <code>X</code>'s occurrences in
-<code>E'</code>, we now never associate any type to <code>X</code> anymore.</p>
+occurrence of <code>X</code> in <code>E&apos;</code>. Unlike in the first rule, where <code>X</code> had to get
+one type only which satisfied the constrains of all <code>X</code>&apos;s occurrences in
+<code>E&apos;</code>, we now never associate any type to <code>X</code> anymore.</p>
 <p>Let us <code>kompile</code> and <code>krun</code> some examples. Everything that worked with
 the type inferencer in Lesson 4 should still work here, although the
 types of some programs can now be more general. For example, reconsider
@@ -210,7 +209,7 @@ type environments anyway. Additionally, we mix two kinds of
 substitutions in this definition, one where we substitute types and
 another where we substitute expressions, which can only make things
 harder to implement efficiently. Second, our naive substitution of <code>E</code>
-for <code>X</code> in <code>E'</code> can yield an exponential explosion in size of the original
+for <code>X</code> in <code>E&apos;</code> can yield an exponential explosion in size of the original
 program. Consider, for example, the following classic example which
 is known to generate a type whose size is exponential in the size of
 the program (and is thus used as an argument for why let-polymorphic
@@ -235,8 +234,8 @@ let-polymorphic type inferencer in Lesson 9, which is based on
 environments, we first quickly discuss in Lesson 8 an intermediate
 step, namely a naive environment-based variant of the inferencer
 defined here.</p>
-<p>Go to <a href="../lesson_8/README.md">Lesson 8, Type Systems: A Naive Environment-based Polymorphic Type Inferencer</a>.</p>
-
+<p>Go to <a href="../lesson_8/">Lesson 8, Type Systems: A Naive Environment-based Polymorphic Type Inferencer</a>.</p>
+</body></html>
           </div>
         </main>
       </div>

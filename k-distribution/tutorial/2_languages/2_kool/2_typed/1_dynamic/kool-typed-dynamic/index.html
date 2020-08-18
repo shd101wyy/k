@@ -129,10 +129,10 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>KOOL — Typed — Dynamic</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>KOOL &#x2014; Typed &#x2014; Dynamic</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+<p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2>Abstract</h2>
 <p>This is the <strong>K</strong> dynamic semantics of the typed KOOL language.  It is
@@ -525,7 +525,7 @@ get more from the existing SIMPLE constructs.</p>
   rule</span> &lt;k&gt; execute =&gt; new Main(.Exps); &lt;/k&gt; &lt;env&gt; .Map &lt;/env&gt;  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h2>Method application</h2>
-<p>The only change to untyped KOOL's values is that method closures are
+<p>The only change to untyped KOOL&apos;s values is that method closures are
 now typed (their first argument holds their type):</p>
 <pre class="hljs"><code><span class="hljs-keyword"> syntax</span> Val ::= objectClosure(<span class="hljs-keyword">Id</span>,List)
               | methodClosure(Type,<span class="hljs-keyword">Id</span>,<span class="hljs-keyword">Int</span>,Params,Stmt)
@@ -537,7 +537,7 @@ dynamically upcast values when passed to contexts where values of
 superclass types are expected; since we want method closures to be
 first-class-citizen values in our language, we have to be able to
 dynamically upcast them, and in order to do that elegantly it is
-convenient to store the entire ``current type'' of the method closure
+convenient to store the entire ``current type&apos;&apos; of the method closure
 instead of just its result type.  Note that this was unnecessary in
 the semantics of the dynamically typed SIMPLE language.</p>
 <p>Method closure application needs to also set a new return type in
@@ -555,10 +555,10 @@ environment, so we group them together in the stack frame.</p>
        &lt;store&gt;... OL |-&gt; objectClosure(_, EStack)...&lt;/store&gt;
      <span class="hljs-comment">//&lt;br/&gt; // TODO(KORE): support latex annotations #1799</span>
        &lt;control&gt;
-          &lt;fstack&gt; .List =&gt; ListItem(fstackFrame(Env, K, XS, T&#x27;, &lt;crntObj&gt; Obj&#x27; &lt;/crntObj&gt;)) ...&lt;/fstack&gt;
+          &lt;fstack&gt; .List =&gt; ListItem(fstackFrame(Env, K, XS, T&apos;, &lt;crntObj&gt; Obj&apos; &lt;/crntObj&gt;)) ...&lt;/fstack&gt;
           &lt;xstack&gt; XS &lt;/xstack&gt;
-          &lt;returnType&gt; T&#x27; =&gt; T &lt;/returnType&gt;
-          &lt;crntObj&gt; Obj&#x27; =&gt; &lt;crntClass&gt; Class &lt;/crntClass&gt; &lt;envStack&gt; EStack &lt;/envStack&gt; &lt;/crntObj&gt;
+          &lt;returnType&gt; T&apos; =&gt; T &lt;/returnType&gt;
+          &lt;crntObj&gt; Obj&apos; =&gt; &lt;crntClass&gt; Class &lt;/crntClass&gt; &lt;envStack&gt; EStack &lt;/envStack&gt; &lt;/crntObj&gt;
        &lt;/control&gt;
 </code></pre>
 <p>At method return, we have to check that the type of the returned
@@ -582,8 +582,8 @@ unchanged.</p>
 <h2>Assignment</h2>
 <p>Typed KOOL allows to assign subtype instance values to supertype
 lvalues.  The semantics of assignment below is similar in spirit to
-dynamically typed SIMPLE's, but a check is performed that the assigned
-value's type is a subtype of the location's type.  If that is the
+dynamically typed SIMPLE&apos;s, but a check is performed that the assigned
+value&apos;s type is a subtype of the location&apos;s type.  If that is the
 case, then the assigned value is returned as a result and stored, but
 it is upcast appropriately first, so the context will continue to see
 a value of the expected type of the location.  Note that the type of a
@@ -592,9 +592,9 @@ during the execution of a program; its type is assigned when the
 location is allocated and initialized, and then only type-preserving
 values are allowed to be stored in each location.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; loc(L) = V:Val
-           =&gt; subtype(typeOf(V),typeOf(V&#x27;)) ~&gt; true?
-              ~&gt; unsafeCast(V, typeOf(V&#x27;)) ...&lt;/k&gt;
-       &lt;store&gt;... L |-&gt; (V&#x27; =&gt; unsafeCast(V, typeOf(V&#x27;))) ...&lt;/store&gt;
+           =&gt; subtype(typeOf(V),typeOf(V&apos;)) ~&gt; true?
+              ~&gt; unsafeCast(V, typeOf(V&apos;)) ...&lt;/k&gt;
+       &lt;store&gt;... L |-&gt; (V&apos; =&gt; unsafeCast(V, typeOf(V&apos;))) ...&lt;/store&gt;
     [assignment]
 </code></pre>
 <h2>Typed exceptions</h2>
@@ -745,9 +745,9 @@ those in untyped KOOL.</p>
     =&gt; lookupMember(ListItem(envStackFrame(Class,Env)) EStack, X)
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
   rule</span> objectClosure(Class:<span class="hljs-keyword">Id</span>,
-                     (ListItem(envStackFrame(Class&#x27;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) EStack)
+                     (ListItem(envStackFrame(Class&apos;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) EStack)
        . X:<span class="hljs-keyword">Id</span><span class="hljs-keyword">
-    requires</span> Class =/=K Class&#x27; [<span class="hljs-literal">structural</span>]
+    requires</span> Class =/=K Class&apos; [<span class="hljs-literal">structural</span>]
 
 <span class="hljs-comment">/*  rule &lt;k&gt; super . X =&gt; lookupMember(&lt;envStack&gt;EStack&lt;/envStack&gt;, X) ...&lt;/k&gt;
        &lt;crntClass&gt; Class &lt;/crntClass&gt;
@@ -759,8 +759,8 @@ those in untyped KOOL.</p>
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
   rule</span> &lt;k&gt; super . X ...&lt;/k&gt;
        &lt;crntClass&gt; Class:<span class="hljs-keyword">Id</span> &lt;/crntClass&gt;
-       &lt;envStack&gt; (ListItem(envStackFrame(Class&#x27;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) EStack &lt;/envStack&gt;<span class="hljs-keyword">
-    requires</span> Class =/=K Class&#x27; [<span class="hljs-literal">structural</span>]
+       &lt;envStack&gt; (ListItem(envStackFrame(Class&apos;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) EStack &lt;/envStack&gt;<span class="hljs-keyword">
+    requires</span> Class =/=K Class&apos; [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h2>Method invocation</h2>
 <p>The method lookup is the same as in untyped KOOL.</p>
@@ -789,8 +789,8 @@ those in untyped KOOL.</p>
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
   rule</span> &lt;k&gt; (super . X)(_:Exps)...&lt;/k&gt;
        &lt;crntClass&gt; Class:<span class="hljs-keyword">Id</span> &lt;/crntClass&gt;
-       &lt;envStack&gt; (ListItem(envStackFrame(Class&#x27;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) EStack &lt;/envStack&gt;<span class="hljs-keyword">
-    requires</span> Class =/=K Class&#x27; [<span class="hljs-literal">structural</span>]
+       &lt;envStack&gt; (ListItem(envStackFrame(Class&apos;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) EStack &lt;/envStack&gt;<span class="hljs-keyword">
+    requires</span> Class =/=K Class&apos; [<span class="hljs-literal">structural</span>]
 
   <span class="hljs-comment">// TODO(KORE): fix getKLabel #1801</span><span class="hljs-keyword">
   rule</span> (A:Exp(B:Exps))(C:Exps) =&gt; A(B) ~&gt; #freezerFunCall(C)<span class="hljs-keyword">
@@ -799,7 +799,7 @@ those in untyped KOOL.</p>
   syntax</span> KItem ::= <span class="hljs-string">&quot;#freezerFunCall&quot;</span> <span class="hljs-string">&quot;(&quot;</span> K <span class="hljs-string">&quot;)&quot;</span>
   <span class="hljs-comment">/*
   context HOLE(_:Exps)
-    requires getKLabel HOLE ==KLabel &#x27;_`(_`) orBool getKLabel HOLE ==KLabel &#x27;_`[_`]
+    requires getKLabel HOLE ==KLabel &apos;_`(_`) orBool getKLabel HOLE ==KLabel &apos;_`[_`]
   */</span><span class="hljs-keyword">
 
   rule</span> &lt;k&gt; (lookup(L) =&gt; V)(_:Exps) ...&lt;/k&gt;  &lt;store&gt;... L |-&gt; V:Val ...&lt;/store&gt;
@@ -811,7 +811,7 @@ those in untyped KOOL.</p>
        instanceOf C =&gt; true<span class="hljs-keyword">
 
   rule</span> objectClosure(_, (ListItem(envStackFrame(C::<span class="hljs-keyword">Id</span>,_)) =&gt; .List) _)
-       instanceOf C&#x27;<span class="hljs-keyword">  requires</span> C =/=K C&#x27;  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
+       instanceOf C&apos;<span class="hljs-keyword">  requires</span> C =/=K C&apos;  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
   rule</span> objectClosure(_, .List) instanceOf _ =&gt; false
 </code></pre>
@@ -841,9 +841,9 @@ can indeed be cast to the claimed type.</p>
               =&gt; lookupMember(ListItem(envStackFrame(C,Env)) EStack,
                               X))  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
   rule</span> lvalue(objectClosure(C,
-                            (ListItem(envStackFrame(C&#x27;,_)) =&gt; .List) EStack)
+                            (ListItem(envStackFrame(C&apos;,_)) =&gt; .List) EStack)
               . X)<span class="hljs-keyword">
-    requires</span> C =/=K C&#x27; [<span class="hljs-literal">structural</span>]
+    requires</span> C =/=K C&apos; [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h2>Lookup member</h2>
 <p>Like in untyped KOOL.</p>
@@ -877,12 +877,12 @@ can indeed be cast to the claimed type.</p>
   rule</span> subtype(Object,Class:<span class="hljs-keyword">Id</span>) =&gt; false<span class="hljs-keyword">
     requires</span> Class =/=K Object  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
-  rule</span> subtype(Ts1-&gt;T2,Ts1&#x27;-&gt;T2&#x27;) =&gt; subtype(((T2)::Type,Ts1&#x27;),((T2&#x27;)::Type,Ts1))  [<span class="hljs-literal">structural</span>]
+  rule</span> subtype(Ts1-&gt;T2,Ts1&apos;-&gt;T2&apos;) =&gt; subtype(((T2)::Type,Ts1&apos;),((T2&apos;)::Type,Ts1))  [<span class="hljs-literal">structural</span>]
 
 <span class="hljs-comment">// Note that the following rule would be wrong!</span>
-<span class="hljs-comment">//  rule subtype(T[],T&#x27;[]) =&gt; subtype(T,T&#x27;)</span><span class="hljs-keyword">
+<span class="hljs-comment">//  rule subtype(T[],T&apos;[]) =&gt; subtype(T,T&apos;)</span><span class="hljs-keyword">
 
-  rule</span> subtype((T:Type,Ts),(T&#x27;:Type,Ts&#x27;)) =&gt; subtype(T,T&#x27;) &amp;&amp; subtype(Ts,Ts&#x27;)<span class="hljs-keyword">
+  rule</span> subtype((T:Type,Ts),(T&apos;:Type,Ts&apos;)) =&gt; subtype(T,T&apos;) &amp;&amp; subtype(Ts,Ts&apos;)<span class="hljs-keyword">
     requires</span> Ts =/=K .Types  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
   rule</span> subtype(.Types,.Types) =&gt; true  [<span class="hljs-literal">structural</span>]
 </code></pre>
@@ -894,7 +894,7 @@ the subtype relation above.</p>
   rule</span> unsafeCast(objectClosure(_,EStack), C:<span class="hljs-keyword">Id</span>)
     =&gt; objectClosure(C,EStack)<span class="hljs-keyword">
 
-  rule</span> unsafeCast(methodClosure(T&#x27;,C,OL,Ps,S), T) =&gt; methodClosure(T,C,OL,Ps,S)<span class="hljs-keyword">
+  rule</span> unsafeCast(methodClosure(T&apos;,C,OL,Ps,S), T) =&gt; methodClosure(T,C,OL,Ps,S)<span class="hljs-keyword">
 
   rule</span> unsafeCast(V:Val, T:Type) =&gt; V<span class="hljs-keyword">  requires</span> typeOf(V) ==K T
 </code></pre>
@@ -906,8 +906,8 @@ only if a prefix guard evaluates to true.</p>
 
 endmodule</span>
 </code></pre>
-<p>Go to <a href="../2_static/kool-typed-static.md">Lesson 3, KOOL typed static</a>.</p>
-
+<p>Go to <a href="../../2_static/kool-typed-static/">Lesson 3, KOOL typed static</a>.</p>
+</body></html>
           </div>
         </main>
       </div>

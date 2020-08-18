@@ -129,10 +129,10 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>KOOL — Untyped</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>KOOL &#x2014; Untyped</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+<p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2>Abstract</h2>
 <p>This is the <strong>K</strong> semantic definition of the untyped KOOL language.  KOOL
@@ -143,7 +143,7 @@ intricate aspects of types in the presence of objects.  A program
 consists of a set of class declarations.  Each class can extend at
 most one other class (KOOL is single-inheritance).  A class can
 declare a set of fields and a set of methods, all public and called
-the class' <em>members</em>.  Specifically, KOOL includes the
+the class&apos; <em>members</em>.  Specifically, KOOL includes the
 following features:</p>
 <ul>
 <li>
@@ -167,7 +167,7 @@ concurrency via dynamic thread creation/termination and synchronization.
 The only change in the syntax of SIMPLE when imported in KOOL is the
 function declaration keyword, <code>function</code>, which is changed into
 <code>method</code>.  The exact same desugaring macros from SIMPLE are
-also included in KOOL.  We can think of KOOL's classes as embedding
+also included in KOOL.  We can think of KOOL&apos;s classes as embedding
 SIMPLE programs (extended with OO constructs, as discussed next).</p>
 </li>
 <li>
@@ -222,7 +222,7 @@ treated like any other values in the language.  For example, if
 evaluates to the corresponding function abstraction.  The function
 abstraction is in fact a closure, because in addition to the method
 parameters and body it also encapsulates the object value (i.e., the
-environment of the object together with its current class—see below)
+environment of the object together with its current class&#x2014;see below)
 that <code>e</code> evaluates to.  This way, function abstractions can be
 invoked anywhere and have the capability to change the state of their
 object.  For example, if <code>m</code> is a method of object <code>e</code>
@@ -250,7 +250,7 @@ the current class of the object value of <code>e</code> (which, because of
 <code>this</code> and casting, may be different from its instance class).
 In order to achieve the above, each object value will consist of a
 pair holding the current class of the object and an environment stack
-with one layer for each class in the object's instance class hierarchy.</p>
+with one layer for each class in the object&apos;s instance class hierarchy.</p>
 <p>Third, although KOOL is dynamic method dispatch, its capabilities
 described above are powerful enough to allow us to mimic static
 method dispatch.  For example, suppose that you want to invoke method
@@ -274,7 +274,7 @@ constructs.  We removed from the <strong>K</strong> annotated syntax of SIMPLE t
 constructs, namely the one for function declarations (because we want
 to call them <code>methods</code> now) and the one for function application
 (because application is not strict in the first argument
-anymore—needs to initiate dynamic method dispatch).  The additional
+anymore&#x2014;needs to initiate dynamic method dispatch).  The additional
 syntax includes:</p>
 <ul>
 <li>First, we need a new dedicated identifier, <code>Object</code>, for
@@ -373,7 +373,7 @@ endmodule</span>
 SIMPLE.  Then we include the semantics of the constructs borrowed from
 SIMPLE unchanged; we refrain from discussing those, because they were
 already discussed in the <strong>K</strong> definition of SIMPLE.  Then we discuss
-changes to SIMPLE's semantics needed for the more general meaning of
+changes to SIMPLE&apos;s semantics needed for the more general meaning of
 the previous SIMPLE constructs (for example for thread spawning,
 assignment, etc.).  Finally, we discuss in detail the
 semantics of the additional KOOL constructs.</p>
@@ -396,7 +396,7 @@ object, that is, the object environment in which the code in cell
 <code>k</code> executes: <code>crntClass</code> holds the current class (which
 can change as methods of the current object are invoked);
 <code>envStack</code> holds the stack of environments as a list,
-each layer corresponding to one class in the objects' instance class
+each layer corresponding to one class in the objects&apos; instance class
 hierarchy; <code>location</code>, which is optional, holds the location in
 the store where the current object is or has to be located (this is
 useful both for method closures and for the semantics of object
@@ -464,7 +464,7 @@ member declarations (<code>declarations</code>).</p>
 The semantics of function declaration and invocation, including the
 use of the special <code>lambda</code> abstraction value, needs to change
 in order to account for the fact that methods are now invoked into
-their object's environment.  The semantics of function return actually
+their object&apos;s environment.  The semantics of function return actually
 stays unchanged.  Also, the semantics of program initialization is
 different: now we have to create an instance of the <code>Main</code>
 class which also calls the constructor <code>Main()</code>, while in
@@ -479,7 +479,7 @@ thread, operation which will most likely fail unless the child thread
 sees the object environment of the parent thread.  Note that the
 <code>spawn</code> statement of KOOL is more permissive than the threads
 of Java.  In fact, the latter can be implemented in terms of our
-<code>spawn</code>—see the program <code>threads.kool</code> for a sketch.</p>
+<code>spawn</code>&#x2014;see the program <code>threads.kool</code> for a sketch.</p>
 <p>Below is a subset of the values of SIMPLE, which are also values
 of KOOL.  We will add other values later in the semantics, such as
 object and method closures.</p>
@@ -678,7 +678,7 @@ from SIMPLE unchanged.</p>
   rule</span> &lt;k&gt; setEnv(Env) =&gt; . ...&lt;/k&gt;  &lt;env&gt; _ =&gt; Env &lt;/env&gt;  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
   rule</span> (setEnv(_) =&gt; .) ~&gt; setEnv(_)  [<span class="hljs-literal">structural</span>]
   <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> How can we make sure that the second rule above applies before the first one?</span>
-  <span class="hljs-comment">//       Probably we&#x27;ll deal with this using strategies, eventually.</span><span class="hljs-keyword">
+  <span class="hljs-comment">//       Probably we&apos;ll deal with this using strategies, eventually.</span><span class="hljs-keyword">
 
   syntax</span> Exp ::= lvalue(K)<span class="hljs-keyword">
   syntax</span> Val ::= loc(<span class="hljs-keyword">Int</span>)<span class="hljs-keyword">
@@ -722,8 +722,8 @@ of the program.</p>
   rule</span> &lt;k&gt; execute =&gt; new Main(.Exps); &lt;/k&gt; &lt;env&gt; .Map &lt;/env&gt;  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <p>The semantics of <code>new</code> (defined below) requires the
-execution of all the class' declarations (and also of its
-superclasses').</p>
+execution of all the class&apos; declarations (and also of its
+superclasses&apos;).</p>
 <h2>Object and method closures</h2>
 <p>Before we can define the semantics of method application (previously
 called function application in SIMPLE), we need to add two more values
@@ -735,7 +735,7 @@ to the language, namely object and method closures:</p>
 containing the current class of the object and the environment stack
 of the object.  The current class of an object will always be one of
 the classes mapped to an environment in the environment stack of the
-object.  A method closure encapsulates the method's parameters and
+object.  A method closure encapsulates the method&apos;s parameters and
 code (last two arguments), as well as the object context in which the
 method code should execute.  This object context includes the current
 class of the object (the first argument of <code>methodClosure</code>) and
@@ -750,7 +750,7 @@ the two arguments of the application construct eventually reduce to
 values, the first being a method closure and the latter a list of
 values.  The semantics of the method closure application is then as
 expected: the local environment and control are stacked, then we
-switch to method closure's class and object environment and execute
+switch to method closure&apos;s class and object environment and execute
 the method body.  The <code>mkDecls</code> construct is the one that came
 with the unchanged semantics of SIMPLE above.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KItem ::= fstackFrame(Map,K,List,K)
@@ -764,9 +764,9 @@ with the unchanged semantics of SIMPLE above.</p>
      <span class="hljs-comment">//&lt;br/&gt; // TODO(KORE): support latex annotations #1799</span>
        &lt;control&gt;
           &lt;xstack&gt; XS &lt;/xstack&gt;
-          &lt;fstack&gt; .List =&gt; ListItem(fstackFrame(Env, K, XS, &lt;crntObj&gt; Obj&#x27; &lt;/crntObj&gt;))
+          &lt;fstack&gt; .List =&gt; ListItem(fstackFrame(Env, K, XS, &lt;crntObj&gt; Obj&apos; &lt;/crntObj&gt;))
           ...&lt;/fstack&gt;
-          &lt;crntObj&gt; Obj&#x27; =&gt; &lt;crntClass&gt; Class &lt;/crntClass&gt; &lt;envStack&gt; EnvStack &lt;/envStack&gt; &lt;/crntObj&gt;
+          &lt;crntObj&gt; Obj&apos; =&gt; &lt;crntClass&gt; Class &lt;/crntClass&gt; &lt;envStack&gt; EnvStack &lt;/envStack&gt; &lt;/crntObj&gt;
        &lt;/control&gt;
 </code></pre>
 <h2>Spawn</h2>
@@ -775,7 +775,7 @@ current object environment with the child thread, in addition to the
 current environment.  This extension will allow us to also use method
 invocations in the spawned statements, which will be thus looked up as
 expected, using dynamic method dispatch.  This lookup operation would
-fail if the child thread did not have access to its parent's object
+fail if the child thread did not have access to its parent&apos;s object
 environment.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;thread&gt;...
          &lt;k&gt; spawn S =&gt; !T:<span class="hljs-keyword">Int</span> ...&lt;/k&gt;
@@ -805,10 +805,10 @@ corresponding cells:</p>
 <p>Like in SIMPLE, method names are added to the environment and bound
 to their code.  However, unlike in SIMPLE where each function was
 executed in the same environment, namely the program global
-environment, a method in KOOL needs to be executed into its object's
+environment, a method in KOOL needs to be executed into its object&apos;s
 environment.  Thus, methods evaluate to closures, which encapsulate
-their object's context (i.e., the current class and environment stack
-of the object) in addition to method's parameters and body.  This
+their object&apos;s context (i.e., the current class and environment stack
+of the object) in addition to method&apos;s parameters and body.  This
 approach to bind method names to method closures in the environment
 will also allow objects to pass their methods to other objects, to
 dynamically change their methods by assigning them other method
@@ -837,7 +837,7 @@ The rule below also initializes the object creation process by
 emptying the local environment and the current object, and allocating
 a location in the store where the created object will be eventually
 stored (this is what the <code>storeObj</code> task after the object
-creation task in the rule below will do—its rule is defined
+creation task in the rule below will do&#x2014;its rule is defined
 shortly).  The location where the object will be stored is also made
 available in the <code>crntObj</code> cell, so that method closures can
 refer to it (see rule above).</p>
@@ -950,9 +950,9 @@ invocations see the entire object, as needed for dynamic method dispatch.</p>
        . X:<span class="hljs-keyword">Id</span>
     =&gt; lookupMember(ListItem(envStackFrame(Class,Env)) EStack, X)
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
-  rule</span> objectClosure(Class:<span class="hljs-keyword">Id</span>, (ListItem(envStackFrame(Class&#x27;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) _)
+  rule</span> objectClosure(Class:<span class="hljs-keyword">Id</span>, (ListItem(envStackFrame(Class&apos;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) _)
        . X:<span class="hljs-keyword">Id</span>
-    when Class =/=K Class&#x27;  [<span class="hljs-literal">structural</span>]
+    when Class =/=K Class&apos;  [<span class="hljs-literal">structural</span>]
 
 <span class="hljs-comment">/*  rule &lt;k&gt; super . X =&gt; lookupMember(EStack, X) ...&lt;/k&gt;
        &lt;crntClass&gt; Class &lt;/crntClass&gt;
@@ -964,8 +964,8 @@ invocations see the entire object, as needed for dynamic method dispatch.</p>
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
   rule</span> &lt;k&gt; super . X ...&lt;/k&gt;
        &lt;crntClass&gt; Class &lt;/crntClass&gt;
-       &lt;envStack&gt; ListItem(envStackFrame(Class&#x27;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List ...&lt;/envStack&gt;
-    when Class =/=K Class&#x27;  [<span class="hljs-literal">structural</span>]
+       &lt;envStack&gt; ListItem(envStackFrame(Class&apos;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List ...&lt;/envStack&gt;
+    when Class =/=K Class&apos;  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h2>Method invocation</h2>
 <p>Unlike in SIMPLE, in KOOL application was declared strict only in its
@@ -1012,8 +1012,8 @@ method call or the array access.</p>
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
   rule</span> &lt;k&gt; (super . X)(_:Exps) ...&lt;/k&gt;
        &lt;crntClass&gt; Class &lt;/crntClass&gt;
-       &lt;envStack&gt; ListItem(envStackFrame(Class&#x27;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List ...&lt;/envStack&gt;
-    when Class =/=K Class&#x27;  [<span class="hljs-literal">structural</span>]
+       &lt;envStack&gt; ListItem(envStackFrame(Class&apos;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List ...&lt;/envStack&gt;
+    when Class =/=K Class&apos;  [<span class="hljs-literal">structural</span>]
 
   <span class="hljs-comment">// TODO(KORE): fix getKLabel #1801</span><span class="hljs-keyword">
   rule</span> (A:Exp(B:Exps))(C:Exps) =&gt; A(B) ~&gt; #freezerFunCall(C)<span class="hljs-keyword">
@@ -1043,7 +1043,7 @@ argument does not evaluate to an object.</p>
        instanceOf C =&gt; true<span class="hljs-keyword">
 
   rule</span> objectClosure(_, (ListItem(envStackFrame(C,_)) =&gt; .List) _)
-       instanceOf C&#x27;  when C =/=K C&#x27;  [<span class="hljs-literal">structural</span>]
+       instanceOf C&apos;  when C =/=K C&apos;  [<span class="hljs-literal">structural</span>]
 <span class="hljs-comment">//<span class="hljs-doctag">TODO:</span> remove the sort cast ::Id of C above, when sort inference bug fixed</span><span class="hljs-keyword">
 
   rule</span> objectClosure(_, .List) instanceOf _ =&gt; false
@@ -1070,7 +1070,7 @@ lvalues, so that we can assign values to them using the already
 existing machinery.  The first rule below ensures that the object is
 always explicit, the evaluation context enforces the object to be
 evaluated, and finally the second rule initiates the lookup for the
-member's location based on the current class of the object.</p>
+member&apos;s location based on the current class of the object.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; lvalue(X:<span class="hljs-keyword">Id</span> =&gt; this . X) ...&lt;/k&gt;  &lt;env&gt; Env &lt;/env&gt;
     when notBool(X in keys(Env))  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
@@ -1085,9 +1085,9 @@ member's location based on the current class of the object.</p>
               . X
               =&gt; lookupMember(ListItem(envStackFrame(Class,Env)) EStack,
                               X))  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
-  rule</span> lvalue(objectClosure(Class, (ListItem(envStackFrame(Class&#x27;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) _)
+  rule</span> lvalue(objectClosure(Class, (ListItem(envStackFrame(Class&apos;:<span class="hljs-keyword">Id</span>,_)) =&gt; .List) _)
               . X)
-    when Class =/=K Class&#x27;  [<span class="hljs-literal">structural</span>]
+    when Class =/=K Class&apos;  [<span class="hljs-literal">structural</span>]
 </code></pre>
 <h2>Lookup member</h2>
 <p>It searches for the given member in the given environment stack,
@@ -1112,8 +1112,8 @@ starting with the most concrete class and going up in the hierarchy.</p>
 
 endmodule</span>
 </code></pre>
-<p>Go to <a href="../2_typed/1_dynamic/kool-typed-dynamic.md">Lesson 2, KOOL typed dynamic</a>.</p>
-
+<p>Go to <a href="../../2_typed/1_dynamic/kool-typed-dynamic/">Lesson 2, KOOL typed dynamic</a>.</p>
+</body></html>
           </div>
         </main>
       </div>

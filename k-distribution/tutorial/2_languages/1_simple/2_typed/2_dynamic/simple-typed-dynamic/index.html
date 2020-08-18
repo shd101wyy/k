@@ -129,10 +129,10 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>SIMPLE — Typed — Dynamic</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>SIMPLE &#x2014; Typed &#x2014; Dynamic</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+<p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2>Abstract</h2>
 <p>This is the <strong>K</strong> dynamic semantics of the typed SIMPLE language.
@@ -425,8 +425,8 @@ checks that that type of the returned value is expected one.</p>
 
   rule</span> &lt;k&gt; lambda(T,Ps,S)(Vs:Vals) ~&gt; K =&gt; mkDecls(Ps,Vs) S return; &lt;/k&gt;
        &lt;control&gt;
-         &lt;fstack&gt; .List =&gt; ListItem((T&#x27;,Env,K,C)) ...&lt;/fstack&gt;
-         &lt;returnType&gt; T&#x27; =&gt; T &lt;/returnType&gt;
+         &lt;fstack&gt; .List =&gt; ListItem((T&apos;,Env,K,C)) ...&lt;/fstack&gt;
+         &lt;returnType&gt; T&apos; =&gt; T &lt;/returnType&gt;
          C
        &lt;/control&gt;
        &lt;env&gt; Env =&gt; GEnv &lt;/env&gt;
@@ -434,8 +434,8 @@ checks that that type of the returned value is expected one.</p>
 
   rule</span> &lt;k&gt; return V:Val; ~&gt; _ =&gt; V ~&gt; K &lt;/k&gt;
        &lt;control&gt;
-         &lt;fstack&gt; ListItem((T&#x27;,Env,K,C)) =&gt; .List ...&lt;/fstack&gt;
-         &lt;returnType&gt; T =&gt; T&#x27; &lt;/returnType&gt;
+         &lt;fstack&gt; ListItem((T&apos;,Env,K,C)) =&gt; .List ...&lt;/fstack&gt;
+         &lt;returnType&gt; T =&gt; T&apos; &lt;/returnType&gt;
          (_ =&gt; C)
        &lt;/control&gt;
        &lt;env&gt; _ =&gt; Env &lt;/env&gt;
@@ -456,8 +456,8 @@ completed to return the <code>nothing</code> value tagged as expected.</p>
 preserved:</p>
 <pre class="hljs"><code><span class="hljs-keyword">  context</span> (HOLE =&gt; lvalue(HOLE)) = _<span class="hljs-keyword">
 
-  rule</span> &lt;k&gt; loc(L) = V:Val =&gt; V ...&lt;/k&gt; &lt;store&gt;... L |-&gt; (V&#x27; =&gt; V) ...&lt;/store&gt;
-    when typeOf(V) ==K typeOf(V&#x27;)  [assignment]
+  rule</span> &lt;k&gt; loc(L) = V:Val =&gt; V ...&lt;/k&gt; &lt;store&gt;... L |-&gt; (V&apos; =&gt; V) ...&lt;/store&gt;
+    when typeOf(V) ==K typeOf(V&apos;)  [assignment]
 </code></pre>
 <h3>Statements</h3>
 <h3>Blocks</h3>
@@ -613,7 +613,7 @@ into a list of variable declarations.</p>
   rule</span> getTypes(.Params) =&gt; void, .Types<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

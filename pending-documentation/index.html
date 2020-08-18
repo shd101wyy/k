@@ -128,7 +128,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="markdown-preview"><h1>K Manual</h1>
+          <div class="markdown-preview"><html><head></head><body><h1>K Manual</h1>
 <p><strong>Under Construction</strong></p>
 <p>This document contains documentation that has been written up to some extent
 but still needs to be ultimately included in the K manual which has not been
@@ -307,7 +307,7 @@ whether a token is being parsed for the <code>sharp</code> or for the <code>unde
 production. It chooses an arbitary sort for the token <code>foo</code> (perhaps
 <code>NameWithUnderbar</code>). Thus, during paring it is unable to construct a valid term
 for one of those programs (<code>sharp(foo)</code>) and produces the error message:
-<code>Inner Parser: Parse error: unexpected token 'foo'.</code></p>
+<code>Inner Parser: Parse error: unexpected token &apos;foo&apos;.</code></p>
 <p>Since calculating inclusions and intersections between regular expressions is
 tricky, we must provide this information to K. We do this via the <code>prec(N)</code>
 attribute. The lexer will always prefer longer tokens to shorter tokens.
@@ -316,7 +316,7 @@ token productions with higher precedence are tried first.</p>
 <p>We also need to make sorts with more specific tokens subsorts of ones with more
 general tokens. We add the token attribute to this production so that all
 tokens of a particular sort are marked with the sort it is parsed as, and not a
-subsort thereof. e.g. we get <code>underbar(#token(&quot;foo&quot;, &quot;NameWithUnderbar&quot;))</code>
+subsort thereof. e.g.&#xA0;we get <code>underbar(#token(&quot;foo&quot;, &quot;NameWithUnderbar&quot;))</code>
 instead of <code>underbar(#token(&quot;foo&quot;, &quot;#LowerId&quot;))</code></p>
 <p>The <code>BUILTIN-ID-TOKENS</code> module defines <code>#UpperId</code> and <code>#LowerId</code> with
 attributes <code>prec(2)</code>.</p>
@@ -470,8 +470,8 @@ left-, right-, or non-associative.</p>
 other. Thus, <code>x+y+z</code> will parse unambiguously as <code>(x+y)+z</code>, but <code>x+y-z</code> will
 be ambiguous. However, in the second, <code>x+y-z</code> will parse unambiguously as
 <code>(x+y)-z</code>.</p>
-<p>Think carefully about how you want your grammar to parse. In general, if you're
-not sure, it's probably best to group associativity together into the same
+<p>Think carefully about how you want your grammar to parse. In general, if you&apos;re
+not sure, it&apos;s probably best to group associativity together into the same
 blocks you use for priority, rather than using <code>left</code>, <code>right</code>, or <code>non-assoc</code>
 attributes on the productions.</p>
 <h3><code>assoc</code>, <code>comm</code>, <code>idem</code>, and <code>unit</code> attributes</h3>
@@ -849,7 +849,7 @@ semantics.</p>
   )(foo4(1))
 </code></pre>
 <p>This example is from the <code>beacon</code>
-semantics:<a href="https://github.com/runtimeverification/beacon-chain-spec/blob/master/b">https://github.com/runtimeverification/beacon-chain-spec/blob/master/b</a>
+semantics:<a href="https://github.com/runtimeverification/beacon-chain-spec/blob/master/b" target="_blank" rel="noopener">https://github.com/runtimeverification/beacon-chain-spec/blob/master/b</a>
 eacon-chain.k at line 302, with some modification for simplicity. Note how
 variables <code>C, R, E</code> are bound in the nested <code>#fun</code>.</p>
 <p><em>Example 3 (Matching a structure).</em></p>
@@ -859,7 +859,7 @@ variables <code>C, R, E</code> are bound in the nested <code>#fun</code>.</p>
 <p>Unlike previous examples, the LHS of <code>#fun</code> in this example is no longer a
 variable, but a structure. It has the same spirit as the first two examples,
 but we match the <code>RECORD</code> with a structure <code>record( DotVar, field: X)</code>, instead
-of a standalone variable. We also use K's local rewrite syntax (i.e., the
+of a standalone variable. We also use K&apos;s local rewrite syntax (i.e., the
 rewriting symbol <code>=&gt;</code> does not occur at the top-level) to prevent writing
 duplicate expressions on the LHS and RHS of the rewriting.</p>
 <h3>Macros and Aliases</h3>
@@ -898,7 +898,7 @@ can be used to provide this behavior.</p>
 <pre class="hljs"><code>syntax Exp ::= &quot;int&quot; Exps &quot;;&quot; | Exp Exp | Id
 syntax Exps ::= List{Exp,&quot;,&quot;}
 
-rule int X:Id, X':Id, Xs:Exps ; =&gt; int X ; int X', Xs ; [macro]
+rule int X:Id, X&apos;:Id, Xs:Exps ; =&gt; int X ; int X&apos;, Xs ; [macro]
 </code></pre>
 <p>This will expand <code>int x, y, z;</code> to <code>int x; int y, z;</code> because the macro does
 not apply the second time after applying the substitution of the first
@@ -1242,7 +1242,7 @@ a variable corresponding to the alias.</p>
 <h3>Record-like KApply Patterns</h3>
 <p>We have added a syntax for matching on KApply terms which mimics the record
 syntax in functional languages. This allows us to more easily express patterns
-involving a KApply term in which we don't care about some or most of the
+involving a KApply term in which we don&apos;t care about some or most of the
 children, without introducing a dependency into the code on the number of
 arguments which could be changed by a future refactoring.</p>
 <p>The syntax is:</p>
@@ -1432,7 +1432,7 @@ caring whether they are defined or not.</p>
 <pre class="hljs"><code>{(C =/=Int 0) #Equals true} #And #Ceil(C) #And ({(B =/=Int 0) #Equals true}
 #And #Ceil(B) #And #Ceil(A)`
 </code></pre>
-<p>See <a href="https://github.com/kframework/kore/issues/729">kframework/kore#729</a> for
+<p>See <a href="https://github.com/kframework/kore/issues/729" target="_blank" rel="noopener">kframework/kore#729</a> for
 more details.</p>
 <h4>SMT Translation</h4>
 <p>K makes queries to an SMT solver (Z3) to discharge proof obligations when doing
@@ -1472,7 +1472,7 @@ the RHS of a rule.</p>
 <strong>required</strong> to only appear in the RHS of a rule, all other variables <strong>must</strong>
 also appear in the LHS of a rule.  This restriction also applies to anonymous
 variables; in particular, for claims, <code>?_</code> (not <code>_</code>) should be used in the RHS
-to indicate that something changes but we don't care to what value.</p>
+to indicate that something changes but we don&apos;t care to what value.</p>
 <p>To support specifying random-like behavior, the above restriction can be relaxed
 by annotating a rule with the <code>unboundVariables</code> attribute whenever the rule
 intentionally contains regular variables only occurring in the RHS.</p>
@@ -1678,14 +1678,14 @@ an unspecified function whose return value must be an element from <code>Is</cod
 each time it is used), while <code>arbInList(Is)</code> <em>is equal to</em> a (fixed)
 integer not in <code>Is</code>.</p>
 <p>W.r.t. the <code>arb</code> variants, we can use <code>?</code> variables and the <code>function</code>
-annotation to signal that we're defining a function and the value of the
+annotation to signal that we&apos;re defining a function and the value of the
 function is fixed, but non-determinate.</p>
 <pre class="hljs"><code>syntax Int ::= arbInList(List{Int}) [function]
 rule arbInList(Is:List{Int}) =&gt; ?I:Int
   ensures ?I inList{Int} Is
 </code></pre>
 <p>If elimination of existentials in equational rules is needed, one possible
-approach would be through <a href="https://en.wikipedia.org/wiki/Skolem_normal_form">Skolemization</a>,
+approach would be through <a href="https://en.wikipedia.org/wiki/Skolem_normal_form" target="_blank" rel="noopener">Skolemization</a>,
 i.e., replacing the <code>?</code> variable with a new uninterpreted function depending
 on the regular variables present in the function.</p>
 <h4>Example: Interval (Non-function Symbols) <code>interval()</code></h4>
@@ -1759,11 +1759,11 @@ ignored. It is only possible to implement these attributes by means of
 generalized LL or LR parsing and a postprocessing on the AST to remove the
 undesirable ambiguity.</li>
 <li>Obligation falls on the user to ensure that the grammar they write has as
-few conflicts as possible if they are using GLR parsing. Bison's GLR support
+few conflicts as possible if they are using GLR parsing. Bison&apos;s GLR support
 is quite primitive, and in the worst case it can use exponential space and
 time to parse a program, which generally leads the generated parser to report
 &quot;memory exhausted&quot;, indicating that the parse could not be completed within
-the stack space allocated by Bison. It's best to ensure that the grammar is
+the stack space allocated by Bison. It&apos;s best to ensure that the grammar is
 as close to LR(1) as possible and only utilizes conflicts where absolutely
 necessary. One tool that can be used to facilitate this is to pass
 <code>--bison-lists</code> to kompile. This will disable support for the <code>List{Sort}</code>
@@ -1773,7 +1773,7 @@ stack space.</li>
 <li>If the grammar you are parsing is context-sensitive (for example, because
 it requires a symbol table to parse), one thing you can do to make this
 language parse in K is to implement the language as an ambiguous grammar.
-Bison's GLR parser will generate an <code>amb</code> production that is parametric in
+Bison&apos;s GLR parser will generate an <code>amb</code> production that is parametric in
 the sort of the ambiguity. You can then import the <code>K-AMBIGUITIES</code> module
 and use rewriting to resolve the ambiguities using whatever preprocessing
 mechanisms you prefer.</li>
@@ -1861,7 +1861,7 @@ and an application pattern is unparsed by printing its terminals and children
 in the sequence implied by its concrete syntax, separated by spaces. However,
 K gives you complete control over how you want to unparse the symbol.</p>
 <p>A format attribute is a string containing zero or more escape sequences that
-tell K how to unparse the symbol. Escape sequences begin with a '%' and are
+tell K how to unparse the symbol. Escape sequences begin with a &apos;%&apos; and are
 followed by either an integer, or a single non-digit character. Below is a
 list of escape sequences recognized by the formatter:</p>
 <table>
@@ -1874,7 +1874,7 @@ list of escape sequences recognized by the formatter:</p>
 <tbody>
 <tr>
 <td>n</td>
-<td>Insert '\n' followed by the current indentation level</td>
+<td>Insert &apos;\n&apos; followed by the current indentation level</td>
 </tr>
 <tr>
 <td>i</td>
@@ -2055,11 +2055,11 @@ Breakpoint 1, TEST.test.rhs (VarDotVar0=`&lt;generatedCounter&gt;{}`(#token(&quo
 All functions matching regular expression &quot;foo&quot;:
 
 File /home/dwightguth/test/./test.k:
-struct __mpz_struct *Lblfoo'LParUndsRParUnds'TEST'UndsUnds'Int(struct __mpz_struct *);
-(gdb) break Lblfoo'LParUndsRParUnds'TEST'UndsUnds'Int
+struct __mpz_struct *Lblfoo&apos;LParUndsRParUnds&apos;TEST&apos;UndsUnds&apos;Int(struct __mpz_struct *);
+(gdb) break Lblfoo&apos;LParUndsRParUnds&apos;TEST&apos;UndsUnds&apos;Int
 Breakpoint 1 at 0x25e640: file /home/dwightguth/test/./test.k, line 6.
 (gdb) run
-Breakpoint 1, Lblfoo'LParUndsRParUnds'TEST'UndsUnds'Int (_1=#token(&quot;1&quot;, &quot;Int&quot;)) at /home/dwightguth/test/./test.k:6
+Breakpoint 1, Lblfoo&apos;LParUndsRParUnds&apos;TEST&apos;UndsUnds&apos;Int (_1=#token(&quot;1&quot;, &quot;Int&quot;)) at /home/dwightguth/test/./test.k:6
 6         syntax Int ::= foo(Int) [function]
 (gdb)
 </code></pre>
@@ -2072,13 +2072,13 @@ associated with its production:</p>
 <pre class="hljs"><code>(gdb) break test.k:6
 Breakpoint 1 at 0x25e640: file /home/dwightguth/test/./test.k, line 6.
 (gdb) run
-Breakpoint 1, Lblfoo'LParUndsRParUnds'TEST'UndsUnds'Int (_1=#token(&quot;1&quot;, &quot;Int&quot;)) at /home/dwightguth/test/./test.k:6
+Breakpoint 1, Lblfoo&apos;LParUndsRParUnds&apos;TEST&apos;UndsUnds&apos;Int (_1=#token(&quot;1&quot;, &quot;Int&quot;)) at /home/dwightguth/test/./test.k:6
 6         syntax Int ::= foo(Int) [function]
 </code></pre>
 <p>These two syntaxes are equivalent; use whichever is easier for you.</p>
 <p>You can also view the stack of function applications:</p>
 <pre class="hljs"><code>(gdb) bt
-#0  Lblfoo'LParUndsRParUnds'TEST'UndsUnds'Int (_1=#token(&quot;1&quot;, &quot;Int&quot;)) at /home/dwightguth/test/./test.k:6
+#0  Lblfoo&apos;LParUndsRParUnds&apos;TEST&apos;UndsUnds&apos;Int (_1=#token(&quot;1&quot;, &quot;Int&quot;)) at /home/dwightguth/test/./test.k:6
 #1  0x000000000025e5f8 in apply_rule_111 (VarDotVar0=`&lt;generatedCounter&gt;{}`(#token(&quot;0&quot;, &quot;Int&quot;)), VarDotVar1=dotk{}(.KList)) at /home/dwightguth/test/./test.k:9
 #2  0x0000000000268a52 in take_steps ()
 #3  0x000000000026b7b4 in main ()
@@ -2164,10 +2164,10 @@ send <code>-ccopt -g</code> to kompile in order to generate debug info symbols.<
 <p>To get a complete list of hooks supported by K, you can run:</p>
 <pre class="hljs"><code>grep -P -R &quot;(?&lt;=[^-])hook\([^)]*\)&quot; k-distribution/include/kframework/builtin/ \
      --include &quot;*.k&quot; -ho | \
-sed 's/hook(//' | sed 's/)//' | sort | uniq | grep -v org.kframework
+sed &apos;s/hook(//&apos; | sed &apos;s/)//&apos; | sort | uniq | grep -v org.kframework
 </code></pre>
 <p>All of these hooks will also eventually need documentation.</p>
-</div>
+</body></html></div>
         </main>
       </div>
     </div>

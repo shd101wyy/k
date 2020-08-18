@@ -129,7 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>Basic Builtin Types in K</h1>
+            <html><head></head><body><h1>Basic Builtin Types in K</h1>
 <p>A major piece of the K prelude consists of a series of modules that contain
 implementations of basic data types and language features in K. You do not need
 to require this file yourself; it is required automatically in every K
@@ -281,8 +281,8 @@ endmodule</span>
 <p>Provided here is the syntax of an implementation of immutable, associative,
 commutative maps from <code>KItem</code> to <code>KItem</code>. This type is hooked to an
 implementation of maps provided by the backend. For more information on
-matching on maps and allowable patterns for doing so, refer to K's
-<a href="pending-documentation.md">user documentation</a>.</p>
+matching on maps and allowable patterns for doing so, refer to K&apos;s
+<a href="pending-documentation/">user documentation</a>.</p>
 <pre class="hljs"><code><span class="hljs-keyword">module</span> MAP<span class="hljs-keyword">
   imports</span> BOOL-SYNTAX<span class="hljs-keyword">
   imports</span> INT-SYNTAX<span class="hljs-keyword">
@@ -456,8 +456,8 @@ endmodule</span>
 <p>Provided here is the syntax of an implementation of immutable, associative,
 commutative sets of <code>KItem</code>. This type is hooked to an implementation of sets
 provided by the backend. For more information on matching on sets and allowable
-patterns for doing so, refer to K's
-<a href="pending-documentation.md">user documentation</a>.</p>
+patterns for doing so, refer to K&apos;s
+<a href="pending-documentation/">user documentation</a>.</p>
 <pre class="hljs"><code><span class="hljs-keyword">module</span> SET<span class="hljs-keyword">
   imports</span> INT-SYNTAX<span class="hljs-keyword">
   imports</span> BASIC-K<span class="hljs-keyword">
@@ -533,7 +533,7 @@ that two different sets will return the same element, even if they are similar.<
 <p>Provided here is the syntax of an implementation of immutable, associative
 lists of <code>KItem</code>. This type is hooked to an implementation of lists provided
 by the backend. For more information on matching on lists and allowable
-patterns for doing so, refer to K's
+patterns for doing so, refer to K&apos;s
 <a href="pending-documentation">user documentation</a>.</p>
 <pre class="hljs"><code><span class="hljs-keyword">module</span> LIST<span class="hljs-keyword">
   imports</span> INT-SYNTAX<span class="hljs-keyword">
@@ -1506,8 +1506,8 @@ module</span> BYTES-IN-K [symbolic, kast]<span class="hljs-keyword">
 
   syntax</span> Bytes ::= replaceAtBytes(Bytes,<span class="hljs-keyword"> Int</span>, Bytes) [function]<span class="hljs-keyword">
   rule</span> replaceAtBytes(BS, _, nilBytes) =&gt; BS<span class="hljs-keyword">
-  rule</span> replaceAtBytes(B : BS, N, BS&#x27;) =&gt; B : replaceAtBytes(BS, N -<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>, BS&#x27;)<span class="hljs-keyword"> requires</span> N &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> replaceAtBytes(_ : BS, <span class="hljs-number">0</span>, B : BS&#x27;) =&gt; B : replaceAtBytes(BS, <span class="hljs-number">0</span>, BS&#x27;)<span class="hljs-keyword">
+  rule</span> replaceAtBytes(B : BS, N, BS&apos;) =&gt; B : replaceAtBytes(BS, N -<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>, BS&apos;)<span class="hljs-keyword"> requires</span> N &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
+  rule</span> replaceAtBytes(_ : BS, <span class="hljs-number">0</span>, B : BS&apos;) =&gt; B : replaceAtBytes(BS, <span class="hljs-number">0</span>, BS&apos;)<span class="hljs-keyword">
 
   syntax</span> Bytes ::= padRightBytes(Bytes,<span class="hljs-keyword"> Int</span>,<span class="hljs-keyword"> Int</span>) [function]
                  | padLeftBytes(Bytes,<span class="hljs-keyword"> Int</span>,<span class="hljs-keyword"> Int</span>) [function]<span class="hljs-keyword">
@@ -1519,7 +1519,7 @@ module</span> BYTES-IN-K [symbolic, kast]<span class="hljs-keyword">
   syntax</span> Bytes ::= reverseBytes(Bytes, Bytes) [function, klabel(reverseBytesAux)]<span class="hljs-keyword">
   rule</span> reverseBytes(BS) =&gt; reverseBytes(BS, nilBytes)<span class="hljs-keyword">
   rule</span> reverseBytes(nilBytes, BS) =&gt; BS<span class="hljs-keyword">
-  rule</span> reverseBytes(B : BS, BS&#x27;) =&gt; reverseBytes(BS, B : BS&#x27;)<span class="hljs-keyword">
+  rule</span> reverseBytes(B : BS, BS&apos;) =&gt; reverseBytes(BS, B : BS&apos;)<span class="hljs-keyword">
 
   syntax</span><span class="hljs-keyword"> Int</span> ::= lengthBytes(Bytes) [function, functional, smtlib(lengthBytes)]<span class="hljs-keyword">
   syntax</span><span class="hljs-keyword"> Int</span> ::= lengthBytes(Bytes,<span class="hljs-keyword"> Int</span>) [function, klabel(lengthBytesAux), smtlib(lengthBytesAux)]<span class="hljs-keyword">
@@ -2111,7 +2111,7 @@ width in bits of the integer. The <code>MInt</code> sort is parametric, and this
 reflected in the literals. For example, the sort of <code>0p8</code> is <code>MInt{8}</code>.</p>
 <pre class="hljs"><code><span class="hljs-keyword">module</span> MINT-SYNTAX
   <span class="hljs-comment">/*@\section{Description} The MInt implements machine integers of arbitrary
-   * bit width represented in 2&#x27;s complement. */</span><span class="hljs-keyword">
+   * bit width represented in 2&apos;s complement. */</span><span class="hljs-keyword">
   syntax</span> {Width} MInt{Width} [hook(MINT.MInt)]
 
   <span class="hljs-comment">/*@ Machine integer of bit width and value. */</span><span class="hljs-keyword">
@@ -2337,11 +2337,11 @@ provided is still relatively basic.</p>
 
     syntax</span> Strategy ::= Strategy <span class="hljs-string">&quot;;&quot;</span> Strategy [<span class="hljs-literal">left</span>]
  <span class="hljs-comment">// ------------------------------------------------</span><span class="hljs-keyword">
-    rule</span> &lt;s&gt; S:Strategy ; S&#x27;:Strategy =&gt; S ~&gt; S&#x27; ... &lt;/s&gt;<span class="hljs-keyword">
+    rule</span> &lt;s&gt; S:Strategy ; S&apos;:Strategy =&gt; S ~&gt; S&apos; ... &lt;/s&gt;<span class="hljs-keyword">
 
     syntax</span> #RuleTag ::= #RuleTag <span class="hljs-string">&quot;|&quot;</span> #RuleTag [<span class="hljs-literal">left</span>, klabel(#alternateRule)]
  <span class="hljs-comment">// ------------------------------------------------------------------------</span><span class="hljs-keyword">
-    rule</span> &lt;s&gt; ^ RT:#RuleTag | RT&#x27;:#RuleTag =&gt; ^ RT ~&gt; #catchSTUCK(^ RT&#x27;) ... &lt;/s&gt;<span class="hljs-keyword">
+    rule</span> &lt;s&gt; ^ RT:#RuleTag | RT&apos;:#RuleTag =&gt; ^ RT ~&gt; #catchSTUCK(^ RT&apos;) ... &lt;/s&gt;<span class="hljs-keyword">
 
     syntax</span> #RuleTag ::= #RuleTag <span class="hljs-string">&quot;*&quot;</span> [klabel(#repeatRule)]
  <span class="hljs-comment">// ------------------------------------------------------</span><span class="hljs-keyword">
@@ -2353,7 +2353,7 @@ strategy language. No special facility is required in K in order to compose
 strategies together, so you are free to write whatever rules that manipulate
 the strategy cell you want, and thus whatever more complex strategies you can
 compose from the base builtin strategies.</p>
-
+</body></html>
           </div>
         </main>
       </div>

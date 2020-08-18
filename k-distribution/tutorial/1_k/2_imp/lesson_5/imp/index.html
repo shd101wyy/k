@@ -129,9 +129,8 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!--- Copyright (c) 2014-2019 K Team. All Rights Reserved. --->
-<h1>IMP</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <!--- Copyright (c) 2014-2019 K Team. All Rights Reserved. ---><html><head></head><body><h1>IMP</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
 <h3>Abstract</h3>
 <p>This is the <strong>K</strong> semantic definition of the classic IMP language.
@@ -175,7 +174,7 @@ to 0. <strong>K</strong> provides builtin support for generic syntactic lists:
   syntax</span> Ids ::= List{<span class="hljs-keyword">Id</span>,<span class="hljs-string">&quot;,&quot;</span>}                 [format(%<span class="hljs-number">1</span>%<span class="hljs-number">2</span> %<span class="hljs-number">3</span>)]<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
-<p>We are done with the definition of IMP's syntax.  Make sure
+<p>We are done with the definition of IMP&apos;s syntax.  Make sure
 that you write and parse several interesting programs before you move to the
 semantics.</p>
 <pre class="hljs"><code><span class="hljs-keyword">module</span> IMP<span class="hljs-keyword">
@@ -208,7 +207,7 @@ place the program.  More precisely, the command
 <strong>K</strong> abstract syntax tree in the <code>k</code> cell before invoking the
 semantic rules described in the sequel.  The <code>.</code> in the
 <code>state</code> cell, written <code>.Map</code> in ASCII in the
-<code>imp.md</code> file, is <strong>K</strong>'s way to say <em>nothing</em>. Technically, it
+<code>imp.md</code> file, is <strong>K</strong>&apos;s way to say <em>nothing</em>. Technically, it
 is a constant which is the unit, or identity, of all maps in <strong>K</strong>
 (similar dot units exist for other <strong>K</strong> structures, such as lists, sets,
 multi-sets, etc.).</p>
@@ -225,7 +224,7 @@ anywhere in the <code>state</code> cell (the cell is torn at both sides).</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; X:<span class="hljs-keyword">Id</span> =&gt; I ...&lt;/k&gt; &lt;state&gt;... X |-&gt; I ...&lt;/state&gt;
 </code></pre>
 <h3>Arithmetic operators</h3>
-<p>There is nothing special about these, but recall that <strong>K</strong>'s configuration
+<p>There is nothing special about these, but recall that <strong>K</strong>&apos;s configuration
 abstraction mechanism is at work here!  That means that the rewrites in the
 rules below all happen at the beginning of the <code>k</code> cell.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> I1 / I2 =&gt; I1 /<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">  requires</span> I2 =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
@@ -265,7 +264,7 @@ the assignment is dissolved.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; X = I:<span class="hljs-keyword">Int</span>; =&gt; . ...&lt;/k&gt; &lt;state&gt;... X |-&gt; (_ =&gt; I) ...&lt;/state&gt;
 </code></pre>
 <h3>Sequential composition</h3>
-<p>Sequential composition is simply structurally translated into <strong>K</strong>'s
+<p>Sequential composition is simply structurally translated into <strong>K</strong>&apos;s
 builtin task sequentialization operation.  You can make this rule
 computational (i.e., remove the <code>structural</code> attribute) if you
 want it to count as a computational step.  Recall that the semantics
@@ -292,7 +291,7 @@ Note that we preferred to make the rule below structural.</p>
 </code></pre>
 <h3>Programs</h3>
 <p>The semantics of an IMP program is that its body statement is executed
-in a state initializing all its global variables to 0.  Since <strong>K</strong>'s
+in a state initializing all its global variables to 0.  Since <strong>K</strong>&apos;s
 syntactic lists are internally interpreted as cons-lists (i.e., lists
 constructed with a head element followed by a tail list), we need to
 distinguish two cases, one when the list has at least one element and
@@ -307,7 +306,7 @@ a computational step.</p>
   rule</span> int .Ids; S =&gt; S  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

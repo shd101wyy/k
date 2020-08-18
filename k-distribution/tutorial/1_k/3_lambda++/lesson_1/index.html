@@ -129,8 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. -->
-<h1>Abrupt Changes of Control</h1>
+            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Abrupt Changes of Control</h1>
 <p>Here we add <em>call-with-current-continuation</em> (<code>callcc</code>) to the definition of
 LAMBDA completed in Tutorial 1, and call the resulting language LAMBDA++.
 While doing so, we will learn how to define language constructs that
@@ -155,7 +154,7 @@ program <code>callcc-jump.lambda</code>:</p>
 <pre><code>(callcc (lambda k . ((k 5) + 2))) + 10
 </code></pre>
 <p>to evaluate to <code>15</code>, not <code>17</code>!  Indeed, the computation context <code>[] + 10</code> is
-passed to <code>callcc</code>'s argument, which then sends it a <code>5</code>, so the computation
+passed to <code>callcc</code>&apos;s argument, which then sends it a <code>5</code>, so the computation
 resumes to <code>5 + 10</code>.  On the other hand, the program <code>callcc-not-jump.lambda</code></p>
 <pre><code>(callcc (lambda k . (5 + 2))) + 10
 </code></pre>
@@ -167,7 +166,7 @@ your game and continue to play it from where you were.</p>
 <p>The behavior of many popular control-changing constructs can be obtained
 using <code>callcc</code>.  The program <code>callcc-return.lambda</code> shows, for example, how to
 obtain the behavior of a <code>return</code> statement, which exits the current execution
-context inside a function and returns a value to the caller's context:</p>
+context inside a function and returns a value to the caller&apos;s context:</p>
 <pre><code>letrec f x = callcc (lambda return . (
   f (if (x &lt;= 0) then ((return 1) / 0) else 2)
 ))
@@ -190,13 +189,13 @@ rule &lt;k&gt; cc(K) V ~&gt; _ =&gt;  V ~&gt; K &lt;/k&gt;
 <p>Let us first discuss the annotated syntax.  We declared <code>callcc</code> strict,
 because its argument may not necessarily be a function yet, so it may need
 to be evaluated.  As explained above, we need to encode the remaining
-computation somehow and pass it to <code>callcc</code>'s argument.  More specifically,
+computation somehow and pass it to <code>callcc</code>&apos;s argument.  More specifically,
 since LAMBDA is call-by-value, we have to encode the remaining computation as
 a value.  We do not want to simply subsort computations to <code>Val</code>, because there
 are computations which we do not want to be values.  A simple solution to
 achieve our goal here is to introduce a new value construct, say <code>cc</code> (from
 <em>current-continuation</em>), which holds any computation.</p>
-<p>Note that, inspired from <a href="http://www.program-transformation.org/Sdf/">SDF</a>,
+<p>Note that, inspired from <a href="http://www.program-transformation.org/Sdf/" target="_blank" rel="noopener">SDF</a>,
 K allows you to define the syntax of helping semantic operations, like <code>cc</code>,
 more compactly.  Typically, we do not need a fancy syntax for such operators;
 all we need is a name, followed by open parenthesis, followed by a
@@ -228,9 +227,9 @@ in the next lesson we take a fresh look at LAMBDA and define it using
 an environment-based style, which avoids the complexity of substitution
 (e.g., having to deal with variable capture) and is closer in spirit to how
 functional languages are implemented.</p>
-<p>Go to <a href="../lesson_2/README.md">Lesson 2, LAMBDA++: Semantic (Non-Syntactic) Computation Items</a>.</p>
-<p><a href="http://youtu.be/UZ9iaus024g">MOVIE (out of date) [6'28&quot;]</a></p>
-
+<p>Go to <a href="../lesson_2/">Lesson 2, LAMBDA++: Semantic (Non-Syntactic) Computation Items</a>.</p>
+<p><a href="http://youtu.be/UZ9iaus024g" target="_blank" rel="noopener">MOVIE (out of date) [6&apos;28&quot;]</a></p>
+</body></html>
           </div>
         </main>
       </div>

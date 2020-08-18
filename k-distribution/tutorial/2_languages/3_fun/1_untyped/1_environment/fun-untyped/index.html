@@ -129,10 +129,10 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>FUN — Untyped — Environment</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>FUN &#x2014; Untyped &#x2014; Environment</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+<p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2>Abstract</h2>
 <p>This is the <strong>K</strong> semantic definition of the untyped FUN language.
@@ -145,7 +145,7 @@ Functions can be declared anywhere and are first class values in the
 language.
 FUN is call-by-value here, but it has been extended (as student
 homework assignments) with other parameter-passing styles.
-To make it more interesting and to highlight some of <strong>K</strong>'s strengths,
+To make it more interesting and to highlight some of <strong>K</strong>&apos;s strengths,
 FUN includes the following features:</p>
 <ul>
 <li>
@@ -231,7 +231,7 @@ languages which have them, and they are not easy to define in some
 semantic frameworks.</p>
 </li>
 </ul>
-<p>Like in many other languages, some of FUN's constructs can be
+<p>Like in many other languages, some of FUN&apos;s constructs can be
 desugared into a smaller set of basic constructs.  We do that as usual,
 using macros, and then we only give semantics to the core constructs.</p>
 <p><strong>Note:</strong><br>
@@ -250,7 +250,7 @@ several categories: names, arithmetic constructs, conventional
 functional constructs, patterns and pattern matching, data constructs,
 lists, references, and call-with-current-continuation (callcc).
 The arithmetic constructs are standard; they are present in almost all
-our <strong>K</strong> language definitions.  The meaning of FUN's constructs are
+our <strong>K</strong> language definitions.  The meaning of FUN&apos;s constructs are
 discussed in more depth when we define their semantics in the next
 module.</p>
 <h2>The Syntactic Constructs</h2>
@@ -308,7 +308,7 @@ define global syntax priirities later (at the end of the syntax module).</p>
 stating that only the first argument is evaluate:</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= <span class="hljs-string">&quot;if&quot;</span> Exp <span class="hljs-string">&quot;then&quot;</span> Exp <span class="hljs-string">&quot;else&quot;</span> Exp    [<span class="hljs-literal">strict</span>(<span class="hljs-number">1</span>)]
 </code></pre>
-<p>FUN's builtin lists are formed by enclosing comma-separated
+<p>FUN&apos;s builtin lists are formed by enclosing comma-separated
 sequences of expressions (i.e., terms of sort <code>Exps</code>) in square
 brackets.  The list constructor <code>cons</code> adds a new element to the
 top of the list, <code>head</code> and <code>tail</code> get the first element
@@ -348,7 +348,7 @@ Recall that the syntax we define in <strong>K</strong> is not meant to serve as 
 ultimate parser for the defined language, but rather as a convenient
 notation for <strong>K</strong> abstract syntax trees, which we prefer when we write
 the semantic rules.  It is therefore often the case that we define a
-more ``generous'' syntax than we want to allow programs to use.
+more ``generous&apos;&apos; syntax than we want to allow programs to use.
 We do it here, too.  Specifically, the syntax of <code>Cases</code>
 below allows any expressions to appear as pattern.  This syntactic
 relaxation permits many wrong programs to be parsed, but that is not a
@@ -425,7 +425,7 @@ will be useful when we define the type system later on.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= <span class="hljs-string">&quot;datatype&quot;</span> Type <span class="hljs-string">&quot;=&quot;</span> TypeCases Exp
 <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> In a future version of K, we want the datatype declaration</span>
 <span class="hljs-comment">// to be a construct by itself, but that is not possible currently</span>
-<span class="hljs-comment">// because K&#x27;s parser wronly identifies the __ operation allowing</span>
+<span class="hljs-comment">// because K&apos;s parser wronly identifies the __ operation allowing</span>
 <span class="hljs-comment">// a declaration to appear in front of an expression with the function</span>
 <span class="hljs-comment">// application construct, giving ambiguous parsing errors.</span>
 </code></pre>
@@ -493,8 +493,8 @@ so we can easily recognize them when we debug or trace the semantics.</p>
 </code></pre>
 <p>We desugar the <code>try-catch</code> construct into callcc:</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Name ::= <span class="hljs-string">&quot;$k&quot;</span> | <span class="hljs-string">&quot;$v&quot;</span><span class="hljs-keyword">
-  rule</span> try E catch(X) E&#x27;
-    =&gt; callcc (fun $k -&gt; (fun throw -&gt; E)(fun X -&gt; $k E&#x27;))   [<span class="hljs-literal">macro</span>]
+  rule</span> try E catch(X) E&apos;
+    =&gt; callcc (fun $k -&gt; (fun throw -&gt; E)(fun X -&gt; $k E&apos;))   [<span class="hljs-literal">macro</span>]
 </code></pre>
 <p>For uniformity, we reduce all types to their general form:</p>
 <pre class="hljs"><code><span class="hljs-comment">//  rule TypeName(Tn:TypeName) =&gt; (.TypeVars) Tn               [macro]</span><span class="hljs-keyword">
@@ -513,7 +513,7 @@ module</span> FUN-UNTYPED-SYNTAX<span class="hljs-keyword">
   syntax</span> Name ::= r<span class="hljs-string">&quot;[a-z][_a-zA-Z0-9]*&quot;</span>           [<span class="hljs-literal">token</span>, prec(<span class="hljs-number">2</span>)]
                 | #LowerId                        [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
   syntax</span> ConstructorName ::= #UpperId             [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
-  syntax</span> TypeVar  ::= r<span class="hljs-string">&quot;[&#x27;][a-z][_a-zA-Z0-9]*&quot;</span>    [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
+  syntax</span> TypeVar  ::= r<span class="hljs-string">&quot;[&apos;][a-z][_a-zA-Z0-9]*&quot;</span>    [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
   syntax</span> TypeName ::= Name                        [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
@@ -627,12 +627,12 @@ If the first pattern does not match, then we drop it and thus move on
 to the next one.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> (. =&gt; getMatching(P, V)) ~&gt; closure(_, P-&gt;_ | _) V:Val<span class="hljs-keyword">
   rule</span> &lt;k&gt; matchResult(M:Map) ~&gt; closure(Rho, _-&gt;E | _) _
-           =&gt; bindMap(M) ~&gt; E ~&gt; setEnv(Rho&#x27;) ...&lt;/k&gt;
-       &lt;env&gt; Rho&#x27; =&gt; Rho &lt;/env&gt;<span class="hljs-keyword">
+           =&gt; bindMap(M) ~&gt; E ~&gt; setEnv(Rho&apos;) ...&lt;/k&gt;
+       &lt;env&gt; Rho&apos; =&gt; Rho &lt;/env&gt;<span class="hljs-keyword">
   rule</span> (matchFailure =&gt; .) ~&gt; closure(_, (_-&gt;_ | Cs:Cases =&gt; Cs)) _
 <span class="hljs-comment">//  rule &lt;k&gt; closure(Rho, P-&gt;E | _) V:Val</span>
-<span class="hljs-comment">//           =&gt; bindMap(getMatching(P,V)) ~&gt; E ~&gt; setEnv(Rho&#x27;) ...&lt;/k&gt;</span>
-<span class="hljs-comment">//       &lt;env&gt; Rho&#x27; =&gt; Rho &lt;/env&gt;  when isMatching(P,V)</span>
+<span class="hljs-comment">//           =&gt; bindMap(getMatching(P,V)) ~&gt; E ~&gt; setEnv(Rho&apos;) ...&lt;/k&gt;</span>
+<span class="hljs-comment">//       &lt;env&gt; Rho&apos; =&gt; Rho &lt;/env&gt;  when isMatching(P,V)</span>
 <span class="hljs-comment">//  rule closure(_, (P-&gt;_ | Cs:Cases =&gt; Cs)) V:Val  when notBool isMatching(P,V)</span>
 </code></pre>
 <h2>Let and Letrec</h2>
@@ -670,7 +670,7 @@ case with <code>letrec</code>, their closures will encapsulate in their
 environments the bindings of all the bound variables, including
 themselves (thus, we may have a closure value stored at location
 <code>L</code>, whose environment contains a binding of the form
-<code>F ↦ L</code>; this way, the closure can invoke
+<code>F &#x21A6; L</code>; this way, the closure can invoke
 itself).</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; let Bs in E
         =&gt; bindTo(names(Bs),exps(Bs)) ~&gt; E ~&gt; setEnv(Rho) ...&lt;/k&gt;
@@ -704,7 +704,7 @@ Once evaluated, its first argument is simply discarded:</p>
 </code></pre>
 <p>The desugaring rule of <code>ref</code> (first rule above) works
 because <code>&amp;</code> takes a variable and returns its location (like in C).
-Note that some ``pure'' functional programming researchers strongly dislike
+Note that some ``pure&apos;&apos; functional programming researchers strongly dislike
 the <code>&amp;</code> construct, but favor <code>ref</code>.  We refrain from having
 a personal opinion on this issue here, but support <code>&amp;</code> in the
 environment-based definition of FUN because it is, technically speaking,
@@ -737,7 +737,7 @@ normally.</p>
 <h2>Environment recovery</h2>
 <p>The environment recovery operation is the same as for the LAMBDA++
 language in the <strong>K</strong> tutorial and many other languages provided with the
-<strong>K</strong> distribution.  The first ``anywhere'' rule below shows an elegant
+<strong>K</strong> distribution.  The first ``anywhere&apos;&apos; rule below shows an elegant
 way to achieve the benefits of tail recursion in <strong>K</strong>.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KItem ::= setEnv(Map)  <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> get rid of env</span>
   <span class="hljs-comment">//rule (setEnv(_) =&gt; .) ~&gt; setEnv(_)  [anywhere]</span><span class="hljs-keyword">
@@ -823,8 +823,8 @@ the following custom pattern decomposition rule:</p>
     =&gt; getMatchingAux((H, T), (V, [Vs]))<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
-<p>Go to <a href="../2_substitution/fun-untyped.md">Lesson 2, FUN untyped, Substitution-Based</a>.</p>
-
+<p>Go to <a href="../../2_substitution/fun-untyped/">Lesson 2, FUN untyped, Substitution-Based</a>.</p>
+</body></html>
           </div>
         </main>
       </div>

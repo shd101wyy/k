@@ -129,7 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>Rational Numbers in K</h1>
+            <html><head></head><body><h1>Rational Numbers in K</h1>
 <p>K provides support for arbitrary-precision rational numbers represented as a
 quotient between two integers. The sort representing these values is <code>Rat</code>.
 <code>Int</code> is a subsort of <code>Rat</code>, and it is guaranteed that any integer will be
@@ -232,7 +232,7 @@ module</span> RAT-KAST [kast]<span class="hljs-keyword">
    * equalities for non-kore backends such as the java backend
    */</span><span class="hljs-keyword">
 
-  rule</span> &lt; I , I&#x27; &gt;Rat ==Rat &lt; J , J&#x27; &gt;Rat =&gt; I ==<span class="hljs-keyword">Int</span> J andBool I&#x27; ==<span class="hljs-keyword">Int</span> J&#x27;<span class="hljs-keyword">
+  rule</span> &lt; I , I&apos; &gt;Rat ==Rat &lt; J , J&apos; &gt;Rat =&gt; I ==<span class="hljs-keyword">Int</span> J andBool I&apos; ==<span class="hljs-keyword">Int</span> J&apos;<span class="hljs-keyword">
   rule</span> _:<span class="hljs-keyword">Int</span>         ==Rat &lt; _ , _  &gt;Rat =&gt; false<span class="hljs-keyword">
   rule</span> &lt; _ , _  &gt;Rat ==Rat _:<span class="hljs-keyword">Int</span>         =&gt; false<span class="hljs-keyword">
   rule</span> I:<span class="hljs-keyword">Int</span>         ==Rat J:<span class="hljs-keyword">Int</span>         =&gt; I ==<span class="hljs-keyword">Int</span> J<span class="hljs-keyword">
@@ -251,19 +251,19 @@ module</span> RAT<span class="hljs-keyword">
    * arithmetic
    */</span><span class="hljs-keyword">
 
-  rule</span> &lt; I , I&#x27; &gt;Rat +Rat &lt; J , J&#x27; &gt;Rat =&gt; ((I *<span class="hljs-keyword">Int</span> J&#x27;) +<span class="hljs-keyword">Int</span> (I&#x27; *<span class="hljs-keyword">Int</span> J)) /Rat (I&#x27; *<span class="hljs-keyword">Int</span> J&#x27;)<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         +Rat &lt; J , J&#x27; &gt;Rat =&gt; ((I *<span class="hljs-keyword">Int</span> J&#x27;) +<span class="hljs-keyword">Int</span> J) /Rat J&#x27;<span class="hljs-keyword">
-  rule</span> &lt; J , J&#x27; &gt;Rat +Rat I:<span class="hljs-keyword">Int</span>         =&gt; I +Rat &lt; J , J&#x27; &gt;Rat<span class="hljs-keyword">
+  rule</span> &lt; I , I&apos; &gt;Rat +Rat &lt; J , J&apos; &gt;Rat =&gt; ((I *<span class="hljs-keyword">Int</span> J&apos;) +<span class="hljs-keyword">Int</span> (I&apos; *<span class="hljs-keyword">Int</span> J)) /Rat (I&apos; *<span class="hljs-keyword">Int</span> J&apos;)<span class="hljs-keyword">
+  rule</span> I:<span class="hljs-keyword">Int</span>         +Rat &lt; J , J&apos; &gt;Rat =&gt; ((I *<span class="hljs-keyword">Int</span> J&apos;) +<span class="hljs-keyword">Int</span> J) /Rat J&apos;<span class="hljs-keyword">
+  rule</span> &lt; J , J&apos; &gt;Rat +Rat I:<span class="hljs-keyword">Int</span>         =&gt; I +Rat &lt; J , J&apos; &gt;Rat<span class="hljs-keyword">
   rule</span> I:<span class="hljs-keyword">Int</span>         +Rat J:<span class="hljs-keyword">Int</span>         =&gt; I +<span class="hljs-keyword">Int</span> J<span class="hljs-keyword">
 
-  rule</span> &lt; I , I&#x27; &gt;Rat *Rat &lt; J , J&#x27; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J) /Rat (I&#x27; *<span class="hljs-keyword">Int</span> J&#x27;)<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         *Rat &lt; J , J&#x27; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J) /Rat J&#x27;<span class="hljs-keyword">
-  rule</span> &lt; J , J&#x27; &gt;Rat *Rat I:<span class="hljs-keyword">Int</span>         =&gt; I *Rat &lt; J , J&#x27; &gt;Rat<span class="hljs-keyword">
+  rule</span> &lt; I , I&apos; &gt;Rat *Rat &lt; J , J&apos; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J) /Rat (I&apos; *<span class="hljs-keyword">Int</span> J&apos;)<span class="hljs-keyword">
+  rule</span> I:<span class="hljs-keyword">Int</span>         *Rat &lt; J , J&apos; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J) /Rat J&apos;<span class="hljs-keyword">
+  rule</span> &lt; J , J&apos; &gt;Rat *Rat I:<span class="hljs-keyword">Int</span>         =&gt; I *Rat &lt; J , J&apos; &gt;Rat<span class="hljs-keyword">
   rule</span> I:<span class="hljs-keyword">Int</span>         *Rat J:<span class="hljs-keyword">Int</span>         =&gt; I *<span class="hljs-keyword">Int</span> J<span class="hljs-keyword">
 
-  rule</span> &lt; I , I&#x27; &gt;Rat /Rat &lt; J , J&#x27; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J&#x27;) /Rat (I&#x27; *<span class="hljs-keyword">Int</span> J)<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         /Rat &lt; J , J&#x27; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J&#x27;) /Rat J<span class="hljs-keyword">
-  rule</span> &lt; I , I&#x27; &gt;Rat /Rat J:<span class="hljs-keyword">Int</span>         =&gt; I /Rat (I&#x27; *<span class="hljs-keyword">Int</span> J)<span class="hljs-keyword"> requires</span> J =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
+  rule</span> &lt; I , I&apos; &gt;Rat /Rat &lt; J , J&apos; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J&apos;) /Rat (I&apos; *<span class="hljs-keyword">Int</span> J)<span class="hljs-keyword">
+  rule</span> I:<span class="hljs-keyword">Int</span>         /Rat &lt; J , J&apos; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J&apos;) /Rat J<span class="hljs-keyword">
+  rule</span> &lt; I , I&apos; &gt;Rat /Rat J:<span class="hljs-keyword">Int</span>         =&gt; I /Rat (I&apos; *<span class="hljs-keyword">Int</span> J)<span class="hljs-keyword"> requires</span> J =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
   rule</span> I:<span class="hljs-keyword">Int</span>         /Rat J:<span class="hljs-keyword">Int</span>         =&gt; makeRat(I, J)<span class="hljs-keyword">      requires</span> J =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span>
 
   <span class="hljs-comment">// derived</span><span class="hljs-keyword">
@@ -341,7 +341,7 @@ module</span> RAT<span class="hljs-keyword">
 
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

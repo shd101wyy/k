@@ -129,7 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.
+            <html><head></head><body><p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.
 Use the tag <code>k</code> to tell the compiler which blocks to select.</p>
 <p>Inside <code>.k</code> files, C/Java-like comments are available.</p>
 <pre class="hljs"><code><span class="hljs-comment">// Single line comment</span>
@@ -137,13 +137,13 @@ Use the tag <code>k</code> to tell the compiler which blocks to select.</p>
 comments */</span>
 </code></pre>
 <h1>Tutorial 1 --- LAMBDA</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
 <h3>Abstract</h3>
 <p>This file defines a simple functional language in <strong>K</strong>, called LAMBDA,
 using a substitution style.  The explicit objective here is to teach some
 <strong>K</strong> concepts and how they work in the K tool, and not to teach
-λ-calculus or to argue for one definitional style against another
+&#x3BB;-calculus or to argue for one definitional style against another
 (e.g., some may prefer environment/closure-based definitions of such
 languages).</p>
 <p>Note that the subsequent definition is so simple, that it hardly shows any
@@ -152,14 +152,14 @@ that substitution can be defined fully generically, and then used to give
 semantics to various constructs in various languages.</p>
 <p>Note:
 <strong>K</strong> follows the
-<a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a>
+<a href="https://en.wikipedia.org/wiki/Literate_programming" target="_blank" rel="noopener">literate programming</a>
 approach. The various semantic features defined in a <strong>K</strong>
 module can be reordered at will and can be commented using normal
 comments like in C/C++/Java.
 While comments are useful in general, they can annoy the expert user
 of <strong>K</strong>. To turn them off, you can do one of the following (unless you
 want to remove them manually):<br>
-(1) Use an <a href="https://github.com/kframework/k-editor-support">editor</a> which can
+(1) Use an <a href="https://github.com/kframework/k-editor-support" target="_blank" rel="noopener">editor</a> which can
 hide or highlight Markdown and conventional C-like comments; or<br>
 (2) Run <code>kompile --debug &lt;def&gt;</code>. Inside <code>./.kompiled-xxx/.md2.k/</code> you will find
 all the K code extracted from the markdown files as used for compilation.</p>
@@ -173,8 +173,8 @@ module</span> LAMBDA<span class="hljs-keyword">
   imports</span> DOMAINS<span class="hljs-keyword">
   imports</span> SUBSTITUTION
 </code></pre>
-<h3>Basic Call-by-value λ-Calculus</h3>
-<p>We first define a conventional call-by-value λ-calculus, making sure
+<h3>Basic Call-by-value &#x3BB;-Calculus</h3>
+<p>We first define a conventional call-by-value &#x3BB;-calculus, making sure
 we declare the lambda abstraction construct to be a binder, the
 lambda application to be strict, and the parentheses used for grouping as
 a bracket.</p>
@@ -186,7 +186,7 @@ described in this tutorial.</p>
 <p>Note:
 The <code>strict</code> constructs can evaluate their arguments in any (fully
 interleaved) order.</p>
-<p>The initial syntax of our λ-calculus:</p>
+<p>The initial syntax of our &#x3BB;-calculus:</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Val ::= KVar
                | <span class="hljs-string">&quot;lambda&quot;</span> KVar <span class="hljs-string">&quot;.&quot;</span> Exp  [<span class="hljs-literal">binder</span>, <span class="hljs-literal">latex</span>(\lambda{#<span class="hljs-number">1</span>}.{#<span class="hljs-number">2</span>})]<span class="hljs-keyword">
   syntax</span> Exp ::= Val
@@ -194,7 +194,7 @@ interleaved) order.</p>
                | <span class="hljs-string">&quot;(&quot;</span> Exp <span class="hljs-string">&quot;)&quot;</span>          [<span class="hljs-literal">bracket</span>]<span class="hljs-keyword">
   syntax</span> KResult ::= Val
 </code></pre>
-<h3>β-reduction</h3>
+<h3>&#x3B2;-reduction</h3>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> (lambda X:KVar . E:Exp) V:Val =&gt; E[V / X]
 </code></pre>
 <h3>Integer and Boolean Builtins</h3>
@@ -223,21 +223,21 @@ attributes declared as annotations to their syntax declarations (below).</p>
   rule</span> if false then _ else E =&gt; E
 </code></pre>
 <h3>Let Binder</h3>
-<p>The let binder is a derived construct, because it can be defined using λ.</p>
+<p>The let binder is a derived construct, because it can be defined using &#x3BB;.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= <span class="hljs-string">&quot;let&quot;</span> KVar <span class="hljs-string">&quot;=&quot;</span> Exp <span class="hljs-string">&quot;in&quot;</span> Exp<span class="hljs-keyword">
-  rule</span> let X = E in E&#x27;:Exp =&gt; (lambda X . E&#x27;) E                         [<span class="hljs-literal">macro</span>]
+  rule</span> let X = E in E&apos;:Exp =&gt; (lambda X . E&apos;) E                         [<span class="hljs-literal">macro</span>]
 </code></pre>
 <h3>Letrec Binder</h3>
-<p>We prefer a definition based on the μ construct.  Note that μ is not
+<p>We prefer a definition based on the &#x3BC; construct.  Note that &#x3BC; is not
 really necessary, but it makes the definition of letrec easier to understand
 and faster to execute.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= <span class="hljs-string">&quot;letrec&quot;</span> KVar KVar <span class="hljs-string">&quot;=&quot;</span> Exp <span class="hljs-string">&quot;in&quot;</span> Exp
                | <span class="hljs-string">&quot;mu&quot;</span> KVar <span class="hljs-string">&quot;.&quot;</span> Exp                  [<span class="hljs-literal">binder</span>, <span class="hljs-literal">latex</span>(\mu{#<span class="hljs-number">1</span>}.{#<span class="hljs-number">2</span>})]<span class="hljs-keyword">
-  rule</span> letrec F:KVar X:KVar = E in E&#x27; =&gt; let F = mu F . lambda X . E in E&#x27; [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
+  rule</span> letrec F:KVar X:KVar = E in E&apos; =&gt; let F = mu F . lambda X . E in E&apos; [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
   rule</span> mu X . E =&gt; E[(mu X . E) / X]<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

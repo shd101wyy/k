@@ -129,14 +129,13 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. -->
-<h1>Adding/Deleting Cells Dynamically; Configuration Abstraction, Part 2</h1>
+            <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Adding/Deleting Cells Dynamically; Configuration Abstraction, Part 2</h1>
 <p>In this lesson we add dynamic thread creation and termination to IMP, and
 while doing so we learn how to define and use configurations whose structure
 can evolve dynamically.</p>
 <p>Recall that the intended semantics of <code>spawn S</code> is to spawn a new concurrent
 thread that executes <code>S</code>. The new thread is being passed at creation time
-its parent's environment, so it can share with its parent the memory
+its parent&apos;s environment, so it can share with its parent the memory
 locations that its parent had access to at creation time. No other locations
 can be shared, and no other memory sharing mechanism is available.
 The parent and the child threads can evolve unrestricted, in particular they
@@ -207,13 +206,13 @@ for example:</p>
 </code></pre>
 <p>By default, K completes rules in a greedy style. Think this way: what is the
 minimal number of changes to my rule to make it fit the declared
-configuration? That's what the K tool will do.</p>
+configuration? That&apos;s what the K tool will do.</p>
 <p>Configuration abstraction is technically unnecessary, but once you start
 using it and get a feel for how it works, it will become your best friend.
 It allows you to focus on the essentials of your semantics, and at the same
 time gives you flexibility in changing the configuration later on without
 having to touch the rules. For example, it allows you to remove the
-<code>&lt;threads/&gt;</code> cell from the configuration, if you don't like it, without
+<code>&lt;threads/&gt;</code> cell from the configuration, if you don&apos;t like it, without
 having to touch any rule.</p>
 <p>We are now ready to give the semantics of <code>spawn</code>:</p>
 <pre><code>rule &lt;k&gt; spawn S =&gt; . ...&lt;/k&gt; &lt;env&gt; Rho &lt;/env&gt;
@@ -244,7 +243,7 @@ We hope this current limitation will be eliminated soon.</p>
 happens, we can go ahead and remove the useless <code>thread</code> cell:</p>
 <pre><code>rule &lt;thread&gt;... &lt;k&gt; . &lt;/k&gt; ...&lt;/thread&gt; =&gt; .  [structural]
 </code></pre>
-<p>Let's see what we've got. <code>kompile</code> and <code>krun</code> <code>spawn.imp</code>.
+<p>Let&apos;s see what we&apos;ve got. <code>kompile</code> and <code>krun</code> <code>spawn.imp</code>.
 Note the following:</p>
 <ul>
 <li>The <code>&lt;threads/&gt;</code> cell is empty, so all threads terminated normally;</li>
@@ -252,7 +251,7 @@ Note the following:</p>
 is not even the one obtained if the threads executed sequentially.</li>
 </ul>
 <p>Therefore, interesting behaviors may happen; we would like to see them all!</p>
-<p>Based on prior experience with <code>krun</code>'s search option, we would hope that</p>
+<p>Based on prior experience with <code>krun</code>&apos;s search option, we would hope that</p>
 <pre><code>krun spawn.imp --search
 </code></pre>
 <p>shows all the behaviors. However, the above does not work, for two reasons.</p>
@@ -311,9 +310,9 @@ to be transitions. So <code>krun</code> makes no attempt to automatically detect
 Instead, it provides the functionality to let you decide it.</p>
 <p>We currently have no mechanism for thread synchronization. In the next lesson
 we add a <code>join</code> statement, which allows a thread to wait until another completes.</p>
-<p>Go to <a href="../lesson_7/README.md">Lesson 7, IMP++: Everything Changes: Syntax, Configuration, Semantics</a>.</p>
-<p><a href="http://youtu.be/DpJPP3Qtqno">MOVIE (out of date) [11'40&quot;]</a></p>
-
+<p>Go to <a href="../lesson_7/">Lesson 7, IMP++: Everything Changes: Syntax, Configuration, Semantics</a>.</p>
+<p><a href="http://youtu.be/DpJPP3Qtqno" target="_blank" rel="noopener">MOVIE (out of date) [11&apos;40&quot;]</a></p>
+</body></html>
           </div>
         </main>
       </div>

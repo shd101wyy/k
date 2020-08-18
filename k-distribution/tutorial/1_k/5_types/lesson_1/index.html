@@ -129,8 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. -->
-<h1>Imperative, Environment-Based Type Systems</h1>
+            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Imperative, Environment-Based Type Systems</h1>
 <p>In this lesson you learn how to define a type system for an imperative
 language (the IMP++ language defined in Part 4 of the tutorial), using a style
 based on type  environments.</p>
@@ -143,7 +142,7 @@ to their types.  So types will be the new results of our new (type) semantics.
 We also clean up the semantics by removing the unnecessary tags, and also
 use <code>strict</code> instead of <code>seqstrict</code> wherever possible, because <code>strict</code> gives
 implementations more freedom.  Interestingly, note that <code>spawn</code> is strict now,
-because the code of the child thread should type in the current parent's type
+because the code of the child thread should type in the current parent&apos;s type
 environment.  Note that this is not always the case for threads, see for example
 SIMPLE in the languages tutorial, but it works here for our simpler IMP++.</p>
 <p>From a typing perspective, the <code>&amp;&amp;</code> construct is strict in both its arguments;
@@ -184,7 +183,7 @@ we have to explicitly add <code>int</code> to the syntax of arithmetic expressio
 Otherwise, the K parser rightfully complains, because <code>/</code> was declared on
 arithmetic expressions, not on types.  One simple and generic way to allow
 types to appear anywhere, is to define <code>Type</code> as a syntactic subcategory of all
-the other syntactic categories.  Let's do it on a by-need basis, though.</p>
+the other syntactic categories.  Let&apos;s do it on a by-need basis, though.</p>
 <p>Addition is overloaded, so we add two typing rules for it: one for integers
 and another for strings.</p>
 <p>As discussed, <code>spawn</code> types to <code>stmt</code> provided that its argument types to
@@ -234,9 +233,9 @@ is needed anyway, to type empty blocks <code>{}</code> (together with the block 
 <p><code>kompile</code> <code>imp.k</code> and <code>krun</code> all the programs in Part 4 of the tutorial.  They
 should all type to <code>stmt</code>.</p>
 <p>In the next lesson we will define a substitution-based type system for LAMBDA.</p>
-<p>Go to <a href="../lesson_2/README.md">Lesson 2, Type Systems: Substitution-Based Higher-Order Type Systems</a>.</p>
-<p><a href="http://youtu.be/WyUxdo7GhtE">MOVIE (out of date) [10'11&quot;]</a></p>
-
+<p>Go to <a href="../lesson_2/">Lesson 2, Type Systems: Substitution-Based Higher-Order Type Systems</a>.</p>
+<p><a href="http://youtu.be/WyUxdo7GhtE" target="_blank" rel="noopener">MOVIE (out of date) [10&apos;11&quot;]</a></p>
+</body></html>
           </div>
         </main>
       </div>

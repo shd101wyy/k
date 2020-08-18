@@ -129,8 +129,8 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>Tutorial 3--- LAMBDA++</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>Tutorial 3--- LAMBDA++</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
 <h3>Abstract</h3>
 <p>This file contains an environment-based <strong>K</strong> semantic definition of LAMBDA++, an
@@ -174,7 +174,7 @@ module. Type <code>kompile --help</code> to see how to tell the parser which syn
 </code></pre>
 <p>One thing you may want to do, now that the entire syntax is in one
 place, is to play with precedences. This way, you can make kompile
-generate the parser you want for your programs, so that you won't have to
+generate the parser you want for your programs, so that you won&apos;t have to
 put lots of parentheses in your programs.</p>
 <pre class="hljs"><code><span class="hljs-keyword">endmodule</span><span class="hljs-keyword">
 
@@ -207,22 +207,22 @@ to locations, and a store binds locations to values.</p>
 </code></pre>
 <p>Recall that <code>$PGM</code> is where the program is placed by krun after parsing.</p>
 <h3>Closures</h3>
-<p>In environment-based definitions of lambda-calculi, λ-abstractions
-evaluate to <em>closures</em>. A closure is like a λ-abstraction,
+<p>In environment-based definitions of lambda-calculi, &#x3BB;-abstractions
+evaluate to <em>closures</em>. A closure is like a &#x3BB;-abstraction,
 but it also holds the environment in which it was declared. This way, when
 invoked, a closure knows where to find in the store the values of all the
 variables that its body expression refers to.
-To invoke a closure, we need to switch to closure's environment, then create
-a new binding for closure's parameter, then evaluate the closure's body, and
-then switch back to caller's environment.</p>
+To invoke a closure, we need to switch to closure&apos;s environment, then create
+a new binding for closure&apos;s parameter, then evaluate the closure&apos;s body, and
+then switch back to caller&apos;s environment.</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Val ::= closure(Map,<span class="hljs-keyword">Id</span>,Exp)
     [<span class="hljs-literal">latex</span>(\textsf{closure}_\lambda({#<span class="hljs-number">1</span>},{#<span class="hljs-number">2</span>},{#<span class="hljs-number">3</span>}))]<span class="hljs-keyword">
 
   rule</span> &lt;k&gt; lambda X:<span class="hljs-keyword">Id</span> . E =&gt; closure(Rho,X,E) ...&lt;/k&gt;
        &lt;env&gt; Rho &lt;/env&gt;
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
-  rule</span> &lt;k&gt; closure(Rho,X,E) V:Val =&gt; E ~&gt; Rho&#x27; ...&lt;/k&gt;
-       &lt;env&gt; Rho&#x27; =&gt; Rho[X &lt;- !N] &lt;/env&gt;
+  rule</span> &lt;k&gt; closure(Rho,X,E) V:Val =&gt; E ~&gt; Rho&apos; ...&lt;/k&gt;
+       &lt;env&gt; Rho&apos; =&gt; Rho[X &lt;- !N] &lt;/env&gt;
        &lt;store&gt;... .Map =&gt; (!N:<span class="hljs-keyword">Int</span> |-&gt; V) ...&lt;/store&gt;<span class="hljs-keyword">
   rule</span> &lt;k&gt; X =&gt; V ...&lt;/k&gt;
        &lt;env&gt;... X |-&gt; N ...&lt;/env&gt;
@@ -237,7 +237,7 @@ in the <strong>K</strong> team to add it to the set of pre-defined <strong>K</st
 </code></pre>
 <h3>Arithmetic Constructs</h3>
 <p>Not much to say here. They have exactly the same semantics as in LAMBDA and
-IMP. Note that we let it in programmer's hands to check that the denominator
+IMP. Note that we let it in programmer&apos;s hands to check that the denominator
 of a division is different from zero. If a division-by-zero is issued, then
 completely non-deterministic result can happen depending upon what back-end
 one uses for the K tool. Currently, Maude is used and Maude gets stuck
@@ -255,14 +255,14 @@ division rule.</p>
   rule</span> if false then _ else E =&gt; E
 </code></pre>
 <h3>Let Binder</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> let X = E in E&#x27;:Exp =&gt; (lambda X . E&#x27;) E                         [<span class="hljs-literal">macro</span>]
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> let X = E in E&apos;:Exp =&gt; (lambda X . E&apos;) E                         [<span class="hljs-literal">macro</span>]
 </code></pre>
 <h3>Letrec Binder</h3>
 <p>We define <code>letrec</code> in term of <code>mu</code>, whose semantics is below.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> letrec F:<span class="hljs-keyword">Id</span> X = E in E&#x27; =&gt; let F = mu F . lambda X . E in E&#x27;     [<span class="hljs-literal">macro</span>]
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> letrec F:<span class="hljs-keyword">Id</span> X = E in E&apos; =&gt; let F = mu F . lambda X . E in E&apos;     [<span class="hljs-literal">macro</span>]
 </code></pre>
 <h3>Mu</h3>
-<p>To save the number of locations needed to evaluate <code>μ X . E</code>, we replace it
+<p>To save the number of locations needed to evaluate <code>&#x3BC; X . E</code>, we replace it
 with a special closure which binds <code>X</code> to a fresh location holding the closure
 itself.  This has the same effect as binding <code>X</code> to a reference that points
 back to the fixed-point.</p>
@@ -272,8 +272,8 @@ back to the fixed-point.</p>
        &lt;env&gt; Rho &lt;/env&gt;
        &lt;store&gt;... .Map =&gt; (!N:<span class="hljs-keyword">Int</span> |-&gt; muclosure(Rho[X &lt;- !N], E)) ...&lt;/store&gt;
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
-  rule</span> &lt;k&gt; muclosure(Rho,E) =&gt; E ~&gt; Rho&#x27; ...&lt;/k&gt;
-       &lt;env&gt; Rho&#x27; =&gt; Rho &lt;/env&gt;
+  rule</span> &lt;k&gt; muclosure(Rho,E) =&gt; E ~&gt; Rho&apos; ...&lt;/k&gt;
+       &lt;env&gt; Rho&apos; =&gt; Rho &lt;/env&gt;
 </code></pre>
 <h3>Callcc</h3>
 <p>For <code>callcc</code>, we need to create a new closure-like value which
@@ -286,7 +286,7 @@ supposed to be executed. Forget the environment, and you get a wrong
   rule</span> &lt;k&gt; cc(Rho,K) V:Val ~&gt; _ =&gt;  V ~&gt; K &lt;/k&gt; &lt;env&gt; _ =&gt; Rho &lt;/env&gt;<span class="hljs-keyword">
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

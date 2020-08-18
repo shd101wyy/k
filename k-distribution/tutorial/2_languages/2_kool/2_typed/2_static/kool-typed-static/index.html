@@ -129,10 +129,10 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>KOOL — Typed — Static</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>KOOL &#x2014; Typed &#x2014; Static</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+<p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2>Abstract</h2>
 <p>This is the <strong>K</strong> static semantics of the typed KOOL language.
@@ -169,7 +169,7 @@ declaring both a field and a method with the same name.</p>
 <li>
 <p>If an identifier is not found in the local type environment, it
 will be searched for in the current class type environment.  If not
-there, then it will be searched for in its superclass' type
+there, then it will be searched for in its superclass&apos; type
 environment.  And so on and so forth.  If not found until the
 <code>Object</code> class is reached, a typing error is reported.</p>
 </li>
@@ -371,17 +371,17 @@ process each class, generating a class task (see next) for each.</p>
 <li>
 <p><strong>Class task</strong>, holding <code>k</code>, <code>ctenvT</code>, and
 <code>inClass</code> subcells.  The role of this task type is to process
-a class' contents, generating a class type environment in the
+a class&apos; contents, generating a class type environment in the
 <code>ctenvT</code> cell and a method task (see next) for each method in
 the class.  To avoid interference with object member lookup rules
 below, it is important to add the class type environment to a class
 atomically; this is the reason for which we use <code>ctenvT</code>
 temporary cells within class tasks (instead of adding each member
-incrementally to the class' type environment).</p>
+incrementally to the class&apos; type environment).</p>
 </li>
 <li>
 <p><strong>Method task</strong>, holding <code>k</code>, <code>tenv</code> and
-<code>return</code> cells.  These tasks are similar to SIMPLE's function
+<code>return</code> cells.  These tasks are similar to SIMPLE&apos;s function
 tasks, so we do not discuss them here any further.</p>
 </li>
 </ol>
@@ -568,7 +568,7 @@ at the end of this module).</p>
 </code></pre>
 <h2>Method declaration</h2>
 <p>A method declaration requires two conceptual checks to be performed:
-first, that the method's type is consistent with the type of the
+first, that the method&apos;s type is consistent with the type of the
 homonymous method that it overrides, if any; and second, that its body
 types correctly.  At the same time, it should also be added to the
 type environment of its class.  The first conceptual task is performed
@@ -581,13 +581,13 @@ rule below is to structurally ensure that the method declaration takes
 place in a class task (we do not want to allow methods to be declared,
 for example, inside other methods).</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; T:Type F:<span class="hljs-keyword">Id</span>(Ps:Params) S
-        =&gt; checkMethod(F, getTypes(Ps)-&gt;T, C&#x27;)
+        =&gt; checkMethod(F, getTypes(Ps)-&gt;T, C&apos;)
            ~&gt; getTypes(Ps)-&gt;T F; ...&lt;/k&gt;
 <span class="hljs-comment">//       &lt;br/&gt;</span>
        &lt;inClass&gt; C &lt;/inClass&gt;
        &lt;ctenvT&gt; _ &lt;/ctenvT&gt; <span class="hljs-comment">// to ensure we are in a class pass</span>
        &lt;className&gt; C &lt;/className&gt;
-       &lt;baseClass&gt; C&#x27; &lt;/baseClass&gt;
+       &lt;baseClass&gt; C&apos; &lt;/baseClass&gt;
 <span class="hljs-comment">//       &lt;br/&gt;</span>
        (.Bag =&gt; &lt;task&gt;
                &lt;k&gt; mkDecls(Ps) S &lt;/k&gt;
@@ -601,21 +601,21 @@ for example, inside other methods).</p>
 <p>A more concrete value is allowed to be assigned to a more abstract
 variable.  The operation <code>checkSubtype</code> is defined at the end
 of the module and it also works with pairs of lists of types.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> T:Type = T&#x27;:Type =&gt; checkSubtype(T&#x27;, T) ~&gt; T
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> T:Type = T&apos;:Type =&gt; checkSubtype(T&apos;, T) ~&gt; T
 </code></pre>
 <h2>Method invocation and return</h2>
 <p>Methods can be applied on values of more concrete types than their
 arguments:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> (Ts:Types -&gt; T:Type) (Ts&#x27;:Types) =&gt; checkSubtype(Ts&#x27;,Ts) ~&gt; T
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> (Ts:Types -&gt; T:Type) (Ts&apos;:Types) =&gt; checkSubtype(Ts&apos;,Ts) ~&gt; T
 </code></pre>
 <p>Similarly, we allow values of more concrete types to be returned by
 methods:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; return T:Type; =&gt; checkSubtype(T,T&#x27;) ~&gt; stmt ...&lt;/k&gt;
-       &lt;returnType&gt; T&#x27;:Type &lt;/returnType&gt;
+<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; return T:Type; =&gt; checkSubtype(T,T&apos;) ~&gt; stmt ...&lt;/k&gt;
+       &lt;returnType&gt; T&apos;:Type &lt;/returnType&gt;
 </code></pre>
 <h2>Exceptions</h2>
 <p>Exceptions can throw and catch values of any types.  Since unlike in Java
-KOOL's methods do not declare the exception types that they can throw,
+KOOL&apos;s methods do not declare the exception types that they can throw,
 we cannot test the full type safety of exceptions.  Instead, we
 only check that the <code>try</code> and the <code>catch</code> statements
 type correctly.</p>
@@ -623,7 +623,7 @@ type correctly.</p>
   rule</span> throw T:Type ; =&gt; stmt
 </code></pre>
 <h2>Spawn</h2>
-<p>The spawned cell needs to also be passed the parent's class.</p>
+<p>The spawned cell needs to also be passed the parent&apos;s class.</p>
 <pre class="hljs"><code><span class="hljs-comment">// explain why</span><span class="hljs-keyword">
 
   rule</span> &lt;k&gt; spawn S:Block =&gt; int ...&lt;/k&gt;
@@ -650,14 +650,14 @@ instance of this rule).</p>
 <span class="hljs-comment">// and the class cells; I had to include two separate . rewrites</span>
 
 <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> the following fails krun; see #2117</span><span class="hljs-keyword">
-  rule</span> &lt;task&gt; &lt;k&gt; class C:<span class="hljs-keyword">Id</span> extends C&#x27;:<span class="hljs-keyword">Id</span> { S:Stmts } =&gt; stmt ...&lt;/k&gt; &lt;/task&gt;
+  rule</span> &lt;task&gt; &lt;k&gt; class C:<span class="hljs-keyword">Id</span> extends C&apos;:<span class="hljs-keyword">Id</span> { S:Stmts } =&gt; stmt ...&lt;/k&gt; &lt;/task&gt;
        (.Bag =&gt; &lt;classData&gt;...
                &lt;className&gt; C &lt;/className&gt;
-               &lt;baseClass&gt; C&#x27; &lt;/baseClass&gt;
+               &lt;baseClass&gt; C&apos; &lt;/baseClass&gt;
              ...&lt;/classData&gt;)
 <span class="hljs-comment">//       &lt;br/&gt;</span>
        (.Bag =&gt; &lt;task&gt;
-                &lt;k&gt; checkType(class(C&#x27;)) ~&gt; S &lt;/k&gt;
+                &lt;k&gt; checkType(class(C&apos;)) ~&gt; S &lt;/k&gt;
                 &lt;inClass&gt; C &lt;/inClass&gt;
                 &lt;ctenvT&gt; .Map &lt;/ctenvT&gt;
              &lt;/task&gt;)
@@ -668,9 +668,9 @@ instance of this rule).</p>
 syntax Type ::= &quot;stmtStop&quot;
 
   rule &lt;tasks&gt;...
-       &lt;task&gt; &lt;k&gt; class C:Id extends C&#x27;:Id { S:Stmts } =&gt; stmtStop ...&lt;/k&gt; &lt;/task&gt;
+       &lt;task&gt; &lt;k&gt; class C:Id extends C&apos;:Id { S:Stmts } =&gt; stmtStop ...&lt;/k&gt; &lt;/task&gt;
        (.Bag =&gt; &lt;task&gt;
-                &lt;k&gt; checkType(class(C&#x27;)) ~&gt; S &lt;/k&gt;
+                &lt;k&gt; checkType(class(C&apos;)) ~&gt; S &lt;/k&gt;
                 &lt;inClass&gt; C &lt;/inClass&gt;
                 &lt;ctenvT&gt; .Map &lt;/ctenvT&gt;
              &lt;/task&gt;)
@@ -678,7 +678,7 @@ syntax Type ::= &quot;stmtStop&quot;
        &lt;classes&gt;...
        .Bag =&gt; &lt;classData&gt;...
                &lt;className&gt; C &lt;/className&gt;
-               &lt;baseClass&gt; C&#x27; &lt;/baseClass&gt;
+               &lt;baseClass&gt; C&apos; &lt;/baseClass&gt;
              ...&lt;/classData&gt;
        ...&lt;/classes&gt;
 //       &lt;br/&gt;
@@ -705,10 +705,10 @@ checks for cycles.</p>
        &lt;baseClasses&gt; .Set =&gt; SetItem(C) &lt;/baseClasses&gt;  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
   rule</span> &lt;classData&gt;...
-         &lt;baseClasses&gt; SetItem(C) Cs:Set (.Set =&gt; SetItem(C&#x27;)) &lt;/baseClasses&gt;
+         &lt;baseClasses&gt; SetItem(C) Cs:Set (.Set =&gt; SetItem(C&apos;)) &lt;/baseClasses&gt;
        ...&lt;/classData&gt;
-       &lt;classData&gt;... &lt;className&gt;C&lt;/className&gt; &lt;baseClass&gt;C&#x27;&lt;/baseClass&gt; ...&lt;/classData&gt;
-    when notBool(C&#x27; in (SetItem(C) Cs))  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
+       &lt;classData&gt;... &lt;className&gt;C&lt;/className&gt; &lt;baseClass&gt;C&apos;&lt;/baseClass&gt; ...&lt;/classData&gt;
+    when notBool(C&apos; in (SetItem(C) Cs))  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
   rule</span> (&lt;T&gt;...
           &lt;className&gt; C &lt;/className&gt;
@@ -738,10 +738,10 @@ current class type.</p>
 <p>Similarly, <code>super</code> types to the parent class type.
 Note that for typing concerns, super can be considered as an object
 (recall that this was not the case in the dynamic semantics).</p>
-<pre class="hljs"><code><span class="hljs-keyword">   rule</span> &lt;k&gt; super =&gt; class(C&#x27;) ...&lt;/k&gt;
+<pre class="hljs"><code><span class="hljs-keyword">   rule</span> &lt;k&gt; super =&gt; class(C&apos;) ...&lt;/k&gt;
         &lt;inClass&gt; C:<span class="hljs-keyword">Id</span> &lt;/inClass&gt;
         &lt;className&gt; C &lt;/className&gt;
-        &lt;baseClass&gt; C&#x27;:<span class="hljs-keyword">Id</span> &lt;/baseClass&gt;
+        &lt;baseClass&gt; C&apos;:<span class="hljs-keyword">Id</span> &lt;/baseClass&gt;
 </code></pre>
 <h2>Object member access</h2>
 <p>There are several cases to consider here.  First, if we are in a class
@@ -836,7 +836,7 @@ types of tasks is handled differently.  The main task is replaced by a
 method task holding <code>new main();</code>, which will ensure that a
 <code>main</code> class with a <code>main()</code> method actually exists
 (first rule below).  A class task moves its temporary class type
-environment into its class' cell, and then it dissolves itself (second
+environment into its class&apos; cell, and then it dissolves itself (second
 rule).  A method task simply dissolves when terminated (third rule);
 the presence of the <code>tenv</code> cell in that rule ensures that that
 task is a method task.
@@ -886,18 +886,18 @@ the <code>tasks</code> cell has been removed.</p>
 
   rule</span> checkSubtype(T:Type, T) =&gt; .  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
-  rule</span> &lt;k&gt; checkSubtype(class(C:<span class="hljs-keyword">Id</span>), class(C&#x27;:<span class="hljs-keyword">Id</span>)) =&gt; . ...&lt;/k&gt;
+  rule</span> &lt;k&gt; checkSubtype(class(C:<span class="hljs-keyword">Id</span>), class(C&apos;:<span class="hljs-keyword">Id</span>)) =&gt; . ...&lt;/k&gt;
        &lt;className&gt; C &lt;/className&gt;
-       &lt;baseClasses&gt;... SetItem(C&#x27;) ...&lt;/baseClasses&gt;  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
+       &lt;baseClasses&gt;... SetItem(C&apos;) ...&lt;/baseClasses&gt;  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
-  rule</span> checkSubtype(Ts1-&gt;T2,Ts1&#x27;-&gt;T2&#x27;)
-    =&gt; checkSubtype(((T2)::Type,Ts1&#x27;),((T2&#x27;)::Type,Ts1))  [<span class="hljs-literal">structural</span>]
+  rule</span> checkSubtype(Ts1-&gt;T2,Ts1&apos;-&gt;T2&apos;)
+    =&gt; checkSubtype(((T2)::Type,Ts1&apos;),((T2&apos;)::Type,Ts1))  [<span class="hljs-literal">structural</span>]
 
 <span class="hljs-comment">// note that the following rule would be wrong!</span>
-<span class="hljs-comment">//  rule checkSubtype(T[],T&#x27;[]) =&gt; checkSubtype(T,T&#x27;)</span><span class="hljs-keyword">
+<span class="hljs-comment">//  rule checkSubtype(T[],T&apos;[]) =&gt; checkSubtype(T,T&apos;)</span><span class="hljs-keyword">
 
-  rule</span> checkSubtype((T:Type,Ts),(T&#x27;:Type,Ts&#x27;))
-    =&gt; checkSubtype(T,T&#x27;) ~&gt; checkSubtype(Ts,Ts&#x27;)
+  rule</span> checkSubtype((T:Type,Ts),(T&apos;:Type,Ts&apos;))
+    =&gt; checkSubtype(T,T&apos;) ~&gt; checkSubtype(Ts,Ts&apos;)
     when Ts =/=K .Types  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
   rule</span> checkSubtype(.Types,.Types) =&gt; .  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
@@ -924,21 +924,21 @@ check that the types used in the program actually exists</p>
 <h2>Checking correct  overiding of methods</h2>
 <p>The <code>checkMethod</code> operation below searches to see whether
 the current method overrides some other method in some superclass.
-If yes, then it issues an additional check that the new method's type
-is more concrete than the overridden method's.  The types <code>T</code> and <code>T'</code>
+If yes, then it issues an additional check that the new method&apos;s type
+is more concrete than the overridden method&apos;s.  The types <code>T</code> and <code>T&apos;</code>
 below can only be function types.  See the definition of
 <code>checkSubtype</code> on function types at the end of this module (it
 is co-variant in the codomain and contra-variant in the domain).</p>
 <pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KItem ::= checkMethod(<span class="hljs-keyword">Id</span>,Type,<span class="hljs-keyword">Id</span>)<span class="hljs-keyword">
 
-  rule</span> &lt;k&gt; checkMethod(F:<span class="hljs-keyword">Id</span>, T:Type, C:<span class="hljs-keyword">Id</span>) =&gt; checkSubtype(T, T&#x27;) ...&lt;/k&gt;
+  rule</span> &lt;k&gt; checkMethod(F:<span class="hljs-keyword">Id</span>, T:Type, C:<span class="hljs-keyword">Id</span>) =&gt; checkSubtype(T, T&apos;) ...&lt;/k&gt;
        &lt;className&gt; C &lt;/className&gt;
-       &lt;ctenv&gt;... F |-&gt; T&#x27;:Type ...&lt;/ctenv&gt;
+       &lt;ctenv&gt;... F |-&gt; T&apos;:Type ...&lt;/ctenv&gt;
     [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
-  rule</span> &lt;k&gt; checkMethod(F:<span class="hljs-keyword">Id</span>, T:Type, (C:<span class="hljs-keyword">Id</span> =&gt; C&#x27;)) ...&lt;/k&gt;
+  rule</span> &lt;k&gt; checkMethod(F:<span class="hljs-keyword">Id</span>, T:Type, (C:<span class="hljs-keyword">Id</span> =&gt; C&apos;)) ...&lt;/k&gt;
        &lt;className&gt; C &lt;/className&gt;
-       &lt;baseClass&gt; C&#x27;:<span class="hljs-keyword">Id</span> &lt;/baseClass&gt;
+       &lt;baseClass&gt; C&apos;:<span class="hljs-keyword">Id</span> &lt;/baseClass&gt;
        &lt;ctenv&gt; Rho &lt;/ctenv&gt;
     when notBool(F in keys(Rho))  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
 
@@ -952,7 +952,7 @@ is co-variant in the codomain and contra-variant in the domain).</p>
 
 endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>

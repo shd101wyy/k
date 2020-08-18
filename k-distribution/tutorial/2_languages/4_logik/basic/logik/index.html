@@ -129,10 +129,10 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <h1>LOGIK</h1>
-<p>Author: Grigore Roșu (<a href="mailto:grosu@illinois.edu">grosu@illinois.edu</a>)<br>
+            <html><head></head><body><h1>LOGIK</h1>
+<p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<p>Author: Traian Florin Șerbănuță (<a href="mailto:traian.serbanuta@unibuc.ro">traian.serbanuta@unibuc.ro</a>)<br>
+<p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2>Abstract</h2>
 <p>This is the <strong>K</strong> semantic definition of LOGIK, a trivial language
@@ -231,7 +231,7 @@ starting with <code>a</code> and followed by the list that <code>Y</code> is
 bound to.  This property can in fact be described as a <strong>symbolic solution</strong>
 to the query: <code>Z = cons(a,Y)</code> or, equivalently,
 <code>Y = Symb</code> and <code>Z = cons(a,Symb)</code>.  It is possible to
-define a ``more general than'' relation on such symbolic solutions,
+define a ``more general than&apos;&apos; relation on such symbolic solutions,
 in the sense that the more particular solution can be obtained as a
 specialization/substitution of the more general one, and then it can
 be shown that the above is the <strong>most general solution</strong> to the
@@ -242,7 +242,7 @@ several Horn clauses may be used at the same time, each possibly
 resulting in a different solution.  Implementations of logic
 programming languages consist of complex, optimized search and
 indexing algorithms, which we are not concerned with here.  Instead,
-we here take advantage of <strong>K</strong>'s builtin support for search.
+we here take advantage of <strong>K</strong>&apos;s builtin support for search.
 Specifically, to find all the solutions of a LOGIK program, we have to
 use <code>krun</code> with the option <code>--search</code>.  However, note
 that some programs have infinitely many solutions which cannot relate
@@ -378,8 +378,8 @@ here is the following: to satisfy the first literal in the query, we
 need to find some instance of some clause that matches it, and then to
 similarly show that we can satisfy the conditions of that clause.
 Mathematically, this is an instance of the proof principle called
-<strong>resolution</strong>: if <code>p ∨ q</code> and <code>¬ p ∨ r</code> hold, then so does
-<code>q ∨ r</code>.  We let it as an exercise to the reader to see how the two
+<strong>resolution</strong>: if <code>p &#x2228; q</code> and <code>&#xAC; p &#x2228; r</code> hold, then so does
+<code>q &#x2228; r</code>.  We let it as an exercise to the reader to see how the two
 relate (hint: assume the negation of the goal together with all the
 clauses, and then derive <strong>false</strong>).</p>
 <p>The following two rules are tightly connected and they together
@@ -397,7 +397,7 @@ goals.</p>
   rule</span> head(L.) =&gt; L<span class="hljs-keyword">
   rule</span> head(L:-_.) =&gt; L
 </code></pre>
-<p>If the goal is unifiable with the fresh clause's head, replace the goal
+<p>If the goal is unifiable with the fresh clause&apos;s head, replace the goal
 with the clause body, and empty the <code>fresh</code> cell (so that
 another clause can be chosen using the rule above):</p>
 <pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; L:Term =&gt; . ...&lt;/k&gt;
@@ -418,7 +418,7 @@ language definition for a more efficient definition of a richer logic
 programming language.</p>
 <pre class="hljs"><code><span class="hljs-keyword">endmodule</span>
 </code></pre>
-
+</body></html>
           </div>
         </main>
       </div>
