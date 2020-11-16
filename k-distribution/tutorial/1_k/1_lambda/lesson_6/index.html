@@ -129,38 +129,38 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Selective Strictness; Anonymous Variables</h1>
-<p>We here show how to define selective strictness of language constructs,
-that is, how to state that certain language constructs are strict only
+            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="selective-strictness%3B-anonymous-variables">Selective Strictness; Anonymous Variables</h1>
+<p>We here show how to define selective strictness of language constructs,<br>
+that is, how to state that certain language constructs are strict only<br>
 in some arguments.  We also show how to use anonymous variables.</p>
-<p>We next define a conditional <code>if</code> construct, which takes three arguments,
-evaluates only the first one, and then reduces to either the second or the
+<p>We next define a conditional <code>if</code> construct, which takes three arguments,<br>
+evaluates only the first one, and then reduces to either the second or the<br>
 third, depending on whether the first one evaluated to true or to false.</p>
-<p>K allows to define selective strictness using the same <code>strict</code> attribute,
-but passing it a list of numbers.  The numbers correspond to the arguments
+<p>K allows to define selective strictness using the same <code>strict</code> attribute,<br>
+but passing it a list of numbers.  The numbers correspond to the arguments<br>
 in which we want the defined construct to be strict.  In our case,</p>
 <pre><code>syntax Exp ::= &quot;if&quot; Exp &quot;then&quot; Exp &quot;else&quot; Exp   [strict(1)]
 </code></pre>
 <p>states that the conditional construct is strict in the first argument.</p>
-<p>We can now assume that its first argument will eventually reduce to a value, so
+<p>We can now assume that its first argument will eventually reduce to a value, so<br>
 we only write the following two semantic rules:</p>
 <pre><code>rule if true  then E else _ =&gt; E
 rule if false then _ else E =&gt; E
 </code></pre>
 <p>Thus, we assume that the first argument evaluates to either <code>true</code> or <code>false</code>.</p>
-<p>Note the use of the anonymous variable <code>_</code>.  We use such variables purely for
-structural reasons, to state that something is there but we don&apos;t care what.
-An anonymous variable is therefore completely equivalent to a normal variable
-which is unsorted and different from all the other variables in the rule.  If
+<p>Note the use of the anonymous variable <code>_</code>.  We use such variables purely for<br>
+structural reasons, to state that something is there but we don&apos;t care what.<br>
+An anonymous variable is therefore completely equivalent to a normal variable<br>
+which is unsorted and different from all the other variables in the rule.  If<br>
 you use <code>_</code> multiple times in a rule, they will all be considered distinct.</p>
-<p>Compile <code>lambda.k</code> and write and execute some interesting expressions making
+<p>Compile <code>lambda.k</code> and write and execute some interesting expressions making<br>
 use of the conditional construct.  For example, the expression</p>
 <pre><code>if 2&lt;=1 then 3/0 else 10
 </code></pre>
-<p>evaluates to <code>10</code> and will never evaluate <code>3/0</code>, thus avoiding an unwanted
+<p>evaluates to <code>10</code> and will never evaluate <code>3/0</code>, thus avoiding an unwanted<br>
 division-by-zero.</p>
-<p>In the next lesson we will introduce two new language constructs, called
-<code>let</code> and <code>letrec</code> and conventionally found in functional programming
+<p>In the next lesson we will introduce two new language constructs, called<br>
+<code>let</code> and <code>letrec</code> and conventionally found in functional programming<br>
 languages, which will allow us to already write interesting LAMBDA programs.</p>
 <p>Go to <a href="../lesson_7/">Lesson 7, LAMBDA: Derived Constructs; Extending Predefined Syntax</a>.</p>
 <p><a href="http://youtu.be/IreP6DFPWdk" target="_blank" rel="noopener">MOVIE (out of date) [2&apos;14&quot;]</a></p>

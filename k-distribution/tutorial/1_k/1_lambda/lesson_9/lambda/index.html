@@ -129,113 +129,113 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <html><head></head><body><p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.
+            <html><head></head><body><p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.<br>
 Use the tag <code>k</code> to tell the compiler which blocks to select.</p>
 <p>Inside <code>.k</code> files, C/Java-like comments are available.</p>
-<pre class="hljs"><code><span class="hljs-comment">// Single line comment</span>
-<span class="hljs-comment">/* Multiline
+<pre class="language-k"><code><span class="token comment">// Single line comment</span>
+<span class="token comment">/* Multiline
 comments */</span>
 </code></pre>
-<h1>Tutorial 1 --- LAMBDA</h1>
+<h1 id="tutorial-1-----lambda">Tutorial 1 --- LAMBDA</h1>
 <p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
-<h3>Abstract</h3>
-<p>This file defines a simple functional language in <strong>K</strong>, called LAMBDA,
-using a substitution style.  The explicit objective here is to teach some
-<strong>K</strong> concepts and how they work in the K tool, and not to teach
-&#x3BB;-calculus or to argue for one definitional style against another
-(e.g., some may prefer environment/closure-based definitions of such
+<h3 id="abstract">Abstract</h3>
+<p>This file defines a simple functional language in <strong>K</strong>, called LAMBDA,<br>
+using a substitution style.  The explicit objective here is to teach some<br>
+<strong>K</strong> concepts and how they work in the K tool, and not to teach<br>
+&#x3BB;-calculus or to argue for one definitional style against another<br>
+(e.g., some may prefer environment/closure-based definitions of such<br>
 languages).</p>
-<p>Note that the subsequent definition is so simple, that it hardly shows any
-of the strengths of <strong>K</strong>.  Perhaps the most interesting <strong>K</strong> aspect it shows is
-that substitution can be defined fully generically, and then used to give
+<p>Note that the subsequent definition is so simple, that it hardly shows any<br>
+of the strengths of <strong>K</strong>.  Perhaps the most interesting <strong>K</strong> aspect it shows is<br>
+that substitution can be defined fully generically, and then used to give<br>
 semantics to various constructs in various languages.</p>
-<p>Note:
-<strong>K</strong> follows the
-<a href="https://en.wikipedia.org/wiki/Literate_programming" target="_blank" rel="noopener">literate programming</a>
-approach. The various semantic features defined in a <strong>K</strong>
-module can be reordered at will and can be commented using normal
-comments like in C/C++/Java.
-While comments are useful in general, they can annoy the expert user
-of <strong>K</strong>. To turn them off, you can do one of the following (unless you
+<p>Note:<br>
+<strong>K</strong> follows the<br>
+<a href="https://en.wikipedia.org/wiki/Literate_programming" target="_blank" rel="noopener">literate programming</a><br>
+approach. The various semantic features defined in a <strong>K</strong><br>
+module can be reordered at will and can be commented using normal<br>
+comments like in C/C++/Java.<br>
+While comments are useful in general, they can annoy the expert user<br>
+of <strong>K</strong>. To turn them off, you can do one of the following (unless you<br>
 want to remove them manually):<br>
-(1) Use an <a href="https://github.com/kframework/k-editor-support" target="_blank" rel="noopener">editor</a> which can
+(1) Use an <a href="https://github.com/kframework/k-editor-support" target="_blank" rel="noopener">editor</a> which can<br>
 hide or highlight Markdown and conventional C-like comments; or<br>
-(2) Run <code>kompile --debug &lt;def&gt;</code>. Inside <code>./.kompiled-xxx/.md2.k/</code> you will find
+(2) Run <code>kompile --debug &lt;def&gt;</code>. Inside <code>./.kompiled-xxx/.md2.k/</code> you will find<br>
 all the K code extracted from the markdown files as used for compilation.</p>
-<h3>Substitution</h3>
-<p>We need the predefined substitution module, so we require it with the command
-below.  Then we should make sure we import its module called SUBSTITUTION
+<h3 id="substitution">Substitution</h3>
+<p>We need the predefined substitution module, so we require it with the command<br>
+below.  Then we should make sure we import its module called SUBSTITUTION<br>
 in our LAMBDA module below.</p>
-<pre class="hljs"><code><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;substitution.md&quot;</span><span class="hljs-keyword">
+<pre class="language-k"><code><span class="token keyword">require</span> <span class="token string">&quot;substitution.md&quot;</span>
 
-module</span> LAMBDA<span class="hljs-keyword">
-  imports</span> DOMAINS<span class="hljs-keyword">
-  imports</span> SUBSTITUTION
+<span class="token keyword">module</span> LAMBDA
+  <span class="token keyword">imports</span> DOMAINS
+  <span class="token keyword">imports</span> SUBSTITUTION
 </code></pre>
-<h3>Basic Call-by-value &#x3BB;-Calculus</h3>
-<p>We first define a conventional call-by-value &#x3BB;-calculus, making sure
-we declare the lambda abstraction construct to be a binder, the
-lambda application to be strict, and the parentheses used for grouping as
+<h3 id="basic-call-by-value-%CE%BB-calculus">Basic Call-by-value &#x3BB;-Calculus</h3>
+<p>We first define a conventional call-by-value &#x3BB;-calculus, making sure<br>
+we declare the lambda abstraction construct to be a binder, the<br>
+lambda application to be strict, and the parentheses used for grouping as<br>
 a bracket.</p>
-<p>Note:
-Syntax in <strong>K</strong> is defined using the familiar BNF notation, with
-terminals enclosed in quotes and nonterminals starting with capital
-letters. <strong>K</strong> actually extends BNF with several attributes, which will be
+<p>Note:<br>
+Syntax in <strong>K</strong> is defined using the familiar BNF notation, with<br>
+terminals enclosed in quotes and nonterminals starting with capital<br>
+letters. <strong>K</strong> actually extends BNF with several attributes, which will be<br>
 described in this tutorial.</p>
-<p>Note:
-The <code>strict</code> constructs can evaluate their arguments in any (fully
+<p>Note:<br>
+The <code>strict</code> constructs can evaluate their arguments in any (fully<br>
 interleaved) order.</p>
 <p>The initial syntax of our &#x3BB;-calculus:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Val ::= KVar
-               | <span class="hljs-string">&quot;lambda&quot;</span> KVar <span class="hljs-string">&quot;.&quot;</span> Exp  [<span class="hljs-literal">binder</span>, <span class="hljs-literal">latex</span>(\lambda{#<span class="hljs-number">1</span>}.{#<span class="hljs-number">2</span>})]<span class="hljs-keyword">
-  syntax</span> Exp ::= Val
-               | Exp Exp              [<span class="hljs-literal">left</span>, <span class="hljs-literal">strict</span>]
-               | <span class="hljs-string">&quot;(&quot;</span> Exp <span class="hljs-string">&quot;)&quot;</span>          [<span class="hljs-literal">bracket</span>]<span class="hljs-keyword">
-  syntax</span> KResult ::= Val
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> KVar
+               <span class="token operator">|</span> <span class="token string">&quot;lambda&quot;</span> KVar <span class="token string">&quot;.&quot;</span> Exp  <span class="token punctuation">[</span><span class="token class-name">binder</span><span class="token punctuation">,</span> <span class="token class-name">latex</span><span class="token punctuation">(</span>\lambda<span class="token punctuation">{</span>#<span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token punctuation">{</span>#<span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Val
+               <span class="token operator">|</span> Exp Exp              <span class="token punctuation">[</span><span class="token class-name">left</span><span class="token punctuation">,</span> <span class="token class-name">strict</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> <span class="token string">&quot;(&quot;</span> Exp <span class="token string">&quot;)&quot;</span>          <span class="token punctuation">[</span><span class="token class-name">bracket</span><span class="token punctuation">]</span>
+  <span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Val
 </code></pre>
-<h3>&#x3B2;-reduction</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> (lambda X:KVar . E:Exp) V:Val =&gt; E[V / X]
+<h3 id="%CE%B2-reduction">&#x3B2;-reduction</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token punctuation">(</span>lambda X<span class="token punctuation">:</span>KVar <span class="token punctuation">.</span> E<span class="token punctuation">:</span>Exp<span class="token punctuation">)</span> V<span class="token punctuation">:</span>Val <span class="token operator">=</span><span class="token operator">&gt;</span> E<span class="token punctuation">[</span>V <span class="token operator">/</span> X<span class="token punctuation">]</span>
 </code></pre>
-<h3>Integer and Boolean Builtins</h3>
-<p>The LAMBDA arithmetic and Boolean expression constructs are simply rewritten
-to their builtin counterparts once their arguments are evaluated.
-The annotated operators in the right-hand side of the rules below are
-builtin and come with the corresponding builtin sort. Note that the
-variables appearing in these rules have integer sort. That means that these
-rules will only be applied after the arguments of the arithmetic constructs
-are fully evaluated to <strong>K</strong> results; this will happen thanks to their strictness
+<h3 id="integer-and-boolean-builtins">Integer and Boolean Builtins</h3>
+<p>The LAMBDA arithmetic and Boolean expression constructs are simply rewritten<br>
+to their builtin counterparts once their arguments are evaluated.<br>
+The annotated operators in the right-hand side of the rules below are<br>
+builtin and come with the corresponding builtin sort. Note that the<br>
+variables appearing in these rules have integer sort. That means that these<br>
+rules will only be applied after the arguments of the arithmetic constructs<br>
+are fully evaluated to <strong>K</strong> results; this will happen thanks to their strictness<br>
 attributes declared as annotations to their syntax declarations (below).</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Val ::=<span class="hljs-keyword"> Int</span> |<span class="hljs-keyword"> Bool</span><span class="hljs-keyword">
-  syntax</span> Exp ::= Exp <span class="hljs-string">&quot;*&quot;</span> Exp          [<span class="hljs-literal">strict</span>, <span class="hljs-literal">left</span>]
-               | Exp <span class="hljs-string">&quot;/&quot;</span> Exp          [<span class="hljs-literal">strict</span>]
-               &gt; Exp <span class="hljs-string">&quot;+&quot;</span> Exp          [<span class="hljs-literal">strict</span>, <span class="hljs-literal">left</span>]
-               &gt; Exp <span class="hljs-string">&quot;&lt;=&quot;</span> Exp         [<span class="hljs-literal">strict</span>]<span class="hljs-keyword">
-  rule</span> I1 * I2 =&gt; I1 *<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> I1 / I2 =&gt; I1 /<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">  requires</span> I2 =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> I1 + I2 =&gt; I1 +<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> I1 &lt;= I2 =&gt; I1 &lt;=<span class="hljs-keyword">Int</span> I2
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Bool</span>
+  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Exp <span class="token string">&quot;*&quot;</span> Exp          <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;/&quot;</span> Exp          <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> Exp <span class="token string">&quot;+&quot;</span> Exp          <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> Exp <span class="token string">&quot;&lt;=&quot;</span> Exp         <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> I1 <span class="token operator">*</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">*</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> I1 <span class="token operator">/</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">/</span><span class="token keyword">Int</span> I2  <span class="token keyword">requires</span> I2 <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span>
+  <span class="token keyword">rule</span> I1 <span class="token operator">+</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">+</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> I1 <span class="token operator">&lt;=</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">&lt;=</span><span class="token keyword">Int</span> I2
 </code></pre>
-<h3>Conditional</h3>
+<h3 id="conditional">Conditional</h3>
 <p>Note that the <code>if</code> construct is strict only in its first argument.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= <span class="hljs-string">&quot;if&quot;</span> Exp <span class="hljs-string">&quot;then&quot;</span> Exp <span class="hljs-string">&quot;else&quot;</span> Exp    [<span class="hljs-literal">strict</span>(<span class="hljs-number">1</span>)]<span class="hljs-keyword">
-  rule</span> if true  then E else _ =&gt; E<span class="hljs-keyword">
-  rule</span> if false then _ else E =&gt; E
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;if&quot;</span> Exp <span class="token string">&quot;then&quot;</span> Exp <span class="token string">&quot;else&quot;</span> Exp    <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> if <span class="token boolean">true</span>  then E else _ <span class="token operator">=</span><span class="token operator">&gt;</span> E
+  <span class="token keyword">rule</span> if <span class="token boolean">false</span> then _ else E <span class="token operator">=</span><span class="token operator">&gt;</span> E
 </code></pre>
-<h3>Let Binder</h3>
+<h3 id="let-binder">Let Binder</h3>
 <p>The let binder is a derived construct, because it can be defined using &#x3BB;.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= <span class="hljs-string">&quot;let&quot;</span> KVar <span class="hljs-string">&quot;=&quot;</span> Exp <span class="hljs-string">&quot;in&quot;</span> Exp<span class="hljs-keyword">
-  rule</span> let X = E in E&apos;:Exp =&gt; (lambda X . E&apos;) E                         [<span class="hljs-literal">macro</span>]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;let&quot;</span> KVar <span class="token string">&quot;=&quot;</span> Exp <span class="token string">&quot;in&quot;</span> Exp
+  <span class="token keyword">rule</span> let X <span class="token operator">=</span> E in E<span class="token string">&apos;:Exp =&gt; (lambda X . E&apos;</span><span class="token punctuation">)</span> E                         <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Letrec Binder</h3>
-<p>We prefer a definition based on the &#x3BC; construct.  Note that &#x3BC; is not
-really necessary, but it makes the definition of letrec easier to understand
+<h3 id="letrec-binder">Letrec Binder</h3>
+<p>We prefer a definition based on the &#x3BC; construct.  Note that &#x3BC; is not<br>
+really necessary, but it makes the definition of letrec easier to understand<br>
 and faster to execute.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= <span class="hljs-string">&quot;letrec&quot;</span> KVar KVar <span class="hljs-string">&quot;=&quot;</span> Exp <span class="hljs-string">&quot;in&quot;</span> Exp
-               | <span class="hljs-string">&quot;mu&quot;</span> KVar <span class="hljs-string">&quot;.&quot;</span> Exp                  [<span class="hljs-literal">binder</span>, <span class="hljs-literal">latex</span>(\mu{#<span class="hljs-number">1</span>}.{#<span class="hljs-number">2</span>})]<span class="hljs-keyword">
-  rule</span> letrec F:KVar X:KVar = E in E&apos; =&gt; let F = mu F . lambda X . E in E&apos; [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
-  rule</span> mu X . E =&gt; E[(mu X . E) / X]<span class="hljs-keyword">
-endmodule</span>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;letrec&quot;</span> KVar KVar <span class="token string">&quot;=&quot;</span> Exp <span class="token string">&quot;in&quot;</span> Exp
+               <span class="token operator">|</span> <span class="token string">&quot;mu&quot;</span> KVar <span class="token string">&quot;.&quot;</span> Exp                  <span class="token punctuation">[</span><span class="token class-name">binder</span><span class="token punctuation">,</span> <span class="token class-name">latex</span><span class="token punctuation">(</span>\mu<span class="token punctuation">{</span>#<span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token punctuation">{</span>#<span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> letrec F<span class="token punctuation">:</span>KVar X<span class="token punctuation">:</span>KVar <span class="token operator">=</span> E in E<span class="token string">&apos; =&gt; let F = mu F . lambda X . E in E&apos;</span> <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> mu X <span class="token punctuation">.</span> E <span class="token operator">=</span><span class="token operator">&gt;</span> E<span class="token punctuation">[</span><span class="token punctuation">(</span>mu X <span class="token punctuation">.</span> E<span class="token punctuation">)</span> <span class="token operator">/</span> X<span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
 </body></html>
           </div>

@@ -129,28 +129,28 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>A Naive Substitution-based Polymorphic Type Inferencer</h1>
-<p>In this lesson you learn how little it takes to turn a naive monomorphic
-type inferencer into a naive polymorphic one, basically only changing
-a few characters. In terms of the K framework, you will learn that
-you can have complex combinations of substitutions in K, both over
+            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="a-naive-substitution-based-polymorphic-type-inferencer">A Naive Substitution-based Polymorphic Type Inferencer</h1>
+<p>In this lesson you learn how little it takes to turn a naive monomorphic<br>
+type inferencer into a naive polymorphic one, basically only changing<br>
+a few characters. In terms of the K framework, you will learn that<br>
+you can have complex combinations of substitutions in K, both over<br>
 expressions and over types.</p>
-<p>Let us start directly with the change. All we have to do is to take
+<p>Let us start directly with the change. All we have to do is to take<br>
 the LAMBDA type inferencer in Lesson 4 and only change the macro</p>
 <pre><code>rule let X = E in E&apos; =&gt; (lambda X . E&apos;) E  [macro]
 </code></pre>
 <p>as follows:</p>
 <pre><code>rule let X = E in E&apos; =&gt; E&apos;[E/X]  [macro]
 </code></pre>
-<p>In other words, we are inlining the beta-reduction rule of
-lambda-calculus within the original rule. In terms of typing,
-the above forces the type inferencer to type <code>E</code> in place for each
-occurrence of <code>X</code> in <code>E&apos;</code>. Unlike in the first rule, where <code>X</code> had to get
-one type only which satisfied the constrains of all <code>X</code>&apos;s occurrences in
+<p>In other words, we are inlining the beta-reduction rule of<br>
+lambda-calculus within the original rule. In terms of typing,<br>
+the above forces the type inferencer to type <code>E</code> in place for each<br>
+occurrence of <code>X</code> in <code>E&apos;</code>. Unlike in the first rule, where <code>X</code> had to get<br>
+one type only which satisfied the constrains of all <code>X</code>&apos;s occurrences in<br>
 <code>E&apos;</code>, we now never associate any type to <code>X</code> anymore.</p>
-<p>Let us <code>kompile</code> and <code>krun</code> some examples. Everything that worked with
-the type inferencer in Lesson 4 should still work here, although the
-types of some programs can now be more general. For example, reconsider
+<p>Let us <code>kompile</code> and <code>krun</code> some examples. Everything that worked with<br>
+the type inferencer in Lesson 4 should still work here, although the<br>
+types of some programs can now be more general. For example, reconsider<br>
 the <code>nested-lets.lambda</code> program</p>
 <pre><code>let f1 = lambda x . x in
   let f2 = f1 in
@@ -159,13 +159,13 @@ the <code>nested-lets.lambda</code> program</p>
         let f5 = f4 in
           if (f5 true) then f2 else f3
 </code></pre>
-<p>which was previously typed to <code>bool -&gt; bool</code>. With the new rule above,
-the sequence of lets is iteratively eliminated and we end up with the
+<p>which was previously typed to <code>bool -&gt; bool</code>. With the new rule above,<br>
+the sequence of lets is iteratively eliminated and we end up with the<br>
 program</p>
 <pre><code>if (lambda x . x) true then (lambda x . x) else (lambda x . x)
 </code></pre>
-<p>which now types (with both type inferencers) to a type of the form
-<code>t -&gt; t</code>, for some type variable <code>t</code>, which is more general than the
+<p>which now types (with both type inferencers) to a type of the form<br>
+<code>t -&gt; t</code>, for some type variable <code>t</code>, which is more general than the<br>
 previous <code>bool -&gt; bool</code> type that the program typed to in Lesson 4.</p>
 <p>We can also now type programs that were not typable before, such as</p>
 <pre><code>let id = lambda x . x
@@ -175,13 +175,13 @@ in if (id true) then (id 1) else (id 2)
 <pre><code>let id = lambda x . x
 in id id
 </code></pre>
-<p>Let us also test it on some trickier programs, also not typable
+<p>Let us also test it on some trickier programs, also not typable<br>
 before, such as</p>
 <pre><code>let f = lambda x . x
 in let g = lambda y . f y
    in g g
 </code></pre>
-<p>which gives us a type of the form <code>t -&gt; t</code> for some type variable <code>t</code>,
+<p>which gives us a type of the form <code>t -&gt; t</code> for some type variable <code>t</code>,<br>
 and as</p>
 <pre><code>let f = let g = lambda x . x
         in let h = lambda x . lambda x . (g g g g)
@@ -189,30 +189,30 @@ and as</p>
 in f
 </code></pre>
 <p>which types to <code>t1 -&gt; t2 -&gt; t3 -&gt; t3</code> for some type variables <code>t1</code>, <code>t2</code>, <code>t3</code>.</p>
-<p>Here is another program which was not typable before, which is
-trickier than the others above in that a lambda-bound variable appears
+<p>Here is another program which was not typable before, which is<br>
+trickier than the others above in that a lambda-bound variable appears<br>
 free in a let-bound expression:</p>
 <pre><code>lambda x . (
   let y = lambda z . x
   in if (y true) then (y 1) else (y (lambda x . x))
 )
 </code></pre>
-<p>The above presents no problem now, because once <code>lambda z . x</code> gets
-substituted for <code>y</code> we get a well-typed expression which yields that <code>x</code>
+<p>The above presents no problem now, because once <code>lambda z . x</code> gets<br>
+substituted for <code>y</code> we get a well-typed expression which yields that <code>x</code><br>
 has the type <code>bool</code>, so the entire expression types to <code>bool -&gt; bool</code>.</p>
-<p>The cheap type inferencer that we obtained above therefore works as
-expected. However, it has two problems which justify a more advanced
-solution. First, substitution is typically considered an elegant
-mathematical instrument which is not too practical in implementations,
-so an implementation of this type inferencer will likely be based on
-type environments anyway. Additionally, we mix two kinds of
-substitutions in this definition, one where we substitute types and
-another where we substitute expressions, which can only make things
-harder to implement efficiently. Second, our naive substitution of <code>E</code>
-for <code>X</code> in <code>E&apos;</code> can yield an exponential explosion in size of the original
-program. Consider, for example, the following classic example which
-is known to generate a type whose size is exponential in the size of
-the program (and is thus used as an argument for why let-polymorphic
+<p>The cheap type inferencer that we obtained above therefore works as<br>
+expected. However, it has two problems which justify a more advanced<br>
+solution. First, substitution is typically considered an elegant<br>
+mathematical instrument which is not too practical in implementations,<br>
+so an implementation of this type inferencer will likely be based on<br>
+type environments anyway. Additionally, we mix two kinds of<br>
+substitutions in this definition, one where we substitute types and<br>
+another where we substitute expressions, which can only make things<br>
+harder to implement efficiently. Second, our naive substitution of <code>E</code><br>
+for <code>X</code> in <code>E&apos;</code> can yield an exponential explosion in size of the original<br>
+program. Consider, for example, the following classic example which<br>
+is known to generate a type whose size is exponential in the size of<br>
+the program (and is thus used as an argument for why let-polymorphic<br>
 type inference is exponential in the worst-case):</p>
 <pre><code>let f00 = lambda x . lambda y . x in
   let f01 = lambda x . f00 (f00 x) in
@@ -222,17 +222,17 @@ type inference is exponential in the worst-case):</p>
           // ... you can add more nested lets here
           f04
 </code></pre>
-<p>The particular instance of the pattern above generates a type which
-has 17 type variables! The desugaring of each <code>let</code> doubles the size of
-the program and of its resulting type. While such programs are little
-likely to appear in practice, it is often the case that functions can
-be quite complex and large while their type can be quite simple in the
-end, so we should simply avoid retyping each function each time it is
+<p>The particular instance of the pattern above generates a type which<br>
+has 17 type variables! The desugaring of each <code>let</code> doubles the size of<br>
+the program and of its resulting type. While such programs are little<br>
+likely to appear in practice, it is often the case that functions can<br>
+be quite complex and large while their type can be quite simple in the<br>
+end, so we should simply avoid retyping each function each time it is<br>
 used.</p>
-<p>This is precisely what we will do next. Before we present the classic
-let-polymorphic type inferencer in Lesson 9, which is based on
-environments, we first quickly discuss in Lesson 8 an intermediate
-step, namely a naive environment-based variant of the inferencer
+<p>This is precisely what we will do next. Before we present the classic<br>
+let-polymorphic type inferencer in Lesson 9, which is based on<br>
+environments, we first quickly discuss in Lesson 8 an intermediate<br>
+step, namely a naive environment-based variant of the inferencer<br>
 defined here.</p>
 <p>Go to <a href="../lesson_8/">Lesson 8, Type Systems: A Naive Environment-based Polymorphic Type Inferencer</a>.</p>
 </body></html>

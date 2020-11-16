@@ -129,34 +129,34 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <html><head></head><body><h1>Balances Module Specifications</h1>
-<pre class="hljs"><code><span class="hljs-keyword">requires</span> <span class="hljs-string">&quot;set-balance.md&quot;</span><span class="hljs-keyword">
+            <html><head></head><body><h1 id="balances-module-specifications">Balances Module Specifications</h1>
+<pre class="language-k"><code><span class="token keyword">requires</span> <span class="token string">&quot;set-balance.md&quot;</span>
 
-module</span> VERIFICATION<span class="hljs-keyword">
-    imports</span> SET-BALANCE<span class="hljs-keyword">
+<span class="token keyword">module</span> VERIFICATION
+    <span class="token keyword">imports</span> SET<span class="token operator">-</span>BALANCE
 
-    syntax</span> Action ::= totalBalance ( AccountId )
- <span class="hljs-comment">// --------------------------------------------</span><span class="hljs-keyword">
-    rule</span> &lt;k&gt; totalBalance(AID) =&gt; total_balance(AID) ... &lt;/k&gt;<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+    <span class="token keyword">syntax</span> Action <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> totalBalance <span class="token punctuation">(</span> AccountId <span class="token punctuation">)</span>
+ <span class="token comment">// --------------------------------------------</span>
+    <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> totalBalance<span class="token punctuation">(</span>AID<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> total_balance<span class="token punctuation">(</span>AID<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+<span class="token keyword">endmodule</span>
 
-module</span> SET-BALANCE-SPEC<span class="hljs-keyword">
-    imports</span> VERIFICATION
+<span class="token keyword">module</span> SET<span class="token operator">-</span>BALANCE<span class="token operator">-</span>SPEC
+    <span class="token keyword">imports</span> VERIFICATION
 </code></pre>
-<h3><code>total_balance</code> tests</h3>
-<pre class="hljs"><code><span class="hljs-keyword">    rule</span> &lt;k&gt; totalBalance(AID) =&gt; <span class="hljs-number">50</span> &lt;/k&gt;
-         &lt;account&gt;
-           &lt;accountID&gt; AID &lt;/accountID&gt;
-           &lt;freeBalance&gt; <span class="hljs-number">30</span> &lt;/freeBalance&gt;
-           &lt;reservedBalance&gt; <span class="hljs-number">20</span> &lt;/reservedBalance&gt;
-           ...
-         &lt;/account&gt;
+<h3 id="total_balance-tests"><code>total_balance</code> tests</h3>
+<pre class="language-k"><code>    claim <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> totalBalance<span class="token punctuation">(</span>AID<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">50</span> <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>account<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>accountID<span class="token operator">&gt;</span> AID <span class="token operator">&lt;</span><span class="token operator">/</span>accountID<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>freeBalance<span class="token operator">&gt;</span> <span class="token number">30</span> <span class="token operator">&lt;</span><span class="token operator">/</span>freeBalance<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>reservedBalance<span class="token operator">&gt;</span> <span class="token number">20</span> <span class="token operator">&lt;</span><span class="token operator">/</span>reservedBalance<span class="token operator">&gt;</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>account<span class="token operator">&gt;</span>
 </code></pre>
-<h3>No Zero-Balance Accounts Exist</h3>
-<p>This property shows that <code>set_balance</code> will not result in a zero-balance attack.
-<strong>TODO</strong>: Generalize to any EntryAction.
+<h3 id="no-zero-balance-accounts-exist">No Zero-Balance Accounts Exist</h3>
+<p>This property shows that <code>set_balance</code> will not result in a zero-balance attack.<br>
+<strong>TODO</strong>: Generalize to any EntryAction.<br>
 <strong>TODO</strong>: Assertions about log events.</p>
-<pre class="hljs"><code>    rule &lt;k&gt; set_balance(Root, WHO, FREE_BALANCE&apos;, RESERVED_BALANCE&apos;) =&gt; . ... &lt;/k&gt;
+<pre class="language-text"><code>    rule &lt;k&gt; set_balance(Root, WHO, FREE_BALANCE&apos;, RESERVED_BALANCE&apos;) =&gt; . ... &lt;/k&gt;
          &lt;totalIssuance&gt; TOTAL_ISSUANCE =&gt; TOTAL_ISSUANCE +Int ( FREE_BALANCE&apos; -Int FREE_BALANCE ) +Int ( RESERVED_BALANCE&apos; -Int RESERVED_BALANCE ) &lt;/totalIssuance&gt;
          &lt;existentialDeposit&gt; EXISTENTIAL_DEPOSIT &lt;/existentialDeposit&gt;
          &lt;account&gt;
@@ -170,19 +170,19 @@ module</span> SET-BALANCE-SPEC<span class="hljs-keyword">
        andBool EXISTENTIAL_DEPOSIT &lt;=Int FREE_BALANCE&apos;
        andBool EXISTENTIAL_DEPOSIT &lt;=Int RESERVED_BALANCE&apos;
 </code></pre>
-<pre class="hljs"><code><span class="hljs-keyword">    rule</span> &lt;k&gt; set_balance_reserved ( WHO , RESERVED_BALANCE&apos; ) =&gt; . ... &lt;/k&gt;
-         &lt;existentialDeposit&gt; EXISTENTIAL_DEPOSIT &lt;/existentialDeposit&gt;
-         &lt;totalIssuance&gt; TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> ( FREE_BALANCE&apos; -<span class="hljs-keyword">Int</span> FREE_BALANCE ) =&gt; TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> ( FREE_BALANCE&apos; -<span class="hljs-keyword">Int</span> FREE_BALANCE ) +<span class="hljs-keyword">Int</span> ( RESERVED_BALANCE&apos; -<span class="hljs-keyword">Int</span> RESERVED_BALANCE ) &lt;/totalIssuance&gt;
-         &lt;account&gt;
-           &lt;accountID&gt; WHO &lt;/accountID&gt;
-           &lt;freeBalance&gt; FREE_BALANCE&apos; &lt;/freeBalance&gt;
-           &lt;reservedBalance&gt; RESERVED_BALANCE =&gt; RESERVED_BALANCE&apos; &lt;/reservedBalance&gt;
-           ...
-         &lt;/account&gt;<span class="hljs-keyword">
-      requires</span> #inWidth(<span class="hljs-number">96</span>, TOTAL_ISSUANCE +<span class="hljs-keyword">Int</span> (FREE_BALANCE&apos; -<span class="hljs-keyword">Int</span> FREE_BALANCE) +<span class="hljs-keyword">Int</span> (RESERVED_BALANCE&apos; -<span class="hljs-keyword">Int</span> RESERVED_BALANCE))
-       andBool EXISTENTIAL_DEPOSIT &lt;=<span class="hljs-keyword">Int</span> RESERVED_BALANCE&apos;
+<pre class="language-k"><code>    claim <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> set_balance_reserved <span class="token punctuation">(</span> WHO <span class="token punctuation">,</span> RESERVED_BALANCE&apos; <span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>existentialDeposit<span class="token operator">&gt;</span> EXISTENTIAL_DEPOSIT <span class="token operator">&lt;</span><span class="token operator">/</span>existentialDeposit<span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>totalIssuance<span class="token operator">&gt;</span> TOTAL_ISSUANCE <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token punctuation">(</span> FREE_BALANCE<span class="token string">&apos; -Int FREE_BALANCE ) =&gt; TOTAL_ISSUANCE +Int ( FREE_BALANCE&apos;</span> <span class="token operator">-</span><span class="token keyword">Int</span> FREE_BALANCE <span class="token punctuation">)</span> <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token punctuation">(</span> RESERVED_BALANCE&apos; <span class="token operator">-</span><span class="token keyword">Int</span> RESERVED_BALANCE <span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token operator">/</span>totalIssuance<span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>account<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>accountID<span class="token operator">&gt;</span> WHO <span class="token operator">&lt;</span><span class="token operator">/</span>accountID<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>freeBalance<span class="token operator">&gt;</span> FREE_BALANCE&apos; <span class="token operator">&lt;</span><span class="token operator">/</span>freeBalance<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>reservedBalance<span class="token operator">&gt;</span> RESERVED_BALANCE <span class="token operator">=</span><span class="token operator">&gt;</span> RESERVED_BALANCE&apos; <span class="token operator">&lt;</span><span class="token operator">/</span>reservedBalance<span class="token operator">&gt;</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>account<span class="token operator">&gt;</span>
+      <span class="token keyword">requires</span> #inWidth<span class="token punctuation">(</span><span class="token number">96</span><span class="token punctuation">,</span> TOTAL_ISSUANCE <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token punctuation">(</span>FREE_BALANCE<span class="token string">&apos; -Int FREE_BALANCE) +Int (RESERVED_BALANCE&apos;</span> <span class="token operator">-</span><span class="token keyword">Int</span> RESERVED_BALANCE<span class="token punctuation">)</span><span class="token punctuation">)</span>
+       andBool EXISTENTIAL_DEPOSIT <span class="token operator">&lt;=</span><span class="token keyword">Int</span> RESERVED_BALANCE&apos;
 </code></pre>
-<pre class="hljs"><code><span class="hljs-keyword">endmodule</span>
+<pre class="language-k"><code><span class="token keyword">endmodule</span>
 </code></pre>
 </body></html>
           </div>

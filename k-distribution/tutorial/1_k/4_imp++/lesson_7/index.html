@@ -129,82 +129,82 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Everything Changes: Syntax, Configuration, Semantics</h1>
-<p>In this lesson we add thread joining, one of the simplest thread
-synchronization mechanisms. In doing so, we need to add unique ids
-to threads in the configuration, and to modify the syntax to allow <code>spawn</code>
-to return the id of the newly created thread. This gives us an opportunity
-to make several other small syntactic and semantics changes to the language,
+            <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="everything-changes%3A-syntax%2C-configuration%2C-semantics">Everything Changes: Syntax, Configuration, Semantics</h1>
+<p>In this lesson we add thread joining, one of the simplest thread<br>
+synchronization mechanisms. In doing so, we need to add unique ids<br>
+to threads in the configuration, and to modify the syntax to allow <code>spawn</code><br>
+to return the id of the newly created thread. This gives us an opportunity<br>
+to make several other small syntactic and semantics changes to the language,<br>
 which make it more powerful or more compact at a rather low cost.</p>
-<p>Before we start, let us first copy and modify the previous <code>spawn.imp</code> program
-from Lesson 1 to make use of thread joining. Recall from Lesson 6 that in some
-runs of this program the main thread completed before the child threads,
-printing a possibly undesired value of <code>x</code>. What we want now is to assign
-unique ids to the two spawned threads, and then to modify the main thread to
-join the two child threads before printing. To avoid adding a new type to
-the language, let&apos;s assume that thread ids are integer numbers. So we declare
-two integers, <code>t1</code> and <code>t2</code>, and assign them the two spawn commands. In order
-for this to parse, we will have to change the syntax of <code>spawn</code> to be an
-arithmetic expression construct instead of a statement. Once we do that,
-we have a slight syntactic annoyance: we need to put two consecutive <code>;</code>
-after the spawn assignment, one for the assignment statement inside the spawn,
-and another for the outer assignment. To avoid the two consecutive semicolons,
-we can syntactically enforce spawn to take a block as argument, instead of a
-statement. Now it looks better. The new <code>spawn.imp</code> program is still
-non-deterministic, because the two threads can execute in any order and even
-continue to have a data-race on the shared variable <code>x</code>, but we should see fewer
-behaviors when we use the <code>join</code> statements. If we want to fully synchronize
-this program, we can have the second thread start with a <code>join(t1)</code> statement.
+<p>Before we start, let us first copy and modify the previous <code>spawn.imp</code> program<br>
+from Lesson 1 to make use of thread joining. Recall from Lesson 6 that in some<br>
+runs of this program the main thread completed before the child threads,<br>
+printing a possibly undesired value of <code>x</code>. What we want now is to assign<br>
+unique ids to the two spawned threads, and then to modify the main thread to<br>
+join the two child threads before printing. To avoid adding a new type to<br>
+the language, let&apos;s assume that thread ids are integer numbers. So we declare<br>
+two integers, <code>t1</code> and <code>t2</code>, and assign them the two spawn commands. In order<br>
+for this to parse, we will have to change the syntax of <code>spawn</code> to be an<br>
+arithmetic expression construct instead of a statement. Once we do that,<br>
+we have a slight syntactic annoyance: we need to put two consecutive <code>;</code><br>
+after the spawn assignment, one for the assignment statement inside the spawn,<br>
+and another for the outer assignment. To avoid the two consecutive semicolons,<br>
+we can syntactically enforce spawn to take a block as argument, instead of a<br>
+statement. Now it looks better. The new <code>spawn.imp</code> program is still<br>
+non-deterministic, because the two threads can execute in any order and even<br>
+continue to have a data-race on the shared variable <code>x</code>, but we should see fewer<br>
+behaviors when we use the <code>join</code> statements. If we want to fully synchronize<br>
+this program, we can have the second thread start with a <code>join(t1)</code> statement.<br>
 Then we should only see one behavior for this program.</p>
-<p>Let us now modify the language semantics. First, we move the <code>spawn</code>
-construct from statements to expressions, and make it take a block.
-Second, we add one more sub-cell to the thread cell in the configuration,
-<code>&lt;id/&gt;</code>, to hold the unique identifier of the thread. We want the main
-thread to have id <code>0</code>, so we initialize this cell with <code>0</code>. Third, we modify
-the spawn rule to generate a fresh integer identifier, which is put in the
-<code>&lt;id/&gt;</code> cell of the child thread and returned as a result of <code>spawn</code> in the
-parent thread. Fourth, let us add the <code>join</code> statement to the language,
-both syntactically and semantically. So in order for the <code>join(T)</code> statement
-to execute, thread <code>T</code> must have its computation empty. However, in order
-for this to work we have to get rid of the thread termination cleanup rule.
-Indeed, we need to store somewhere the information that thread <code>T</code> terminated;
-the simplest way to do it is to not remove the terminated threads. Feel free
-to experiment with other possibilities, too, here. For example, you may add
-another cell, <code>&lt;done/&gt;</code>, in which you can store all the thread ids of the
+<p>Let us now modify the language semantics. First, we move the <code>spawn</code><br>
+construct from statements to expressions, and make it take a block.<br>
+Second, we add one more sub-cell to the thread cell in the configuration,<br>
+<code>&lt;id/&gt;</code>, to hold the unique identifier of the thread. We want the main<br>
+thread to have id <code>0</code>, so we initialize this cell with <code>0</code>. Third, we modify<br>
+the spawn rule to generate a fresh integer identifier, which is put in the<br>
+<code>&lt;id/&gt;</code> cell of the child thread and returned as a result of <code>spawn</code> in the<br>
+parent thread. Fourth, let us add the <code>join</code> statement to the language,<br>
+both syntactically and semantically. So in order for the <code>join(T)</code> statement<br>
+to execute, thread <code>T</code> must have its computation empty. However, in order<br>
+for this to work we have to get rid of the thread termination cleanup rule.<br>
+Indeed, we need to store somewhere the information that thread <code>T</code> terminated;<br>
+the simplest way to do it is to not remove the terminated threads. Feel free<br>
+to experiment with other possibilities, too, here. For example, you may add<br>
+another cell, <code>&lt;done/&gt;</code>, in which you can store all the thread ids of the<br>
 terminated and garbage-collected threads.</p>
-<p>Let us now <code>kompile imp.k</code> and convince ourselves that the new <code>spawn.imp</code>
-with <code>join</code> statements indeed has fewer behaviors than its variant without
-<code>join</code> statements. Also, let us convince ourselves that the fully synchronized
+<p>Let us now <code>kompile imp.k</code> and convince ourselves that the new <code>spawn.imp</code><br>
+with <code>join</code> statements indeed has fewer behaviors than its variant without<br>
+<code>join</code> statements. Also, let us convince ourselves that the fully synchronized<br>
 variant of it indeed has only one behavior.</p>
-<p>Note that now spawn, like variable increment, makes the evaluation of
-expressions to have side effects. Many programming languages in fact allow
-expressions to be evaluated only for their side effects, and not for their
-value. This is typically done by simply adding a <code>;</code> after the expression
-and thus turning it into a statement. For example, <code>++x;</code>. Let as also
-allow arithmetic expressions in our language to be used as statements, by
-simply adding the production <code>AExp &quot;;&quot;</code> to <code>Stmt</code>, with evaluation strategy
+<p>Note that now spawn, like variable increment, makes the evaluation of<br>
+expressions to have side effects. Many programming languages in fact allow<br>
+expressions to be evaluated only for their side effects, and not for their<br>
+value. This is typically done by simply adding a <code>;</code> after the expression<br>
+and thus turning it into a statement. For example, <code>++x;</code>. Let as also<br>
+allow arithmetic expressions in our language to be used as statements, by<br>
+simply adding the production <code>AExp &quot;;&quot;</code> to <code>Stmt</code>, with evaluation strategy<br>
 <code>strict</code> and with the expected semantics discarding the value of the <code>AExp</code>.</p>
-<p>Another simple change in syntax and semantics which gives our language more
-power, is to remove the <code>;</code> from the syntax of variable assignments and to make
-them expression instead of statement constructs. This change, combined with
-the previous one, will still allow us to parse all the programs that we could
-parse before, but will also allow us to parse more programs. For example, we
-can now do sequence assignments like in C: <code>x = y = z = 0</code>. The semantics
-of assignment now has to return the assigned value also to the computation,
+<p>Another simple change in syntax and semantics which gives our language more<br>
+power, is to remove the <code>;</code> from the syntax of variable assignments and to make<br>
+them expression instead of statement constructs. This change, combined with<br>
+the previous one, will still allow us to parse all the programs that we could<br>
+parse before, but will also allow us to parse more programs. For example, we<br>
+can now do sequence assignments like in C: <code>x = y = z = 0</code>. The semantics<br>
+of assignment now has to return the assigned value also to the computation,<br>
 because we want the assignment expression to evaluate to the assigned value.</p>
-<p>Let us also make another change, but this time one which only makes the
-definition more compact. Instead of defining statement sequential
-composition as a binary construct for statements, let us define a new
-syntactic construct, <code>Stmts</code>, as whitespace-separated lists of <code>Stmt</code>. This
-allows us to get rid of the empty blocks, because we can change the syntax of
-blocks to <code>{Stmts}</code> and <code>Stmts</code> also allows the empty sequence of statements.
+<p>Let us also make another change, but this time one which only makes the<br>
+definition more compact. Instead of defining statement sequential<br>
+composition as a binary construct for statements, let us define a new<br>
+syntactic construct, <code>Stmts</code>, as whitespace-separated lists of <code>Stmt</code>. This<br>
+allows us to get rid of the empty blocks, because we can change the syntax of<br>
+blocks to <code>{Stmts}</code> and <code>Stmts</code> also allows the empty sequence of statements.<br>
 However, we do have to make sure that <code>.Stmts</code> dissolves.</p>
-<p>In general, unless you are defining a well-established programming language,
-it is quite likely that your definitions will suffer lots of changes like the
-ones seen in this lecture. You add a new construct, which suggests changes
-in the existing syntax making in fact your language parse more programs,
-which then requires corresponding changes in the semantics, and so on.
-Also, compact definitions are desirable in general, because they are easier
+<p>In general, unless you are defining a well-established programming language,<br>
+it is quite likely that your definitions will suffer lots of changes like the<br>
+ones seen in this lecture. You add a new construct, which suggests changes<br>
+in the existing syntax making in fact your language parse more programs,<br>
+which then requires corresponding changes in the semantics, and so on.<br>
+Also, compact definitions are desirable in general, because they are easier<br>
 to read and easier to change if needed later.</p>
 <p>In the next lesson we wrap up and document the definition of IMP++.</p>
 <p>Go to <a href="../lesson_8/">Lesson 8, IMP++: Wrapping up Larger Languages</a>.</p>

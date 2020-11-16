@@ -129,89 +129,89 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <html><head></head><body><h1>Capture-Aware Substitution in K</h1>
-<p>One of the traditional ways in which functional languages are given operational
-semantics is via substitution. In particular, you can view a function as
-declaring a particular bound variable, the parameter of the function, as well
-as the body of the function, within which both bound and free variables can
-occur, and implement the process of beta-reduction (one of the axioms of the
-lambda calculus) by means of a substitution operator which is aware of the
-difference between free variables and bound variables and prevents variable
+            <html><head></head><body><h1 id="capture-aware-substitution-in-k">Capture-Aware Substitution in K</h1>
+<p>One of the traditional ways in which functional languages are given operational<br>
+semantics is via substitution. In particular, you can view a function as<br>
+declaring a particular bound variable, the parameter of the function, as well<br>
+as the body of the function, within which both bound and free variables can<br>
+occur, and implement the process of beta-reduction (one of the axioms of the<br>
+lambda calculus) by means of a substitution operator which is aware of the<br>
+difference between free variables and bound variables and prevents variable<br>
 capture.</p>
-<p>In K this is implemented using two mechanisms: The <code>KVar</code> sort, and the
+<p>In K this is implemented using two mechanisms: The <code>KVar</code> sort, and the<br>
 <code>binder</code> attribute.</p>
-<h2>The <code>KVar</code> Sort</h2>
-<p>K introduces a new hooked sort, <code>KVar</code>, which the substitution operator
-(defined below) understands in a particular way. The syntax of <code>KVar</code> is the
-same as for sort <code>Id</code> in <code>DOMAINS</code>, but with a different sort name. Similarly,
-some of the same operators are defined over <code>KVar</code> which are defined for <code>Id</code>,
-such as conversion from <code>String</code> to <code>KVar</code> and support for the <code>!Var:KVar</code>
+<h2 id="the-kvar-sort">The <code>KVar</code> Sort</h2>
+<p>K introduces a new hooked sort, <code>KVar</code>, which the substitution operator<br>
+(defined below) understands in a particular way. The syntax of <code>KVar</code> is the<br>
+same as for sort <code>Id</code> in <code>DOMAINS</code>, but with a different sort name. Similarly,<br>
+some of the same operators are defined over <code>KVar</code> which are defined for <code>Id</code>,<br>
+such as conversion from <code>String</code> to <code>KVar</code> and support for the <code>!Var:KVar</code><br>
 syntax.</p>
-<p>A <code>KVar</code> is simply an identifier with special meaning during substitution.
-<code>KVar</code>s must begin with a letter or underscore,
+<p>A <code>KVar</code> is simply an identifier with special meaning during substitution.<br>
+<code>KVar</code>s must begin with a letter or underscore,<br>
 and can be followed by zero or more letters, numbers, or underscores.</p>
-<pre class="hljs"><code><span class="hljs-keyword">module</span> KVAR-SYNTAX-PROGRAM-PARSING<span class="hljs-keyword">
-  imports</span> BUILTIN-ID-TOKENS<span class="hljs-keyword">
+<pre class="language-k"><code><span class="token keyword">module</span> KVAR<span class="token operator">-</span>SYNTAX<span class="token operator">-</span>PROGRAM<span class="token operator">-</span>PARSING
+  <span class="token keyword">imports</span> BUILTIN<span class="token operator">-</span>ID<span class="token operator">-</span>TOKENS
 
-  syntax</span> KVar ::= r<span class="hljs-string">&quot;(?&lt;![A-Za-z0-9\\_])[A-Za-z\\_][A-Za-z0-9\\_]*&quot;</span>     [prec(<span class="hljs-number">1</span>), <span class="hljs-literal">token</span>]
-                | #LowerId                                             [<span class="hljs-literal">token</span>]
-                | #UpperId                                             [<span class="hljs-literal">token</span>]<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+  <span class="token keyword">syntax</span> KVar <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> r<span class="token string">&quot;(?&lt;![A-Za-z0-9\\_])[A-Za-z\\_][A-Za-z0-9\\_]*&quot;</span>     <span class="token punctuation">[</span>prec<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">token</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> #LowerId                                             <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> #UpperId                                             <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 
-module</span> KVAR-SYNTAX<span class="hljs-keyword">
-  syntax</span> KVar [<span class="hljs-literal">token</span>, hook(KVAR.KVar)]<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+<span class="token keyword">module</span> KVAR<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">syntax</span> KVar <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>KVAR<span class="token punctuation">.</span>KVar<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 
-module</span> KVAR-COMMON<span class="hljs-keyword">
-  imports</span> KVAR-SYNTAX<span class="hljs-keyword">
-  imports</span> STRING<span class="hljs-keyword">
+<span class="token keyword">module</span> KVAR<span class="token operator">-</span>COMMON
+  <span class="token keyword">imports</span> KVAR<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> STRING
 
-  syntax</span> KVar ::= String2KVar (<span class="hljs-keyword">String</span>) [function, functional, hook(STRING.string2token)]<span class="hljs-keyword">
-  syntax</span> KVar ::= freshKVar(<span class="hljs-keyword">Int</span>)    [freshGenerator, function, functional]<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+  <span class="token keyword">syntax</span> KVar <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> String2KVar <span class="token punctuation">(</span><span class="token keyword">String</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>STRING<span class="token punctuation">.</span>string2token<span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token keyword">syntax</span> KVar <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> freshKVar<span class="token punctuation">(</span><span class="token keyword">Int</span><span class="token punctuation">)</span>    <span class="token punctuation">[</span>freshGenerator<span class="token punctuation">,</span> function<span class="token punctuation">,</span> functional<span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 
-module</span> KVAR-SYMBOLIC [symbolic, kast]<span class="hljs-keyword">
-  imports</span> KVAR-COMMON<span class="hljs-keyword">
+<span class="token keyword">module</span> KVAR<span class="token operator">-</span>SYMBOLIC <span class="token punctuation">[</span>symbolic<span class="token punctuation">,</span> kast<span class="token punctuation">]</span>
+  <span class="token keyword">imports</span> KVAR<span class="token operator">-</span>COMMON
 
-  syntax</span> KItem  ::= <span class="hljs-string">&quot;#parseToken&quot;</span>  <span class="hljs-string">&quot;(&quot;</span><span class="hljs-keyword"> String</span> <span class="hljs-string">&quot;,&quot;</span><span class="hljs-keyword"> String</span> <span class="hljs-string">&quot;)&quot;</span>  [function, klabel(#parseKVar), hook(STRING.parseToken)]<span class="hljs-keyword">
-  rule</span> String2KVar(S:<span class="hljs-keyword">String</span>) =&gt; {#parseToken(<span class="hljs-string">&quot;KVar&quot;</span>, S)}:&gt;KVar<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+  <span class="token keyword">syntax</span> KItem  <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#parseToken&quot;</span>  <span class="token string">&quot;(&quot;</span> <span class="token keyword">String</span> <span class="token string">&quot;,&quot;</span> <span class="token keyword">String</span> <span class="token string">&quot;)&quot;</span>  <span class="token punctuation">[</span>function<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>#parseKVar<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>STRING<span class="token punctuation">.</span>parseToken<span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> String2KVar<span class="token punctuation">(</span>S<span class="token punctuation">:</span><span class="token keyword">String</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>#parseToken<span class="token punctuation">(</span><span class="token string">&quot;KVar&quot;</span><span class="token punctuation">,</span> S<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">:</span><span class="token operator">&gt;</span>KVar
+<span class="token keyword">endmodule</span>
 
-module</span> KVAR<span class="hljs-keyword">
-  imports</span> KVAR-COMMON<span class="hljs-keyword">
-  imports</span> KVAR-SYMBOLIC<span class="hljs-keyword">
+<span class="token keyword">module</span> KVAR
+  <span class="token keyword">imports</span> KVAR<span class="token operator">-</span>COMMON
+  <span class="token keyword">imports</span> KVAR<span class="token operator">-</span>SYMBOLIC
 
-  rule</span> freshKVar(I:<span class="hljs-keyword">Int</span>) =&gt; String2KVar(<span class="hljs-string">&quot;_&quot;</span> +<span class="hljs-keyword">String</span> Int2String(I))<span class="hljs-keyword">
-endmodule</span>
+  <span class="token keyword">rule</span> freshKVar<span class="token punctuation">(</span>I<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> String2KVar<span class="token punctuation">(</span><span class="token string">&quot;_&quot;</span> <span class="token operator">+</span><span class="token keyword">String</span> Int2String<span class="token punctuation">(</span>I<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
-<h2>The <code>binder</code> Attribute</h2>
-<p>A production can be given the attribute <code>binder</code>. Such a production must have
-at least two nonterminals. The first nonterminal from left to right must be of
-sort <code>KVar</code>, and contains the bound variable. The last nonterminal from left
-to right contains the term that is bound. For example, I could describe lambdas
-in the lambda calculus with the production
+<h2 id="the-binder-attribute">The <code>binder</code> Attribute</h2>
+<p>A production can be given the attribute <code>binder</code>. Such a production must have<br>
+at least two nonterminals. The first nonterminal from left to right must be of<br>
+sort <code>KVar</code>, and contains the bound variable. The last nonterminal from left<br>
+to right contains the term that is bound. For example, I could describe lambdas<br>
+in the lambda calculus with the production<br>
 <code>syntax Val ::= &quot;lambda&quot; KVar &quot;.&quot; Exp [binder]</code>.</p>
-<h2>Substitution</h2>
-<p>K provides a hooked implementation of substitution, currently only implemented
-on the Java and LLVM backends. Two variants exist: the first substitutes
-a single <code>KVar</code> for a single <code>KItem</code>. The second takes a <code>Map</code> with <code>KVar</code>
+<h2 id="substitution">Substitution</h2>
+<p>K provides a hooked implementation of substitution, currently only implemented<br>
+on the Java and LLVM backends. Two variants exist: the first substitutes<br>
+a single <code>KVar</code> for a single <code>KItem</code>. The second takes a <code>Map</code> with <code>KVar</code><br>
 keys and <code>KItem</code> values, and substitutes each element in the map atomically.</p>
-<p>Internally, this is implemented in the LLVM backend by a combination of
-<code>de Bruijn</code> indices for bound variables and names for free variables. Free
-variables are also sometimes given a unique numeric identifier in order to
-prevent capture, and the rewriter will automatically assign unique names to
-such identifiers when rewriting finishes. The names assigned will always begin
-with the original name of the variable and be followed by a unique integer
-suffix. However, the names assigned after rewriting finishes might be different
-from the names that would be assigned if rewriting were to halt prematurely,
+<p>Internally, this is implemented in the LLVM backend by a combination of<br>
+<code>de Bruijn</code> indices for bound variables and names for free variables. Free<br>
+variables are also sometimes given a unique numeric identifier in order to<br>
+prevent capture, and the rewriter will automatically assign unique names to<br>
+such identifiers when rewriting finishes. The names assigned will always begin<br>
+with the original name of the variable and be followed by a unique integer<br>
+suffix. However, the names assigned after rewriting finishes might be different<br>
+from the names that would be assigned if rewriting were to halt prematurely,<br>
 for example due to <code>krun --depth</code>.</p>
-<pre class="hljs"><code><span class="hljs-keyword">module</span> SUBSTITUTION<span class="hljs-keyword">
-  imports</span> MAP<span class="hljs-keyword">
-  imports</span> KVAR<span class="hljs-keyword">
+<pre class="language-k"><code><span class="token keyword">module</span> SUBSTITUTION
+  <span class="token keyword">imports</span> MAP
+  <span class="token keyword">imports</span> KVAR
 
-  syntax</span> {Sort} Sort ::= Sort <span class="hljs-string">&quot;[&quot;</span> KItem <span class="hljs-string">&quot;/&quot;</span> KItem <span class="hljs-string">&quot;]&quot;</span>  [function, hook(SUBSTITUTION.substOne), impure]<span class="hljs-keyword">
-  syntax</span> {Sort} Sort ::= Sort <span class="hljs-string">&quot;[&quot;</span> Map <span class="hljs-string">&quot;]&quot;</span>      [function, hook(SUBSTITUTION.substMany), impure]<span class="hljs-keyword">
-endmodule</span>
+  <span class="token keyword">syntax</span> <span class="token punctuation">{</span>Sort<span class="token punctuation">}</span> Sort <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Sort <span class="token string">&quot;[&quot;</span> KItem <span class="token string">&quot;/&quot;</span> KItem <span class="token string">&quot;]&quot;</span>  <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>SUBSTITUTION<span class="token punctuation">.</span>substOne<span class="token punctuation">)</span><span class="token punctuation">,</span> impure<span class="token punctuation">]</span>
+  <span class="token keyword">syntax</span> <span class="token punctuation">{</span>Sort<span class="token punctuation">}</span> Sort <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Sort <span class="token string">&quot;[&quot;</span> Map <span class="token string">&quot;]&quot;</span>      <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>SUBSTITUTION<span class="token punctuation">.</span>substMany<span class="token punctuation">)</span><span class="token punctuation">,</span> impure<span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
 </body></html>
           </div>

@@ -129,36 +129,36 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>More Semantic Computation Items</h1>
-<p>In this lesson we see more examples of semantic (i.e., non-syntactic)
-computational items, and how useful they can be.  Specifically, we fix the
-environment-based definition of <code>callcc</code> and give an environment-based
+            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="more-semantic-computation-items">More Semantic Computation Items</h1>
+<p>In this lesson we see more examples of semantic (i.e., non-syntactic)<br>
+computational items, and how useful they can be.  Specifically, we fix the<br>
+environment-based definition of <code>callcc</code> and give an environment-based<br>
 definition of the <code>mu</code> construct for recursion.</p>
-<p>Let us first fix <code>callcc</code>.  As discussed in Lesson 4, the problem that we
-noticed there was that we only recovered the computation, but not the
-environment, when a value was passed to the current continuation.  This is
-quite easy to fix: we modify <code>cc</code> to take both an environment and a
-computation, and its rules to take a snapshot of the current environment with
+<p>Let us first fix <code>callcc</code>.  As discussed in Lesson 4, the problem that we<br>
+noticed there was that we only recovered the computation, but not the<br>
+environment, when a value was passed to the current continuation.  This is<br>
+quite easy to fix: we modify <code>cc</code> to take both an environment and a<br>
+computation, and its rules to take a snapshot of the current environment with<br>
 it, and to recover it at invocation time:</p>
 <pre><code>syntax Val ::= cc(Map,K)
 rule &lt;k&gt; (callcc V:Val =&gt; V cc(Rho,K)) ~&gt; K &lt;/k&gt; &lt;env&gt; Rho &lt;/env&gt;
 rule &lt;k&gt; cc(Rho,K) V:Val ~&gt; _ =&gt;  V ~&gt; K &lt;/k&gt; &lt;env&gt; _ =&gt; Rho &lt;/env&gt;
 </code></pre>
-<p>Let us kompile and make sure it works with the <code>callcc-env2.lambda</code> program,
+<p>Let us kompile and make sure it works with the <code>callcc-env2.lambda</code> program,<br>
 which should evaluate to 3, not to 4.</p>
-<p>Note that the <code>cc</code> value, which can be used as a computation item in the <code>&lt;k/&gt;</code>
+<p>Note that the <code>cc</code> value, which can be used as a computation item in the <code>&lt;k/&gt;</code><br>
 cell, is now quite semantic in nature, pretty much the same as the closures.</p>
-<p>Let us next add one more closure-like semantic computational item, for <code>mu</code>.
-But before that, let us reuse the semantics of <code>letrec</code> in terms of <code>mu</code> that
+<p>Let us next add one more closure-like semantic computational item, for <code>mu</code>.<br>
+But before that, let us reuse the semantics of <code>letrec</code> in terms of <code>mu</code> that<br>
 was defined in Lesson 8 of Part 1 of the tutorial on LAMBDA:</p>
 <pre><code>syntax Exp ::= &quot;letrec&quot; Id Id &quot;=&quot; Exp &quot;in&quot; Exp
              | &quot;mu&quot; Id &quot;.&quot; Exp      [latex(\mu{#1}.{#2})]
 rule letrec F:Id X = E in E&apos; =&gt; let F = mu F . lambda X . E in E&apos;    [macro]
 </code></pre>
-<p>We removed the <code>binder</code> annotation of <code>mu</code>, because it is not necessary
+<p>We removed the <code>binder</code> annotation of <code>mu</code>, because it is not necessary<br>
 anymore (since we do not work with substitutions anymore).</p>
-<p>To save the number of locations needed to evaluate <code>mu X . E</code>, let us replace
-it with a special closure which already binds <code>X</code> to a fresh location holding
+<p>To save the number of locations needed to evaluate <code>mu X . E</code>, let us replace<br>
+it with a special closure which already binds <code>X</code> to a fresh location holding<br>
 the closure itself:</p>
 <pre><code>syntax Exp ::= muclosure(Map,Exp)
 
@@ -167,24 +167,24 @@ rule &lt;k&gt; mu X . E =&gt; muclosure(Rho[X &lt;- !N], E) ...&lt;/k&gt;
      &lt;store&gt;... .Map =&gt; (!N:Int |-&gt; muclosure(Rho[X &lt;- !N], E)) ...&lt;/store&gt;
   [structural]
 </code></pre>
-<p>Since each time <code>mu X . E</code> is encountered during the evaluation it needs to
-evaluate <code>E</code>, we conclude that <code>muclosure</code> cannot be a value.  We can declare
+<p>Since each time <code>mu X . E</code> is encountered during the evaluation it needs to<br>
+evaluate <code>E</code>, we conclude that <code>muclosure</code> cannot be a value.  We can declare<br>
 it as either an expression or as a computation.  Let&apos;s go with the former.</p>
 <p>Finally, here is the rule unrolling the <code>muclosure</code>:</p>
-<p>rule <k> muclosure(Rho,E) =&gt; E ~&gt; Rho&apos; ...</k>
+<p>rule <k> muclosure(Rho,E) =&gt; E ~&gt; Rho&apos; ...</k><br>
 <env> Rho&apos; =&gt; Rho </env></p>
-<p>Note that the current environment <code>Rho&apos;</code> needs to be saved before and
-restored after <code>E</code> is executed, because the fixed point may be invoked
-from a context with a completely different environment from the one
+<p>Note that the current environment <code>Rho&apos;</code> needs to be saved before and<br>
+restored after <code>E</code> is executed, because the fixed point may be invoked<br>
+from a context with a completely different environment from the one<br>
 in which <code>mu X . E</code> was declared.</p>
-<p>We are done.  Let us now <code>kompile</code> and <code>krun</code> <code>factorial-letrec.lambda</code> from
-Lesson 7 in Part 1 of the tutorial on LAMBDA.  Recall that in the previous
-lesson this program generated a lot of garbage into the store, due to the
-need to allocate space for the arguments of all those lambda abstractions
-needed to run the fixed-point combinator.  Now we need much fewer locations,
-essentially only locations for the argument of the factorial function, one at
+<p>We are done.  Let us now <code>kompile</code> and <code>krun</code> <code>factorial-letrec.lambda</code> from<br>
+Lesson 7 in Part 1 of the tutorial on LAMBDA.  Recall that in the previous<br>
+lesson this program generated a lot of garbage into the store, due to the<br>
+need to allocate space for the arguments of all those lambda abstractions<br>
+needed to run the fixed-point combinator.  Now we need much fewer locations,<br>
+essentially only locations for the argument of the factorial function, one at<br>
 each recursive call.  Anyway, much better than before.</p>
-<p>In the next lesson we wrap up the environment definition of LAMBDA++ and
+<p>In the next lesson we wrap up the environment definition of LAMBDA++ and<br>
 generate its documentation.</p>
 <p>Go to <a href="../lesson_6/">Lesson 6, LAMBDA++: Wrapping Up and Documenting LAMBDA++</a>.</p>
 <p><a href="http://youtu.be/dP3FW0kZN6k" target="_blank" rel="noopener">MOVIE (out of date) [5&apos;19&quot;]</a></p>

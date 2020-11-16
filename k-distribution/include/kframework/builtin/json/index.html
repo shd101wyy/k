@@ -129,39 +129,39 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <html><head></head><body><h1>Syntax of JSON</h1>
-<p>K provides builtin support for reading/writing to JSON. While the <code>JSON-SYNTAX</code>
-module is not precisely the syntax of JSON (utilizing K&apos;s syntax for strings,
-integers, and floating point numbers rather than the syntax used by JSON),
-you can still convert directly to/from the actual syntax of JSON using
+            <html><head></head><body><h1 id="syntax-of-json">Syntax of JSON</h1>
+<p>K provides builtin support for reading/writing to JSON. While the <code>JSON-SYNTAX</code><br>
+module is not precisely the syntax of JSON (utilizing K&apos;s syntax for strings,<br>
+integers, and floating point numbers rather than the syntax used by JSON),<br>
+you can still convert directly to/from the actual syntax of JSON using<br>
 the <code>JSON2String</code> and <code>String2JSON</code> hooks.</p>
-<pre class="hljs"><code><span class="hljs-keyword">module</span> JSON-SYNTAX<span class="hljs-keyword">
-    imports</span> INT-SYNTAX<span class="hljs-keyword">
-    imports</span> STRING-SYNTAX<span class="hljs-keyword">
-    imports</span> BOOL-SYNTAX<span class="hljs-keyword">
-    imports</span> FLOAT-SYNTAX<span class="hljs-keyword">
+<pre class="language-k"><code><span class="token keyword">module</span> JSON<span class="token operator">-</span>SYNTAX
+    <span class="token keyword">imports</span> INT<span class="token operator">-</span>SYNTAX
+    <span class="token keyword">imports</span> STRING<span class="token operator">-</span>SYNTAX
+    <span class="token keyword">imports</span> BOOL<span class="token operator">-</span>SYNTAX
+    <span class="token keyword">imports</span> FLOAT<span class="token operator">-</span>SYNTAX
 
-    syntax</span> JSONs   ::= List{JSON,<span class="hljs-string">&quot;,&quot;</span>}      [klabel(JSONs)      , symbol]<span class="hljs-keyword">
-    syntax</span> JSONKey ::=<span class="hljs-keyword"> String</span><span class="hljs-keyword">
-    syntax</span> JSON    ::= <span class="hljs-string">&quot;null&quot;</span>              [klabel(JSONnull)   , symbol]
-                     |<span class="hljs-keyword"> String</span> |<span class="hljs-keyword"> Int</span> |<span class="hljs-keyword"> Float</span> |<span class="hljs-keyword"> Bool</span>
-                     | JSONKey <span class="hljs-string">&quot;:&quot;</span> JSON    [klabel(JSONEntry)  , symbol]
-                     | <span class="hljs-string">&quot;{&quot;</span> JSONs <span class="hljs-string">&quot;}&quot;</span>       [klabel(JSONObject) , symbol]
-                     | <span class="hljs-string">&quot;[&quot;</span> JSONs <span class="hljs-string">&quot;]&quot;</span>       [klabel(JSONList)   , symbol]<span class="hljs-keyword">
-endmodule</span>
+    <span class="token keyword">syntax</span> JSONs   <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> List<span class="token punctuation">{</span>JSON<span class="token punctuation">,</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">}</span>      <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>JSONs<span class="token punctuation">)</span>      <span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+    <span class="token keyword">syntax</span> JSONKey <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">String</span>
+    <span class="token keyword">syntax</span> JSON    <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;null&quot;</span>              <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>JSONnull<span class="token punctuation">)</span>   <span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                     <span class="token operator">|</span> <span class="token keyword">String</span> <span class="token operator">|</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Float</span> <span class="token operator">|</span> <span class="token keyword">Bool</span>
+                     <span class="token operator">|</span> JSONKey <span class="token string">&quot;:&quot;</span> JSON    <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>JSONEntry<span class="token punctuation">)</span>  <span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                     <span class="token operator">|</span> <span class="token string">&quot;{&quot;</span> JSONs <span class="token string">&quot;}&quot;</span>       <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>JSONObject<span class="token punctuation">)</span> <span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                     <span class="token operator">|</span> <span class="token string">&quot;[&quot;</span> JSONs <span class="token string">&quot;]&quot;</span>       <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>JSONList<span class="token punctuation">)</span>   <span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
-<h2>Conversion between <code>JSON</code> and <code>String</code></h2>
-<p>Given a string written in valid JSON, you can convert it to the <code>JSON</code>
-sort with the <code>String2JSON</code> function. Assuming the user has not extended
-the syntax of the <code>JSON</code> sort with their own constructors, any term of sort
+<h2 id="conversion-between-json-and-string">Conversion between <code>JSON</code> and <code>String</code></h2>
+<p>Given a string written in valid JSON, you can convert it to the <code>JSON</code><br>
+sort with the <code>String2JSON</code> function. Assuming the user has not extended<br>
+the syntax of the <code>JSON</code> sort with their own constructors, any term of sort<br>
 <code>JSON</code> can also be converted to a <code>String</code> using the <code>JSON2String</code> function.</p>
-<pre class="hljs"><code><span class="hljs-keyword">module</span> JSON<span class="hljs-keyword">
-    imports</span> JSON-SYNTAX<span class="hljs-keyword">
+<pre class="language-k"><code><span class="token keyword">module</span> JSON
+    <span class="token keyword">imports</span> JSON<span class="token operator">-</span>SYNTAX
 
-    syntax</span><span class="hljs-keyword"> String</span> ::= JSON2String(JSON) [function, hook(JSON.json2string)]<span class="hljs-keyword">
+    <span class="token keyword">syntax</span> <span class="token keyword">String</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> JSON2String<span class="token punctuation">(</span>JSON<span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>JSON<span class="token punctuation">.</span>json2string<span class="token punctuation">)</span><span class="token punctuation">]</span>
 
-    syntax</span> JSON ::= String2JSON(<span class="hljs-keyword">String</span>) [function, hook(JSON.string2json)]<span class="hljs-keyword">
-endmodule</span>
+    <span class="token keyword">syntax</span> JSON <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> String2JSON<span class="token punctuation">(</span><span class="token keyword">String</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>JSON<span class="token punctuation">.</span>string2json<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
 </body></html>
           </div>

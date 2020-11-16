@@ -129,131 +129,131 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>A Naive Substitution-Based Type Inferencer</h1>
-<p>In this lesson you learn how to define a naive substitution-based type
-inferencer for a higher-order language, namely the LAMBDA language
+            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="a-naive-substitution-based-type-inferencer">A Naive Substitution-Based Type Inferencer</h1>
+<p>In this lesson you learn how to define a naive substitution-based type<br>
+inferencer for a higher-order language, namely the LAMBDA language<br>
 defined in Part 1 of the tutorial.</p>
-<p>Unlike in the type checker defined in Lessons 2 and 3, where we had to
-associate a type with each declared variable, a type inferencer
-attempts to infer the types of all the variables from the way those
+<p>Unlike in the type checker defined in Lessons 2 and 3, where we had to<br>
+associate a type with each declared variable, a type inferencer<br>
+attempts to infer the types of all the variables from the way those<br>
 variables are used. Let us take a look at this program, say <code>plus.lambda</code>:</p>
 <pre><code>lambda x . lambda y . x + y
 </code></pre>
-<p>Since <code>x</code> and <code>y</code> are used in an integer addition context, we can infer
-that they must have the type <code>int</code> and the result of the addition is
-also an <code>int</code>, so the type of the entire expression is <code>int -&gt; int -&gt; int</code>.
+<p>Since <code>x</code> and <code>y</code> are used in an integer addition context, we can infer<br>
+that they must have the type <code>int</code> and the result of the addition is<br>
+also an <code>int</code>, so the type of the entire expression is <code>int -&gt; int -&gt; int</code>.<br>
 Similarly, the program <code>if.lambda</code></p>
 <pre><code>lambda x . lambda y . lambda z .
   if x then y else z
 </code></pre>
-<p>can only make sense when <code>x</code> has type <code>bool</code> and <code>y</code> and <code>z</code> have the same
-type, say <code>t</code>, in which case the type of the entire expression is
-<code>bool -&gt; t -&gt; t -&gt; t</code>. Since the type <code>t</code> can be anything, we say that
-the type of this expression is <em>polymorphic</em>. That means that the code
-above can be used in different contexts, where <code>t</code> can be an <code>int</code>, a
+<p>can only make sense when <code>x</code> has type <code>bool</code> and <code>y</code> and <code>z</code> have the same<br>
+type, say <code>t</code>, in which case the type of the entire expression is<br>
+<code>bool -&gt; t -&gt; t -&gt; t</code>. Since the type <code>t</code> can be anything, we say that<br>
+the type of this expression is <em>polymorphic</em>. That means that the code<br>
+above can be used in different contexts, where <code>t</code> can be an <code>int</code>, a<br>
 <code>bool</code>, a function type <code>int -&gt; int</code>, and so on.</p>
 <p>In the <code>identity.lambda</code> program</p>
 <pre><code>let f = lambda x . x
 in f 1
 </code></pre>
-<p><code>f</code> has such a polymorphic type, which is then applied to an integer,
+<p><code>f</code> has such a polymorphic type, which is then applied to an integer,<br>
 so this program is type-safe and its type is <code>int</code>.</p>
 <p>A typical polymorphic expression is the composition</p>
 <pre><code>lambda f . lambda g . lambda x .
   g (f x)
 </code></pre>
-<p>which has the type <code>(t1 -&gt; t2) -&gt; (t2 -&gt; t3) -&gt; (t1 -&gt; t3)</code>, polymorphic
+<p>which has the type <code>(t1 -&gt; t2) -&gt; (t2 -&gt; t3) -&gt; (t1 -&gt; t3)</code>, polymorphic<br>
 in 3 types.</p>
-<p>Let us now define our naive type inferencer and then we discuss more
-examples. The idea is quite simple: we conceptually do the same
-operations like we did within the type checker defined in Lesson 2,
+<p>Let us now define our naive type inferencer and then we discuss more<br>
+examples. The idea is quite simple: we conceptually do the same<br>
+operations like we did within the type checker defined in Lesson 2,<br>
 with two important differences:</p>
 <ol>
-<li>instead of declaring a type with each declared variable, we assume
+<li>instead of declaring a type with each declared variable, we assume<br>
 a fresh type for that variable; and</li>
-<li>instead of checking that the types of expressions satisfy the
-type properties of the context in which they are used, we impose
-those properties as type equality constraints. A general-purpose
-unification-based constraint solving mechanism is then used to solve
+<li>instead of checking that the types of expressions satisfy the<br>
+type properties of the context in which they are used, we impose<br>
+those properties as type equality constraints. A general-purpose<br>
+unification-based constraint solving mechanism is then used to solve<br>
 the generated type constraints.</li>
 </ol>
-<p>Let us start with the syntax, which is essentially identical to that
-of the type checker in Lesson 2, except that bound variables are not
-declared a type anymore. Also, to keep things more compact, we put
+<p>Let us start with the syntax, which is essentially identical to that<br>
+of the type checker in Lesson 2, except that bound variables are not<br>
+declared a type anymore. Also, to keep things more compact, we put<br>
 all the <code>Exp</code> syntax declarations in one syntax declaration this time.</p>
 <!-- This part needs to change -->
-<p>Before we modify the rules, let us first define our machinery for
-adding and solving constraints. First, we require and import the
-unification procedure. We do not discuss unification here, but if you
-are interested you can consult the <code>unification.k</code> files under
-<a href="/include/modules">k/include/modules</a>, which contains our current generic
-definition of unification, which is written also in K. The generic unification
-provides a sort, <code>Mgu</code>, for <em>most-general-unifier</em>, an operation
-<code>updateMgu(Mgu,T1,T2)</code> which updates <code>Mgu</code> with additional constraints
-generated by forcing the terms <code>T1</code> and <code>T2</code> to be equal, and an operation
-<code>applyMgu(Mgu,T)</code> which applies <code>Mgu</code> to term <code>T</code>. For our use
-of unification here, we do not even need to know how <code>Mgu</code> terms are
+<p>Before we modify the rules, let us first define our machinery for<br>
+adding and solving constraints. First, we require and import the<br>
+unification procedure. We do not discuss unification here, but if you<br>
+are interested you can consult the <code>unification.k</code> files under<br>
+<a href="https://github.com/include/modules">k/include/modules</a>, which contains our current generic<br>
+definition of unification, which is written also in K. The generic unification<br>
+provides a sort, <code>Mgu</code>, for <em>most-general-unifier</em>, an operation<br>
+<code>updateMgu(Mgu,T1,T2)</code> which updates <code>Mgu</code> with additional constraints<br>
+generated by forcing the terms <code>T1</code> and <code>T2</code> to be equal, and an operation<br>
+<code>applyMgu(Mgu,T)</code> which applies <code>Mgu</code> to term <code>T</code>. For our use<br>
+of unification here, we do not even need to know how <code>Mgu</code> terms are<br>
 represented internally.</p>
-<p>We define a K item construct, <code>=</code>, which takes two <code>Type</code> terms and
-enforces them to be equal by means of updating the current <code>Mgu</code>.
-Once the constraints are added to the <code>Mgu</code>, the equality dissolves
-itself. With this semantics of <code>=</code> in mind, we can now go ahead and
-modify the rules of the type checker systematically into rules
-for a type inferencer. The changes are self-explanatory and
+<p>We define a K item construct, <code>=</code>, which takes two <code>Type</code> terms and<br>
+enforces them to be equal by means of updating the current <code>Mgu</code>.<br>
+Once the constraints are added to the <code>Mgu</code>, the equality dissolves<br>
+itself. With this semantics of <code>=</code> in mind, we can now go ahead and<br>
+modify the rules of the type checker systematically into rules<br>
+for a type inferencer. The changes are self-explanatory and<br>
 mechanical: for example, the rule</p>
 <pre><code>rule int * int =&gt; int
 </code></pre>
 <p>changes into rule</p>
 <pre><code>rule T1:Type  * T2:Type =&gt; T1 = int ~&gt; T2 = int ~&gt; int
 </code></pre>
-<p>generating the constraints that the two arguments of multiplication
-have the type <code>int</code>, and the result type is <code>int</code>. Recall that each type
-equality on the <code>&lt;k/&gt;</code> cell updates the current <code>Mgu</code> appropriately and
-then dissolves itself; thus, the above says that after imposing the
+<p>generating the constraints that the two arguments of multiplication<br>
+have the type <code>int</code>, and the result type is <code>int</code>. Recall that each type<br>
+equality on the <code>&lt;k/&gt;</code> cell updates the current <code>Mgu</code> appropriately and<br>
+then dissolves itself; thus, the above says that after imposing the<br>
 constraints <code>T1=int</code> and <code>T2=int</code>, multiplication yields a type <code>int</code>.</p>
-<p>As mentioned above, since types of variables are not declared anymore,
-but inferred, we have to generate a fresh type for each variable at its
-declaration time, and then generate appropriately constraints for it.
+<p>As mentioned above, since types of variables are not declared anymore,<br>
+but inferred, we have to generate a fresh type for each variable at its<br>
+declaration time, and then generate appropriately constraints for it.<br>
 For example, the type semantics of <code>lambda</code> and <code>mu</code> become:</p>
 <pre><code>rule lambda X . E =&gt; T -&gt; E[T/X]  when fresh(T:Type)
 rule mu X . E =&gt; (T -&gt; T) E[T/X]  when fresh(T:Type)
 </code></pre>
-<p>that is, we add a condition stating that the previously declared type
-is now a fresh one. This type will be further constrained by how the
+<p>that is, we add a condition stating that the previously declared type<br>
+is now a fresh one. This type will be further constrained by how the<br>
 variable <code>X</code> is being used within <code>E</code>.</p>
-<p>Interestingly, the previous typing rule for lambda application is not
-powerful enough anymore. Indeed, since types are not given anymore,
-it may very well be the case that the inferred type of the first
-argument of the application construct is not yet a function type
-(remember, for example, the program composition.lambda above). What
-we have to do is to enforce it to be a function type, by means of
-fresh types and constraints. We can introduce a fresh type for the
-result of the application, and then write the expected rule as
+<p>Interestingly, the previous typing rule for lambda application is not<br>
+powerful enough anymore. Indeed, since types are not given anymore,<br>
+it may very well be the case that the inferred type of the first<br>
+argument of the application construct is not yet a function type<br>
+(remember, for example, the program composition.lambda above). What<br>
+we have to do is to enforce it to be a function type, by means of<br>
+fresh types and constraints. We can introduce a fresh type for the<br>
+result of the application, and then write the expected rule as<br>
 follows:</p>
 <pre><code>rule T1:Type T2:Type =&gt; T1 = (T2 -&gt; T) ~&gt; T  when fresh(T:Type)
 </code></pre>
-<p>The conditional requires that its first argument is a <code>bool</code> and its
-second and third arguments have the same type, which is also the
+<p>The conditional requires that its first argument is a <code>bool</code> and its<br>
+second and third arguments have the same type, which is also the<br>
 result type.</p>
-<p>The macros do not change, in particular <code>let</code> is desugared into lambda
-application. We will next see that this is a significant restriction,
+<p>The macros do not change, in particular <code>let</code> is desugared into lambda<br>
+application. We will next see that this is a significant restriction,<br>
 because it limits the polymorphism of our type system.</p>
 <p>We are done. We have a working type inferencer for LAMBDA.</p>
-<p>Let&apos;s <code>kompile</code> it and <code>krun</code> the programs above. They all work as
-expected. Let us also try some additional programs, to push it to its
+<p>Let&apos;s <code>kompile</code> it and <code>krun</code> the programs above. They all work as<br>
+expected. Let us also try some additional programs, to push it to its<br>
 limits.</p>
 <p>First, let us test <code>mu</code> by means of a <code>letrec</code> example:</p>
 <pre><code>letrec f x = 3
 in f
 </code></pre>
-<p>We can also try all the programs that we had in our first tutorial, on
+<p>We can also try all the programs that we had in our first tutorial, on<br>
 lambda, for example the <code>factorial.imp</code> program:</p>
 <pre><code>letrec f x = if x &lt;= 1 then 1 else (x * (f (x + -1)))
 in (f 10)
 </code></pre>
-<p>Those programs are simple enough that they should all work as
+<p>Those programs are simple enough that they should all work as<br>
 expected with our naive type inferencer here.</p>
-<p>Let us next try to type some tricky programs, which involve more
+<p>Let us next try to type some tricky programs, which involve more<br>
 complex and indirect type constraints.</p>
 <p><code>tricky-1.lambda</code>:</p>
 <pre><code>lambda f . lambda x . lambda y . (
@@ -278,30 +278,30 @@ complex and indirect type constraints.</p>
 <pre><code>lambda x . let f = lambda y . x y
            in let z = x 0 in f
 </code></pre>
-<p>It is now time to see the limitations of this naive type inferencer.
+<p>It is now time to see the limitations of this naive type inferencer.<br>
 Consider the program</p>
 <pre><code>let id = lambda x . x
 in if (id true) then (id 1) else (id 2)
 </code></pre>
-<p>Our type inferencer fails graciously with a clash in the <code>&lt;mgu/&gt;</code> cell
-between <code>int</code> and <code>bool</code>. Indeed, the desugaring macro of <code>let</code> turns it
-into a <code>lambda</code> and an application, which further enforce <code>id</code> to have a
-type of the form <code>t -&gt; t</code> for some fresh type <code>t</code>. The first use of <code>id</code>
-in the condition of <code>if</code> will then constrain <code>t</code> to be <code>bool</code>, while the
-other uses in the two branches will enforce <code>t</code> to be <code>int</code>. Thus the
+<p>Our type inferencer fails graciously with a clash in the <code>&lt;mgu/&gt;</code> cell<br>
+between <code>int</code> and <code>bool</code>. Indeed, the desugaring macro of <code>let</code> turns it<br>
+into a <code>lambda</code> and an application, which further enforce <code>id</code> to have a<br>
+type of the form <code>t -&gt; t</code> for some fresh type <code>t</code>. The first use of <code>id</code><br>
+in the condition of <code>if</code> will then constrain <code>t</code> to be <code>bool</code>, while the<br>
+other uses in the two branches will enforce <code>t</code> to be <code>int</code>. Thus the<br>
 clash in the <code>&lt;mgu/&gt;</code> cell.</p>
 <p>Similarly, the program</p>
 <pre><code>let id = lambda x . x
 in id id
 </code></pre>
-<p>yields a different kind of conflict: if <code>id</code> has type <code>t -&gt; t</code>, in order
-to apply <code>id</code> to itself it must be the case that its argument, <code>t</code>, equals
-<code>t -&gt; t</code>. These two type terms cannot be unified because there is a
+<p>yields a different kind of conflict: if <code>id</code> has type <code>t -&gt; t</code>, in order<br>
+to apply <code>id</code> to itself it must be the case that its argument, <code>t</code>, equals<br>
+<code>t -&gt; t</code>. These two type terms cannot be unified because there is a<br>
 circular dependence on <code>t</code>, so we get a cycle in the <code>&lt;mgu/&gt;</code> cell.</p>
-<p>Both limitations above will be solved when we change the semantics of
+<p>Both limitations above will be solved when we change the semantics of<br>
 <code>let</code> later on, to account for the desired polymorphism.</p>
-<p>Before we conclude this lesson, let us see one more interesting
-example, where the lack of let-polymorphism leads not to a type error,
+<p>Before we conclude this lesson, let us see one more interesting<br>
+example, where the lack of let-polymorphism leads not to a type error,<br>
 but to a less generic type:</p>
 <pre><code>let f1 = lambda x . x in
   let f2 = f1 in
@@ -310,14 +310,14 @@ but to a less generic type:</p>
         let f5 = f4 in
           if (f5 true) then f2 else f3
 </code></pre>
-<p>Our current type inferencer will infer the type <code>bool -&gt; bool</code> for the
-program above. Nevertheless, since all functions <code>f1</code>, <code>f2</code>, <code>f3</code>, <code>f4</code>, <code>f5</code>
-are the identity function, which is polymorphic, we would expect the
+<p>Our current type inferencer will infer the type <code>bool -&gt; bool</code> for the<br>
+program above. Nevertheless, since all functions <code>f1</code>, <code>f2</code>, <code>f3</code>, <code>f4</code>, <code>f5</code><br>
+are the identity function, which is polymorphic, we would expect the<br>
 entire program to type to the same polymorphic identity function type.</p>
-<p>This limitation will be also addressed when we define our
+<p>This limitation will be also addressed when we define our<br>
 let-polymorphic type inferencer.</p>
-<p>Before that, in the next lesson we will show how easily we can turn
-the naive substitution-based type inferencer discussed in this lesson
+<p>Before that, in the next lesson we will show how easily we can turn<br>
+the naive substitution-based type inferencer discussed in this lesson<br>
 into a similarly naive, but environment-based type inferencer.</p>
 <p>Go to <a href="../lesson_5/">Lesson 5, Type Systems: A Naive Environment-Based Type Inferencer</a>.</p>
 </body></html>

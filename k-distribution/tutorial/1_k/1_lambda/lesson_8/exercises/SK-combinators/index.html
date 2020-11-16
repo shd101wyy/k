@@ -129,45 +129,45 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><p>Define LAMBDA using the S/K combinators instead of substitution.
-You new definition will not require the <code>substitution.k</code> module anymore,
+            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><p>Define LAMBDA using the S/K combinators instead of substitution.<br>
+You new definition will not require the <code>substitution.k</code> module anymore,<br>
 and will not use environments (discussed in future lectures), either.</p>
 <p>Recall that the <code>S</code> and <code>K</code> combinators are defined as follows:</p>
 <pre><code>K E1 E2 = E1
 S E1 E2 E3 = E1 E3 (E2 E3)
 </code></pre>
-<p>where the application is that of LAMBDA (left associative binary operation),
-and that the lambda construct can be desugared to combinators using the
+<p>where the application is that of LAMBDA (left associative binary operation),<br>
+and that the lambda construct can be desugared to combinators using the<br>
 following simple rules:</p>
 <pre><code>lambda X . X = S K K
 lambda X . Y = K Y    when Y is a name different from X
 lambda X . (E1 E2) = S (lambda X . E1) (lambda X . E2)
 lambda X . B = K B    when B is any constant, including S or K
 </code></pre>
-<p>To distinguish the <code>S</code> and <code>K</code> combinators from K variables and make them
+<p>To distinguish the <code>S</code> and <code>K</code> combinators from K variables and make them<br>
 more visible, we prefer to write them as <code>SS</code> and <code>KK</code> instead of <code>S</code> and <code>K</code>.</p>
-<p>If defined correctly and completely, all the tests should pass when you call
-<code>ktest</code> on the provided <code>config.xml</code> file.  The tests include all the programs
-previously executed using LAMBDA (lesson_8), plus the additional program of
-the mu-derived exercise, plus a few more simple programs given with this
+<p>If defined correctly and completely, all the tests should pass when you call<br>
+<code>ktest</code> on the provided <code>config.xml</code> file.  The tests include all the programs<br>
+previously executed using LAMBDA (lesson_8), plus the additional program of<br>
+the mu-derived exercise, plus a few more simple programs given with this<br>
 exercise to help you better test your definition and nail down the notation.</p>
-<p>The syntax of the new LAMBDA should be the same as before, although
-<code>mu</code> needs to be desugared as in the mu-desugared exercise (using a macro).
-The tricky part is how to deal with the builtin operations.  For example,
-<code>lambda x . if x then y else z</code> cannot be transformed into combinators as is,
-but it can if we assume a builtin conditional function constant, say <code>cond</code>,
-and desugar <code>if_then_else_</code> to it.  Then this expression becomes
-<code>lambda x . (((cond x) y) z)</code>, which we know how to transform.  The drawback
-of this <code>cond</code> constant approach is that it may induce non-termination
+<p>The syntax of the new LAMBDA should be the same as before, although<br>
+<code>mu</code> needs to be desugared as in the mu-desugared exercise (using a macro).<br>
+The tricky part is how to deal with the builtin operations.  For example,<br>
+<code>lambda x . if x then y else z</code> cannot be transformed into combinators as is,<br>
+but it can if we assume a builtin conditional function constant, say <code>cond</code>,<br>
+and desugar <code>if_then_else_</code> to it.  Then this expression becomes<br>
+<code>lambda x . (((cond x) y) z)</code>, which we know how to transform.  The drawback<br>
+of this <code>cond</code> constant approach is that it may induce non-termination<br>
 in recursive programs, but that appears to not be a problem in our examples.</p>
-<p>You will have to do the same for all builtin functions, and you will have
-to make sure that you define your values correctly!  In our previous
-definition we were able to say that <code>lambda x . e</code> was a value, but now that
-is not possible anymore, because the lambda construct will be eliminated.
-Instead, you will have to explicitly say it using the <code>isVal</code> membership
-predicate that all the expressions that involve builtin functions and
-yield functions are values; for example, <code>isVal(cond V:Val) =&gt; true</code> and
-<code>isVal(cond V1:Val V2:Val) =&gt; true</code> need to be added, but obviously not
+<p>You will have to do the same for all builtin functions, and you will have<br>
+to make sure that you define your values correctly!  In our previous<br>
+definition we were able to say that <code>lambda x . e</code> was a value, but now that<br>
+is not possible anymore, because the lambda construct will be eliminated.<br>
+Instead, you will have to explicitly say it using the <code>isVal</code> membership<br>
+predicate that all the expressions that involve builtin functions and<br>
+yield functions are values; for example, <code>isVal(cond V:Val) =&gt; true</code> and<br>
+<code>isVal(cond V1:Val V2:Val) =&gt; true</code> need to be added, but obviously not<br>
 <code>isVal(cond V1:Val V2:Val V3:Val) =&gt; true</code>.</p>
 </body></html>
           </div>

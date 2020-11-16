@@ -129,134 +129,155 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <html><head></head><body><h1>K Foreign Function Interface</h1>
-<p>The K Foreign Function Interface (FFI) module provides a way to call native
-functions directly from a K semantics using the C ABI. It also provides
-utilities for allocating and deallocating byte buffers with static addresses
+            <html><head></head><body><h1 id="k-foreign-function-interface">K Foreign Function Interface</h1>
+<p>The K Foreign Function Interface (FFI) module provides a way to call native<br>
+functions directly from a K semantics using the C ABI. It also provides<br>
+utilities for allocating and deallocating byte buffers with static addresses<br>
 that are suitable for being passed to native code.</p>
-<p>It is built off of the underlying libffi library
-(<a href="https://sourceware.org/libffi/" target="_blank" rel="noopener">https://sourceware.org/libffi/</a>) and is subject to some of the same
-limitations as that library. Bear in mind, because this library exposes
-a number of unsafe C APIs directly, misuse of the library is likely to lead
-to memory corruption in your interpreter and can cause segmentation faults or
+<p>It is built off of the underlying libffi library<br>
+(<a href="https://sourceware.org/libffi/" target="_blank" rel="noopener">https://sourceware.org/libffi/</a>) and is subject to some of the same<br>
+limitations as that library. Bear in mind, because this library exposes<br>
+a number of unsafe C APIs directly, misuse of the library is likely to lead<br>
+to memory corruption in your interpreter and can cause segmentation faults or<br>
 corrupted term representations that lead to undefined behavior at runtime.</p>
-<pre class="hljs"><code><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;domains.md&quot;</span><span class="hljs-keyword">
+<pre class="language-k"><code><span class="token keyword">require</span> <span class="token string">&quot;domains.md&quot;</span>
 
-module</span> FFI-SYNTAX<span class="hljs-keyword">
-  imports</span> LIST
+<span class="token keyword">module</span> FFI<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> LIST
 </code></pre>
-<p>The FFIType sort is used to declare the native C ABI types of operands passed
-to the <code>#ffiCall</code> function. These types roughly correspond to the types
+<p>The FFIType sort is used to declare the native C ABI types of operands passed<br>
+to the <code>#ffiCall</code> function. These types roughly correspond to the types<br>
 declared in <code>ffi.h</code> by libffi.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> FFIType ::= <span class="hljs-string">&quot;#void&quot;</span> [klabel(#void), symbol]
-                  | <span class="hljs-string">&quot;#uint8&quot;</span> [klabel(#uint8), symbol]
-                  | <span class="hljs-string">&quot;#sint8&quot;</span> [klabel(#sint8), symbol]
-                  | <span class="hljs-string">&quot;#uint16&quot;</span> [klabel(#uint16), symbol]
-                  | <span class="hljs-string">&quot;#sint16&quot;</span> [klabel(#sint16), symbol]
-                  | <span class="hljs-string">&quot;#uint32&quot;</span> [klabel(#uint32), symbol]
-                  | <span class="hljs-string">&quot;#sint32&quot;</span> [klabel(#sint32), symbol]
-                  | <span class="hljs-string">&quot;#uint64&quot;</span> [klabel(#uint64), symbol]
-                  | <span class="hljs-string">&quot;#sint64&quot;</span> [klabel(#sint64), symbol]
-                  | <span class="hljs-string">&quot;#float&quot;</span> [klabel(#float), symbol]
-                  | <span class="hljs-string">&quot;#double&quot;</span> [klabel(#double), symbol]
-                  | <span class="hljs-string">&quot;#uchar&quot;</span> [klabel(#uchar), symbol]
-                  | <span class="hljs-string">&quot;#schar&quot;</span> [klabel(#schar), symbol]
-                  | <span class="hljs-string">&quot;#ushort&quot;</span> [klabel(#ushort), symbol]
-                  | <span class="hljs-string">&quot;#sshort&quot;</span> [klabel(#sshort), symbol]
-                  | <span class="hljs-string">&quot;#uint&quot;</span> [klabel(#uint), symbol]
-                  | <span class="hljs-string">&quot;#sint&quot;</span> [klabel(#sint), symbol]
-                  | <span class="hljs-string">&quot;#ulong&quot;</span> [klabel(#ulong), symbol]
-                  | <span class="hljs-string">&quot;#slong&quot;</span> [klabel(#slong), symbol]
-                  | <span class="hljs-string">&quot;#longdouble&quot;</span> [klabel(#longdouble), symbol]
-                  | <span class="hljs-string">&quot;#struct&quot;</span> <span class="hljs-string">&quot;(&quot;</span> List <span class="hljs-string">&quot;)&quot;</span> [klabel(#struct), symbol]<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> FFIType <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#void&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_void<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#uint8&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_uint8<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#sint8&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_sint8<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#uint16&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_uint16<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#sint16&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_sint16<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#uint32&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_uint32<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#sint32&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_sint32<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#uint64&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_uint64<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#sint64&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_sint64<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#float&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_float<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#double&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_double<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#uchar&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_uchar<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#schar&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_schar<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#ushort&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_ushort<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#sshort&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_sshort<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#uint&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_uint<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#sint&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_sint<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#ulong&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_ulong<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#slong&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_slong<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#longdouble&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_longdouble<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#pointer&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_pointer<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#complexfloat&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_complexfloat<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#complexdouble&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_complexdouble<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#complexlongdouble&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_complexlongdouble<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+                  <span class="token operator">|</span> <span class="token string">&quot;#struct&quot;</span> <span class="token string">&quot;(&quot;</span> List <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#ffi_struct<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 
-module</span> FFI<span class="hljs-keyword">
-  imports</span> FFI-SYNTAX<span class="hljs-keyword">
-  imports</span> BYTES<span class="hljs-keyword">
-  imports</span> STRING
+<span class="token keyword">module</span> FFI
+  <span class="token keyword">imports</span> FFI<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> BYTES
+  <span class="token keyword">imports</span> STRING
 
 </code></pre>
-<h2>FFI Calls</h2>
-<p>The <code>#ffiCall</code> functions are designed to call a native C ABI function and
+<h2 id="ffi-calls">FFI Calls</h2>
+<p>The <code>#ffiCall</code> functions are designed to call a native C ABI function and<br>
 return a native result. They come in three variants:</p>
-<h3>Non-variadic</h3>
-<p>In the first variant, <code>#ffiCall(Address, Args, ArgTypes, ReturnType)</code> takes
-an integer address of a function (which can be obtained from
-<code>#functionAddress</code>), a <code>List</code> of <code>Bytes</code> containing the arguments of the
-function, a <code>List</code> of <code>FFIType</code>s containing the types of the parameters of the
-function, and an <code>FFIType</code> containing the return type of the function, and
+<h3 id="non-variadic">Non-variadic</h3>
+<p>In the first variant, <code>#ffiCall(Address, Args, ArgTypes, ReturnType)</code> takes<br>
+an integer address of a function (which can be obtained from<br>
+<code>#functionAddress</code>), a <code>List</code> of <code>Bytes</code> containing the arguments of the<br>
+function, a <code>List</code> of <code>FFIType</code>s containing the types of the parameters of the<br>
+function, and an <code>FFIType</code> containing the return type of the function, and<br>
 returns the return value of the function as a <code>Bytes</code>.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Bytes ::= <span class="hljs-string">&quot;#ffiCall&quot;</span> <span class="hljs-string">&quot;(&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;,&quot;</span> List <span class="hljs-string">&quot;,&quot;</span> List <span class="hljs-string">&quot;,&quot;</span> FFIType <span class="hljs-string">&quot;)&quot;</span> [function, hook(FFI.call)]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Bytes <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#ffiCall&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> List <span class="token string">&quot;,&quot;</span> List <span class="token string">&quot;,&quot;</span> FFIType <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>call<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Variadic</h3>
-<p>In the second variant,
-<code>#ffiCall(Address, Args, FixedTypes, VariadicTypes, ReturnType</code> takes an
-integer address of a function, a <code>List</code> of <code>Bytes</code> containing the arguments
-of the call, a <code>List</code> of <code>FFIType</code>s containing the types of the fixed
-parameters of the function, a <code>List</code> of <code>FFIType</code>s containing the types of the
-variadic parameters of the function, and an <code>FFIType</code> containing the return
-type of the function, and returns the return value of the function as a
+<h3 id="variadic">Variadic</h3>
+<p>In the second variant,<br>
+<code>#ffiCall(Address, Args, FixedTypes, VariadicTypes, ReturnType</code> takes an<br>
+integer address of a function, a <code>List</code> of <code>Bytes</code> containing the arguments<br>
+of the call, a <code>List</code> of <code>FFIType</code>s containing the types of the fixed<br>
+parameters of the function, a <code>List</code> of <code>FFIType</code>s containing the types of the<br>
+variadic parameters of the function, and an <code>FFIType</code> containing the return<br>
+type of the function, and returns the return value of the function as a<br>
 <code>Bytes</code>.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Bytes ::= <span class="hljs-string">&quot;#ffiCall&quot;</span> <span class="hljs-string">&quot;(&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;,&quot;</span> List <span class="hljs-string">&quot;,&quot;</span> List <span class="hljs-string">&quot;,&quot;</span> List <span class="hljs-string">&quot;,&quot;</span> FFIType <span class="hljs-string">&quot;)&quot;</span> [function, hook(FFI.call_variadic)]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Bytes <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#ffiCall&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> List <span class="token string">&quot;,&quot;</span> List <span class="token string">&quot;,&quot;</span> List <span class="token string">&quot;,&quot;</span> FFIType <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>call_variadic<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Generic</h3>
-<p>In the third variant,
-<code>#ffiCall(IsVariadic, Address, Args, ArgTypes, NFixed, ReturnType</code> takes
-a boolean indicating whether the function is variadic or not, an integer
-address of a function, a <code>List</code> of <code>Bytes</code> containing the arguments of the
-call, a <code>List</code> of <code>FFIType</code>s containing the parameter typess of the call
-followed by the types of the variadic arguments of the call, if any, an <code>Int</code>
-containing how many of the arguments of the call are fixed or not, and an
-<code>FFIType</code> containing the return type of the function, and returns the return
+<h3 id="generic">Generic</h3>
+<p>In the third variant,<br>
+<code>#ffiCall(IsVariadic, Address, Args, ArgTypes, NFixed, ReturnType</code> takes<br>
+a boolean indicating whether the function is variadic or not, an integer<br>
+address of a function, a <code>List</code> of <code>Bytes</code> containing the arguments of the<br>
+call, a <code>List</code> of <code>FFIType</code>s containing the parameter typess of the call<br>
+followed by the types of the variadic arguments of the call, if any, an <code>Int</code><br>
+containing how many of the arguments of the call are fixed or not, and an<br>
+<code>FFIType</code> containing the return type of the function, and returns the return<br>
 value of the function as a <code>Bytes</code>.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Bytes ::= <span class="hljs-string">&quot;#ffiCall&quot;</span> <span class="hljs-string">&quot;(&quot;</span><span class="hljs-keyword"> Bool</span> <span class="hljs-string">&quot;,&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;,&quot;</span> List <span class="hljs-string">&quot;,&quot;</span> List <span class="hljs-string">&quot;,&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;,&quot;</span> FFIType <span class="hljs-string">&quot;)&quot;</span> [function]<span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Bytes <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#ffiCall&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token keyword">Bool</span> <span class="token string">&quot;,&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> List <span class="token string">&quot;,&quot;</span> List <span class="token string">&quot;,&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> FFIType <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
 
-  rule</span> #ffiCall(false, Addr::<span class="hljs-keyword">Int</span>, Args::List, Types::List, _, Ret::FFIType) =&gt; #ffiCall(Addr, Args, Types, Ret)<span class="hljs-keyword">
-  rule</span> #ffiCall(true, Addr::<span class="hljs-keyword">Int</span>, Args::List, Types::List, NFixed::<span class="hljs-keyword">Int</span>, Ret::FFIType) =&gt; #ffiCall(Addr, Args, range(Types, <span class="hljs-number">0</span>, size(Types) -<span class="hljs-keyword">Int</span> NFixed), range(Types, NFixed, <span class="hljs-number">0</span>), Ret)
+  <span class="token keyword">rule</span> #ffiCall<span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">,</span> Addr<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> Args<span class="token punctuation">:</span><span class="token punctuation">:</span>List<span class="token punctuation">,</span> Types<span class="token punctuation">:</span><span class="token punctuation">:</span>List<span class="token punctuation">,</span> _<span class="token punctuation">,</span> Ret<span class="token punctuation">:</span><span class="token punctuation">:</span>FFIType<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> #ffiCall<span class="token punctuation">(</span>Addr<span class="token punctuation">,</span> Args<span class="token punctuation">,</span> Types<span class="token punctuation">,</span> Ret<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> #ffiCall<span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> Addr<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> Args<span class="token punctuation">:</span><span class="token punctuation">:</span>List<span class="token punctuation">,</span> Types<span class="token punctuation">:</span><span class="token punctuation">:</span>List<span class="token punctuation">,</span> NFixed<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> Ret<span class="token punctuation">:</span><span class="token punctuation">:</span>FFIType<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> #ffiCall<span class="token punctuation">(</span>Addr<span class="token punctuation">,</span> Args<span class="token punctuation">,</span> range<span class="token punctuation">(</span>Types<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size<span class="token punctuation">(</span>Types<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token keyword">Int</span> NFixed<span class="token punctuation">)</span><span class="token punctuation">,</span> range<span class="token punctuation">(</span>Types<span class="token punctuation">,</span> NFixed<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Ret<span class="token punctuation">)</span>
 </code></pre>
-<h2>Symbol Lookup</h2>
-<p>The FFI module provides a mechanism to look up any function symbol and return
+<h2 id="symbol-lookup">Symbol Lookup</h2>
+<p>The FFI module provides a mechanism to look up any function symbol and return<br>
 that function&apos;s address.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span><span class="hljs-keyword"> Int</span> ::= <span class="hljs-string">&quot;#functionAddress&quot;</span> <span class="hljs-string">&quot;(&quot;</span><span class="hljs-keyword"> String</span> <span class="hljs-string">&quot;)&quot;</span> [function, hook(FFI.address)]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Int</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#functionAddress&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token keyword">String</span> <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>address<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<h2>Direct Memory Management</h2>
-<p>Most memory used by the LLVM backend to represent terms is managed
-automatically via garbage collection. However, a consequence of this is that
-a particular term does not have a fixed address across its entire lifetime
-in most cases. Sometimes this is undesirable, especially if you intend for
-the address of the memory to be taken by the semantics or if you intend
-to pass this memory directly to native code. As a result, the FFI module
-exposes the following unsafe APIs for memory management. Note that use of
-these APIs leaves the burden of memory management completely on the user,
-and thus misuse of these functions can lead to things like use-after-free
+<h2 id="direct-memory-management">Direct Memory Management</h2>
+<p>Most memory used by the LLVM backend to represent terms is managed<br>
+automatically via garbage collection. However, a consequence of this is that<br>
+a particular term does not have a fixed address across its entire lifetime<br>
+in most cases. Sometimes this is undesirable, especially if you intend for<br>
+the address of the memory to be taken by the semantics or if you intend<br>
+to pass this memory directly to native code. As a result, the FFI module<br>
+exposes the following unsafe APIs for memory management. Note that use of<br>
+these APIs leaves the burden of memory management completely on the user,<br>
+and thus misuse of these functions can lead to things like use-after-free<br>
 and other memory corruption bugs.</p>
-<h3>Allocation</h3>
-<p><code>#alloc(Key, Size, Align)</code> will allocate <code>Size</code> bytes with an alignment
-requirement of <code>Align</code> (which must be a power of two), and return it as a
-<code>Bytes</code> term. The memory is uniquely identified by its key and that key will
-be used later to free the memory. The memory is not implicitly freed by garbage
-collection; failure to call <code>#free</code> on the memory at a later date can lead to
+<h3 id="allocation">Allocation</h3>
+<p><code>#alloc(Key, Size, Align)</code> will allocate <code>Size</code> bytes with an alignment<br>
+requirement of <code>Align</code> (which must be a power of two), and return it as a<br>
+<code>Bytes</code> term. The memory is uniquely identified by its key and that key will<br>
+be used later to free the memory. The memory is not implicitly freed by garbage<br>
+collection; failure to call <code>#free</code> on the memory at a later date can lead to<br>
 memory leaks.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Bytes ::= <span class="hljs-string">&quot;#alloc&quot;</span> <span class="hljs-string">&quot;(&quot;</span> KItem <span class="hljs-string">&quot;,&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;,&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;)&quot;</span> [function, hook(FFI.alloc)]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Bytes <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#alloc&quot;</span> <span class="token string">&quot;(&quot;</span> KItem <span class="token string">&quot;,&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>alloc<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Addressing</h3>
-<p><code>#addess(B)</code> will return an <code>Int</code> representing the address of the first byte of
-B, which must be a <code>Bytes</code>. Unless the <code>Bytes</code> term was allocated by <code>#alloc</code>,
-the return value is unspecified and may not be the same across multipl
-invocations on the same byte buffer. However, it is guaranteed that memory
+<h3 id="addressing">Addressing</h3>
+<p><code>#addess(B)</code> will return an <code>Int</code> representing the address of the first byte of<br>
+B, which must be a <code>Bytes</code>. Unless the <code>Bytes</code> term was allocated by <code>#alloc</code>,<br>
+the return value is unspecified and may not be the same across multipl<br>
+invocations on the same byte buffer. However, it is guaranteed that memory<br>
 allocated by <code>#alloc</code> will have the same address throughout its lifetime.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span><span class="hljs-keyword"> Int</span> ::= <span class="hljs-string">&quot;#address&quot;</span> <span class="hljs-string">&quot;(&quot;</span> Bytes <span class="hljs-string">&quot;)&quot;</span> [function, hook(FFI.bytes_address)]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Int</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#address&quot;</span> <span class="token string">&quot;(&quot;</span> Bytes <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>bytes_address<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Deallocation</h3>
-<p><code>#free(Key)</code> will free the memory of the <code>Bytes</code> object that was allocated
-by a previous call to <code>#alloc</code>. If <code>Key</code> was not used in a previous call to
-<code>#alloc</code>, or the memory was already freed, no action is taken. It will generate
-undefined behavior if the <code>Bytes</code> term returned by the previous call to
-<code>#alloc</code> is still referenced by any other term in the configuration or a
+<h3 id="deallocation">Deallocation</h3>
+<p><code>#free(Key)</code> will free the memory of the <code>Bytes</code> object that was allocated<br>
+by a previous call to <code>#alloc</code>. If <code>Key</code> was not used in a previous call to<br>
+<code>#alloc</code>, or the memory was already freed, no action is taken. It will generate<br>
+undefined behavior if the <code>Bytes</code> term returned by the previous call to<br>
+<code>#alloc</code> is still referenced by any other term in the configuration or a<br>
 currently evaluating rule. The function returns <code>.K</code>.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> K ::= <span class="hljs-string">&quot;#free&quot;</span> <span class="hljs-string">&quot;(&quot;</span> KItem <span class="hljs-string">&quot;)&quot;</span> [function, hook(FFI.free)]<span class="hljs-keyword">
-endmodule</span>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> K <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#free&quot;</span> <span class="token string">&quot;(&quot;</span> KItem <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>free<span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<h3 id="reading">Reading</h3>
+<p><code>#nativeRead(Addr, Mem)</code> will read native memory at address <code>Addr</code> into <code>Mem</code>,<br>
+reading exactly <code>lengthBytes(Mem)</code> bytes. This will generate undefined behavior<br>
+if <code>Addr</code> does not point to a readable segment of memory at least<br>
+<code>lengthBytes(Mem)</code> bytes long.</p>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> K <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#nativeRead&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> Bytes <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>read<span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<h3 id="writing">Writing</h3>
+<p><code>#nativeWrite(Addr, Mem)</code> will write the contents of <code>Mem</code> to native memory at<br>
+address <code>Addr</code>. The memory will be read prior to being written, and a write<br>
+will only happen if the memory has a different value than the current value of<br>
+<code>Mem</code>. This will generate undefined behavior if <code>Addr</code> does not point to a<br>
+readable segment of memory at least <code>lengthBytes(Mem)</code> bytes long, or if the<br>
+memory at address <code>Addr</code> has a different value than currently contained in<br>
+<code>Mem</code>, and the memory in question is not writeable.</p>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> K <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#nativeWrite&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> Bytes <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>write<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
 </body></html>
           </div>

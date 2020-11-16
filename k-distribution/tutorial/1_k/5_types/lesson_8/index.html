@@ -129,25 +129,25 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>A Naive Environment-based Polymorphic Type Inferencer</h1>
-<p>In this short lesson we discuss how to quickly turn a naive
-environment-based monomorphic type inferencer into a naive let-polymorphic
-one. Like in the previous lesson, we only need to change a few
-characters. In terms of the K framework, you will learn how to have
+            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="a-naive-environment-based-polymorphic-type-inferencer">A Naive Environment-based Polymorphic Type Inferencer</h1>
+<p>In this short lesson we discuss how to quickly turn a naive<br>
+environment-based monomorphic type inferencer into a naive let-polymorphic<br>
+one. Like in the previous lesson, we only need to change a few<br>
+characters. In terms of the K framework, you will learn how to have<br>
 both environments and substitution in the same definition.</p>
-<p>Like in the previous lesson, all we have to do is to take the LAMBDA
+<p>Like in the previous lesson, all we have to do is to take the LAMBDA<br>
 type inferencer in Lesson 5 and only change the macro</p>
 <pre><code>rule let X = E in E&apos; =&gt; (lambda X . E&apos;) E  [macro]
 </code></pre>
 <p>as follows:</p>
 <pre><code>rule let X = E in E&apos; =&gt; E&apos;[E/X]  [macro]
 </code></pre>
-<p>The reasons why this works have already been explained in the previous
+<p>The reasons why this works have already been explained in the previous<br>
 lesson, so we do not repeat them here.</p>
-<p>Since our new let macro uses substitution, we have to require the
-substitution module at the top and also import SUBSTITUTION in the
+<p>Since our new let macro uses substitution, we have to require the<br>
+substitution module at the top and also import SUBSTITUTION in the<br>
 current module, besides the already existing UNIFICATION.</p>
-<p>Everything which worked with the type inferencer in Lesson 7 should
+<p>Everything which worked with the type inferencer in Lesson 7 should<br>
 also work now. Let us only try the exponential type example,</p>
 <pre><code>let f00 = lambda x . lambda y . x in
   let f01 = lambda x . f00 (f00 x) in
@@ -157,15 +157,15 @@ also work now. Let us only try the exponential type example,</p>
           f04
 </code></pre>
 <p>As expected, this gives us precisely the same type as in Lesson 7.</p>
-<p>So the only difference between this type inferencer and the one in
-Lesson 7 is that substitution is only used for LAMBDA-to-LAMBDA
-transformations, but not for infusing types within LAMBDA programs.
-Thus, the syntax of LAMBDA programs is preserved intact, which some
-may prefer. Nevertheless, this type inferencer is still expensive and
-wasteful, because the let-bound expression is typed over and over
+<p>So the only difference between this type inferencer and the one in<br>
+Lesson 7 is that substitution is only used for LAMBDA-to-LAMBDA<br>
+transformations, but not for infusing types within LAMBDA programs.<br>
+Thus, the syntax of LAMBDA programs is preserved intact, which some<br>
+may prefer. Nevertheless, this type inferencer is still expensive and<br>
+wasteful, because the let-bound expression is typed over and over<br>
 again in each place where the let-bound variable occurs.</p>
-<p>In the next lesson we will discuss a type inferencer based on the
-classic Damas-Hindley-Milner type system, which maximizes the reuse of
+<p>In the next lesson we will discuss a type inferencer based on the<br>
+classic Damas-Hindley-Milner type system, which maximizes the reuse of<br>
 typing work by means of parametric types.</p>
 <p>Go to <a href="../lesson_9/">Lesson 9, Type Systems: Let-Polymorphic Type Inferencer (Damas-Hindley-Milner)</a>.</p>
 </body></html>

@@ -129,88 +129,88 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Syntax Modules and Basic K Commands</h1>
-<p>Here we define our first K module, which contains the initial syntax of the
+            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="syntax-modules-and-basic-k-commands">Syntax Modules and Basic K Commands</h1>
+<p>Here we define our first K module, which contains the initial syntax of the<br>
 LAMBDA language, and learn how to use the basic K commands.</p>
-<p>Let us create an empty working folder, and open a terminal window
-(to the left) and an editor window (to the right). We will edit our K
-definition in the right window in a file called <code>lambda.k</code>, and will call
+<p>Let us create an empty working folder, and open a terminal window<br>
+(to the left) and an editor window (to the right). We will edit our K<br>
+definition in the right window in a file called <code>lambda.k</code>, and will call<br>
 the K tool commands in the left window.</p>
 <p>Let us start by defining a K module, containing the syntax of LAMBDA.</p>
 <p>K modules are introduced with the keywords <code>module</code> ... <code>endmodule</code>.</p>
-<p>The keyword <code>syntax</code> adds new productions to the syntax grammar, using a
+<p>The keyword <code>syntax</code> adds new productions to the syntax grammar, using a<br>
 BNF-like notation.</p>
 <p>Terminals are enclosed in double-quotes, like strings.</p>
-<p>You can define multiple productions for the same non-terminal in the same
+<p>You can define multiple productions for the same non-terminal in the same<br>
 syntax declaration using the <code>|</code> separator.</p>
 <p>Productions can have attributes, which are enclosed in square brackets.</p>
-<p>The attribute <code>left</code> tells the parser that we want the lambda application to be
+<p>The attribute <code>left</code> tells the parser that we want the lambda application to be<br>
 left associative. For example, <code>a b c d</code> will then parse as <code>(((a b) c) d)</code>.</p>
-<p>The attribute <code>bracket</code> tells the parser to not generate a node for the
-parenthesis production in the abstract syntax trees associated to programs.
-In other words, we want to allow parentheses to be used for grouping, but we
+<p>The attribute <code>bracket</code> tells the parser to not generate a node for the<br>
+parenthesis production in the abstract syntax trees associated to programs.<br>
+In other words, we want to allow parentheses to be used for grouping, but we<br>
 do not want to bother to give them their obvious (ignore) semantics.</p>
-<p>In our variant of lambda calculus defined here, identifiers and lambda
-abstractions are meant to be irreducible, that is, are meant to be values.
-However, so far <code>Val</code> is just another non-terminal, just like <code>Exp</code>,
+<p>In our variant of lambda calculus defined here, identifiers and lambda<br>
+abstractions are meant to be irreducible, that is, are meant to be values.<br>
+However, so far <code>Val</code> is just another non-terminal, just like <code>Exp</code>,<br>
 without any semantic meaning. It will get a semantic meaning later.</p>
-<p>After we are done typing our definition in the file <code>lambda.k</code>, we can kompile
+<p>After we are done typing our definition in the file <code>lambda.k</code>, we can kompile<br>
 it with the command:</p>
 <pre><code>kompile lambda.k
 </code></pre>
-<p>If we get no errors then a parser has been generated. This parser will be
-called from now on by default by the krun tool. To see whether and how the
-parser works, we are going to write some LAMBDA programs and store them in
+<p>If we get no errors then a parser has been generated. This parser will be<br>
+called from now on by default by the krun tool. To see whether and how the<br>
+parser works, we are going to write some LAMBDA programs and store them in<br>
 files with the extension <code>.lambda</code>.</p>
-<p>Let us create a file <code>identity.lambda</code>, which contains the identity lambda
+<p>Let us create a file <code>identity.lambda</code>, which contains the identity lambda<br>
 abstraction:</p>
 <pre><code>lambda x . x
 </code></pre>
 <p>Now let us call <code>krun</code> on <code>identity.lambda</code>:</p>
 <pre><code>krun identity.lambda
 </code></pre>
-<p>Make sure you call the <code>krun</code> command from the folder containing your language
-definition (otherwise type <code>krun --help</code> to learn how to pass a language
+<p>Make sure you call the <code>krun</code> command from the folder containing your language<br>
+definition (otherwise type <code>krun --help</code> to learn how to pass a language<br>
 definition as a parameter to <code>krun</code>). The krun command produces the output:</p>
 <pre><code>&lt;k&gt;
   lambda x . x
 &lt;/k&gt;
 </code></pre>
-<p>If you see such an output it means that your program has been parsed (and then
-pretty printed) correctly. If you want to see the internal abstract syntax
-tree (AST) representation of the parsed program, which we call the K AST, then
+<p>If you see such an output it means that your program has been parsed (and then<br>
+pretty printed) correctly. If you want to see the internal abstract syntax<br>
+tree (AST) representation of the parsed program, which we call the K AST, then<br>
 type <code>kast</code> in the command instead of <code>krun</code>:</p>
 <pre><code>kast identity.lambda
 </code></pre>
-<p>You should normally never need to see this internal representation in your
-K definitions, so do not get scared (yes, it is ugly for humans, but it is
+<p>You should normally never need to see this internal representation in your<br>
+K definitions, so do not get scared (yes, it is ugly for humans, but it is<br>
 very convenient for tools).</p>
-<p>Note that <code>krun</code> placed the program in a <code>&lt;k&gt; ... &lt;/k&gt;</code> cell. In K, computations
-happen only in cells. If you do not define a configuration in your definition,
-like we did here, then a configuration will be created automatically for you
+<p>Note that <code>krun</code> placed the program in a <code>&lt;k&gt; ... &lt;/k&gt;</code> cell. In K, computations<br>
+happen only in cells. If you do not define a configuration in your definition,<br>
+like we did here, then a configuration will be created automatically for you<br>
 which contains only one cell, the default <code>k</code> cell, which holds the program.</p>
-<p>Next, let us create a file <code>free-variable-capture.lambda</code>, which contains an
-expression which, in order to execute correctly in a substitution-based
-semantics of LAMBDA, the substitution operation needs to avoid
+<p>Next, let us create a file <code>free-variable-capture.lambda</code>, which contains an<br>
+expression which, in order to execute correctly in a substitution-based<br>
+semantics of LAMBDA, the substitution operation needs to avoid<br>
 variable-capture:</p>
 <pre><code>a (((lambda x.lambda y.x) y) z)
 </code></pre>
-<p>Next, file <code>closed-variable-capture.lambda</code> shows an expression which also
-requires a capture-free substitution, but this expression is closed (that is,
-it has no free variables) and all its bound variables are distinct (I believe
+<p>Next, file <code>closed-variable-capture.lambda</code> shows an expression which also<br>
+requires a capture-free substitution, but this expression is closed (that is,<br>
+it has no free variables) and all its bound variables are distinct (I believe<br>
 this is the smallest such expression):</p>
 <pre><code>(lambda z.(z z)) (lambda x.lambda y.(x y))
 </code></pre>
-<p>Finally, the file <code>omega.lambda</code> contains the classic omega combinator
-(or closed expression), which is the smallest expression which loops forever
+<p>Finally, the file <code>omega.lambda</code> contains the classic omega combinator<br>
+(or closed expression), which is the smallest expression which loops forever<br>
 (not now, but after we define the semantics of LAMBDA):</p>
 <pre><code>(lambda x.(x x)) (lambda x.(x x))
 </code></pre>
-<p>Feel free to define and parse several other LAMBDA programs to get a feel for
-how the parser works. Parse also some incorrect programs, to see how the
+<p>Feel free to define and parse several other LAMBDA programs to get a feel for<br>
+how the parser works. Parse also some incorrect programs, to see how the<br>
 parser generates error messages.</p>
-<p>In the next lesson we will see how to define semantic rules that iteratively
-rewrite expressions over the defined syntax until they evaluate to a result.
+<p>In the next lesson we will see how to define semantic rules that iteratively<br>
+rewrite expressions over the defined syntax until they evaluate to a result.<br>
 This way, we obtain our first programming language defined using K.</p>
 <p>Go to <a href="../lesson_2/">Lesson 2, LAMBDA: Module Importing, Rules, Variables</a></p>
 <p><a href="http://youtu.be/y5Tf1EZVj8E" target="_blank" rel="noopener">MOVIE (out of date) [4&apos;07&quot;]</a></p>

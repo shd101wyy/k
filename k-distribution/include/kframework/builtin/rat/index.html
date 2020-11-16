@@ -129,217 +129,217 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <html><head></head><body><h1>Rational Numbers in K</h1>
-<p>K provides support for arbitrary-precision rational numbers represented as a
-quotient between two integers. The sort representing these values is <code>Rat</code>.
-<code>Int</code> is a subsort of <code>Rat</code>, and it is guaranteed that any integer will be
-represented as an <code>Int</code> and can be matched as such on the left hand side
+            <html><head></head><body><h1 id="rational-numbers-in-k">Rational Numbers in K</h1>
+<p>K provides support for arbitrary-precision rational numbers represented as a<br>
+quotient between two integers. The sort representing these values is <code>Rat</code>.<br>
+<code>Int</code> is a subsort of <code>Rat</code>, and it is guaranteed that any integer will be<br>
+represented as an <code>Int</code> and can be matched as such on the left hand side<br>
 of rules. K also supports the usual arithmetic operators over rational numbers.</p>
-<pre class="hljs"><code><span class="hljs-keyword">module</span> RAT-SYNTAX<span class="hljs-keyword">
-  imports</span> INT-SYNTAX<span class="hljs-keyword">
-  imports</span> BOOL<span class="hljs-keyword">
+<pre class="language-k"><code><span class="token keyword">module</span> RAT<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> INT<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> BOOL
 
-  syntax</span> Rat<span class="hljs-keyword">
+  <span class="token keyword">syntax</span> Rat
 
-  syntax</span> Rat ::=<span class="hljs-keyword"> Int</span>
+  <span class="token keyword">syntax</span> Rat <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span>
 </code></pre>
-<h2>Arithmetic</h2>
+<h2 id="arithmetic">Arithmetic</h2>
 <p>You can:</p>
 <ul>
 <li>Raise a rational number to any negative or nonnegative integer.</li>
 <li>Multiply or divide two rational numbers to obtain a product or quotient.</li>
 <li>Add or subtract two rational numbers to obtain a sum or difference.</li>
 </ul>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Rat ::= <span class="hljs-literal">left</span>:
-                 Rat <span class="hljs-string">&quot;^Rat&quot;</span><span class="hljs-keyword"> Int</span> [function, functional, klabel(_^Rat_), symbol, <span class="hljs-literal">left</span>, smtlib(ratpow), hook(RAT.pow)]
-               &gt; <span class="hljs-literal">left</span>:
-                 Rat <span class="hljs-string">&quot;*Rat&quot;</span> Rat [function, functional, klabel(_*Rat_), symbol, <span class="hljs-literal">left</span>, smtlib(ratmul), hook(RAT.mul)]
-               | Rat <span class="hljs-string">&quot;/Rat&quot;</span> Rat [function,             klabel(_/Rat_), symbol, <span class="hljs-literal">left</span>, smtlib(ratdiv), hook(RAT.div)]
-               &gt; <span class="hljs-literal">left</span>:
-                 Rat <span class="hljs-string">&quot;+Rat&quot;</span> Rat [function, functional, klabel(_+Rat_), symbol, <span class="hljs-literal">left</span>, smtlib(ratadd), hook(RAT.add)]
-               | Rat <span class="hljs-string">&quot;-Rat&quot;</span> Rat [function, functional, klabel(_-Rat_), symbol, <span class="hljs-literal">left</span>, smtlib(ratsub), hook(RAT.sub)]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Rat <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token class-name">left</span><span class="token punctuation">:</span>
+                 Rat <span class="token string">&quot;^Rat&quot;</span> <span class="token keyword">Int</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">^</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratpow<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>pow<span class="token punctuation">)</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> <span class="token class-name">left</span><span class="token punctuation">:</span>
+                 Rat <span class="token string">&quot;*Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">*</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratmul<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>mul<span class="token punctuation">)</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Rat <span class="token string">&quot;/Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span>             <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">/</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratdiv<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>div<span class="token punctuation">)</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> <span class="token class-name">left</span><span class="token punctuation">:</span>
+                 Rat <span class="token string">&quot;+Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">+</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratadd<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>add<span class="token punctuation">)</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Rat <span class="token string">&quot;-Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">-</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratsub<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>sub<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<h2>Comparison</h2>
-<p>You can determine whether two rational numbers are equal, unequal, or compare
-one of less than, less than or equalto, greater than, or greater than or equal
+<h2 id="comparison">Comparison</h2>
+<p>You can determine whether two rational numbers are equal, unequal, or compare<br>
+one of less than, less than or equalto, greater than, or greater than or equal<br>
 to the other:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span><span class="hljs-keyword"> Bool</span> ::= Rat  <span class="hljs-string">&quot;==Rat&quot;</span> Rat [function, functional, klabel(_==Rat_),  symbol, smtlib(rateq), hook(RAT.eq)]
-                | Rat <span class="hljs-string">&quot;=/=Rat&quot;</span> Rat [function, functional, klabel(_=/=Rat_), symbol, smtlib(ratne), hook(RAT.ne)]
-                | Rat   <span class="hljs-string">&quot;&gt;Rat&quot;</span> Rat [function, functional, klabel(_&gt;Rat_),   symbol, smtlib(ratgt), hook(RAT.gt)]
-                | Rat  <span class="hljs-string">&quot;&gt;=Rat&quot;</span> Rat [function, functional, klabel(_&gt;=Rat_),  symbol, smtlib(ratge), hook(RAT.ge)]
-                | Rat   <span class="hljs-string">&quot;&lt;Rat&quot;</span> Rat [function, functional, klabel(_&lt;Rat_),   symbol, smtlib(ratlt), hook(RAT.lt)]
-                | Rat  <span class="hljs-string">&quot;&lt;=Rat&quot;</span> Rat [function, functional, klabel(_&lt;=Rat_),  symbol, smtlib(ratle), hook(RAT.le)]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Bool</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Rat  <span class="token string">&quot;==Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">==</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span>  symbol<span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>rateq<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>eq<span class="token punctuation">)</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> Rat <span class="token string">&quot;=/=Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratne<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>ne<span class="token punctuation">)</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> Rat   <span class="token string">&quot;&gt;Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">&gt;</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span>   symbol<span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratgt<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>gt<span class="token punctuation">)</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> Rat  <span class="token string">&quot;&gt;=Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">&gt;=</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span>  symbol<span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratge<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>ge<span class="token punctuation">)</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> Rat   <span class="token string">&quot;&lt;Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">&lt;</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span>   symbol<span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratlt<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>lt<span class="token punctuation">)</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> Rat  <span class="token string">&quot;&lt;=Rat&quot;</span> Rat <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>_<span class="token operator">&lt;=</span>Rat_<span class="token punctuation">)</span><span class="token punctuation">,</span>  symbol<span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratle<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>le<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<h2>Min/Max</h2>
+<h2 id="min%2Fmax">Min/Max</h2>
 <p>You can compute the minimum and maximum of two rational numbers:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Rat ::= minRat(Rat, Rat) [function, functional, klabel(minRat), symbol, smtlib(ratmin), hook(RAT.min)]
-               | maxRat(Rat, Rat) [function, functional, klabel(maxRat), symbol, smtlib(ratmax), hook(RAT.max)]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Rat <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> minRat<span class="token punctuation">(</span>Rat<span class="token punctuation">,</span> Rat<span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>minRat<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratmin<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>min<span class="token punctuation">)</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> maxRat<span class="token punctuation">(</span>Rat<span class="token punctuation">,</span> Rat<span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">,</span> <span class="token class-name">klabel</span><span class="token punctuation">(</span>maxRat<span class="token punctuation">)</span><span class="token punctuation">,</span> symbol<span class="token punctuation">,</span> smtlib<span class="token punctuation">(</span>ratmax<span class="token punctuation">)</span><span class="token punctuation">,</span> hook<span class="token punctuation">(</span>RAT<span class="token punctuation">.</span>max<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<h2>Conversion to Floating Point</h2>
-<p>You can convert a rational number to the nearest floating point number that
-is representable in a <code>Float</code> of a specified number of precision and exponent
+<h2 id="conversion-to-floating-point">Conversion to Floating Point</h2>
+<p>You can convert a rational number to the nearest floating point number that<br>
+is representable in a <code>Float</code> of a specified number of precision and exponent<br>
 bits:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span><span class="hljs-keyword"> Float</span> ::= Rat2Float(Rat, precision:<span class="hljs-keyword"> Int</span>, exponentBits:<span class="hljs-keyword"> Int</span>) [function]<span class="hljs-keyword">
-endmodule</span>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Float</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Rat2Float<span class="token punctuation">(</span>Rat<span class="token punctuation">,</span> precision<span class="token punctuation">:</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> exponentBits<span class="token punctuation">:</span> <span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
-<h2>Implementation of Rational Numbers</h2>
-<p>The remainder of this file consists of an implementation in K of the
-operations listed above. Users of the RAT module should not use any of the
+<h2 id="implementation-of-rational-numbers">Implementation of Rational Numbers</h2>
+<p>The remainder of this file consists of an implementation in K of the<br>
+operations listed above. Users of the RAT module should not use any of the<br>
 syntax defined in any of these modules.</p>
-<p>As a point of reference for users, it is worth noting that rational numbers
-are normalized to a canonical form by this module,. with the canonical form
-bearing the property that it is either an <code>Int</code>, or a pair of integers
-<code>I /Rat J</code> such that
+<p>As a point of reference for users, it is worth noting that rational numbers<br>
+are normalized to a canonical form by this module,. with the canonical form<br>
+bearing the property that it is either an <code>Int</code>, or a pair of integers<br>
+<code>I /Rat J</code> such that<br>
 <code>I =/=Int 0 andBool J &gt;=Int 2 andBool gcdInt(I, J) ==Int 1</code> is always true.</p>
-<pre class="hljs"><code><span class="hljs-keyword">module</span> RAT-COMMON<span class="hljs-keyword">
-  imports</span> RAT-SYNTAX
+<pre class="language-k"><code><span class="token keyword">module</span> RAT<span class="token operator">-</span>COMMON
+  <span class="token keyword">imports</span> RAT<span class="token operator">-</span>SYNTAX
 
-  <span class="hljs-comment">// invariant of &lt; I , J &gt;Rat : I =/= 0, J &gt;= 2, and I and J are coprime</span><span class="hljs-keyword">
-  syntax</span> Rat ::= <span class="hljs-string">&quot;&lt;&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;,&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;&gt;Rat&quot;</span> [format(%<span class="hljs-number">2</span> /Rat %<span class="hljs-number">4</span>)]<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+  <span class="token comment">// invariant of &lt; I , J &gt;Rat : I =/= 0, J &gt;= 2, and I and J are coprime</span>
+  <span class="token keyword">syntax</span> Rat <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;&lt;&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;&gt;Rat&quot;</span> <span class="token punctuation">[</span><span class="token class-name">format</span><span class="token punctuation">(</span><span class="token operator">%</span><span class="token number">2</span> <span class="token operator">/</span>Rat <span class="token operator">%</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 
-module</span> RAT-SYMBOLIC [symbolic, kore]<span class="hljs-keyword">
-  imports</span> RAT-COMMON<span class="hljs-keyword">
-  imports</span> ML-SYNTAX<span class="hljs-keyword">
+<span class="token keyword">module</span> RAT<span class="token operator">-</span>SYMBOLIC <span class="token punctuation">[</span>symbolic<span class="token punctuation">,</span> kore<span class="token punctuation">]</span>
+  <span class="token keyword">imports</span> RAT<span class="token operator">-</span>COMMON
+  <span class="token keyword">imports</span> ML<span class="token operator">-</span>SYNTAX
 
-  rule</span>
-    #Ceil(@R1:Rat /Rat @R2:Rat)
-  =&gt;
-    {(@R2 =/=Rat <span class="hljs-number">0</span>) #Equals true} #And #Ceil(@R1) #And #Ceil(@R2)
-  [anywhere]<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+  <span class="token keyword">rule</span>
+    #Ceil<span class="token punctuation">(</span>@R1<span class="token punctuation">:</span>Rat <span class="token operator">/</span>Rat @R2<span class="token punctuation">:</span>Rat<span class="token punctuation">)</span>
+  <span class="token operator">=</span><span class="token operator">&gt;</span>
+    <span class="token punctuation">{</span><span class="token punctuation">(</span>@R2 <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>Rat <span class="token number">0</span><span class="token punctuation">)</span> #Equals <span class="token boolean">true</span><span class="token punctuation">}</span> #And #Ceil<span class="token punctuation">(</span>@R1<span class="token punctuation">)</span> #And #Ceil<span class="token punctuation">(</span>@R2<span class="token punctuation">)</span>
+  <span class="token punctuation">[</span>simplification<span class="token punctuation">,</span> anywhere<span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
 
-module</span> RAT-KORE [kore]<span class="hljs-keyword">
-  imports</span> RAT-COMMON<span class="hljs-keyword">
-  imports</span> K-EQUAL
+<span class="token keyword">module</span> RAT<span class="token operator">-</span>KORE <span class="token punctuation">[</span>kore<span class="token punctuation">]</span>
+  <span class="token keyword">imports</span> RAT<span class="token operator">-</span>COMMON
+  <span class="token keyword">imports</span> K<span class="token operator">-</span>EQUAL
 
-  <span class="hljs-comment">/*
+  <span class="token comment">/*
    * equalities
    */</span>
 
-  <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> the two rules below may not work correctly in non-kore backends</span><span class="hljs-keyword">
+  <span class="token comment">// NOTE: the two rules below may not work correctly in non-kore backends</span>
 
-  rule</span> R ==Rat S =&gt; R ==K S<span class="hljs-keyword">
+  <span class="token keyword">rule</span> R <span class="token operator">==</span>Rat S <span class="token operator">=</span><span class="token operator">&gt;</span> R <span class="token operator">==</span>K S
 
-  rule</span> R =/=Rat S =&gt; R =/=K S<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+  <span class="token keyword">rule</span> R <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>Rat S <span class="token operator">=</span><span class="token operator">&gt;</span> R <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>K S
+<span class="token keyword">endmodule</span>
 
-module</span> RAT-KAST [kast]<span class="hljs-keyword">
-  imports</span> RAT-COMMON<span class="hljs-keyword">
-  imports</span> INT
+<span class="token keyword">module</span> RAT<span class="token operator">-</span>KAST <span class="token punctuation">[</span>kast<span class="token punctuation">]</span>
+  <span class="token keyword">imports</span> RAT<span class="token operator">-</span>COMMON
+  <span class="token keyword">imports</span> INT
 
-  <span class="hljs-comment">/*
+  <span class="token comment">/*
    * equalities for non-kore backends such as the java backend
-   */</span><span class="hljs-keyword">
+   */</span>
 
-  rule</span> &lt; I , I&apos; &gt;Rat ==Rat &lt; J , J&apos; &gt;Rat =&gt; I ==<span class="hljs-keyword">Int</span> J andBool I&apos; ==<span class="hljs-keyword">Int</span> J&apos;<span class="hljs-keyword">
-  rule</span> _:<span class="hljs-keyword">Int</span>         ==Rat &lt; _ , _  &gt;Rat =&gt; false<span class="hljs-keyword">
-  rule</span> &lt; _ , _  &gt;Rat ==Rat _:<span class="hljs-keyword">Int</span>         =&gt; false<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         ==Rat J:<span class="hljs-keyword">Int</span>         =&gt; I ==<span class="hljs-keyword">Int</span> J<span class="hljs-keyword">
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> I <span class="token punctuation">,</span> I<span class="token string">&apos; &gt;Rat ==Rat &lt; J , J&apos;</span> <span class="token operator">&gt;</span>Rat <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">==</span><span class="token keyword">Int</span> J andBool I<span class="token string">&apos; ==Int J&apos;</span>
+  <span class="token keyword">rule</span> _<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">==</span>Rat <span class="token operator">&lt;</span> _ <span class="token punctuation">,</span> _  <span class="token operator">&gt;</span>Rat <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">false</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> _ <span class="token punctuation">,</span> _  <span class="token operator">&gt;</span>Rat <span class="token operator">==</span>Rat _<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">false</span>
+  <span class="token keyword">rule</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">==</span>Rat J<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">==</span><span class="token keyword">Int</span> J
 
-  rule</span> R =/=Rat S =&gt; notBool (R ==Rat S)<span class="hljs-keyword">
-endmodule</span><span class="hljs-keyword">
+  <span class="token keyword">rule</span> R <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>Rat S <span class="token operator">=</span><span class="token operator">&gt;</span> notBool <span class="token punctuation">(</span>R <span class="token operator">==</span>Rat S<span class="token punctuation">)</span>
+<span class="token keyword">endmodule</span>
 
-module</span> RAT<span class="hljs-keyword">
-  imports</span> RAT-COMMON<span class="hljs-keyword">
-  imports</span> RAT-SYMBOLIC<span class="hljs-keyword">
-  imports</span> RAT-KORE<span class="hljs-keyword">
-  imports</span> RAT-KAST<span class="hljs-keyword">
-  imports</span> INT
+<span class="token keyword">module</span> RAT
+  <span class="token keyword">imports</span> RAT<span class="token operator">-</span>COMMON
+  <span class="token keyword">imports</span> RAT<span class="token operator">-</span>SYMBOLIC
+  <span class="token keyword">imports</span> RAT<span class="token operator">-</span>KORE
+  <span class="token keyword">imports</span> RAT<span class="token operator">-</span>KAST
+  <span class="token keyword">imports</span> INT
 
-  <span class="hljs-comment">/*
+  <span class="token comment">/*
    * arithmetic
-   */</span><span class="hljs-keyword">
+   */</span>
 
-  rule</span> &lt; I , I&apos; &gt;Rat +Rat &lt; J , J&apos; &gt;Rat =&gt; ((I *<span class="hljs-keyword">Int</span> J&apos;) +<span class="hljs-keyword">Int</span> (I&apos; *<span class="hljs-keyword">Int</span> J)) /Rat (I&apos; *<span class="hljs-keyword">Int</span> J&apos;)<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         +Rat &lt; J , J&apos; &gt;Rat =&gt; ((I *<span class="hljs-keyword">Int</span> J&apos;) +<span class="hljs-keyword">Int</span> J) /Rat J&apos;<span class="hljs-keyword">
-  rule</span> &lt; J , J&apos; &gt;Rat +Rat I:<span class="hljs-keyword">Int</span>         =&gt; I +Rat &lt; J , J&apos; &gt;Rat<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         +Rat J:<span class="hljs-keyword">Int</span>         =&gt; I +<span class="hljs-keyword">Int</span> J<span class="hljs-keyword">
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> I <span class="token punctuation">,</span> I<span class="token string">&apos; &gt;Rat +Rat &lt; J , J&apos;</span> <span class="token operator">&gt;</span>Rat <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>I <span class="token operator">*</span><span class="token keyword">Int</span> J<span class="token string">&apos;) +Int (I&apos;</span> <span class="token operator">*</span><span class="token keyword">Int</span> J<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span>Rat <span class="token punctuation">(</span>I<span class="token string">&apos; *Int J&apos;</span><span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">+</span>Rat <span class="token operator">&lt;</span> J <span class="token punctuation">,</span> J<span class="token string">&apos; &gt;Rat =&gt; ((I *Int J&apos;</span><span class="token punctuation">)</span> <span class="token operator">+</span><span class="token keyword">Int</span> J<span class="token punctuation">)</span> <span class="token operator">/</span>Rat J&apos;
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> J <span class="token punctuation">,</span> J<span class="token string">&apos; &gt;Rat +Rat I:Int         =&gt; I +Rat &lt; J , J&apos;</span> <span class="token operator">&gt;</span>Rat
+  <span class="token keyword">rule</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">+</span>Rat J<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">+</span><span class="token keyword">Int</span> J
 
-  rule</span> &lt; I , I&apos; &gt;Rat *Rat &lt; J , J&apos; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J) /Rat (I&apos; *<span class="hljs-keyword">Int</span> J&apos;)<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         *Rat &lt; J , J&apos; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J) /Rat J&apos;<span class="hljs-keyword">
-  rule</span> &lt; J , J&apos; &gt;Rat *Rat I:<span class="hljs-keyword">Int</span>         =&gt; I *Rat &lt; J , J&apos; &gt;Rat<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         *Rat J:<span class="hljs-keyword">Int</span>         =&gt; I *<span class="hljs-keyword">Int</span> J<span class="hljs-keyword">
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> I <span class="token punctuation">,</span> I<span class="token string">&apos; &gt;Rat *Rat &lt; J , J&apos;</span> <span class="token operator">&gt;</span>Rat <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>I <span class="token operator">*</span><span class="token keyword">Int</span> J<span class="token punctuation">)</span> <span class="token operator">/</span>Rat <span class="token punctuation">(</span>I<span class="token string">&apos; *Int J&apos;</span><span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">*</span>Rat <span class="token operator">&lt;</span> J <span class="token punctuation">,</span> J<span class="token string">&apos; &gt;Rat =&gt; (I *Int J) /Rat J&apos;</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> J <span class="token punctuation">,</span> J<span class="token string">&apos; &gt;Rat *Rat I:Int         =&gt; I *Rat &lt; J , J&apos;</span> <span class="token operator">&gt;</span>Rat
+  <span class="token keyword">rule</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">*</span>Rat J<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">*</span><span class="token keyword">Int</span> J
 
-  rule</span> &lt; I , I&apos; &gt;Rat /Rat &lt; J , J&apos; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J&apos;) /Rat (I&apos; *<span class="hljs-keyword">Int</span> J)<span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         /Rat &lt; J , J&apos; &gt;Rat =&gt; (I *<span class="hljs-keyword">Int</span> J&apos;) /Rat J<span class="hljs-keyword">
-  rule</span> &lt; I , I&apos; &gt;Rat /Rat J:<span class="hljs-keyword">Int</span>         =&gt; I /Rat (I&apos; *<span class="hljs-keyword">Int</span> J)<span class="hljs-keyword"> requires</span> J =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>         /Rat J:<span class="hljs-keyword">Int</span>         =&gt; makeRat(I, J)<span class="hljs-keyword">      requires</span> J =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> I <span class="token punctuation">,</span> I<span class="token string">&apos; &gt;Rat /Rat &lt; J , J&apos;</span> <span class="token operator">&gt;</span>Rat <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>I <span class="token operator">*</span><span class="token keyword">Int</span> J<span class="token string">&apos;) /Rat (I&apos;</span> <span class="token operator">*</span><span class="token keyword">Int</span> J<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">/</span>Rat <span class="token operator">&lt;</span> J <span class="token punctuation">,</span> J<span class="token string">&apos; &gt;Rat =&gt; (I *Int J&apos;</span><span class="token punctuation">)</span> <span class="token operator">/</span>Rat J
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> I <span class="token punctuation">,</span> I<span class="token string">&apos; &gt;Rat /Rat J:Int         =&gt; I /Rat (I&apos;</span> <span class="token operator">*</span><span class="token keyword">Int</span> J<span class="token punctuation">)</span> <span class="token keyword">requires</span> J <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span>
+  <span class="token keyword">rule</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">/</span>Rat J<span class="token punctuation">:</span><span class="token keyword">Int</span>         <span class="token operator">=</span><span class="token operator">&gt;</span> makeRat<span class="token punctuation">(</span>I<span class="token punctuation">,</span> J<span class="token punctuation">)</span>      <span class="token keyword">requires</span> J <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  <span class="hljs-comment">// derived</span><span class="hljs-keyword">
+  <span class="token comment">// derived</span>
 
-  rule</span> R -Rat S =&gt; R +Rat (<span class="hljs-number">-1</span> *Rat S)
+  <span class="token keyword">rule</span> R <span class="token operator">-</span>Rat S <span class="token operator">=</span><span class="token operator">&gt;</span> R <span class="token operator">+</span>Rat <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span> <span class="token operator">*</span>Rat S<span class="token punctuation">)</span>
 
-  <span class="hljs-comment">// normalize</span><span class="hljs-keyword">
+  <span class="token comment">// normalize</span>
 
-  syntax</span> Rat ::= makeRat(<span class="hljs-keyword">Int</span>,<span class="hljs-keyword"> Int</span>)      [function]
-               | makeRat(<span class="hljs-keyword">Int</span>,<span class="hljs-keyword"> Int</span>,<span class="hljs-keyword"> Int</span>) [function]<span class="hljs-keyword">
+  <span class="token keyword">syntax</span> Rat <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> makeRat<span class="token punctuation">(</span><span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">)</span>      <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
+               <span class="token operator">|</span> makeRat<span class="token punctuation">(</span><span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
 
-  rule</span> makeRat(<span class="hljs-number">0</span>, J) =&gt; <span class="hljs-number">0</span><span class="hljs-keyword"> requires</span> J =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
+  <span class="token keyword">rule</span> makeRat<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> J<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">requires</span> J <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  rule</span> makeRat(I, J) =&gt; makeRat(I, J, gcdInt(I,J))<span class="hljs-keyword"> requires</span> I =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span> andBool J =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span>
+  <span class="token keyword">rule</span> makeRat<span class="token punctuation">(</span>I<span class="token punctuation">,</span> J<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> makeRat<span class="token punctuation">(</span>I<span class="token punctuation">,</span> J<span class="token punctuation">,</span> gcdInt<span class="token punctuation">(</span>I<span class="token punctuation">,</span>J<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">requires</span> I <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span> andBool J <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  <span class="hljs-comment">// makeRat(I, J, D) is defined when I =/= 0, J =/= 0, D &gt; 0, and D = gcd(I,J)</span><span class="hljs-keyword">
-  rule</span> makeRat(I, J, D) =&gt; I /<span class="hljs-keyword">Int</span> D<span class="hljs-keyword">                       requires</span> J ==<span class="hljs-keyword">Int</span> D <span class="hljs-comment">// implies J &gt; 0 since D &gt; 0</span><span class="hljs-keyword">
-  rule</span> makeRat(I, J, D) =&gt; &lt; I /<span class="hljs-keyword">Int</span> D , J /<span class="hljs-keyword">Int</span> D &gt;Rat<span class="hljs-keyword">     requires</span> J &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span> andBool J =/=<span class="hljs-keyword">Int</span> D<span class="hljs-keyword">
-  rule</span> makeRat(I, J, D) =&gt; makeRat(<span class="hljs-number">0</span> -<span class="hljs-keyword">Int</span> I, <span class="hljs-number">0</span> -<span class="hljs-keyword">Int</span> J, D)<span class="hljs-keyword"> requires</span> J &lt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span>
+  <span class="token comment">// makeRat(I, J, D) is defined when I =/= 0, J =/= 0, D &gt; 0, and D = gcd(I,J)</span>
+  <span class="token keyword">rule</span> makeRat<span class="token punctuation">(</span>I<span class="token punctuation">,</span> J<span class="token punctuation">,</span> D<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">/</span><span class="token keyword">Int</span> D                       <span class="token keyword">requires</span> J <span class="token operator">==</span><span class="token keyword">Int</span> D <span class="token comment">// implies J &gt; 0 since D &gt; 0</span>
+  <span class="token keyword">rule</span> makeRat<span class="token punctuation">(</span>I<span class="token punctuation">,</span> J<span class="token punctuation">,</span> D<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">&lt;</span> I <span class="token operator">/</span><span class="token keyword">Int</span> D <span class="token punctuation">,</span> J <span class="token operator">/</span><span class="token keyword">Int</span> D <span class="token operator">&gt;</span>Rat     <span class="token keyword">requires</span> J <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">0</span> andBool J <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> D
+  <span class="token keyword">rule</span> makeRat<span class="token punctuation">(</span>I<span class="token punctuation">,</span> J<span class="token punctuation">,</span> D<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> makeRat<span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">-</span><span class="token keyword">Int</span> I<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token operator">-</span><span class="token keyword">Int</span> J<span class="token punctuation">,</span> D<span class="token punctuation">)</span> <span class="token keyword">requires</span> J <span class="token operator">&lt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  <span class="hljs-comment">// gcdInt(a,b) computes the gcd of |a| and |b|, which is positive.</span><span class="hljs-keyword">
-  syntax</span><span class="hljs-keyword"> Int</span> ::= gcdInt(<span class="hljs-keyword">Int</span>,<span class="hljs-keyword"> Int</span>) [function]<span class="hljs-keyword">
+  <span class="token comment">// gcdInt(a,b) computes the gcd of |a| and |b|, which is positive.</span>
+  <span class="token keyword">syntax</span> <span class="token keyword">Int</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> gcdInt<span class="token punctuation">(</span><span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
 
-  rule</span> gcdInt(A, <span class="hljs-number">0</span>) =&gt; A<span class="hljs-keyword">        requires</span> A &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> gcdInt(A, <span class="hljs-number">0</span>) =&gt; <span class="hljs-number">0</span> -<span class="hljs-keyword">Int</span> A<span class="hljs-keyword"> requires</span> A &lt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> gcdInt(A, B) =&gt; gcdInt(B, A %<span class="hljs-keyword">Int</span> B)<span class="hljs-keyword"> requires</span> B =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span> <span class="hljs-comment">// since |A %Int B| = |A| %Int |B|</span>
+  <span class="token keyword">rule</span> gcdInt<span class="token punctuation">(</span>A<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> A        <span class="token keyword">requires</span> A <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
+  <span class="token keyword">rule</span> gcdInt<span class="token punctuation">(</span>A<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">-</span><span class="token keyword">Int</span> A <span class="token keyword">requires</span> A <span class="token operator">&lt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
+  <span class="token keyword">rule</span> gcdInt<span class="token punctuation">(</span>A<span class="token punctuation">,</span> B<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> gcdInt<span class="token punctuation">(</span>B<span class="token punctuation">,</span> A <span class="token operator">%</span><span class="token keyword">Int</span> B<span class="token punctuation">)</span> <span class="token keyword">requires</span> B <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span> <span class="token comment">// since |A %Int B| = |A| %Int |B|</span>
 
-  <span class="hljs-comment">/*
+  <span class="token comment">/*
    * exponentiation
-   */</span><span class="hljs-keyword">
+   */</span>
 
-  rule</span> _ ^Rat <span class="hljs-number">0</span> =&gt; <span class="hljs-number">1</span><span class="hljs-keyword">
-  rule</span> <span class="hljs-number">0</span> ^Rat N =&gt; <span class="hljs-number">0</span><span class="hljs-keyword"> requires</span> N =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
+  <span class="token keyword">rule</span> _ <span class="token operator">^</span>Rat <span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">1</span>
+  <span class="token keyword">rule</span> <span class="token number">0</span> <span class="token operator">^</span>Rat N <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token keyword">requires</span> N <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  rule</span> &lt; I , J &gt;Rat ^Rat N =&gt; powRat(&lt; I , J &gt;Rat, N)<span class="hljs-keyword"> requires</span> N &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> X:<span class="hljs-keyword">Int</span>        ^Rat N =&gt; X ^<span class="hljs-keyword">Int</span> N<span class="hljs-keyword">                requires</span> N &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> I <span class="token punctuation">,</span> J <span class="token operator">&gt;</span>Rat <span class="token operator">^</span>Rat N <span class="token operator">=</span><span class="token operator">&gt;</span> powRat<span class="token punctuation">(</span><span class="token operator">&lt;</span> I <span class="token punctuation">,</span> J <span class="token operator">&gt;</span>Rat<span class="token punctuation">,</span> N<span class="token punctuation">)</span> <span class="token keyword">requires</span> N <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
+  <span class="token keyword">rule</span> X<span class="token punctuation">:</span><span class="token keyword">Int</span>        <span class="token operator">^</span>Rat N <span class="token operator">=</span><span class="token operator">&gt;</span> X <span class="token operator">^</span><span class="token keyword">Int</span> N                <span class="token keyword">requires</span> N <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  rule</span> X ^Rat N =&gt; (<span class="hljs-number">1</span> /Rat X) ^Rat (<span class="hljs-number">0</span> -<span class="hljs-keyword">Int</span> N)<span class="hljs-keyword"> requires</span> X =/=Rat <span class="hljs-number">0</span> andBool N &lt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span>
+  <span class="token keyword">rule</span> X <span class="token operator">^</span>Rat N <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">/</span>Rat X<span class="token punctuation">)</span> <span class="token operator">^</span>Rat <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">-</span><span class="token keyword">Int</span> N<span class="token punctuation">)</span> <span class="token keyword">requires</span> X <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>Rat <span class="token number">0</span> andBool N <span class="token operator">&lt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  <span class="hljs-comment">// exponentiation by squaring</span><span class="hljs-keyword">
+  <span class="token comment">// exponentiation by squaring</span>
 
-  syntax</span> Rat ::= powRat(Rat,<span class="hljs-keyword"> Int</span>) [function]
+  <span class="token keyword">syntax</span> Rat <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> powRat<span class="token punctuation">(</span>Rat<span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
 
-  <span class="hljs-comment">// powRat(X, N) is defined when X =/= 0 and N &gt; 0</span><span class="hljs-keyword">
-  rule</span> powRat(X, <span class="hljs-number">1</span>) =&gt; X<span class="hljs-keyword">
-  rule</span> powRat(X, N) =&gt; powRat(X *Rat X, N /<span class="hljs-keyword">Int</span> <span class="hljs-number">2</span>)<span class="hljs-keyword"> requires</span> N &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span> andBool N %<span class="hljs-keyword">Int</span> <span class="hljs-number">2</span>  ==<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> powRat(X, N) =&gt; powRat(X, N -<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>) *Rat X<span class="hljs-keyword"> requires</span> N &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span> andBool N %<span class="hljs-keyword">Int</span> <span class="hljs-number">2</span> =/=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span>
+  <span class="token comment">// powRat(X, N) is defined when X =/= 0 and N &gt; 0</span>
+  <span class="token keyword">rule</span> powRat<span class="token punctuation">(</span>X<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> X
+  <span class="token keyword">rule</span> powRat<span class="token punctuation">(</span>X<span class="token punctuation">,</span> N<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> powRat<span class="token punctuation">(</span>X <span class="token operator">*</span>Rat X<span class="token punctuation">,</span> N <span class="token operator">/</span><span class="token keyword">Int</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">requires</span> N <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">1</span> andBool N <span class="token operator">%</span><span class="token keyword">Int</span> <span class="token number">2</span>  <span class="token operator">==</span><span class="token keyword">Int</span> <span class="token number">0</span>
+  <span class="token keyword">rule</span> powRat<span class="token punctuation">(</span>X<span class="token punctuation">,</span> N<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> powRat<span class="token punctuation">(</span>X<span class="token punctuation">,</span> N <span class="token operator">-</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span>Rat X <span class="token keyword">requires</span> N <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">1</span> andBool N <span class="token operator">%</span><span class="token keyword">Int</span> <span class="token number">2</span> <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  <span class="hljs-comment">/*
+  <span class="token comment">/*
    * inequalities
-   */</span><span class="hljs-keyword">
+   */</span>
 
-  rule</span> R &gt;Rat S =&gt; R -Rat S &gt;Rat <span class="hljs-number">0</span><span class="hljs-keyword"> requires</span> S =/=Rat <span class="hljs-number">0</span><span class="hljs-keyword">
+  <span class="token keyword">rule</span> R <span class="token operator">&gt;</span>Rat S <span class="token operator">=</span><span class="token operator">&gt;</span> R <span class="token operator">-</span>Rat S <span class="token operator">&gt;</span>Rat <span class="token number">0</span> <span class="token keyword">requires</span> S <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>Rat <span class="token number">0</span>
 
-  rule</span> &lt; I , _ &gt;Rat &gt;Rat <span class="hljs-number">0</span> =&gt; I &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> I:<span class="hljs-keyword">Int</span>        &gt;Rat <span class="hljs-number">0</span> =&gt; I &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span> I <span class="token punctuation">,</span> _ <span class="token operator">&gt;</span>Rat <span class="token operator">&gt;</span>Rat <span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
+  <span class="token keyword">rule</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span>        <span class="token operator">&gt;</span>Rat <span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  <span class="hljs-comment">// derived</span><span class="hljs-keyword">
+  <span class="token comment">// derived</span>
 
-  rule</span> R &gt;=Rat S =&gt; notBool R &lt;Rat S<span class="hljs-keyword">
+  <span class="token keyword">rule</span> R <span class="token operator">&gt;=</span>Rat S <span class="token operator">=</span><span class="token operator">&gt;</span> notBool R <span class="token operator">&lt;</span>Rat S
 
-  rule</span> R &lt;Rat S =&gt; S &gt;Rat R<span class="hljs-keyword">
+  <span class="token keyword">rule</span> R <span class="token operator">&lt;</span>Rat S <span class="token operator">=</span><span class="token operator">&gt;</span> S <span class="token operator">&gt;</span>Rat R
 
-  rule</span> R &lt;=Rat S =&gt; S &gt;=Rat R<span class="hljs-keyword">
+  <span class="token keyword">rule</span> R <span class="token operator">&lt;=</span>Rat S <span class="token operator">=</span><span class="token operator">&gt;</span> S <span class="token operator">&gt;=</span>Rat R
 
-  rule</span> minRat(R, S) =&gt; R<span class="hljs-keyword"> requires</span> R &lt;=Rat S<span class="hljs-keyword">
-  rule</span> minRat(R, S) =&gt; S<span class="hljs-keyword"> requires</span> S &lt;=Rat R<span class="hljs-keyword">
+  <span class="token keyword">rule</span> minRat<span class="token punctuation">(</span>R<span class="token punctuation">,</span> S<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> R <span class="token keyword">requires</span> R <span class="token operator">&lt;=</span>Rat S
+  <span class="token keyword">rule</span> minRat<span class="token punctuation">(</span>R<span class="token punctuation">,</span> S<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> S <span class="token keyword">requires</span> S <span class="token operator">&lt;=</span>Rat R
 
-  rule</span> maxRat(R, S) =&gt; R<span class="hljs-keyword"> requires</span> R &gt;=Rat S<span class="hljs-keyword">
-  rule</span> maxRat(R, S) =&gt; S<span class="hljs-keyword"> requires</span> S &gt;=Rat R<span class="hljs-keyword">
+  <span class="token keyword">rule</span> maxRat<span class="token punctuation">(</span>R<span class="token punctuation">,</span> S<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> R <span class="token keyword">requires</span> R <span class="token operator">&gt;=</span>Rat S
+  <span class="token keyword">rule</span> maxRat<span class="token punctuation">(</span>R<span class="token punctuation">,</span> S<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> S <span class="token keyword">requires</span> S <span class="token operator">&gt;=</span>Rat R
 
-  syntax</span><span class="hljs-keyword"> Float</span> ::= #Rat2Float(<span class="hljs-keyword">Int</span>,<span class="hljs-keyword"> Int</span>,<span class="hljs-keyword"> Int</span>,<span class="hljs-keyword"> Int</span>) [function, hook(FLOAT.rat2float)]<span class="hljs-keyword">
-  rule</span> Rat2Float(Num:<span class="hljs-keyword">Int</span>, Prec:<span class="hljs-keyword">Int</span>, Exp:<span class="hljs-keyword">Int</span>) =&gt; #Rat2Float(Num, <span class="hljs-number">1</span>, Prec, Exp)<span class="hljs-keyword">
-  rule</span> Rat2Float(&lt; Num, Dem &gt;Rat, Prec, Exp) =&gt; #Rat2Float(Num, Dem, Prec, Exp)<span class="hljs-keyword">
+  <span class="token keyword">syntax</span> <span class="token keyword">Float</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> #Rat2Float<span class="token punctuation">(</span><span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FLOAT<span class="token punctuation">.</span>rat2float<span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> Rat2Float<span class="token punctuation">(</span>Num<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> Prec<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> Exp<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> #Rat2Float<span class="token punctuation">(</span>Num<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> Prec<span class="token punctuation">,</span> Exp<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> Rat2Float<span class="token punctuation">(</span><span class="token operator">&lt;</span> Num<span class="token punctuation">,</span> Dem <span class="token operator">&gt;</span>Rat<span class="token punctuation">,</span> Prec<span class="token punctuation">,</span> Exp<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> #Rat2Float<span class="token punctuation">(</span>Num<span class="token punctuation">,</span> Dem<span class="token punctuation">,</span> Prec<span class="token punctuation">,</span> Exp<span class="token punctuation">)</span>
 
-endmodule</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
 </body></html>
           </div>

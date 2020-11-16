@@ -129,64 +129,64 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1>Substitution-Based Higher-Order Type Systems</h1>
-<p>In this lesson you learn how to define a substitution-based type system for
-a higher-order language, namely the LAMBDA language defined in Part 1 of the
+            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="substitution-based-higher-order-type-systems">Substitution-Based Higher-Order Type Systems</h1>
+<p>In this lesson you learn how to define a substitution-based type system for<br>
+a higher-order language, namely the LAMBDA language defined in Part 1 of the<br>
 tutorial.</p>
-<p>Let us copy the definition of LAMBDA from Part 1 of the tutorial, Lesson 8.
+<p>Let us copy the definition of LAMBDA from Part 1 of the tutorial, Lesson 8.<br>
 We are going to modify it into a type systems for LAMBDA.</p>
-<p>Before we start, it is important to clarify an important detail, namely that
-our type system will yield a type checker when executed, not a type
-inferencer.  In particular, we are going to change the LAMBDA syntax
-to allow us to associate a type to each declared variable.  The
-constructs which declare variables are <code>lambda</code>, <code>let</code>, <code>letrec</code> and <code>mu</code>.
+<p>Before we start, it is important to clarify an important detail, namely that<br>
+our type system will yield a type checker when executed, not a type<br>
+inferencer.  In particular, we are going to change the LAMBDA syntax<br>
+to allow us to associate a type to each declared variable.  The<br>
+constructs which declare variables are <code>lambda</code>, <code>let</code>, <code>letrec</code> and <code>mu</code>.<br>
 The syntax of all these will therefore change.</p>
-<p>Since here we are not interested in a LAMBDA semantics anymore, we take the
-freedom to eliminate the <code>Val</code> syntactic category, our previous results.
-Our new results are going to be the types, because programs will now reduce
+<p>Since here we are not interested in a LAMBDA semantics anymore, we take the<br>
+freedom to eliminate the <code>Val</code> syntactic category, our previous results.<br>
+Our new results are going to be the types, because programs will now reduce<br>
 to their types.</p>
-<p>As explained, the syntax of the <code>lambda</code> construct needs to change, to also
-declare the type of the variable that it binds.  We add the new syntactic
-category <code>Type</code>, with the following constructs: <code>int</code>, <code>bool</code>, the function
-type (which gives it its higher-order status), and parentheses as bracket.
+<p>As explained, the syntax of the <code>lambda</code> construct needs to change, to also<br>
+declare the type of the variable that it binds.  We add the new syntactic<br>
+category <code>Type</code>, with the following constructs: <code>int</code>, <code>bool</code>, the function<br>
+type (which gives it its higher-order status), and parentheses as bracket.<br>
 Also, we make types our K results.</p>
 <p>We are now ready to define the typing rules.</p>
-<p>Let us start with the typing rule for lambda abstraction: <code>lambda X : T . E</code>
-types to the function type <code>T -&gt; T&apos;</code>, where <code>T&apos;</code> is the type obtained by further
-typing <code>E[T/X]</code>.  This can be elegantly achieved by reducing the lambda
-abstraction to <code>T -&gt; E[T/X]</code>, provided that we extend the function type construct
-to take expressions, not only types, as arguments, and to be strict.
-This can be easily achieved by redeclaring it as a strict expression construct
-(strictness in the second argument would suffice in this example, but it is
+<p>Let us start with the typing rule for lambda abstraction: <code>lambda X : T . E</code><br>
+types to the function type <code>T -&gt; T&apos;</code>, where <code>T&apos;</code> is the type obtained by further<br>
+typing <code>E[T/X]</code>.  This can be elegantly achieved by reducing the lambda<br>
+abstraction to <code>T -&gt; E[T/X]</code>, provided that we extend the function type construct<br>
+to take expressions, not only types, as arguments, and to be strict.<br>
+This can be easily achieved by redeclaring it as a strict expression construct<br>
+(strictness in the second argument would suffice in this example, but it is<br>
 more uniform to define it strict overall).</p>
 <p>The typing rule for application is as simple as it can get: <code>(T1-&gt;T2) T1 =&gt; T2</code>.</p>
-<p>Let us now give the typing rules of arithmetic and Boolean expression
-constructs.  First, let us get rid of <code>Val</code>.  Second, rewrite each value to its
-type, similarly to the type system for IMP++ in the previous lesson.  Third,
-replace each semantic rule by its typing rule.  Fourth, make sure you
+<p>Let us now give the typing rules of arithmetic and Boolean expression<br>
+constructs.  First, let us get rid of <code>Val</code>.  Second, rewrite each value to its<br>
+type, similarly to the type system for IMP++ in the previous lesson.  Third,<br>
+replace each semantic rule by its typing rule.  Fourth, make sure you<br>
 do not forget to subsort <code>Type</code> to <code>Exp</code>, so your rules above will parse.</p>
-<p>The typing policy of the conditional statement is that its first argument
-should type to <code>bool</code> and its other two arguments should type to the same type
-<code>T</code>, which will also be the result type of the conditional.  So we make the
-conditional construct <code>strict</code> in all its three arguments and we write the
-obvious rule: <code>if bool then T:Type else T =&gt; T</code>.  We want a runtime check that
+<p>The typing policy of the conditional statement is that its first argument<br>
+should type to <code>bool</code> and its other two arguments should type to the same type<br>
+<code>T</code>, which will also be the result type of the conditional.  So we make the<br>
+conditional construct <code>strict</code> in all its three arguments and we write the<br>
+obvious rule: <code>if bool then T:Type else T =&gt; T</code>.  We want a runtime check that<br>
 the latter arguments are actually typed, so we write <code>T:Type</code>.</p>
-<p>There is nothing special about <code>let</code>, except that we have to make sure we
-change its syntax to account for the type of the variable that it binds.
+<p>There is nothing special about <code>let</code>, except that we have to make sure we<br>
+change its syntax to account for the type of the variable that it binds.<br>
 This rule is a macro, so the <code>let</code> is desugared statically.</p>
-<p>Similarly, the syntax of <code>letrec</code> and <code>mu</code> needs to change to account for the
-type of the variable that they bind.  The typing of <code>letrec</code> remains based on
+<p>Similarly, the syntax of <code>letrec</code> and <code>mu</code> needs to change to account for the<br>
+type of the variable that they bind.  The typing of <code>letrec</code> remains based on<br>
 its desugaring to <code>mu</code>; we have to make sure the types are also included now.</p>
-<p>The typing policy of <code>mu</code> is that its body should type to the same type <code>T</code> of
-its variable, which is also the type of the entire <code>mu</code> expression.  This can
-be elegantly achieved by rewriting it to <code>(T -&gt; T) E[T/X]</code>.  Recall that
-application is strict, so <code>E[T/X]</code> will be eventually reduced to its type.
-Then the application types correctly only if that type is also <code>T</code>, and in
+<p>The typing policy of <code>mu</code> is that its body should type to the same type <code>T</code> of<br>
+its variable, which is also the type of the entire <code>mu</code> expression.  This can<br>
+be elegantly achieved by rewriting it to <code>(T -&gt; T) E[T/X]</code>.  Recall that<br>
+application is strict, so <code>E[T/X]</code> will be eventually reduced to its type.<br>
+Then the application types correctly only if that type is also <code>T</code>, and in<br>
 that case the result type will also be <code>T</code>.</p>
-<p><code>kompile</code> and <code>krun</code> some programs.  You can, for example, take the LAMBDA
-programs from the first tutorial, modify them by adding types to their
+<p><code>kompile</code> and <code>krun</code> some programs.  You can, for example, take the LAMBDA<br>
+programs from the first tutorial, modify them by adding types to their<br>
 variable declarations, and then type check them using <code>krun</code>.</p>
-<p>In the next lesson we will discuss an environment-based type system
+<p>In the next lesson we will discuss an environment-based type system<br>
 for LAMBDA.</p>
 <p>Go to <a href="../lesson_3/">Lesson 3, Type Systems: Environment-Based Higher-Order Type Systems</a>.</p>
 <p><a href="http://youtu.be/7P2QtR9jM2o" target="_blank" rel="noopener">MOVIE (out of date) [6&apos;52&quot;]</a></p>

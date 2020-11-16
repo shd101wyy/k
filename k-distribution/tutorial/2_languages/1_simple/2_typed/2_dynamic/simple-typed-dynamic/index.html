@@ -129,489 +129,489 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <html><head></head><body><h1>SIMPLE &#x2014; Typed &#x2014; Dynamic</h1>
+            <html><head></head><body><h1 id="simple-%E2%80%94-typed-%E2%80%94-dynamic">SIMPLE &#x2014; Typed &#x2014; Dynamic</h1>
 <p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
 <p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
-<h2>Abstract</h2>
-<p>This is the <strong>K</strong> dynamic semantics of the typed SIMPLE language.
-It is very similar to the semantics of the untyped SIMPLE, the
-difference being that we now dynamically check the typing policy
-described in the static semantics of typed SIMPLE.  Because of the
-dynamic nature of the semantics, we can also perform some additional
-checks which were not possible in the static semantics, such as
-memory leaks due to accessing an array out of its bounds.  We will
-highlight the differences between the dynamically typed and the
-untyped SIMPLE as we proceed with the semantics.  We recommend the
-reader to consult the typing policy and the syntax of types discussed
+<h2 id="abstract">Abstract</h2>
+<p>This is the <strong>K</strong> dynamic semantics of the typed SIMPLE language.<br>
+It is very similar to the semantics of the untyped SIMPLE, the<br>
+difference being that we now dynamically check the typing policy<br>
+described in the static semantics of typed SIMPLE.  Because of the<br>
+dynamic nature of the semantics, we can also perform some additional<br>
+checks which were not possible in the static semantics, such as<br>
+memory leaks due to accessing an array out of its bounds.  We will<br>
+highlight the differences between the dynamically typed and the<br>
+untyped SIMPLE as we proceed with the semantics.  We recommend the<br>
+reader to consult the typing policy and the syntax of types discussed<br>
 in the static semantics of the typed SIMPLE language.</p>
-<pre class="hljs"><code><span class="hljs-keyword">module</span> SIMPLE-TYPED-DYNAMIC-SYNTAX<span class="hljs-keyword">
-  imports</span> DOMAINS-SYNTAX
+<pre class="language-k"><code><span class="token keyword">module</span> SIMPLE<span class="token operator">-</span>TYPED<span class="token operator">-</span>DYNAMIC<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> DOMAINS<span class="token operator">-</span>SYNTAX
 </code></pre>
-<h2>Syntax</h2>
-<p>The syntax of typed SIMPLE extends that of untyped SIMPLE with support
+<h2 id="syntax">Syntax</h2>
+<p>The syntax of typed SIMPLE extends that of untyped SIMPLE with support<br>
 for declaring types to variables and functions.</p>
-<p>The syntax below is identical to that of the static semantics of typed
-SIMPLE.  However, the <strong>K</strong> strictness attributes are like those of the untyped
-SIMPLE, to capture the desired evaluation strategies of the various language
+<p>The syntax below is identical to that of the static semantics of typed<br>
+SIMPLE.  However, the <strong>K</strong> strictness attributes are like those of the untyped<br>
+SIMPLE, to capture the desired evaluation strategies of the various language<br>
 constructs.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span><span class="hljs-keyword"> Id</span> ::= <span class="hljs-string">&quot;main&quot;</span> [<span class="hljs-literal">token</span>]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Id</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;main&quot;</span> <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span>
 </code></pre>
-<h2>Types</h2>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Type ::= <span class="hljs-string">&quot;void&quot;</span> | <span class="hljs-string">&quot;int&quot;</span> | <span class="hljs-string">&quot;bool&quot;</span> | <span class="hljs-string">&quot;string&quot;</span>
-                | Type <span class="hljs-string">&quot;[&quot;</span> <span class="hljs-string">&quot;]&quot;</span>
-                &gt; Types <span class="hljs-string">&quot;-&gt;&quot;</span> Type
-                | <span class="hljs-string">&quot;(&quot;</span> Type <span class="hljs-string">&quot;)&quot;</span>           [<span class="hljs-literal">bracket</span>]<span class="hljs-keyword">
-  syntax</span> Types ::= List{Type,<span class="hljs-string">&quot;,&quot;</span>}
+<h2 id="types">Types</h2>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Type <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;void&quot;</span> <span class="token operator">|</span> <span class="token string">&quot;int&quot;</span> <span class="token operator">|</span> <span class="token string">&quot;bool&quot;</span> <span class="token operator">|</span> <span class="token string">&quot;string&quot;</span>
+                <span class="token operator">|</span> Type <span class="token string">&quot;[&quot;</span> <span class="token string">&quot;]&quot;</span>
+                <span class="token operator">&gt;</span> Types <span class="token string">&quot;-&gt;&quot;</span> Type
+                <span class="token operator">|</span> <span class="token string">&quot;(&quot;</span> Type <span class="token string">&quot;)&quot;</span>           <span class="token punctuation">[</span><span class="token class-name">bracket</span><span class="token punctuation">]</span>
+  <span class="token keyword">syntax</span> Types <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> List<span class="token punctuation">{</span>Type<span class="token punctuation">,</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">}</span>
 </code></pre>
-<h2>Declarations</h2>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Param ::= Type<span class="hljs-keyword"> Id</span><span class="hljs-keyword">
-  syntax</span> Params ::= List{Param,<span class="hljs-string">&quot;,&quot;</span>}<span class="hljs-keyword">
+<h2 id="declarations">Declarations</h2>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Param <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Type <span class="token keyword">Id</span>
+  <span class="token keyword">syntax</span> Params <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> List<span class="token punctuation">{</span>Param<span class="token punctuation">,</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">}</span>
 
-  syntax</span> Decl ::= Type Exps <span class="hljs-string">&quot;;&quot;</span>
-                | Type<span class="hljs-keyword"> Id</span> <span class="hljs-string">&quot;(&quot;</span> Params <span class="hljs-string">&quot;)&quot;</span> Block
+  <span class="token keyword">syntax</span> Decl <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Type Exps <span class="token string">&quot;;&quot;</span>
+                <span class="token operator">|</span> Type <span class="token keyword">Id</span> <span class="token string">&quot;(&quot;</span> Params <span class="token string">&quot;)&quot;</span> Block
 </code></pre>
-<h2>Expressions</h2>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::=<span class="hljs-keyword"> Int</span> |<span class="hljs-keyword"> Bool</span> |<span class="hljs-keyword"> String</span> |<span class="hljs-keyword"> Id</span>
-               | <span class="hljs-string">&quot;(&quot;</span> Exp <span class="hljs-string">&quot;)&quot;</span>             [<span class="hljs-literal">bracket</span>]
-               | <span class="hljs-string">&quot;++&quot;</span> Exp
-               &gt; Exp <span class="hljs-string">&quot;[&quot;</span> Exps <span class="hljs-string">&quot;]&quot;</span>        [<span class="hljs-literal">strict</span>]
-               &gt; Exp <span class="hljs-string">&quot;(&quot;</span> Exps <span class="hljs-string">&quot;)&quot;</span>        [<span class="hljs-literal">strict</span>]
-               | <span class="hljs-string">&quot;-&quot;</span> Exp                 [<span class="hljs-literal">strict</span>]
-               | <span class="hljs-string">&quot;sizeOf&quot;</span> <span class="hljs-string">&quot;(&quot;</span> Exp <span class="hljs-string">&quot;)&quot;</span>    [<span class="hljs-literal">strict</span>]
-               | <span class="hljs-string">&quot;read&quot;</span> <span class="hljs-string">&quot;(&quot;</span> <span class="hljs-string">&quot;)&quot;</span>
-               &gt; <span class="hljs-literal">left</span>:
-                 Exp <span class="hljs-string">&quot;*&quot;</span> Exp             [<span class="hljs-literal">strict</span>, <span class="hljs-literal">left</span>]
-               | Exp <span class="hljs-string">&quot;/&quot;</span> Exp             [<span class="hljs-literal">strict</span>, <span class="hljs-literal">left</span>]
-               | Exp <span class="hljs-string">&quot;%&quot;</span> Exp             [<span class="hljs-literal">strict</span>, <span class="hljs-literal">left</span>]
-               &gt; <span class="hljs-literal">left</span>:
-                 Exp <span class="hljs-string">&quot;+&quot;</span> Exp             [<span class="hljs-literal">strict</span>, <span class="hljs-literal">left</span>]
-               | Exp <span class="hljs-string">&quot;-&quot;</span> Exp             [<span class="hljs-literal">strict</span>, <span class="hljs-literal">left</span>]
-               &gt; <span class="hljs-literal">non-assoc</span>:
-                 Exp <span class="hljs-string">&quot;&lt;&quot;</span> Exp             [<span class="hljs-literal">strict</span>, <span class="hljs-literal">non-assoc</span>]
-               | Exp <span class="hljs-string">&quot;&lt;=&quot;</span> Exp            [<span class="hljs-literal">strict</span>, <span class="hljs-literal">non-assoc</span>]
-               | Exp <span class="hljs-string">&quot;&gt;&quot;</span> Exp             [<span class="hljs-literal">strict</span>, <span class="hljs-literal">non-assoc</span>]
-               | Exp <span class="hljs-string">&quot;&gt;=&quot;</span> Exp            [<span class="hljs-literal">strict</span>, <span class="hljs-literal">non-assoc</span>]
-               | Exp <span class="hljs-string">&quot;==&quot;</span> Exp            [<span class="hljs-literal">strict</span>, <span class="hljs-literal">non-assoc</span>]
-               | Exp <span class="hljs-string">&quot;!=&quot;</span> Exp            [<span class="hljs-literal">strict</span>, <span class="hljs-literal">non-assoc</span>]
-               &gt; <span class="hljs-string">&quot;!&quot;</span> Exp                 [<span class="hljs-literal">strict</span>]
-               &gt; <span class="hljs-literal">left</span>:
-                 Exp <span class="hljs-string">&quot;&amp;&amp;&quot;</span> Exp            [<span class="hljs-literal">strict</span>(<span class="hljs-number">1</span>), <span class="hljs-literal">left</span>]
-               | Exp <span class="hljs-string">&quot;||&quot;</span> Exp            [<span class="hljs-literal">strict</span>(<span class="hljs-number">1</span>), <span class="hljs-literal">left</span>]
-               &gt; <span class="hljs-string">&quot;spawn&quot;</span> Block
-               &gt; Exp <span class="hljs-string">&quot;=&quot;</span> Exp             [<span class="hljs-literal">strict</span>(<span class="hljs-number">2</span>), <span class="hljs-literal">right</span>]
+<h2 id="expressions">Expressions</h2>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Bool</span> <span class="token operator">|</span> <span class="token keyword">String</span> <span class="token operator">|</span> <span class="token keyword">Id</span>
+               <span class="token operator">|</span> <span class="token string">&quot;(&quot;</span> Exp <span class="token string">&quot;)&quot;</span>             <span class="token punctuation">[</span><span class="token class-name">bracket</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> <span class="token string">&quot;++&quot;</span> Exp
+               <span class="token operator">&gt;</span> Exp <span class="token string">&quot;[&quot;</span> Exps <span class="token string">&quot;]&quot;</span>        <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> Exp <span class="token string">&quot;(&quot;</span> Exps <span class="token string">&quot;)&quot;</span>        <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> <span class="token string">&quot;-&quot;</span> Exp                 <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> <span class="token string">&quot;sizeOf&quot;</span> <span class="token string">&quot;(&quot;</span> Exp <span class="token string">&quot;)&quot;</span>    <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> <span class="token string">&quot;read&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token string">&quot;)&quot;</span>
+               <span class="token operator">&gt;</span> <span class="token class-name">left</span><span class="token punctuation">:</span>
+                 Exp <span class="token string">&quot;*&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;/&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;%&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> <span class="token class-name">left</span><span class="token punctuation">:</span>
+                 Exp <span class="token string">&quot;+&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;-&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> <span class="token class-name">non-assoc</span><span class="token punctuation">:</span>
+                 Exp <span class="token string">&quot;&lt;&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">non-assoc</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;&lt;=&quot;</span> Exp            <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">non-assoc</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;&gt;&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">non-assoc</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;&gt;=&quot;</span> Exp            <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">non-assoc</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;==&quot;</span> Exp            <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">non-assoc</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;!=&quot;</span> Exp            <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">non-assoc</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> <span class="token string">&quot;!&quot;</span> Exp                 <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> <span class="token class-name">left</span><span class="token punctuation">:</span>
+                 Exp <span class="token string">&quot;&amp;&amp;&quot;</span> Exp            <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">|</span> Exp <span class="token string">&quot;||&quot;</span> Exp            <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
+               <span class="token operator">&gt;</span> <span class="token string">&quot;spawn&quot;</span> Block
+               <span class="token operator">&gt;</span> Exp <span class="token string">&quot;=&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">right</span><span class="token punctuation">]</span>
 </code></pre>
-<p>Like in the static semantics, there is no need for lists of identifiers
+<p>Like in the static semantics, there is no need for lists of identifiers<br>
 (because we now have lists of parameters).</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exps ::= List{Exp,<span class="hljs-string">&quot;,&quot;</span>}          [<span class="hljs-literal">strict</span>]<span class="hljs-keyword">
-  syntax</span> Val<span class="hljs-keyword">
-  syntax</span> Vals ::= List{Val,<span class="hljs-string">&quot;,&quot;</span>}
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Exps <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> List<span class="token punctuation">{</span>Exp<span class="token punctuation">,</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">}</span>          <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+  <span class="token keyword">syntax</span> Val
+  <span class="token keyword">syntax</span> Vals <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> List<span class="token punctuation">{</span>Val<span class="token punctuation">,</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">}</span>
 </code></pre>
-<h2>Statements</h2>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Block ::= <span class="hljs-string">&quot;{&quot;</span> <span class="hljs-string">&quot;}&quot;</span>
-                | <span class="hljs-string">&quot;{&quot;</span> Stmts <span class="hljs-string">&quot;}&quot;</span><span class="hljs-keyword">
+<h2 id="statements">Statements</h2>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Block <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;{&quot;</span> <span class="token string">&quot;}&quot;</span>
+                <span class="token operator">|</span> <span class="token string">&quot;{&quot;</span> Stmts <span class="token string">&quot;}&quot;</span>
 
-  syntax</span> Stmt ::= Decl | Block
-                | Exp <span class="hljs-string">&quot;;&quot;</span>                               [<span class="hljs-literal">strict</span>]
-                | <span class="hljs-string">&quot;if&quot;</span> <span class="hljs-string">&quot;(&quot;</span> Exp <span class="hljs-string">&quot;)&quot;</span> Block <span class="hljs-string">&quot;else&quot;</span> Block   [<span class="hljs-literal">avoid</span>, <span class="hljs-literal">strict</span>(<span class="hljs-number">1</span>)]
-                | <span class="hljs-string">&quot;if&quot;</span> <span class="hljs-string">&quot;(&quot;</span> Exp <span class="hljs-string">&quot;)&quot;</span> Block
-                | <span class="hljs-string">&quot;while&quot;</span> <span class="hljs-string">&quot;(&quot;</span> Exp <span class="hljs-string">&quot;)&quot;</span> Block
-            | <span class="hljs-string">&quot;for&quot;</span> <span class="hljs-string">&quot;(&quot;</span> Stmts Exp <span class="hljs-string">&quot;;&quot;</span> Exp <span class="hljs-string">&quot;)&quot;</span> Block
-                | <span class="hljs-string">&quot;print&quot;</span> <span class="hljs-string">&quot;(&quot;</span> Exps <span class="hljs-string">&quot;)&quot;</span> <span class="hljs-string">&quot;;&quot;</span>              [<span class="hljs-literal">strict</span>]
-                | <span class="hljs-string">&quot;return&quot;</span> Exp <span class="hljs-string">&quot;;&quot;</span>                      [<span class="hljs-literal">strict</span>]
-                | <span class="hljs-string">&quot;return&quot;</span> <span class="hljs-string">&quot;;&quot;</span>
-                | <span class="hljs-string">&quot;try&quot;</span> Block <span class="hljs-string">&quot;catch&quot;</span> <span class="hljs-string">&quot;(&quot;</span> Param <span class="hljs-string">&quot;)&quot;</span> Block
-            | <span class="hljs-string">&quot;throw&quot;</span> Exp <span class="hljs-string">&quot;;&quot;</span>                       [<span class="hljs-literal">strict</span>]
-                | <span class="hljs-string">&quot;join&quot;</span> Exp <span class="hljs-string">&quot;;&quot;</span>                        [<span class="hljs-literal">strict</span>]
-                | <span class="hljs-string">&quot;acquire&quot;</span> Exp <span class="hljs-string">&quot;;&quot;</span>                     [<span class="hljs-literal">strict</span>]
-                | <span class="hljs-string">&quot;release&quot;</span> Exp <span class="hljs-string">&quot;;&quot;</span>                     [<span class="hljs-literal">strict</span>]
-                | <span class="hljs-string">&quot;rendezvous&quot;</span> Exp <span class="hljs-string">&quot;;&quot;</span>                  [<span class="hljs-literal">strict</span>]<span class="hljs-keyword">
+  <span class="token keyword">syntax</span> Stmt <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Decl <span class="token operator">|</span> Block
+                <span class="token operator">|</span> Exp <span class="token string">&quot;;&quot;</span>                               <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> <span class="token string">&quot;if&quot;</span> <span class="token string">&quot;(&quot;</span> Exp <span class="token string">&quot;)&quot;</span> Block <span class="token string">&quot;else&quot;</span> Block   <span class="token punctuation">[</span><span class="token class-name">avoid</span><span class="token punctuation">,</span> <span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> <span class="token string">&quot;if&quot;</span> <span class="token string">&quot;(&quot;</span> Exp <span class="token string">&quot;)&quot;</span> Block
+                <span class="token operator">|</span> <span class="token string">&quot;while&quot;</span> <span class="token string">&quot;(&quot;</span> Exp <span class="token string">&quot;)&quot;</span> Block
+            <span class="token operator">|</span> <span class="token string">&quot;for&quot;</span> <span class="token string">&quot;(&quot;</span> Stmts Exp <span class="token string">&quot;;&quot;</span> Exp <span class="token string">&quot;)&quot;</span> Block
+                <span class="token operator">|</span> <span class="token string">&quot;print&quot;</span> <span class="token string">&quot;(&quot;</span> Exps <span class="token string">&quot;)&quot;</span> <span class="token string">&quot;;&quot;</span>              <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> <span class="token string">&quot;return&quot;</span> Exp <span class="token string">&quot;;&quot;</span>                      <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> <span class="token string">&quot;return&quot;</span> <span class="token string">&quot;;&quot;</span>
+                <span class="token operator">|</span> <span class="token string">&quot;try&quot;</span> Block <span class="token string">&quot;catch&quot;</span> <span class="token string">&quot;(&quot;</span> Param <span class="token string">&quot;)&quot;</span> Block
+            <span class="token operator">|</span> <span class="token string">&quot;throw&quot;</span> Exp <span class="token string">&quot;;&quot;</span>                       <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> <span class="token string">&quot;join&quot;</span> Exp <span class="token string">&quot;;&quot;</span>                        <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> <span class="token string">&quot;acquire&quot;</span> Exp <span class="token string">&quot;;&quot;</span>                     <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> <span class="token string">&quot;release&quot;</span> Exp <span class="token string">&quot;;&quot;</span>                     <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+                <span class="token operator">|</span> <span class="token string">&quot;rendezvous&quot;</span> Exp <span class="token string">&quot;;&quot;</span>                  <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
 
-  syntax</span> Stmts ::= Stmt
-                 | Stmts Stmts                          [<span class="hljs-literal">right</span>]
+  <span class="token keyword">syntax</span> Stmts <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Stmt
+                 <span class="token operator">|</span> Stmts Stmts                          <span class="token punctuation">[</span><span class="token class-name">right</span><span class="token punctuation">]</span>
 </code></pre>
 <p>The same desugaring macros like in the statically typed SIMPLE.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> if (E) S =&gt; if (E) S else {}                                     [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
-  rule</span> for(Start Cond; Step) {S:Stmts} =&gt; {Start while(Cond){S Step;}}  [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
-  rule</span> for(Start Cond; Step) {} =&gt; {Start while(Cond){Step;}}           [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
-  rule</span> T:Type E1:Exp, E2:Exp, Es:Exps; =&gt; T E1; T E2, Es;               [<span class="hljs-literal">macro</span>-rec]<span class="hljs-keyword">
-  rule</span> T:Type X:<span class="hljs-keyword">Id</span> = E; =&gt; T X; X = E;                                  [<span class="hljs-literal">macro</span>]<span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">rule</span> if <span class="token punctuation">(</span>E<span class="token punctuation">)</span> S <span class="token operator">=</span><span class="token operator">&gt;</span> if <span class="token punctuation">(</span>E<span class="token punctuation">)</span> S else <span class="token punctuation">{</span><span class="token punctuation">}</span>                                     <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> for<span class="token punctuation">(</span>Start Cond<span class="token punctuation">;</span> Step<span class="token punctuation">)</span> <span class="token punctuation">{</span>S<span class="token punctuation">:</span>Stmts<span class="token punctuation">}</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>Start while<span class="token punctuation">(</span>Cond<span class="token punctuation">)</span><span class="token punctuation">{</span>S Step<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span>  <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> for<span class="token punctuation">(</span>Start Cond<span class="token punctuation">;</span> Step<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>Start while<span class="token punctuation">(</span>Cond<span class="token punctuation">)</span><span class="token punctuation">{</span>Step<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span>           <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> T<span class="token punctuation">:</span>Type E1<span class="token punctuation">:</span>Exp<span class="token punctuation">,</span> E2<span class="token punctuation">:</span>Exp<span class="token punctuation">,</span> Es<span class="token punctuation">:</span>Exps<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T E1<span class="token punctuation">;</span> T E2<span class="token punctuation">,</span> Es<span class="token punctuation">;</span>               <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token operator">-</span>rec<span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span> E<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T X<span class="token punctuation">;</span> X <span class="token operator">=</span> E<span class="token punctuation">;</span>                                  <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
 
-endmodule</span><span class="hljs-keyword">
+<span class="token keyword">endmodule</span>
 
 
-module</span> SIMPLE-TYPED-DYNAMIC<span class="hljs-keyword">
-  imports</span> SIMPLE-TYPED-DYNAMIC-SYNTAX<span class="hljs-keyword">
-  imports</span> DOMAINS
+<span class="token keyword">module</span> SIMPLE<span class="token operator">-</span>TYPED<span class="token operator">-</span>DYNAMIC
+  <span class="token keyword">imports</span> SIMPLE<span class="token operator">-</span>TYPED<span class="token operator">-</span>DYNAMIC<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> DOMAINS
 </code></pre>
-<h2>Semantics</h2>
-<h3>Values and results</h3>
-<p>These are similar to those of untyped SIMPLE, except that the array
-references and the function abstrations now also hold their types.
-These types are needed in order to easily compute the type of any
-value in the language (see the auxiliary <code>typeOf</code> operation at
+<h2 id="semantics">Semantics</h2>
+<h3 id="values-and-results">Values and results</h3>
+<p>These are similar to those of untyped SIMPLE, except that the array<br>
+references and the function abstrations now also hold their types.<br>
+These types are needed in order to easily compute the type of any<br>
+value in the language (see the auxiliary <code>typeOf</code> operation at<br>
 the end of this module).</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Val ::=<span class="hljs-keyword"> Int</span> |<span class="hljs-keyword"> Bool</span> |<span class="hljs-keyword"> String</span>
-               | array(Type,<span class="hljs-keyword">Int</span>,<span class="hljs-keyword">Int</span>)
-               | lambda(Type,Params,Stmts)<span class="hljs-keyword">
-  syntax</span> Exp ::= Val<span class="hljs-keyword">
-  syntax</span> Exps ::= Vals<span class="hljs-keyword">
-  syntax</span> KResult ::= Val
-                   | Vals  <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> should not need this</span>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Bool</span> <span class="token operator">|</span> <span class="token keyword">String</span>
+               <span class="token operator">|</span> array<span class="token punctuation">(</span>Type<span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">)</span>
+               <span class="token operator">|</span> lambda<span class="token punctuation">(</span>Type<span class="token punctuation">,</span>Params<span class="token punctuation">,</span>Stmts<span class="token punctuation">)</span>
+  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Val
+  <span class="token keyword">syntax</span> Exps <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Vals
+  <span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Val
+                   <span class="token operator">|</span> Vals  <span class="token comment">// TODO: should not need this</span>
 </code></pre>
-<h3>Configuration</h3>
-<p>The configuration is almost identical to that of untyped SIMPLE,
-except for a <code>return</code> cell inside the <code>control</code> cell.
-This <code>return</code> cell will hold, like in the static semantics of
-typed SIMPLE, the expected type of the value returned by the function
-being executed.  The contents of this cell will be set whenever a
-function is invoked and will be checked whenever the evaluation of the
+<h3 id="configuration">Configuration</h3>
+<p>The configuration is almost identical to that of untyped SIMPLE,<br>
+except for a <code>return</code> cell inside the <code>control</code> cell.<br>
+This <code>return</code> cell will hold, like in the static semantics of<br>
+typed SIMPLE, the expected type of the value returned by the function<br>
+being executed.  The contents of this cell will be set whenever a<br>
+function is invoked and will be checked whenever the evaluation of the<br>
 function body encounters an explicit <code>return</code> statement.</p>
-<pre class="hljs"><code>  <span class="hljs-comment">// the syntax declarations below are required because the sorts are
-  // referenced directly by a production and, because of the way KIL to KORE</span>
-  <span class="hljs-comment">// is implemented, the configuration syntax is not available yet</span>
-  <span class="hljs-comment">// should simply work once KIL is removed completely</span>
-  <span class="hljs-comment">// check other definitions for this hack as well</span><span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token comment">// the syntax declarations below are required because the sorts are</span>
+  <span class="token comment">// referenced directly by a production and, because of the way KIL to KORE</span>
+  <span class="token comment">// is implemented, the configuration syntax is not available yet</span>
+  <span class="token comment">// should simply work once KIL is removed completely</span>
+  <span class="token comment">// check other definitions for this hack as well</span>
 
-  syntax</span> ControlCell<span class="hljs-keyword">
-  syntax</span> ControlCellFragment<span class="hljs-keyword">
+  <span class="token keyword">syntax</span> ControlCell
+  <span class="token keyword">syntax</span> ControlCellFragment
 
-  configuration</span> &lt;T color=<span class="hljs-string">&quot;red&quot;</span>&gt;
-                  &lt;threads color=<span class="hljs-string">&quot;orange&quot;</span>&gt;
-                    &lt;thread multiplicity=<span class="hljs-string">&quot;*&quot;</span> color=<span class="hljs-string">&quot;yellow&quot;</span>&gt;
-                      &lt;k color=<span class="hljs-string">&quot;green&quot;</span>&gt; ($PGM:Stmts ~&gt; execute) &lt;/k&gt;
-<span class="hljs-comment">//                      &lt;br/&gt;</span>
-                      &lt;control color=<span class="hljs-string">&quot;cyan&quot;</span>&gt;
-                        &lt;fstack color=<span class="hljs-string">&quot;blue&quot;</span>&gt; .List &lt;/fstack&gt;
-                        &lt;xstack color=<span class="hljs-string">&quot;purple&quot;</span>&gt; .List &lt;/xstack&gt;
-                        &lt;returnType color=<span class="hljs-string">&quot;LimeGreen&quot;</span>&gt; void &lt;/returnType&gt;
-                       &lt;/control&gt;
-<span class="hljs-comment">//                      &lt;br/&gt;</span>
-                      &lt;env color=<span class="hljs-string">&quot;violet&quot;</span>&gt; .Map &lt;/env&gt;
-                      &lt;holds color=<span class="hljs-string">&quot;black&quot;</span>&gt; .Map &lt;/holds&gt;
-                      &lt;id color=<span class="hljs-string">&quot;pink&quot;</span>&gt; <span class="hljs-number">0</span> &lt;/id&gt;
-                    &lt;/thread&gt;
-                  &lt;/threads&gt;
-<span class="hljs-comment">//                  &lt;br/&gt;</span>
-                  &lt;genv color=<span class="hljs-string">&quot;pink&quot;</span>&gt; .Map &lt;/genv&gt;
-                  &lt;store color=<span class="hljs-string">&quot;white&quot;</span>&gt; .Map &lt;/store&gt;
-                  &lt;busy color=<span class="hljs-string">&quot;cyan&quot;</span>&gt;.Set&lt;/busy&gt;
-                  &lt;terminated color=<span class="hljs-string">&quot;red&quot;</span>&gt; .Set &lt;/terminated&gt;
-                  &lt;input color=<span class="hljs-string">&quot;magenta&quot;</span> stream=<span class="hljs-string">&quot;stdin&quot;</span>&gt; .List &lt;/input&gt;
-                  &lt;output color=<span class="hljs-string">&quot;brown&quot;</span> stream=<span class="hljs-string">&quot;stdout&quot;</span>&gt; .List &lt;/output&gt;
-                  &lt;nextLoc color=<span class="hljs-string">&quot;gray&quot;</span>&gt; <span class="hljs-number">0</span> &lt;/nextLoc&gt;
-                &lt;/T&gt;
+  <span class="token keyword">configuration</span> <span class="token operator">&lt;</span>T color<span class="token operator">=</span><span class="token string">&quot;red&quot;</span><span class="token operator">&gt;</span>
+                  <span class="token operator">&lt;</span>threads color<span class="token operator">=</span><span class="token string">&quot;orange&quot;</span><span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>thread multiplicity<span class="token operator">=</span><span class="token string">&quot;*&quot;</span> color<span class="token operator">=</span><span class="token string">&quot;yellow&quot;</span><span class="token operator">&gt;</span>
+                      <span class="token operator">&lt;</span>k color<span class="token operator">=</span><span class="token string">&quot;green&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>$PGM<span class="token punctuation">:</span>Stmts <span class="token operator">~</span><span class="token operator">&gt;</span> execute<span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+<span class="token comment">//                      &lt;br/&gt;</span>
+                      <span class="token operator">&lt;</span>control color<span class="token operator">=</span><span class="token string">&quot;cyan&quot;</span><span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>fstack color<span class="token operator">=</span><span class="token string">&quot;blue&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">&lt;</span><span class="token operator">/</span>fstack<span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>xstack color<span class="token operator">=</span><span class="token string">&quot;purple&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">&lt;</span><span class="token operator">/</span>xstack<span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>returnType color<span class="token operator">=</span><span class="token string">&quot;LimeGreen&quot;</span><span class="token operator">&gt;</span> void <span class="token operator">&lt;</span><span class="token operator">/</span>returnType<span class="token operator">&gt;</span>
+                       <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
+<span class="token comment">//                      &lt;br/&gt;</span>
+                      <span class="token operator">&lt;</span>env color<span class="token operator">=</span><span class="token string">&quot;violet&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+                      <span class="token operator">&lt;</span>holds color<span class="token operator">=</span><span class="token string">&quot;black&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token operator">&lt;</span><span class="token operator">/</span>holds<span class="token operator">&gt;</span>
+                      <span class="token operator">&lt;</span>id color<span class="token operator">=</span><span class="token string">&quot;pink&quot;</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&lt;</span><span class="token operator">/</span>id<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>thread<span class="token operator">&gt;</span>
+                  <span class="token operator">&lt;</span><span class="token operator">/</span>threads<span class="token operator">&gt;</span>
+<span class="token comment">//                  &lt;br/&gt;</span>
+                  <span class="token operator">&lt;</span>genv color<span class="token operator">=</span><span class="token string">&quot;pink&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token operator">&lt;</span><span class="token operator">/</span>genv<span class="token operator">&gt;</span>
+                  <span class="token operator">&lt;</span>store color<span class="token operator">=</span><span class="token string">&quot;white&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>
+                  <span class="token operator">&lt;</span>busy color<span class="token operator">=</span><span class="token string">&quot;cyan&quot;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span>Set<span class="token operator">&lt;</span><span class="token operator">/</span>busy<span class="token operator">&gt;</span>
+                  <span class="token operator">&lt;</span>terminated color<span class="token operator">=</span><span class="token string">&quot;red&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Set <span class="token operator">&lt;</span><span class="token operator">/</span>terminated<span class="token operator">&gt;</span>
+                  <span class="token operator">&lt;</span>input color<span class="token operator">=</span><span class="token string">&quot;magenta&quot;</span> stream<span class="token operator">=</span><span class="token string">&quot;stdin&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
+                  <span class="token operator">&lt;</span>output color<span class="token operator">=</span><span class="token string">&quot;brown&quot;</span> stream<span class="token operator">=</span><span class="token string">&quot;stdout&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">&lt;</span><span class="token operator">/</span>output<span class="token operator">&gt;</span>
+                  <span class="token operator">&lt;</span>nextLoc color<span class="token operator">=</span><span class="token string">&quot;gray&quot;</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&lt;</span><span class="token operator">/</span>nextLoc<span class="token operator">&gt;</span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>T<span class="token operator">&gt;</span>
 </code></pre>
-<h2>Declarations and Initialization</h2>
-<h3>Variable Declaration</h3>
-<p>The <code>undefined</code> construct is now parameterized by a type.
-A main difference between untyped SIMPLE and dynamically typed SIMPLE
-is that the latter assigns a type to each of its locations and that
-type cannot be changed during the execution of the program.  We do not
-do any memory management in our semantic definitions here, so
-locations cannot be reclaimed, garbage collected and/or reused.  Each
-location corresponds precisely to an allocated variable or array
-element, whose type was explicitly or implicitly declared in the
-program and does not change.  It is therefore safe to type each
-location and then never allow that type to change.  The typed
-undefined values effectively assign both a type and an undefined value
+<h2 id="declarations-and-initialization">Declarations and Initialization</h2>
+<h3 id="variable-declaration">Variable Declaration</h3>
+<p>The <code>undefined</code> construct is now parameterized by a type.<br>
+A main difference between untyped SIMPLE and dynamically typed SIMPLE<br>
+is that the latter assigns a type to each of its locations and that<br>
+type cannot be changed during the execution of the program.  We do not<br>
+do any memory management in our semantic definitions here, so<br>
+locations cannot be reclaimed, garbage collected and/or reused.  Each<br>
+location corresponds precisely to an allocated variable or array<br>
+element, whose type was explicitly or implicitly declared in the<br>
+program and does not change.  It is therefore safe to type each<br>
+location and then never allow that type to change.  The typed<br>
+undefined values effectively assign both a type and an undefined value<br>
 to a location.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KItem ::= undefined(Type)  [<span class="hljs-literal">latex</span>(\bot_{#<span class="hljs-number">1</span>})]<span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> undefined<span class="token punctuation">(</span>Type<span class="token punctuation">)</span>  <span class="token punctuation">[</span><span class="token class-name">latex</span><span class="token punctuation">(</span>\bot_<span class="token punctuation">{</span>#<span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
 
-  rule</span> &lt;k&gt; T:Type X:<span class="hljs-keyword">Id</span>; =&gt; . ...&lt;/k&gt;
-       &lt;env&gt; Env =&gt; Env[X &lt;- L] &lt;/env&gt;
-       &lt;store&gt;... .Map =&gt; L |-&gt; undefined(T) ...&lt;/store&gt;
-       &lt;nextLoc&gt; L:<span class="hljs-keyword">Int</span> =&gt; L +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span> &lt;/nextLoc&gt;
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">=</span><span class="token operator">&gt;</span> Env<span class="token punctuation">[</span>X <span class="token operator">&lt;</span><span class="token operator">-</span> L<span class="token punctuation">]</span> <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span>Map <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> undefined<span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>nextLoc<span class="token operator">&gt;</span> L<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span> <span class="token operator">&lt;</span><span class="token operator">/</span>nextLoc<span class="token operator">&gt;</span>
 </code></pre>
-<h3>Array Declaration</h3>
-<p>The dynamic semantics of typed array declarations is similar to that
-in untyped SIMPLE, but we have to make sure that we associate the
+<h3 id="array-declaration">Array Declaration</h3>
+<p>The dynamic semantics of typed array declarations is similar to that<br>
+in untyped SIMPLE, but we have to make sure that we associate the<br>
 right type to the allocated locations.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; T:Type X:<span class="hljs-keyword">Id</span>[N:<span class="hljs-keyword">Int</span>]; =&gt; . ...&lt;/k&gt;
-       &lt;env&gt; Env =&gt; Env[X &lt;- L] &lt;/env&gt;
-       &lt;store&gt;... .Map =&gt; L |-&gt; array(T, L +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>, N)
-                          (L +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>)...(L +<span class="hljs-keyword">Int</span> N) |-&gt; undefined(T) ...&lt;/store&gt;
-       &lt;nextLoc&gt; L:<span class="hljs-keyword">Int</span> =&gt; L +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span> +<span class="hljs-keyword">Int</span> N &lt;/nextLoc&gt;
-    when N &gt;=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">[</span>N<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">=</span><span class="token operator">&gt;</span> Env<span class="token punctuation">[</span>X <span class="token operator">&lt;</span><span class="token operator">-</span> L<span class="token punctuation">]</span> <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span>Map <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> array<span class="token punctuation">(</span>T<span class="token punctuation">,</span> L <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">,</span> N<span class="token punctuation">)</span>
+                          <span class="token punctuation">(</span>L <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">(</span>L <span class="token operator">+</span><span class="token keyword">Int</span> N<span class="token punctuation">)</span> <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> undefined<span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>nextLoc<span class="token operator">&gt;</span> L<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span> <span class="token operator">+</span><span class="token keyword">Int</span> N <span class="token operator">&lt;</span><span class="token operator">/</span>nextLoc<span class="token operator">&gt;</span>
+    when N <span class="token operator">&gt;=</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-  context</span> _:Type _::Exp[HOLE::Exps];
+  <span class="token keyword">context</span> _<span class="token punctuation">:</span>Type _<span class="token punctuation">:</span><span class="token punctuation">:</span>Exp<span class="token punctuation">[</span>HOLE<span class="token punctuation">:</span><span class="token punctuation">:</span>Exps<span class="token punctuation">]</span><span class="token punctuation">;</span>
 </code></pre>
-<p>The desugaring of multi-dimensional arrays into unidimensional
-ones is also similar to that in untyped SIMPLE, although we have to
-make sure that all the declared variables have the right types.  The
-auxiliary operation <code>T&lt;Vs&gt;</code>, defined at the end of the file,
+<p>The desugaring of multi-dimensional arrays into unidimensional<br>
+ones is also similar to that in untyped SIMPLE, although we have to<br>
+make sure that all the declared variables have the right types.  The<br>
+auxiliary operation <code>T&lt;Vs&gt;</code>, defined at the end of the file,<br>
 adds the length of <code>Vs</code> dimensions to the type <code>T</code>.</p>
-<pre class="hljs"><code><span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Check the desugaring below to be consistent with the one for untyped simple</span><span class="hljs-keyword">
+<pre class="language-k"><code><span class="token comment">// TODO: Check the desugaring below to be consistent with the one for untyped simple</span>
 
-  syntax</span><span class="hljs-keyword"> Id</span> ::= <span class="hljs-string">&quot;$1&quot;</span> | <span class="hljs-string">&quot;$2&quot;</span><span class="hljs-keyword">
-  rule</span> T:Type X:<span class="hljs-keyword">Id</span>[N1:<span class="hljs-keyword">Int</span>, N2:<span class="hljs-keyword">Int</span>, Vs:Vals];
-    =&gt; T[]&lt;Vs&gt; X[N1];
-       {
-         T[][]&lt;Vs&gt; $<span class="hljs-number">1</span>=X;
-         for(int $<span class="hljs-number">2</span>=<span class="hljs-number">0</span>; $<span class="hljs-number">2</span> &lt;= N1 - <span class="hljs-number">1</span>; ++$<span class="hljs-number">2</span>) {
-           T X[N2,Vs];
-           $<span class="hljs-number">1</span>[$<span class="hljs-number">2</span>] = X;
-         }
-       }
-    [<span class="hljs-literal">structural</span>]
+  <span class="token keyword">syntax</span> <span class="token keyword">Id</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;$1&quot;</span> <span class="token operator">|</span> <span class="token string">&quot;$2&quot;</span>
+  <span class="token keyword">rule</span> T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">[</span>N1<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> N2<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> Vs<span class="token punctuation">:</span>Vals<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token operator">=</span><span class="token operator">&gt;</span> T<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&lt;</span>Vs<span class="token operator">&gt;</span> X<span class="token punctuation">[</span>N1<span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token punctuation">{</span>
+         T<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&lt;</span>Vs<span class="token operator">&gt;</span> $<span class="token number">1</span><span class="token operator">=</span>X<span class="token punctuation">;</span>
+         for<span class="token punctuation">(</span>int $<span class="token number">2</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> $<span class="token number">2</span> <span class="token operator">&lt;=</span> N1 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token operator">++</span>$<span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+           T X<span class="token punctuation">[</span>N2<span class="token punctuation">,</span>Vs<span class="token punctuation">]</span><span class="token punctuation">;</span>
+           $<span class="token number">1</span><span class="token punctuation">[</span>$<span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> X<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+       <span class="token punctuation">}</span>
+    <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Function declaration</h3>
-<p>Store all function parameters, as well as the return type, as part
-of the lambda abstraction.  In the spirit of dynamic typing, we will
+<h3 id="function-declaration">Function declaration</h3>
+<p>Store all function parameters, as well as the return type, as part<br>
+of the lambda abstraction.  In the spirit of dynamic typing, we will<br>
 make sure that parameters are well typed when the function is invoked.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; T:Type F:<span class="hljs-keyword">Id</span>(Ps:Params) S =&gt; . ...&lt;/k&gt;
-       &lt;env&gt; Env =&gt; Env[F &lt;- L] &lt;/env&gt;
-       &lt;store&gt;... .Map =&gt; L |-&gt; lambda(T, Ps, S) ...&lt;/store&gt;
-       &lt;nextLoc&gt; L =&gt; L +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span> &lt;/nextLoc&gt;
+<pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type F<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">(</span>Ps<span class="token punctuation">:</span>Params<span class="token punctuation">)</span> S <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">=</span><span class="token operator">&gt;</span> Env<span class="token punctuation">[</span>F <span class="token operator">&lt;</span><span class="token operator">-</span> L<span class="token punctuation">]</span> <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span>Map <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> lambda<span class="token punctuation">(</span>T<span class="token punctuation">,</span> Ps<span class="token punctuation">,</span> S<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>nextLoc<span class="token operator">&gt;</span> L <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span> <span class="token operator">&lt;</span><span class="token operator">/</span>nextLoc<span class="token operator">&gt;</span>
 </code></pre>
-<h3>Calling <code>main()</code></h3>
+<h3 id="calling-main()">Calling <code>main()</code></h3>
 <p>When done with the first pass, call <code>main()</code>.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KItem ::= <span class="hljs-string">&quot;execute&quot;</span><span class="hljs-keyword">
-  rule</span> &lt;k&gt; execute =&gt; main(.Exps); &lt;/k&gt;
-       &lt;env&gt; Env &lt;/env&gt;
-       &lt;genv&gt; .Map =&gt; Env &lt;/genv&gt;  [<span class="hljs-literal">structural</span>]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;execute&quot;</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> execute <span class="token operator">=</span><span class="token operator">&gt;</span> main<span class="token punctuation">(</span><span class="token punctuation">.</span>Exps<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>genv<span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token operator">=</span><span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>genv<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Expressions</h3>
-<h3>Variable lookup</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; X:<span class="hljs-keyword">Id</span> =&gt; V ...&lt;/k&gt;
-       &lt;env&gt;... X |-&gt; L ...&lt;/env&gt;
-       &lt;store&gt;... L |-&gt; V:Val ...&lt;/store&gt;  [lookup]
+<h3 id="expressions-1">Expressions</h3>
+<h3 id="variable-lookup">Variable lookup</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> X<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span><span class="token operator">&gt;</span> V <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> X <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> L <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> V<span class="token punctuation">:</span>Val <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>  <span class="token punctuation">[</span>lookup<span class="token punctuation">]</span>
 </code></pre>
-<h3>Variable/Array increment</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  context</span> ++(HOLE =&gt; lvalue(HOLE))<span class="hljs-keyword">
-  rule</span> &lt;k&gt; ++loc(L) =&gt; I +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span> ...&lt;/k&gt;
-       &lt;store&gt;... L |-&gt; (I:<span class="hljs-keyword">Int</span> =&gt; I +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>) ...&lt;/store&gt;  [increment]
+<h3 id="variable%2Farray-increment">Variable/Array increment</h3>
+<pre class="language-k"><code>  <span class="token keyword">context</span> <span class="token operator">++</span><span class="token punctuation">(</span>HOLE <span class="token operator">=</span><span class="token operator">&gt;</span> lvalue<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> <span class="token operator">++</span>loc<span class="token punctuation">(</span>L<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>I<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>  <span class="token punctuation">[</span>increment<span class="token punctuation">]</span>
 </code></pre>
-<h3>Arithmetic operators</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> I1 + I2 =&gt; I1 +<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> Str1 + Str2 =&gt; Str1 +<span class="hljs-keyword">String</span> Str2<span class="hljs-keyword">
-  rule</span> I1 - I2 =&gt; I1 -<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> I1 * I2 =&gt; I1 *<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> I1 / I2 =&gt; I1 /<span class="hljs-keyword">Int</span> I2 when I2 =/=K <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> I1 % I2 =&gt; I1 %<span class="hljs-keyword">Int</span> I2 when I2 =/=K <span class="hljs-number">0</span><span class="hljs-keyword">
-  rule</span> - I =&gt; <span class="hljs-number">0</span> -<span class="hljs-keyword">Int</span> I<span class="hljs-keyword">
-  rule</span> I1 &lt; I2 =&gt; I1 &lt;<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> I1 &lt;= I2 =&gt; I1 &lt;=<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> I1 &gt; I2 =&gt; I1 &gt;<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> I1 &gt;= I2 =&gt; I1 &gt;=<span class="hljs-keyword">Int</span> I2<span class="hljs-keyword">
-  rule</span> V1:Val == V2:Val =&gt; V1 ==K V2<span class="hljs-keyword">
-  rule</span> V1:Val != V2:Val =&gt; V1 =/=K V2<span class="hljs-keyword">
-  rule</span> ! T =&gt; notBool(T)<span class="hljs-keyword">
-  rule</span> true  &amp;&amp; E =&gt; E<span class="hljs-keyword">
-  rule</span> false &amp;&amp; _ =&gt; false<span class="hljs-keyword">
-  rule</span> true  || _ =&gt; true<span class="hljs-keyword">
-  rule</span> false || E =&gt; E
+<h3 id="arithmetic-operators">Arithmetic operators</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> I1 <span class="token operator">+</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">+</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> Str1 <span class="token operator">+</span> Str2 <span class="token operator">=</span><span class="token operator">&gt;</span> Str1 <span class="token operator">+</span><span class="token keyword">String</span> Str2
+  <span class="token keyword">rule</span> I1 <span class="token operator">-</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">-</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> I1 <span class="token operator">*</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">*</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> I1 <span class="token operator">/</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">/</span><span class="token keyword">Int</span> I2 when I2 <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>K <span class="token number">0</span>
+  <span class="token keyword">rule</span> I1 <span class="token operator">%</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">%</span><span class="token keyword">Int</span> I2 when I2 <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>K <span class="token number">0</span>
+  <span class="token keyword">rule</span> <span class="token operator">-</span> I <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">-</span><span class="token keyword">Int</span> I
+  <span class="token keyword">rule</span> I1 <span class="token operator">&lt;</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">&lt;</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> I1 <span class="token operator">&lt;=</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">&lt;=</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> I1 <span class="token operator">&gt;</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">&gt;</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> I1 <span class="token operator">&gt;=</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">&gt;=</span><span class="token keyword">Int</span> I2
+  <span class="token keyword">rule</span> V1<span class="token punctuation">:</span>Val <span class="token operator">==</span> V2<span class="token punctuation">:</span>Val <span class="token operator">=</span><span class="token operator">&gt;</span> V1 <span class="token operator">==</span>K V2
+  <span class="token keyword">rule</span> V1<span class="token punctuation">:</span>Val <span class="token operator">!=</span> V2<span class="token punctuation">:</span>Val <span class="token operator">=</span><span class="token operator">&gt;</span> V1 <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>K V2
+  <span class="token keyword">rule</span> <span class="token operator">!</span> T <span class="token operator">=</span><span class="token operator">&gt;</span> notBool<span class="token punctuation">(</span>T<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> <span class="token boolean">true</span>  <span class="token operator">&amp;&amp;</span> E <span class="token operator">=</span><span class="token operator">&gt;</span> E
+  <span class="token keyword">rule</span> <span class="token boolean">false</span> <span class="token operator">&amp;&amp;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">false</span>
+  <span class="token keyword">rule</span> <span class="token boolean">true</span>  <span class="token operator">||</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">true</span>
+  <span class="token keyword">rule</span> <span class="token boolean">false</span> <span class="token operator">||</span> E <span class="token operator">=</span><span class="token operator">&gt;</span> E
 </code></pre>
-<h3>Array lookup</h3>
+<h3 id="array-lookup">Array lookup</h3>
 <p>Check array bounds, as part of the dynamic typing policy.</p>
-<pre class="hljs"><code><span class="hljs-comment">// Same comment as for simple untyped regarding [anywhere]</span><span class="hljs-keyword">
-  rule</span> V:Val[N1:<span class="hljs-keyword">Int</span>, N2:<span class="hljs-keyword">Int</span>, Vs:Vals] =&gt; V[N1][N2, Vs]
-    [<span class="hljs-literal">structural</span>, anywhere]
+<pre class="language-k"><code><span class="token comment">// Same comment as for simple untyped regarding [anywhere]</span>
+  <span class="token keyword">rule</span> V<span class="token punctuation">:</span>Val<span class="token punctuation">[</span>N1<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> N2<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> Vs<span class="token punctuation">:</span>Vals<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">&gt;</span> V<span class="token punctuation">[</span>N1<span class="token punctuation">]</span><span class="token punctuation">[</span>N2<span class="token punctuation">,</span> Vs<span class="token punctuation">]</span>
+    <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">,</span> anywhere<span class="token punctuation">]</span>
 
-<span class="hljs-comment">// Same comment as for simple untyped regarding [anywhere]</span><span class="hljs-keyword">
-  rule</span> array(_:Type, L:<span class="hljs-keyword">Int</span>, M:<span class="hljs-keyword">Int</span>)[N:<span class="hljs-keyword">Int</span>] =&gt; lookup(L +<span class="hljs-keyword">Int</span> N)
-    when N &gt;=<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span> andBool N &lt;<span class="hljs-keyword">Int</span> M  [<span class="hljs-literal">structural</span>, anywhere]
+<span class="token comment">// Same comment as for simple untyped regarding [anywhere]</span>
+  <span class="token keyword">rule</span> array<span class="token punctuation">(</span>_<span class="token punctuation">:</span>Type<span class="token punctuation">,</span> L<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> M<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">)</span><span class="token punctuation">[</span>N<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">&gt;</span> lookup<span class="token punctuation">(</span>L <span class="token operator">+</span><span class="token keyword">Int</span> N<span class="token punctuation">)</span>
+    when N <span class="token operator">&gt;=</span><span class="token keyword">Int</span> <span class="token number">0</span> andBool N <span class="token operator">&lt;</span><span class="token keyword">Int</span> M  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">,</span> anywhere<span class="token punctuation">]</span>
 </code></pre>
-<h3>Size of an array</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> sizeOf(array(_,_,N)) =&gt; N
+<h3 id="size-of-an-array">Size of an array</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> sizeOf<span class="token punctuation">(</span>array<span class="token punctuation">(</span>_<span class="token punctuation">,</span>_<span class="token punctuation">,</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> N
 </code></pre>
-<h3>Function call</h3>
-<p>Define function call and return together, to see their relationship.
-Note that the operation <code>mkDecls</code> now declares properly typed
-instantiated variables, and that the semantics of <code>return</code> also
+<h3 id="function-call">Function call</h3>
+<p>Define function call and return together, to see their relationship.<br>
+Note that the operation <code>mkDecls</code> now declares properly typed<br>
+instantiated variables, and that the semantics of <code>return</code> also<br>
 checks that that type of the returned value is expected one.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KItem ::= (Type,Map,K,ControlCellFragment)<span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token punctuation">(</span>Type<span class="token punctuation">,</span>Map<span class="token punctuation">,</span>K<span class="token punctuation">,</span>ControlCellFragment<span class="token punctuation">)</span>
 
-  rule</span> &lt;k&gt; lambda(T,Ps,S)(Vs:Vals) ~&gt; K =&gt; mkDecls(Ps,Vs) S return; &lt;/k&gt;
-       &lt;control&gt;
-         &lt;fstack&gt; .List =&gt; ListItem((T&apos;,Env,K,C)) ...&lt;/fstack&gt;
-         &lt;returnType&gt; T&apos; =&gt; T &lt;/returnType&gt;
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> lambda<span class="token punctuation">(</span>T<span class="token punctuation">,</span>Ps<span class="token punctuation">,</span>S<span class="token punctuation">)</span><span class="token punctuation">(</span>Vs<span class="token punctuation">:</span>Vals<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> K <span class="token operator">=</span><span class="token operator">&gt;</span> mkDecls<span class="token punctuation">(</span>Ps<span class="token punctuation">,</span>Vs<span class="token punctuation">)</span> S return<span class="token punctuation">;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>control<span class="token operator">&gt;</span>
+         <span class="token operator">&lt;</span>fstack<span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">=</span><span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span><span class="token punctuation">(</span>T&apos;<span class="token punctuation">,</span>Env<span class="token punctuation">,</span>K<span class="token punctuation">,</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>fstack<span class="token operator">&gt;</span>
+         <span class="token operator">&lt;</span>returnType<span class="token operator">&gt;</span> T&apos; <span class="token operator">=</span><span class="token operator">&gt;</span> T <span class="token operator">&lt;</span><span class="token operator">/</span>returnType<span class="token operator">&gt;</span>
          C
-       &lt;/control&gt;
-       &lt;env&gt; Env =&gt; GEnv &lt;/env&gt;
-       &lt;genv&gt; GEnv &lt;/genv&gt;<span class="hljs-keyword">
+       <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">=</span><span class="token operator">&gt;</span> GEnv <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>genv<span class="token operator">&gt;</span> GEnv <span class="token operator">&lt;</span><span class="token operator">/</span>genv<span class="token operator">&gt;</span>
 
-  rule</span> &lt;k&gt; return V:Val; ~&gt; _ =&gt; V ~&gt; K &lt;/k&gt;
-       &lt;control&gt;
-         &lt;fstack&gt; ListItem((T&apos;,Env,K,C)) =&gt; .List ...&lt;/fstack&gt;
-         &lt;returnType&gt; T =&gt; T&apos; &lt;/returnType&gt;
-         (_ =&gt; C)
-       &lt;/control&gt;
-       &lt;env&gt; _ =&gt; Env &lt;/env&gt;
-    when typeOf(V) ==K T   <span class="hljs-comment">// check the type of the returned value</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> return V<span class="token punctuation">:</span>Val<span class="token punctuation">;</span> <span class="token operator">~</span><span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> V <span class="token operator">~</span><span class="token operator">&gt;</span> K <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>control<span class="token operator">&gt;</span>
+         <span class="token operator">&lt;</span>fstack<span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span><span class="token punctuation">(</span>T&apos;<span class="token punctuation">,</span>Env<span class="token punctuation">,</span>K<span class="token punctuation">,</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>fstack<span class="token operator">&gt;</span>
+         <span class="token operator">&lt;</span>returnType<span class="token operator">&gt;</span> T <span class="token operator">=</span><span class="token operator">&gt;</span> T&apos; <span class="token operator">&lt;</span><span class="token operator">/</span>returnType<span class="token operator">&gt;</span>
+         <span class="token punctuation">(</span>_ <span class="token operator">=</span><span class="token operator">&gt;</span> C<span class="token punctuation">)</span>
+       <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+    when typeOf<span class="token punctuation">(</span>V<span class="token punctuation">)</span> <span class="token operator">==</span>K T   <span class="token comment">// check the type of the returned value</span>
 </code></pre>
-<p>Like the <code>undefined</code> above, <code>nothing</code> also gets
-tagged with a type now.  The empty <code>return</code> statement is
+<p>Like the <code>undefined</code> above, <code>nothing</code> also gets<br>
+tagged with a type now.  The empty <code>return</code> statement is<br>
 completed to return the <code>nothing</code> value tagged as expected.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Val ::= nothing(Type)<span class="hljs-keyword">
-  rule</span> &lt;k&gt; return; =&gt; return nothing(T); ...&lt;/k&gt; &lt;returnType&gt; T &lt;/returnType&gt;
-    [<span class="hljs-literal">structural</span>]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> nothing<span class="token punctuation">(</span>Type<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> return<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> return nothing<span class="token punctuation">(</span>T<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>returnType<span class="token operator">&gt;</span> T <span class="token operator">&lt;</span><span class="token operator">/</span>returnType<span class="token operator">&gt;</span>
+    <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Read</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; read() =&gt; I ...&lt;/k&gt; &lt;input&gt; ListItem(I:<span class="hljs-keyword">Int</span>) =&gt; .List ...&lt;/input&gt;  [read]
+<h3 id="read">Read</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> read<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>input<span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span>I<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>  <span class="token punctuation">[</span>read<span class="token punctuation">]</span>
 </code></pre>
-<h3>Assignment</h3>
-<p>The assignment now checks that the type of the assigned location is
+<h3 id="assignment">Assignment</h3>
+<p>The assignment now checks that the type of the assigned location is<br>
 preserved:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  context</span> (HOLE =&gt; lvalue(HOLE)) = _<span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">context</span> <span class="token punctuation">(</span>HOLE <span class="token operator">=</span><span class="token operator">&gt;</span> lvalue<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span> _
 
-  rule</span> &lt;k&gt; loc(L) = V:Val =&gt; V ...&lt;/k&gt; &lt;store&gt;... L |-&gt; (V&apos; =&gt; V) ...&lt;/store&gt;
-    when typeOf(V) ==K typeOf(V&apos;)  [assignment]
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> loc<span class="token punctuation">(</span>L<span class="token punctuation">)</span> <span class="token operator">=</span> V<span class="token punctuation">:</span>Val <span class="token operator">=</span><span class="token operator">&gt;</span> V <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>V&apos; <span class="token operator">=</span><span class="token operator">&gt;</span> V<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>
+    when typeOf<span class="token punctuation">(</span>V<span class="token punctuation">)</span> <span class="token operator">==</span>K typeOf<span class="token punctuation">(</span>V&apos;<span class="token punctuation">)</span>  <span class="token punctuation">[</span>assignment<span class="token punctuation">]</span>
 </code></pre>
-<h3>Statements</h3>
-<h3>Blocks</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> {} =&gt; .  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
-  rule</span> &lt;k&gt; { S } =&gt; S ~&gt; setEnv(Env) ...&lt;/k&gt;  &lt;env&gt; Env &lt;/env&gt;  [<span class="hljs-literal">structural</span>]
+<h3 id="statements-1">Statements</h3>
+<h3 id="blocks">Blocks</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> <span class="token punctuation">{</span> S <span class="token punctuation">}</span> <span class="token operator">=</span><span class="token operator">&gt;</span> S <span class="token operator">~</span><span class="token operator">&gt;</span> setEnv<span class="token punctuation">(</span>Env<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Sequential composition</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> S1:Stmts S2:Stmts =&gt; S1 ~&gt; S2  [<span class="hljs-literal">structural</span>]
+<h3 id="sequential-composition">Sequential composition</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> S1<span class="token punctuation">:</span>Stmts S2<span class="token punctuation">:</span>Stmts <span class="token operator">=</span><span class="token operator">&gt;</span> S1 <span class="token operator">~</span><span class="token operator">&gt;</span> S2  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Expression statements</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> _:Val; =&gt; .
+<h3 id="expression-statements">Expression statements</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> _<span class="token punctuation">:</span>Val<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>
 </code></pre>
-<h3>Conditional</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> if ( true) S else _ =&gt; S<span class="hljs-keyword">
-  rule</span> if (false) _ else S =&gt; S
+<h3 id="conditional">Conditional</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> if <span class="token punctuation">(</span> <span class="token boolean">true</span><span class="token punctuation">)</span> S else _ <span class="token operator">=</span><span class="token operator">&gt;</span> S
+  <span class="token keyword">rule</span> if <span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span> _ else S <span class="token operator">=</span><span class="token operator">&gt;</span> S
 </code></pre>
-<h3>While loop</h3>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> while (E) S =&gt; if (E) {S while(E)S}  [<span class="hljs-literal">structural</span>]
+<h3 id="while-loop">While loop</h3>
+<pre class="language-k"><code>  <span class="token keyword">rule</span> while <span class="token punctuation">(</span>E<span class="token punctuation">)</span> S <span class="token operator">=</span><span class="token operator">&gt;</span> if <span class="token punctuation">(</span>E<span class="token punctuation">)</span> <span class="token punctuation">{</span>S while<span class="token punctuation">(</span>E<span class="token punctuation">)</span>S<span class="token punctuation">}</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Print</h3>
+<h3 id="print">Print</h3>
 <p>We only allow printing integers and strings:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  rule</span> &lt;k&gt; print(V:Val, Es =&gt; Es); ...&lt;/k&gt; &lt;output&gt;... .List =&gt; ListItem(V) &lt;/output&gt;
-    when typeOf(V) ==K int orBool typeOf(V) ==K string  [print]<span class="hljs-keyword">
-  rule</span> print(.Vals); =&gt; .  [<span class="hljs-literal">structural</span>]
+<pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> print<span class="token punctuation">(</span>V<span class="token punctuation">:</span>Val<span class="token punctuation">,</span> Es <span class="token operator">=</span><span class="token operator">&gt;</span> Es<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>output<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span>List <span class="token operator">=</span><span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span>V<span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token operator">/</span>output<span class="token operator">&gt;</span>
+    when typeOf<span class="token punctuation">(</span>V<span class="token punctuation">)</span> <span class="token operator">==</span>K int orBool typeOf<span class="token punctuation">(</span>V<span class="token punctuation">)</span> <span class="token operator">==</span>K string  <span class="token punctuation">[</span>print<span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> print<span class="token punctuation">(</span><span class="token punctuation">.</span>Vals<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<h3>Exceptions</h3>
-<p>Exception parameters are now typed, but note that the semantics below
-works correctly only when the thrown exception has the same type as
-the innermost try-catch paramete.  To keep things simple, for the time
-being we can assume that SIMPLE only throws and catches integer
+<h3 id="exceptions">Exceptions</h3>
+<p>Exception parameters are now typed, but note that the semantics below<br>
+works correctly only when the thrown exception has the same type as<br>
+the innermost try-catch paramete.  To keep things simple, for the time<br>
+being we can assume that SIMPLE only throws and catches integer<br>
 values, in which case our semantics below works fine:</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> KItem ::= (Param,Stmt,K,Map,ControlCellFragment)  <span class="hljs-comment">// Param instead of Id</span><span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token punctuation">(</span>Param<span class="token punctuation">,</span>Stmt<span class="token punctuation">,</span>K<span class="token punctuation">,</span>Map<span class="token punctuation">,</span>ControlCellFragment<span class="token punctuation">)</span>  <span class="token comment">// Param instead of Id</span>
 
-  syntax</span> KItem ::= <span class="hljs-string">&quot;popx&quot;</span><span class="hljs-keyword">
+  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;popx&quot;</span>
 
-  rule</span> &lt;k&gt; (try S1 catch(P) S2 =&gt; S1 ~&gt; popx) ~&gt; K &lt;/k&gt;
-       &lt;control&gt;
-         &lt;xstack&gt; .List =&gt; ListItem((P, S2, K, Env, C)) ...&lt;/xstack&gt;
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> <span class="token punctuation">(</span>try S1 catch<span class="token punctuation">(</span>P<span class="token punctuation">)</span> S2 <span class="token operator">=</span><span class="token operator">&gt;</span> S1 <span class="token operator">~</span><span class="token operator">&gt;</span> popx<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> K <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>control<span class="token operator">&gt;</span>
+         <span class="token operator">&lt;</span>xstack<span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">=</span><span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span><span class="token punctuation">(</span>P<span class="token punctuation">,</span> S2<span class="token punctuation">,</span> K<span class="token punctuation">,</span> Env<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>xstack<span class="token operator">&gt;</span>
          C
-       &lt;/control&gt;
-       &lt;env&gt; Env &lt;/env&gt;<span class="hljs-keyword">
+       <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
 
-  rule</span> &lt;k&gt; popx =&gt; . ...&lt;/k&gt;
-       &lt;xstack&gt; ListItem(_) =&gt; .List ...&lt;/xstack&gt;<span class="hljs-keyword">
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> popx <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>xstack<span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>xstack<span class="token operator">&gt;</span>
 
-  rule</span> &lt;k&gt; throw V:Val; ~&gt; _ =&gt; { T X = V; S2 } ~&gt; K &lt;/k&gt;
-       &lt;control&gt;
-         &lt;xstack&gt; ListItem((T:Type X:<span class="hljs-keyword">Id</span>, S2, K, Env, C)) =&gt; .List ...&lt;/xstack&gt;
-         (_ =&gt; C)
-       &lt;/control&gt;
-       &lt;env&gt; _ =&gt; Env &lt;/env&gt;
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> throw V<span class="token punctuation">:</span>Val<span class="token punctuation">;</span> <span class="token operator">~</span><span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span> T X <span class="token operator">=</span> V<span class="token punctuation">;</span> S2 <span class="token punctuation">}</span> <span class="token operator">~</span><span class="token operator">&gt;</span> K <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>control<span class="token operator">&gt;</span>
+         <span class="token operator">&lt;</span>xstack<span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span><span class="token punctuation">(</span>T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">,</span> S2<span class="token punctuation">,</span> K<span class="token punctuation">,</span> Env<span class="token punctuation">,</span> C<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>xstack<span class="token operator">&gt;</span>
+         <span class="token punctuation">(</span>_ <span class="token operator">=</span><span class="token operator">&gt;</span> C<span class="token punctuation">)</span>
+       <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
+       <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
 </code></pre>
-<h3>Threads</h3>
-<h3>Thread creation</h3>
-<pre class="hljs"><code><span class="hljs-keyword">   rule</span> &lt;thread&gt;...
-          &lt;k&gt; spawn S =&gt; !T:<span class="hljs-keyword">Int</span> ...&lt;/k&gt;
-          &lt;env&gt; Env &lt;/env&gt;
-        ...&lt;/thread&gt;
-        (.Bag =&gt; &lt;thread&gt;...
-                &lt;k&gt; S &lt;/k&gt;
-                &lt;env&gt; Env &lt;/env&gt;
-                &lt;id&gt; !T &lt;/id&gt;
-              ...&lt;/thread&gt;)
+<h3 id="threads">Threads</h3>
+<h3 id="thread-creation">Thread creation</h3>
+<pre class="language-k"><code>   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>thread<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+          <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> spawn S <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">!</span>T<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>thread<span class="token operator">&gt;</span>
+        <span class="token punctuation">(</span><span class="token punctuation">.</span>Bag <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">&lt;</span>thread<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+                <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> S <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+                <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+                <span class="token operator">&lt;</span>id<span class="token operator">&gt;</span> <span class="token operator">!</span>T <span class="token operator">&lt;</span><span class="token operator">/</span>id<span class="token operator">&gt;</span>
+              <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>thread<span class="token operator">&gt;</span><span class="token punctuation">)</span>
 </code></pre>
-<h3>Thread termination</h3>
-<pre class="hljs"><code><span class="hljs-keyword">   rule</span> (&lt;thread&gt;... &lt;k&gt;.&lt;/k&gt; &lt;holds&gt;H&lt;/holds&gt; &lt;id&gt;T&lt;/id&gt; ...&lt;/thread&gt; =&gt; .Bag)
-        &lt;busy&gt; Busy =&gt; Busy -Set keys(H) &lt;/busy&gt;
-        &lt;terminated&gt;... .Set =&gt; SetItem(T) ...&lt;/terminated&gt;
+<h3 id="thread-termination">Thread termination</h3>
+<pre class="language-k"><code>   <span class="token keyword">rule</span> <span class="token punctuation">(</span><span class="token operator">&lt;</span>thread<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>holds<span class="token operator">&gt;</span>H<span class="token operator">&lt;</span><span class="token operator">/</span>holds<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>id<span class="token operator">&gt;</span>T<span class="token operator">&lt;</span><span class="token operator">/</span>id<span class="token operator">&gt;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>thread<span class="token operator">&gt;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Bag<span class="token punctuation">)</span>
+        <span class="token operator">&lt;</span>busy<span class="token operator">&gt;</span> Busy <span class="token operator">=</span><span class="token operator">&gt;</span> Busy <span class="token operator">-</span>Set keys<span class="token punctuation">(</span>H<span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token operator">/</span>busy<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>terminated<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span>Set <span class="token operator">=</span><span class="token operator">&gt;</span> SetItem<span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>terminated<span class="token operator">&gt;</span>
 </code></pre>
-<h3>Thread joining</h3>
-<pre class="hljs"><code><span class="hljs-keyword">   rule</span> &lt;k&gt; join T:<span class="hljs-keyword">Int</span>; =&gt; . ...&lt;/k&gt;
-        &lt;terminated&gt;... SetItem(T) ...&lt;/terminated&gt;
+<h3 id="thread-joining">Thread joining</h3>
+<pre class="language-k"><code>   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> join T<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>terminated<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> SetItem<span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>terminated<span class="token operator">&gt;</span>
 </code></pre>
-<h3>Acquire lock</h3>
-<pre class="hljs"><code><span class="hljs-keyword">   rule</span> &lt;k&gt; acquire V:Val; =&gt; . ...&lt;/k&gt;
-        &lt;holds&gt;... .Map =&gt; V |-&gt; <span class="hljs-number">0</span> ...&lt;/holds&gt;
-        &lt;busy&gt; Busy (.Set =&gt; SetItem(V)) &lt;/busy&gt;
-     when (notBool(V in Busy:Set))  [acquire]<span class="hljs-keyword">
+<h3 id="acquire-lock">Acquire lock</h3>
+<pre class="language-k"><code>   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> acquire V<span class="token punctuation">:</span>Val<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>holds<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span>Map <span class="token operator">=</span><span class="token operator">&gt;</span> V <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>holds<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>busy<span class="token operator">&gt;</span> Busy <span class="token punctuation">(</span><span class="token punctuation">.</span>Set <span class="token operator">=</span><span class="token operator">&gt;</span> SetItem<span class="token punctuation">(</span>V<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token operator">/</span>busy<span class="token operator">&gt;</span>
+     when <span class="token punctuation">(</span>notBool<span class="token punctuation">(</span>V in Busy<span class="token punctuation">:</span>Set<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token punctuation">[</span>acquire<span class="token punctuation">]</span>
 
-   rule</span> &lt;k&gt; acquire V; =&gt; . ...&lt;/k&gt;
-        &lt;holds&gt;... V:Val |-&gt; (N:<span class="hljs-keyword">Int</span> =&gt; N +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>) ...&lt;/holds&gt;
+   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> acquire V<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>holds<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> V<span class="token punctuation">:</span>Val <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>N<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token operator">=</span><span class="token operator">&gt;</span> N <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>holds<span class="token operator">&gt;</span>
 </code></pre>
-<h3>Release lock</h3>
-<pre class="hljs"><code><span class="hljs-keyword">   rule</span> &lt;k&gt; release V:Val; =&gt; . ...&lt;/k&gt;
-        &lt;holds&gt;... V |-&gt; (N =&gt; N:<span class="hljs-keyword">Int</span> -<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>) ...&lt;/holds&gt;
-      when N &gt;<span class="hljs-keyword">Int</span> <span class="hljs-number">0</span><span class="hljs-keyword">
+<h3 id="release-lock">Release lock</h3>
+<pre class="language-k"><code>   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> release V<span class="token punctuation">:</span>Val<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>holds<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> V <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>N <span class="token operator">=</span><span class="token operator">&gt;</span> N<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token operator">-</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>holds<span class="token operator">&gt;</span>
+      when N <span class="token operator">&gt;</span><span class="token keyword">Int</span> <span class="token number">0</span>
 
-   rule</span> &lt;k&gt; release V; =&gt; . ...&lt;/k&gt; &lt;holds&gt;... V:Val |-&gt; <span class="hljs-number">0</span> =&gt; .Map ...&lt;/holds&gt;
-        &lt;busy&gt;... SetItem(V) =&gt; .Set ...&lt;/busy&gt;
+   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> release V<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>holds<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> V<span class="token punctuation">:</span>Val <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>holds<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>busy<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> SetItem<span class="token punctuation">(</span>V<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Set <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>busy<span class="token operator">&gt;</span>
 </code></pre>
-<h3>Rendezvous synchronization</h3>
-<pre class="hljs"><code><span class="hljs-keyword">   rule</span> &lt;k&gt; rendezvous V:Val; =&gt; . ...&lt;/k&gt;
-        &lt;k&gt; rendezvous V; =&gt; . ...&lt;/k&gt;  [rendezvous]
+<h3 id="rendezvous-synchronization">Rendezvous synchronization</h3>
+<pre class="language-k"><code>   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> rendezvous V<span class="token punctuation">:</span>Val<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> rendezvous V<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>  <span class="token punctuation">[</span>rendezvous<span class="token punctuation">]</span>
 </code></pre>
-<h3>Auxiliary declarations and operations</h3>
-<p>Turns a list of parameters and a list of instance values for them
+<h3 id="auxiliary-declarations-and-operations">Auxiliary declarations and operations</h3>
+<p>Turns a list of parameters and a list of instance values for them<br>
 into a list of variable declarations.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Stmts ::= mkDecls(Params,Vals)  [function]<span class="hljs-keyword">
-  rule</span> mkDecls((T:Type X:<span class="hljs-keyword">Id</span>, Ps:Params), (V:Val, Vs:Vals))
-    =&gt; T X=V; mkDecls(Ps,Vs)<span class="hljs-keyword">
-  rule</span> mkDecls(.Params,.Vals) =&gt; {}
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Stmts <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> mkDecls<span class="token punctuation">(</span>Params<span class="token punctuation">,</span>Vals<span class="token punctuation">)</span>  <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> mkDecls<span class="token punctuation">(</span><span class="token punctuation">(</span>T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">,</span> Ps<span class="token punctuation">:</span>Params<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>V<span class="token punctuation">:</span>Val<span class="token punctuation">,</span> Vs<span class="token punctuation">:</span>Vals<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token operator">=</span><span class="token operator">&gt;</span> T X<span class="token operator">=</span>V<span class="token punctuation">;</span> mkDecls<span class="token punctuation">(</span>Ps<span class="token punctuation">,</span>Vs<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> mkDecls<span class="token punctuation">(</span><span class="token punctuation">.</span>Params<span class="token punctuation">,</span><span class="token punctuation">.</span>Vals<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
 <p>Location lookup.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= lookup(<span class="hljs-keyword">Int</span>)  <span class="hljs-comment">// see NOTES.md for why Exp instead of KItem</span><span class="hljs-keyword">
-  rule</span> &lt;k&gt; lookup(L) =&gt; V ...&lt;/k&gt; &lt;store&gt;... L |-&gt; V:Val ...&lt;/store&gt;  [lookup]
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> lookup<span class="token punctuation">(</span><span class="token keyword">Int</span><span class="token punctuation">)</span>  <span class="token comment">// see NOTES.md for why Exp instead of KItem</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> lookup<span class="token punctuation">(</span>L<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> V <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> V<span class="token punctuation">:</span>Val <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>  <span class="token punctuation">[</span>lookup<span class="token punctuation">]</span>
 </code></pre>
 <p>Environment recovery.</p>
-<pre class="hljs"><code><span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> same comment regarding setEnv(...) as for simple untyped</span><span class="hljs-keyword">
+<pre class="language-k"><code><span class="token comment">// TODO: same comment regarding setEnv(...) as for simple untyped</span>
 
-  syntax</span> KItem ::= setEnv(Map)<span class="hljs-keyword">
-  rule</span> &lt;k&gt; setEnv(Env) =&gt; . ...&lt;/k&gt;  &lt;env&gt; _ =&gt; Env &lt;/env&gt;  [<span class="hljs-literal">structural</span>]<span class="hljs-keyword">
-  rule</span> (setEnv(_) =&gt; .) ~&gt; setEnv(_)  [<span class="hljs-literal">structural</span>]
+  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> setEnv<span class="token punctuation">(</span>Map<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> setEnv<span class="token punctuation">(</span>Env<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> <span class="token punctuation">(</span>setEnv<span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> setEnv<span class="token punctuation">(</span>_<span class="token punctuation">)</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <p>lvalue and loc</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Exp ::= lvalue(K)<span class="hljs-keyword">
-  syntax</span> Val ::= loc(<span class="hljs-keyword">Int</span>)<span class="hljs-keyword">
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> lvalue<span class="token punctuation">(</span>K<span class="token punctuation">)</span>
+  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> loc<span class="token punctuation">(</span><span class="token keyword">Int</span><span class="token punctuation">)</span>
 
-  rule</span> &lt;k&gt; lvalue(X:<span class="hljs-keyword">Id</span> =&gt; loc(L)) ...&lt;/k&gt;  &lt;env&gt;... X |-&gt; L:<span class="hljs-keyword">Int</span> ...&lt;/env&gt;
-    [<span class="hljs-literal">structural</span>]
+  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> lvalue<span class="token punctuation">(</span>X<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span><span class="token operator">&gt;</span> loc<span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> X <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> L<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
+    <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 
-  <span class="hljs-comment">//context lvalue(_[HOLE])</span>
-  <span class="hljs-comment">//context lvalue(HOLE[_])</span><span class="hljs-keyword">
-  context</span> lvalue(_::Exp[HOLE::Exps])<span class="hljs-keyword">
-  context</span> lvalue(HOLE::Exp[_::Exps])<span class="hljs-keyword">
+  <span class="token comment">//context lvalue(_[HOLE])</span>
+  <span class="token comment">//context lvalue(HOLE[_])</span>
+  <span class="token keyword">context</span> lvalue<span class="token punctuation">(</span>_<span class="token punctuation">:</span><span class="token punctuation">:</span>Exp<span class="token punctuation">[</span>HOLE<span class="token punctuation">:</span><span class="token punctuation">:</span>Exps<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token keyword">context</span> lvalue<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span><span class="token punctuation">:</span>Exp<span class="token punctuation">[</span>_<span class="token punctuation">:</span><span class="token punctuation">:</span>Exps<span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-  rule</span> lvalue(lookup(L:<span class="hljs-keyword">Int</span>) =&gt; loc(L))  [<span class="hljs-literal">structural</span>]
+  <span class="token keyword">rule</span> lvalue<span class="token punctuation">(</span>lookup<span class="token punctuation">(</span>L<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> loc<span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <p>Adds the corresponding depth to an array type</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Type ::= Type <span class="hljs-string">&quot;&lt;&quot;</span> Vals <span class="hljs-string">&quot;&gt;&quot;</span>  [function]<span class="hljs-keyword">
-  rule</span> T:Type&lt;_,Vs:Vals&gt; =&gt; T[]&lt;Vs&gt;<span class="hljs-keyword">
-  rule</span> T:Type&lt;.Vals&gt; =&gt; T
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Type <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Type <span class="token string">&quot;&lt;&quot;</span> Vals <span class="token string">&quot;&gt;&quot;</span>  <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> T<span class="token punctuation">:</span>Type<span class="token operator">&lt;</span>_<span class="token punctuation">,</span>Vs<span class="token punctuation">:</span>Vals<span class="token operator">&gt;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&lt;</span>Vs<span class="token operator">&gt;</span>
+  <span class="token keyword">rule</span> T<span class="token punctuation">:</span>Type<span class="token operator">&lt;</span><span class="token punctuation">.</span>Vals<span class="token operator">&gt;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T
 </code></pre>
 <p>Sequences of locations.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Map ::=<span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;...&quot;</span><span class="hljs-keyword"> Int</span> <span class="hljs-string">&quot;|-&gt;&quot;</span> K
-    [function, <span class="hljs-literal">latex</span>({#<span class="hljs-number">1</span>}\ldots{#<span class="hljs-number">2</span>}\mapsto{#<span class="hljs-number">3</span>})]<span class="hljs-keyword">
-  rule</span> N...M |-&gt; _ =&gt; .Map  when N &gt;<span class="hljs-keyword">Int</span> M<span class="hljs-keyword">
-  rule</span> N...M |-&gt; K =&gt; N |-&gt; K (N +<span class="hljs-keyword">Int</span> <span class="hljs-number">1</span>)...M |-&gt; K  when N &lt;=<span class="hljs-keyword">Int</span> M
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Map <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token string">&quot;...&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;|-&gt;&quot;</span> K
+    <span class="token punctuation">[</span>function<span class="token punctuation">,</span> <span class="token class-name">latex</span><span class="token punctuation">(</span><span class="token punctuation">{</span>#<span class="token number">1</span><span class="token punctuation">}</span>\ldots<span class="token punctuation">{</span>#<span class="token number">2</span><span class="token punctuation">}</span>\mapsto<span class="token punctuation">{</span>#<span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> N<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>M <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map  when N <span class="token operator">&gt;</span><span class="token keyword">Int</span> M
+  <span class="token keyword">rule</span> N<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>M <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> K <span class="token operator">=</span><span class="token operator">&gt;</span> N <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> K <span class="token punctuation">(</span>N <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>M <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> K  when N <span class="token operator">&lt;=</span><span class="token keyword">Int</span> M
 
-<span class="hljs-comment">// Type of a value.</span><span class="hljs-keyword">
-  syntax</span> Type ::= typeOf(K)  [function]<span class="hljs-keyword">
-  rule</span> typeOf(_:<span class="hljs-keyword">Int</span>) =&gt; int<span class="hljs-keyword">
-  rule</span> typeOf(_:<span class="hljs-keyword">Bool</span>) =&gt; bool<span class="hljs-keyword">
-  rule</span> typeOf(_:<span class="hljs-keyword">String</span>) =&gt; string<span class="hljs-keyword">
-  rule</span> typeOf(array(T,_,_)) =&gt; (T[])   <span class="hljs-comment">// () needed! K parses [] as &quot;no tags&quot;</span><span class="hljs-keyword">
-  rule</span> typeOf(lambda(T,Ps,_)) =&gt; getTypes(Ps) -&gt; T<span class="hljs-keyword">
-  rule</span> typeOf(undefined(T)) =&gt; T<span class="hljs-keyword">
-  rule</span> typeOf(nothing(T)) =&gt; T
+<span class="token comment">// Type of a value.</span>
+  <span class="token keyword">syntax</span> Type <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> typeOf<span class="token punctuation">(</span>K<span class="token punctuation">)</span>  <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> typeOf<span class="token punctuation">(</span>_<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> int
+  <span class="token keyword">rule</span> typeOf<span class="token punctuation">(</span>_<span class="token punctuation">:</span><span class="token keyword">Bool</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> bool
+  <span class="token keyword">rule</span> typeOf<span class="token punctuation">(</span>_<span class="token punctuation">:</span><span class="token keyword">String</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> string
+  <span class="token keyword">rule</span> typeOf<span class="token punctuation">(</span>array<span class="token punctuation">(</span>T<span class="token punctuation">,</span>_<span class="token punctuation">,</span>_<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>T<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>   <span class="token comment">// () needed! K parses [] as &quot;no tags&quot;</span>
+  <span class="token keyword">rule</span> typeOf<span class="token punctuation">(</span>lambda<span class="token punctuation">(</span>T<span class="token punctuation">,</span>Ps<span class="token punctuation">,</span>_<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> getTypes<span class="token punctuation">(</span>Ps<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> T
+  <span class="token keyword">rule</span> typeOf<span class="token punctuation">(</span>undefined<span class="token punctuation">(</span>T<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T
+  <span class="token keyword">rule</span> typeOf<span class="token punctuation">(</span>nothing<span class="token punctuation">(</span>T<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T
 </code></pre>
 <p>List of types of a parameter.</p>
-<pre class="hljs"><code><span class="hljs-keyword">  syntax</span> Types ::= getTypes(Params)  [function]<span class="hljs-keyword">
-  rule</span> getTypes(T:Type _:<span class="hljs-keyword">Id</span>) =&gt; T, .Types   <span class="hljs-comment">// I would like to not use .Types</span><span class="hljs-keyword">
-  rule</span> getTypes(T:Type _:<span class="hljs-keyword">Id</span>, P, Ps) =&gt; T, getTypes(P,Ps)<span class="hljs-keyword">
-  rule</span> getTypes(.Params) =&gt; void, .Types<span class="hljs-keyword">
-endmodule</span>
+<pre class="language-k"><code>  <span class="token keyword">syntax</span> Types <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> getTypes<span class="token punctuation">(</span>Params<span class="token punctuation">)</span>  <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
+  <span class="token keyword">rule</span> getTypes<span class="token punctuation">(</span>T<span class="token punctuation">:</span>Type _<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T<span class="token punctuation">,</span> <span class="token punctuation">.</span>Types   <span class="token comment">// I would like to not use .Types</span>
+  <span class="token keyword">rule</span> getTypes<span class="token punctuation">(</span>T<span class="token punctuation">:</span>Type _<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">,</span> P<span class="token punctuation">,</span> Ps<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T<span class="token punctuation">,</span> getTypes<span class="token punctuation">(</span>P<span class="token punctuation">,</span>Ps<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> getTypes<span class="token punctuation">(</span><span class="token punctuation">.</span>Params<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> void<span class="token punctuation">,</span> <span class="token punctuation">.</span>Types
+<span class="token keyword">endmodule</span>
 </code></pre>
 </body></html>
           </div>

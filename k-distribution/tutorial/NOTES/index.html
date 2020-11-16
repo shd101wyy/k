@@ -129,12 +129,12 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><p><em>Dear reader: these <code>NOTES.md</code> documents are mostly for myself (Grigore), to
-keep track of changes and updates that need to be made as things evolve
-in the K framework.  You can safely ignore them.  However, if you are curious
-how things will change and decide to read them, I would be grateful if you
-let me know whenever you find inconsistencies or things that I forgot to
-mention here.  Or even better, feel free to make pull requests with suggested
+            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><p><em>Dear reader: these <code>NOTES.md</code> documents are mostly for myself (Grigore), to<br>
+keep track of changes and updates that need to be made as things evolve<br>
+in the K framework.  You can safely ignore them.  However, if you are curious<br>
+how things will change and decide to read them, I would be grateful if you<br>
+let me know whenever you find inconsistencies or things that I forgot to<br>
+mention here.  Or even better, feel free to make pull requests with suggested<br>
 changes or updates.</em></p>
 <p>Global changes that need to be made:</p>
 <ul>
@@ -170,28 +170,28 @@ changes or updates.</em></p>
 <li><code>1_k\5_types\lesson_9\README.md</code> refers to Lessons 8, 5, 7, 4</li>
 <li></li>
 </ul>
-<p><code>1_k\4_imp++\lesson_2\README.md</code> states &quot;generates a term of the form
-<code>symNat(n)</code> of sort <code>Nat</code>&quot;, but the representation of symbolic numbers may
+<p><code>1_k\4_imp++\lesson_2\README.md</code> states &quot;generates a term of the form<br>
+<code>symNat(n)</code> of sort <code>Nat</code>&quot;, but the representation of symbolic numbers may<br>
 have changed</p>
 <p>Describe/use/explain/justify the terminology &quot;the <code>&lt;k/&gt;</code> cell&quot; as opposed to &quot;the <code>k</code> cell&quot;.</p>
-<p>Would it be a good idea to make the README files self contained, that is,
-to include the entire <code>lang.k</code> code in them, spread over the entire README, as things
-are discussed?  In case we decide not to, make sure that the code snippets mentioned
-in the READMEs are in perfect correspondence to the code in the actual .k definitions.
-Maybe add a tag before each code snippet saying what file and what lines in that
+<p>Would it be a good idea to make the README files self contained, that is,<br>
+to include the entire <code>lang.k</code> code in them, spread over the entire README, as things<br>
+are discussed?  In case we decide not to, make sure that the code snippets mentioned<br>
+in the READMEs are in perfect correspondence to the code in the actual .k definitions.<br>
+Maybe add a tag before each code snippet saying what file and what lines in that<br>
 file comes from, then we can use a script to check them to be identical.</p>
-<p><code>1_k\5_types\lesson_4\README.md</code> refers to <em>polymorphism</em>, but some may say that is not precisely
+<p><code>1_k\5_types\lesson_4\README.md</code> refers to <em>polymorphism</em>, but some may say that is not precisely<br>
 polymorphism, because the types are not universally quantified.  Explain that better.</p>
-<p>Modify the entire tutorial to use <code>.</code> or, if needed, <code>.::Map</code>, etc.,
-instead of <code>.Map</code>, etc..  Check for each instance specifically, because
+<p>Modify the entire tutorial to use <code>.</code> or, if needed, <code>.::Map</code>, etc.,<br>
+instead of <code>.Map</code>, etc..  Check for each instance specifically, because<br>
 the surrounding text may also need to be modified.</p>
-<p>We are still using the <code>--pdf</code> option to <code>kompile</code> at many places in the
-tutorial, although in some places at the beginning we replaced it with the
-new approach, <code>kdoc</code>.  It is actually not clear that we should switch to
-<code>kdoc</code>, because after all the Latex generation is still a backend.  So it
+<p>We are still using the <code>--pdf</code> option to <code>kompile</code> at many places in the<br>
+tutorial, although in some places at the beginning we replaced it with the<br>
+new approach, <code>kdoc</code>.  It is actually not clear that we should switch to<br>
+<code>kdoc</code>, because after all the Latex generation is still a backend.  So it<br>
 makes sense to implement it as such, instead of as a different tool.</p>
-<p>We sometimes use &quot;Kompile&quot;, or &quot;kompile&quot;, as a verb instead of &quot;Compile&quot;,
-or &quot;compile&quot;, to indicate that we mean compilation with K.  Similarly for
+<p>We sometimes use &quot;Kompile&quot;, or &quot;kompile&quot;, as a verb instead of &quot;Compile&quot;,<br>
+or &quot;compile&quot;, to indicate that we mean compilation with K.  Similarly for<br>
 &quot;Krun&quot;, or &quot;krun&quot;, instead of &quot;Run&quot; or &quot;run&quot;.</p>
 <p>Add citations to:</p>
 <ul>
@@ -199,20 +199,20 @@ or &quot;compile&quot;, to indicate that we mean compilation with K.  Similarly 
 <li>logics, where the distinction between side condition and premise is explained</li>
 <li>reduction semantics with evaluation contexts</li>
 </ul>
-<p>Replace <code>I1 +Int I2</code>, <code>notBool B</code>, etc., with <code>(I1 + I2)@INT</code>, <code>(not B)@Bool</code>,
+<p>Replace <code>I1 +Int I2</code>, <code>notBool B</code>, etc., with <code>(I1 + I2)@INT</code>, <code>(not B)@Bool</code>,<br>
 etc., when we have module qualification in place and working.</p>
-<p>Explain <code>isSort(T)</code> for all sorts <code>Sort</code>, in one place, when it is first used.
+<p>Explain <code>isSort(T)</code> for all sorts <code>Sort</code>, in one place, when it is first used.<br>
 Explain also that <code>T:Sort</code> yields a side condition <code>isSort(T)</code>.</p>
-<p>Currently all the K collections are &quot;untyped&quot;, that is, over the sort <code>K</code>.
-In the future we want to have parametric collections.  Make sure the tutorial
+<p>Currently all the K collections are &quot;untyped&quot;, that is, over the sort <code>K</code>.<br>
+In the future we want to have parametric collections.  Make sure the tutorial<br>
 is systematically changed when this happens.</p>
 <p>See issue #2023 and modify tutorial/1_k/2_imp/lesson_4 accordingly, if needed.</p>
-<p>All definitions, and corresponding READMEs, should be changed to take advantage
-of modules and module operations.  Ideally, we&apos;d like to have no code repetition
+<p>All definitions, and corresponding READMEs, should be changed to take advantage<br>
+of modules and module operations.  Ideally, we&apos;d like to have no code repetition<br>
 in any examples, except for demonstration purposes.</p>
-<p>In the PL semantics book, define print(AExps) to have the same semantics as in
-IMP++: evaluates and prints each of its arguments in order (as opposed to
-first evaluate all of them and then print them---for example, if the second
+<p>In the PL semantics book, define print(AExps) to have the same semantics as in<br>
+IMP++: evaluates and prints each of its arguments in order (as opposed to<br>
+first evaluate all of them and then print them---for example, if the second<br>
 argument performs a division by zero, I still want to print the first argument.)</p>
 </body></html>
           </div>
