@@ -135,156 +135,156 @@ Organization: University of Illinois at Urbana-Champaign</p>
 <p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2 id="abstract">Abstract</h2>
-<p>This is the <strong>K</strong> semantic definition of the untyped KOOL language.  KOOL<br>
-is aimed at being a pedagogical and research language that captures<br>
-the essence of the object-oriented programming paradigm.  Its untyped<br>
-variant discussed here is simpler than the typed one, ignoring several<br>
-intricate aspects of types in the presence of objects.  A program<br>
-consists of a set of class declarations.  Each class can extend at<br>
-most one other class (KOOL is single-inheritance).  A class can<br>
-declare a set of fields and a set of methods, all public and called<br>
-the class&apos; <em>members</em>.  Specifically, KOOL includes the<br>
+<p>This is the <strong>K</strong> semantic definition of the untyped KOOL language.  KOOL
+is aimed at being a pedagogical and research language that captures
+the essence of the object-oriented programming paradigm.  Its untyped
+variant discussed here is simpler than the typed one, ignoring several
+intricate aspects of types in the presence of objects.  A program
+consists of a set of class declarations.  Each class can extend at
+most one other class (KOOL is single-inheritance).  A class can
+declare a set of fields and a set of methods, all public and called
+the class&apos; <em>members</em>.  Specifically, KOOL includes the
 following features:</p>
 <ul>
 <li>
-<p>Class declarations, where a class may or may not explicitly<br>
-extend another class.  In case a class does not explicitly extend<br>
-another class, then it is assumed that it extends the default top-most<br>
-and empty (i.e., no members) class called <code>Object</code>.  Each class<br>
-is required to declare precisely one homonymous method, called its<br>
-<em>constructor</em>.  Each valid program should contain one class<br>
-named <code>Main</code>, whose constructor, <code>Main()</code>, takes no<br>
-arguments.  The execution of a program consists of creating an object<br>
-instance of class <code>Main</code> and invoking the constructor<br>
+<p>Class declarations, where a class may or may not explicitly
+extend another class.  In case a class does not explicitly extend
+another class, then it is assumed that it extends the default top-most
+and empty (i.e., no members) class called <code>Object</code>.  Each class
+is required to declare precisely one homonymous method, called its
+<em>constructor</em>.  Each valid program should contain one class
+named <code>Main</code>, whose constructor, <code>Main()</code>, takes no
+arguments.  The execution of a program consists of creating an object
+instance of class <code>Main</code> and invoking the constructor
 <code>Main()</code> on it, that is, of executing <code>new Main();</code>.</p>
 </li>
 <li>
-<p>All features of SIMPLE (see <code>examples/simple/untyped</code>),<br>
-i.e., multidimensional arrays, function (here called &quot;method&quot;)<br>
-abstractions with call-by-value parameter passing style and static<br>
-scoping, blocks with locals, input/output, parametric exceptions, and<br>
-concurrency via dynamic thread creation/termination and synchronization.<br>
-The only change in the syntax of SIMPLE when imported in KOOL is the<br>
-function declaration keyword, <code>function</code>, which is changed into<br>
-<code>method</code>.  The exact same desugaring macros from SIMPLE are<br>
-also included in KOOL.  We can think of KOOL&apos;s classes as embedding<br>
+<p>All features of SIMPLE (see <code>examples/simple/untyped</code>),
+i.e., multidimensional arrays, function (here called &quot;method&quot;)
+abstractions with call-by-value parameter passing style and static
+scoping, blocks with locals, input/output, parametric exceptions, and
+concurrency via dynamic thread creation/termination and synchronization.
+The only change in the syntax of SIMPLE when imported in KOOL is the
+function declaration keyword, <code>function</code>, which is changed into
+<code>method</code>.  The exact same desugaring macros from SIMPLE are
+also included in KOOL.  We can think of KOOL&apos;s classes as embedding
 SIMPLE programs (extended with OO constructs, as discussed next).</p>
 </li>
 <li>
-<p>Object creation using the <code>new C(e1,...,en)</code><br>
-expression construct.  An object instance of class <code>C</code> is first<br>
-created and then the constructor <code>C(e1,...,en)</code> is implicitly<br>
-called on that object.  KOOL only allows (and requires) one<br>
-constructor per class.  The class constructor can be called either<br>
-implicitly during a new object creation for the class, or explicitly.<br>
-The superclass constructor is <strong>not</strong> implicitly invoked when a<br>
-class constructor is invoked; if you want to invoke the superclass<br>
-constructor from a subclass constructor then you have to do it<br>
+<p>Object creation using the <code>new C(e1,...,en)</code>
+expression construct.  An object instance of class <code>C</code> is first
+created and then the constructor <code>C(e1,...,en)</code> is implicitly
+called on that object.  KOOL only allows (and requires) one
+constructor per class.  The class constructor can be called either
+implicitly during a new object creation for the class, or explicitly.
+The superclass constructor is <strong>not</strong> implicitly invoked when a
+class constructor is invoked; if you want to invoke the superclass
+constructor from a subclass constructor then you have to do it
 explicitly.</p>
 </li>
 <li>
-<p>An expression construct <code>this</code>, which evaluates to the<br>
+<p>An expression construct <code>this</code>, which evaluates to the
 current object.</p>
 </li>
 <li>
-<p>An expression construct <code>super</code>, which is used (only) in<br>
-combination with member lookup (see next) to refer to a superclass<br>
+<p>An expression construct <code>super</code>, which is used (only) in
+combination with member lookup (see next) to refer to a superclass
 field or method.</p>
 </li>
 <li>
-<p>A member lookup expression construct <code>e.x</code>, where <code>e</code><br>
-is an expression (either an expression expected to evaluate to an object<br>
-or the <code>super</code> construct) and <code>x</code> is a class member name,<br>
+<p>A member lookup expression construct <code>e.x</code>, where <code>e</code>
+is an expression (either an expression expected to evaluate to an object
+or the <code>super</code> construct) and <code>x</code> is a class member name,
 that is, a field or a method name.</p>
 </li>
 <li>
-<p>Expression constructs <code>e instanceOf C</code> and<br>
-<code>(C) e</code>, where <code>e</code> is an expression expected<br>
-to evaluate to an object and <code>C</code> a class name.  The former<br>
-tells whether the class of <code>e</code> is a subclass of <code>C</code>,<br>
-that is, whether <code>e</code> can be used as an instance of <code>C</code>,<br>
-and the latter changes the class of <code>e</code> to <code>C</code>.  These<br>
-operations always succeed: the former returns a Boolean value, while<br>
-the latter changes the current class of <code>e</code> to <code>C</code><br>
-regardless of whether it is safe to do so or not.  The typed version<br>
-of KOOL will check the safety of casting by ensuring that the instance<br>
-class of the object is a subclass of <code>C</code>.  In untyped KOOL we<br>
-do not want to perform this check because we want to allow the<br>
-programmer maximum of flexibility: if one always accesses only<br>
-available members, then the program can execute successfully despite<br>
+<p>Expression constructs <code>e instanceOf C</code> and
+<code>(C) e</code>, where <code>e</code> is an expression expected
+to evaluate to an object and <code>C</code> a class name.  The former
+tells whether the class of <code>e</code> is a subclass of <code>C</code>,
+that is, whether <code>e</code> can be used as an instance of <code>C</code>,
+and the latter changes the class of <code>e</code> to <code>C</code>.  These
+operations always succeed: the former returns a Boolean value, while
+the latter changes the current class of <code>e</code> to <code>C</code>
+regardless of whether it is safe to do so or not.  The typed version
+of KOOL will check the safety of casting by ensuring that the instance
+class of the object is a subclass of <code>C</code>.  In untyped KOOL we
+do not want to perform this check because we want to allow the
+programmer maximum of flexibility: if one always accesses only
+available members, then the program can execute successfully despite
 the potentially unsafe cast.</p>
 </li>
 </ul>
 <p>There are some specific aspects of KOOL that need to be discussed.</p>
-<p>First, KOOL is higher-order, allowing function abstractions to be<br>
-treated like any other values in the language.  For example, if<br>
-<code>m</code> is a method of object <code>e</code> then <code>e.m</code><br>
-evaluates to the corresponding function abstraction.  The function<br>
-abstraction is in fact a closure, because in addition to the method<br>
-parameters and body it also encapsulates the object value (i.e., the<br>
-environment of the object together with its current class&#x2014;see below)<br>
-that <code>e</code> evaluates to.  This way, function abstractions can be<br>
-invoked anywhere and have the capability to change the state of their<br>
-object.  For example, if <code>m</code> is a method of object <code>e</code><br>
-which increments a field <code>c</code> of <code>e</code> when invoked, and if<br>
-<code>getm</code> is another method of <code>e</code> which simply returns<br>
-<code>m</code> when invoked, then the double application<br>
-<code>(e.getm())()</code> has the same effect as <code>e.m()</code>, that is,<br>
-increments the counter <code>c</code> of <code>e</code>.  Note that the<br>
-higher-order nature of KOOL was not originally planned; it came as a<br>
-natural consequence of evaluating methods to closures and we decided<br>
+<p>First, KOOL is higher-order, allowing function abstractions to be
+treated like any other values in the language.  For example, if
+<code>m</code> is a method of object <code>e</code> then <code>e.m</code>
+evaluates to the corresponding function abstraction.  The function
+abstraction is in fact a closure, because in addition to the method
+parameters and body it also encapsulates the object value (i.e., the
+environment of the object together with its current class&#x2014;see below)
+that <code>e</code> evaluates to.  This way, function abstractions can be
+invoked anywhere and have the capability to change the state of their
+object.  For example, if <code>m</code> is a method of object <code>e</code>
+which increments a field <code>c</code> of <code>e</code> when invoked, and if
+<code>getm</code> is another method of <code>e</code> which simply returns
+<code>m</code> when invoked, then the double application
+<code>(e.getm())()</code> has the same effect as <code>e.m()</code>, that is,
+increments the counter <code>c</code> of <code>e</code>.  Note that the
+higher-order nature of KOOL was not originally planned; it came as a
+natural consequence of evaluating methods to closures and we decided
 to keep it.  If you do not like it then do not use it.</p>
-<p>Second, since all the fields and methods are public in KOOL and since<br>
-they can be redeclared in subclasses, it is not immediately clear how<br>
-to lookup the member <code>x</code> when we write <code>e.x</code> and<br>
-<code>e</code> is different from <code>super</code>.  We distinguish two cases,<br>
-depending on whether <code>e.x</code> occurs in a method invocation<br>
-context (i.e., <code>e.x(...)</code>) or in a field context.  KOOL has<br>
-dynamic method dispatch, so if <code>e.x</code> is invoked as a method<br>
-then <code>x</code> will be searched for starting with the instance class of<br>
-the object value to which <code>e</code> evaluates.  If <code>e.x</code><br>
-occurs in a non-method-invocation context then <code>x</code> will be<br>
-treated as a field (although it may hold a method closure due to the<br>
-higher-order nature of KOOL) and thus will be searched starting with<br>
-the current class of the object value of <code>e</code> (which, because of<br>
-<code>this</code> and casting, may be different from its instance class).<br>
-In order to achieve the above, each object value will consist of a<br>
-pair holding the current class of the object and an environment stack<br>
+<p>Second, since all the fields and methods are public in KOOL and since
+they can be redeclared in subclasses, it is not immediately clear how
+to lookup the member <code>x</code> when we write <code>e.x</code> and
+<code>e</code> is different from <code>super</code>.  We distinguish two cases,
+depending on whether <code>e.x</code> occurs in a method invocation
+context (i.e., <code>e.x(...)</code>) or in a field context.  KOOL has
+dynamic method dispatch, so if <code>e.x</code> is invoked as a method
+then <code>x</code> will be searched for starting with the instance class of
+the object value to which <code>e</code> evaluates.  If <code>e.x</code>
+occurs in a non-method-invocation context then <code>x</code> will be
+treated as a field (although it may hold a method closure due to the
+higher-order nature of KOOL) and thus will be searched starting with
+the current class of the object value of <code>e</code> (which, because of
+<code>this</code> and casting, may be different from its instance class).
+In order to achieve the above, each object value will consist of a
+pair holding the current class of the object and an environment stack
 with one layer for each class in the object&apos;s instance class hierarchy.</p>
-<p>Third, although KOOL is dynamic method dispatch, its capabilities<br>
-described above are powerful enough to allow us to mimic static<br>
-method dispatch.  For example, suppose that you want to invoke method<br>
-<code>m()</code> statically.  Then all you need to do is to declare a<br>
-local variable and bind it to <code>m</code>, for example <code>var staticm = m;</code>, and<br>
-then call <code>staticm()</code>.  This works because<br>
-<code>staticm</code> is first bound to the method closure that <code>m</code><br>
-evaluates to, and then looked up as any local variable when invoked.<br>
-We only enable the dynamic method dispatch when we have an object<br>
+<p>Third, although KOOL is dynamic method dispatch, its capabilities
+described above are powerful enough to allow us to mimic static
+method dispatch.  For example, suppose that you want to invoke method
+<code>m()</code> statically.  Then all you need to do is to declare a
+local variable and bind it to <code>m</code>, for example <code>var staticm = m;</code>, and
+then call <code>staticm()</code>.  This works because
+<code>staticm</code> is first bound to the method closure that <code>m</code>
+evaluates to, and then looked up as any local variable when invoked.
+We only enable the dynamic method dispatch when we have an object
 member on an application position, e.g., <code>m()</code>.</p>
-<p>In what follows, we limit our comments to the new, KOOL-specific<br>
-aspects of the language.  We refer the reader to the untyped SIMPLE<br>
-language for documentation on the the remaining features, because<br>
+<p>In what follows, we limit our comments to the new, KOOL-specific
+aspects of the language.  We refer the reader to the untyped SIMPLE
+language for documentation on the the remaining features, because
 those were all borrowed from SIMPLE.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> KOOL<span class="token operator">-</span>UNTYPED<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> DOMAINS<span class="token operator">-</span>SYNTAX
 </code></pre>
 <h2 id="syntax">Syntax</h2>
-<p>The syntax of KOOL extends that of SIMPLE with object-oriented<br>
-constructs.  We removed from the <strong>K</strong> annotated syntax of SIMPLE two<br>
-constructs, namely the one for function declarations (because we want<br>
-to call them <code>methods</code> now) and the one for function application<br>
-(because application is not strict in the first argument<br>
-anymore&#x2014;needs to initiate dynamic method dispatch).  The additional<br>
+<p>The syntax of KOOL extends that of SIMPLE with object-oriented
+constructs.  We removed from the <strong>K</strong> annotated syntax of SIMPLE two
+constructs, namely the one for function declarations (because we want
+to call them <code>methods</code> now) and the one for function application
+(because application is not strict in the first argument
+anymore&#x2014;needs to initiate dynamic method dispatch).  The additional
 syntax includes:</p>
 <ul>
-<li>First, we need a new dedicated identifier, <code>Object</code>, for<br>
+<li>First, we need a new dedicated identifier, <code>Object</code>, for
 the default top-most class.</li>
 <li>Second, we rename the <code>function</code> keyword of SIMPLE into <code>method</code>.</li>
-<li>Third, we add syntax for class declarations together with a<br>
+<li>Third, we add syntax for class declarations together with a
 macro making classes which extend nothing to extend <code>Object</code>.</li>
-<li>Fourth, we change the strictness attribute of application<br>
+<li>Fourth, we change the strictness attribute of application
 into <code>strict(2)</code>.</li>
-<li>Finally, we add syntax and corresponding strictness<br>
+<li>Finally, we add syntax and corresponding strictness
 for the KOOL object-oriented constructs.</li>
 </ul>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Id</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;Object&quot;</span> <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token string">&quot;Main&quot;</span> <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span>
@@ -369,43 +369,43 @@ for the KOOL object-oriented constructs.</li>
 <span class="token keyword">endmodule</span>
 </code></pre>
 <h2 id="semantics">Semantics</h2>
-<p>We first discuss the new configuration of KOOL, which extends that of<br>
-SIMPLE.  Then we include the semantics of the constructs borrowed from<br>
-SIMPLE unchanged; we refrain from discussing those, because they were<br>
-already discussed in the <strong>K</strong> definition of SIMPLE.  Then we discuss<br>
-changes to SIMPLE&apos;s semantics needed for the more general meaning of<br>
-the previous SIMPLE constructs (for example for thread spawning,<br>
-assignment, etc.).  Finally, we discuss in detail the<br>
+<p>We first discuss the new configuration of KOOL, which extends that of
+SIMPLE.  Then we include the semantics of the constructs borrowed from
+SIMPLE unchanged; we refrain from discussing those, because they were
+already discussed in the <strong>K</strong> definition of SIMPLE.  Then we discuss
+changes to SIMPLE&apos;s semantics needed for the more general meaning of
+the previous SIMPLE constructs (for example for thread spawning,
+assignment, etc.).  Finally, we discuss in detail the
 semantics of the additional KOOL constructs.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> KOOL<span class="token operator">-</span>UNTYPED
   <span class="token keyword">imports</span> KOOL<span class="token operator">-</span>UNTYPED<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> DOMAINS
 </code></pre>
 <h2 id="configuration">Configuration</h2>
-<p>KOOL removes one cell and adds two nested cells to the configuration<br>
-of SIMPLE.  The cell which is removed is the one holding the global<br>
-environment, because a KOOL program consists of a set of classes only,<br>
-with no global declarations.  In fact, since informally speaking each<br>
-KOOL class now includes a SIMPLE program, it is safe to say that the<br>
-global variables in SIMPLE became class fields in KOOL.  Let us now<br>
+<p>KOOL removes one cell and adds two nested cells to the configuration
+of SIMPLE.  The cell which is removed is the one holding the global
+environment, because a KOOL program consists of a set of classes only,
+with no global declarations.  In fact, since informally speaking each
+KOOL class now includes a SIMPLE program, it is safe to say that the
+global variables in SIMPLE became class fields in KOOL.  Let us now
 discuss the new cells that are added to the configuration of SIMPLE.</p>
 <ul>
 <li>
-<p>The cell <code>crntObj</code> holds data pertaining to the current<br>
-object, that is, the object environment in which the code in cell<br>
-<code>k</code> executes: <code>crntClass</code> holds the current class (which<br>
-can change as methods of the current object are invoked);<br>
-<code>envStack</code> holds the stack of environments as a list,<br>
-each layer corresponding to one class in the objects&apos; instance class<br>
-hierarchy; <code>location</code>, which is optional, holds the location in<br>
-the store where the current object is or has to be located (this is<br>
-useful both for method closures and for the semantics of object<br>
+<p>The cell <code>crntObj</code> holds data pertaining to the current
+object, that is, the object environment in which the code in cell
+<code>k</code> executes: <code>crntClass</code> holds the current class (which
+can change as methods of the current object are invoked);
+<code>envStack</code> holds the stack of environments as a list,
+each layer corresponding to one class in the objects&apos; instance class
+hierarchy; <code>location</code>, which is optional, holds the location in
+the store where the current object is or has to be located (this is
+useful both for method closures and for the semantics of object
 creation).</p>
 </li>
 <li>
-<p>The cell <code>classes</code> holds all the declared classes, each<br>
-class being held in its own <code>class</code> cell which contains a name<br>
-(<code>className</code>), a parent (<code>extends</code>), and the actual<br>
+<p>The cell <code>classes</code> holds all the declared classes, each
+class being held in its own <code>class</code> cell which contains a name
+(<code>className</code>), a parent (<code>extends</code>), and the actual
 member declarations (<code>declarations</code>).</p>
 </li>
 </ul>
@@ -460,28 +460,28 @@ member declarations (<code>declarations</code>).</p>
                 <span class="token operator">&lt;</span><span class="token operator">/</span>T<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="unchanged-semantics-from-untyped-simple">Unchanged Semantics from untyped SIMPLE</h2>
-<p>The semantics below is taken over from SIMPLE unchanged.<br>
-The semantics of function declaration and invocation, including the<br>
-use of the special <code>lambda</code> abstraction value, needs to change<br>
-in order to account for the fact that methods are now invoked into<br>
-their object&apos;s environment.  The semantics of function return actually<br>
-stays unchanged.  Also, the semantics of program initialization is<br>
-different: now we have to create an instance of the <code>Main</code><br>
-class which also calls the constructor <code>Main()</code>, while in<br>
-SIMPLE we only had to invoke the function <code>Main()</code>.<br>
-Finally, the semantics of thread spawning needs to change, too: the<br>
-parent thread needs to also share its object environment with the<br>
-spawned thread (in addition to its local environment, like in SIMPLE).<br>
-This is needed in order to be able to spawn method invokations under<br>
-dynamic method dispatch; for example, <code>spawn { run(); }</code><br>
-will need to look up the method <code>run()</code> in the newly created<br>
-thread, operation which will most likely fail unless the child thread<br>
-sees the object environment of the parent thread.  Note that the<br>
-<code>spawn</code> statement of KOOL is more permissive than the threads<br>
-of Java.  In fact, the latter can be implemented in terms of our<br>
+<p>The semantics below is taken over from SIMPLE unchanged.
+The semantics of function declaration and invocation, including the
+use of the special <code>lambda</code> abstraction value, needs to change
+in order to account for the fact that methods are now invoked into
+their object&apos;s environment.  The semantics of function return actually
+stays unchanged.  Also, the semantics of program initialization is
+different: now we have to create an instance of the <code>Main</code>
+class which also calls the constructor <code>Main()</code>, while in
+SIMPLE we only had to invoke the function <code>Main()</code>.
+Finally, the semantics of thread spawning needs to change, too: the
+parent thread needs to also share its object environment with the
+spawned thread (in addition to its local environment, like in SIMPLE).
+This is needed in order to be able to spawn method invokations under
+dynamic method dispatch; for example, <code>spawn { run(); }</code>
+will need to look up the method <code>run()</code> in the newly created
+thread, operation which will most likely fail unless the child thread
+sees the object environment of the parent thread.  Note that the
+<code>spawn</code> statement of KOOL is more permissive than the threads
+of Java.  In fact, the latter can be implemented in terms of our
 <code>spawn</code>&#x2014;see the program <code>threads.kool</code> for a sketch.</p>
-<p>Below is a subset of the values of SIMPLE, which are also values<br>
-of KOOL.  We will add other values later in the semantics, such as<br>
+<p>Below is a subset of the values of SIMPLE, which are also values
+of KOOL.  We will add other values later in the semantics, such as
 object and method closures.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Bool</span> <span class="token operator">|</span> <span class="token keyword">String</span>
                <span class="token operator">|</span> array<span class="token punctuation">(</span><span class="token keyword">Int</span><span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">)</span>
@@ -490,7 +490,7 @@ object and method closures.</p>
   <span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Val
   <span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Vals
 </code></pre>
-<p>The semantics below are taken verbatim from the untyped SIMPLE<br>
+<p>The semantics below are taken verbatim from the untyped SIMPLE
 definition.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;undefined&quot;</span>  <span class="token punctuation">[</span><span class="token class-name">latex</span><span class="token punctuation">(</span>\bot<span class="token punctuation">)</span><span class="token punctuation">]</span>
 
@@ -563,8 +563,8 @@ definition.</p>
 
   <span class="token keyword">rule</span> sizeOf<span class="token punctuation">(</span>array<span class="token punctuation">(</span>_<span class="token punctuation">,</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> N
 </code></pre>
-<p>The semantics of function application needs to change into dynamic<br>
-method dispatch invocation, which is defined shortly.  However,<br>
+<p>The semantics of function application needs to change into dynamic
+method dispatch invocation, which is defined shortly.  However,
 interestingly, the semantics of return stays unchanged.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> return<span class="token punctuation">(</span>V<span class="token punctuation">:</span>Val<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">~</span><span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> V <span class="token operator">~</span><span class="token operator">&gt;</span> K <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>control<span class="token operator">&gt;</span>
@@ -628,10 +628,10 @@ interestingly, the semantics of return stays unchanged.</p>
        <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
 </code></pre>
-<p>Thread spawning needs a new semantics, because we want the child<br>
-thread to also share the object environment with its parent.  The new<br>
-semantics of thread spawning will be defined shortly.  However,<br>
-interestingly, the other concurrency constructs keep their semantics<br>
+<p>Thread spawning needs a new semantics, because we want the child
+thread to also share the object environment with its parent.  The new
+semantics of thread spawning will be defined shortly.  However,
+interestingly, the other concurrency constructs keep their semantics
 from SIMPLE unchanged.</p>
 <pre class="language-k"><code>  <span class="token comment">// TODO(KORE): ..Bag should be . throughout this definition #1772</span>
   <span class="token keyword">rule</span> <span class="token punctuation">(</span><span class="token operator">&lt;</span>thread<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>holds<span class="token operator">&gt;</span>H<span class="token operator">&lt;</span><span class="token operator">/</span>holds<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>id<span class="token operator">&gt;</span>T<span class="token operator">&lt;</span><span class="token operator">/</span>id<span class="token operator">&gt;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>thread<span class="token operator">&gt;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Bag<span class="token punctuation">)</span>
@@ -698,60 +698,60 @@ from SIMPLE unchanged.</p>
   <span class="token keyword">rule</span> N<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>M <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> K <span class="token operator">=</span><span class="token operator">&gt;</span> N <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> K <span class="token punctuation">(</span>N <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>M <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> K  when N <span class="token operator">&lt;=</span><span class="token keyword">Int</span> M
 </code></pre>
 <h2 id="changes-to-the-existing-untyped-simple-semantics">Changes to the existing untyped SIMPLE semantics</h2>
-<p>When we extend a language, sometimes we need to do more than just add<br>
-new language constructs and semantics for them.  Sometimes we want to<br>
-also extend the semantics of existing language constructs, in order to<br>
+<p>When we extend a language, sometimes we need to do more than just add
+new language constructs and semantics for them.  Sometimes we want to
+also extend the semantics of existing language constructs, in order to
 get more from them.</p>
 <h2 id="program-initialization">Program initialization</h2>
-<p>In SIMPLE, once all the global declarations were processed, the<br>
-function <code>main()</code> was invoked.  In KOOL, the global<br>
-declarations are classes, and their specific semantics is given<br>
-shortly; essentially, they are pre-processed one by one and added<br>
-into the <code>class</code> cell structure in the configuration.<br>
-Once all the classes are processed, the computation item<br>
-<code>execute</code>, which was placed right after the program in the<br>
-initial configuration, is reached.  In SIMPLE, the program was<br>
-initialized by calling the method <code>main()</code>.  In KOOL, the<br>
-program is initialized by creating an object instance of class<br>
-<code>Main</code>.  This will also implicitly call the method<br>
-<code>Main()</code> (the <code>Main</code> class constructor).  The emptiness<br>
-of the <code>env</code> cell below is just a sanity check, to make sure<br>
-that the user has not declared anything but classes at the top level<br>
+<p>In SIMPLE, once all the global declarations were processed, the
+function <code>main()</code> was invoked.  In KOOL, the global
+declarations are classes, and their specific semantics is given
+shortly; essentially, they are pre-processed one by one and added
+into the <code>class</code> cell structure in the configuration.
+Once all the classes are processed, the computation item
+<code>execute</code>, which was placed right after the program in the
+initial configuration, is reached.  In SIMPLE, the program was
+initialized by calling the method <code>main()</code>.  In KOOL, the
+program is initialized by creating an object instance of class
+<code>Main</code>.  This will also implicitly call the method
+<code>Main()</code> (the <code>Main</code> class constructor).  The emptiness
+of the <code>env</code> cell below is just a sanity check, to make sure
+that the user has not declared anything but classes at the top level
 of the program.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;execute&quot;</span>
   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> execute <span class="token operator">=</span><span class="token operator">&gt;</span> new Main<span class="token punctuation">(</span><span class="token punctuation">.</span>Exps<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<p>The semantics of <code>new</code> (defined below) requires the<br>
-execution of all the class&apos; declarations (and also of its<br>
+<p>The semantics of <code>new</code> (defined below) requires the
+execution of all the class&apos; declarations (and also of its
 superclasses&apos;).</p>
 <h2 id="object-and-method-closures">Object and method closures</h2>
-<p>Before we can define the semantics of method application (previously<br>
-called function application in SIMPLE), we need to add two more values<br>
+<p>Before we can define the semantics of method application (previously
+called function application in SIMPLE), we need to add two more values
 to the language, namely object and method closures:</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> objectClosure<span class="token punctuation">(</span><span class="token keyword">Id</span><span class="token punctuation">,</span> List<span class="token punctuation">)</span>
                <span class="token operator">|</span> methodClosure<span class="token punctuation">(</span><span class="token keyword">Id</span><span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">,</span>Ids<span class="token punctuation">,</span>Stmt<span class="token punctuation">)</span>
 </code></pre>
-<p>An object value consists of an <code>objectClosure</code>-wrapped bag<br>
-containing the current class of the object and the environment stack<br>
-of the object.  The current class of an object will always be one of<br>
-the classes mapped to an environment in the environment stack of the<br>
-object.  A method closure encapsulates the method&apos;s parameters and<br>
-code (last two arguments), as well as the object context in which the<br>
-method code should execute.  This object context includes the current<br>
-class of the object (the first argument of <code>methodClosure</code>) and<br>
-the object environment stack (located in the object stored at the<br>
+<p>An object value consists of an <code>objectClosure</code>-wrapped bag
+containing the current class of the object and the environment stack
+of the object.  The current class of an object will always be one of
+the classes mapped to an environment in the environment stack of the
+object.  A method closure encapsulates the method&apos;s parameters and
+code (last two arguments), as well as the object context in which the
+method code should execute.  This object context includes the current
+class of the object (the first argument of <code>methodClosure</code>) and
+the object environment stack (located in the object stored at the
 location specified as the second argument of <code>methodClosure</code>).</p>
 <h2 id="method-application">Method application</h2>
-<p>KOOL has a complex mechanism to invoke methods, because it allows both<br>
-dynamic method dispatch and methods as first-class-citizen values (the<br>
-latter making it a higher-order language).  The invocation mechanism<br>
-will be defined later.  What is sufficient to know for now is that<br>
-the two arguments of the application construct eventually reduce to<br>
-values, the first being a method closure and the latter a list of<br>
-values.  The semantics of the method closure application is then as<br>
-expected: the local environment and control are stacked, then we<br>
-switch to method closure&apos;s class and object environment and execute<br>
-the method body.  The <code>mkDecls</code> construct is the one that came<br>
+<p>KOOL has a complex mechanism to invoke methods, because it allows both
+dynamic method dispatch and methods as first-class-citizen values (the
+latter making it a higher-order language).  The invocation mechanism
+will be defined later.  What is sufficient to know for now is that
+the two arguments of the application construct eventually reduce to
+values, the first being a method closure and the latter a list of
+values.  The semantics of the method closure application is then as
+expected: the local environment and control are stacked, then we
+switch to method closure&apos;s class and object environment and execute
+the method body.  The <code>mkDecls</code> construct is the one that came
 with the unchanged semantics of SIMPLE above.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> fstackFrame<span class="token punctuation">(</span>Map<span class="token punctuation">,</span>K<span class="token punctuation">,</span>List<span class="token punctuation">,</span>K<span class="token punctuation">)</span>
   <span class="token comment">// TODO(KORE): drop the additional production once parsing issue #1842 is fixed</span>
@@ -770,12 +770,12 @@ with the unchanged semantics of SIMPLE above.</p>
        <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="spawn">Spawn</h2>
-<p>We want to extend the semantics of <code>spawn</code> to also share the<br>
-current object environment with the child thread, in addition to the<br>
-current environment.  This extension will allow us to also use method<br>
-invocations in the spawned statements, which will be thus looked up as<br>
-expected, using dynamic method dispatch.  This lookup operation would<br>
-fail if the child thread did not have access to its parent&apos;s object<br>
+<p>We want to extend the semantics of <code>spawn</code> to also share the
+current object environment with the child thread, in addition to the
+current environment.  This extension will allow us to also use method
+invocations in the spawned statements, which will be thus looked up as
+expected, using dynamic method dispatch.  This lookup operation would
+fail if the child thread did not have access to its parent&apos;s object
 environment.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>thread<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
          <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> spawn S <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">!</span>T<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
@@ -791,7 +791,7 @@ environment.</p>
 </code></pre>
 <h2 id="semantics-of-the-new-kool-constructs">Semantics of the new KOOL constructs</h2>
 <h2 id="class-declaration">Class declaration</h2>
-<p>Initially, the classes forming the program are moved into their<br>
+<p>Initially, the classes forming the program are moved into their
 corresponding cells:</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> class Class1 extends Class2 <span class="token punctuation">{</span> S <span class="token punctuation">}</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>classes<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">(</span><span class="token punctuation">.</span>Bag <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">&lt;</span>classData<span class="token operator">&gt;</span>
@@ -802,19 +802,19 @@ corresponding cells:</p>
        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>classes<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="method-declaration">Method declaration</h2>
-<p>Like in SIMPLE, method names are added to the environment and bound<br>
-to their code.  However, unlike in SIMPLE where each function was<br>
-executed in the same environment, namely the program global<br>
-environment, a method in KOOL needs to be executed into its object&apos;s<br>
-environment.  Thus, methods evaluate to closures, which encapsulate<br>
-their object&apos;s context (i.e., the current class and environment stack<br>
-of the object) in addition to method&apos;s parameters and body.  This<br>
-approach to bind method names to method closures in the environment<br>
-will also allow objects to pass their methods to other objects, to<br>
-dynamically change their methods by assigning them other method<br>
-closures, and even to allow all these to be done from other objects.<br>
-This gives the KOOL programmer a lot of power; one should use this<br>
-power wisely, though, because programs can become easily hard to<br>
+<p>Like in SIMPLE, method names are added to the environment and bound
+to their code.  However, unlike in SIMPLE where each function was
+executed in the same environment, namely the program global
+environment, a method in KOOL needs to be executed into its object&apos;s
+environment.  Thus, methods evaluate to closures, which encapsulate
+their object&apos;s context (i.e., the current class and environment stack
+of the object) in addition to method&apos;s parameters and body.  This
+approach to bind method names to method closures in the environment
+will also allow objects to pass their methods to other objects, to
+dynamically change their methods by assigning them other method
+closures, and even to allow all these to be done from other objects.
+This gives the KOOL programmer a lot of power; one should use this
+power wisely, though, because programs can become easily hard to
 understand and reason about if one overuses these features.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> method F<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">(</span>Xs<span class="token punctuation">:</span>Ids<span class="token punctuation">)</span> S <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>crntClass<span class="token operator">&gt;</span> Class<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">&lt;</span><span class="token operator">/</span>crntClass<span class="token operator">&gt;</span>
@@ -824,22 +824,22 @@ understand and reason about if one overuses these features.</p>
        <span class="token operator">&lt;</span>nextLoc<span class="token operator">&gt;</span> L <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span> <span class="token operator">&lt;</span><span class="token operator">/</span>nextLoc<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="new">New</h2>
-<p>The semantics of <code>new</code> consists of two actions: memory<br>
-allocation for the new object and execution of the corresponding<br>
-constructor.  Then the created object is returned as the result of the<br>
-<code>new</code> operation; the value returned by the constructor, if any,<br>
-is discarded.  The current environment and object are stored onto the<br>
-stack and recovered after new (according to the semantics of<br>
-<code>return</code> borrowed from SIMPLE, when the statement<br>
-<code>return this;</code> in the rule below is reached and evaluated),<br>
-because the object creation part of <code>new</code> will destroy them.<br>
-The rule below also initializes the object creation process by<br>
-emptying the local environment and the current object, and allocating<br>
-a location in the store where the created object will be eventually<br>
-stored (this is what the <code>storeObj</code> task after the object<br>
-creation task in the rule below will do&#x2014;its rule is defined<br>
-shortly).  The location where the object will be stored is also made<br>
-available in the <code>crntObj</code> cell, so that method closures can<br>
+<p>The semantics of <code>new</code> consists of two actions: memory
+allocation for the new object and execution of the corresponding
+constructor.  Then the created object is returned as the result of the
+<code>new</code> operation; the value returned by the constructor, if any,
+is discarded.  The current environment and object are stored onto the
+stack and recovered after new (according to the semantics of
+<code>return</code> borrowed from SIMPLE, when the statement
+<code>return this;</code> in the rule below is reached and evaluated),
+because the object creation part of <code>new</code> will destroy them.
+The rule below also initializes the object creation process by
+emptying the local environment and the current object, and allocating
+a location in the store where the created object will be eventually
+stored (this is what the <code>storeObj</code> task after the object
+creation task in the rule below will do&#x2014;its rule is defined
+shortly).  The location where the object will be stored is also made
+available in the <code>crntObj</code> cell, so that method closures can
 refer to it (see rule above).</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;envStackFrame&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token keyword">Id</span> <span class="token string">&quot;,&quot;</span> Map <span class="token string">&quot;)&quot;</span>
 
@@ -857,11 +857,11 @@ refer to it (see rule above).</p>
          <span class="token operator">&lt;</span>fstack<span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">=</span><span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span>fstackFrame<span class="token punctuation">(</span>Env<span class="token punctuation">,</span> K<span class="token punctuation">,</span> XS<span class="token punctuation">,</span> <span class="token operator">&lt;</span>crntObj<span class="token operator">&gt;</span> Obj <span class="token operator">&lt;</span><span class="token operator">/</span>crntObj<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>fstack<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
 </code></pre>
-<p>The creation of a new object (the memory allocation part only) is<br>
-a recursive process, requiring to first create an object for the<br>
-superclass.  A memory object representation is a layered structure:<br>
-for each class on the path from the instance class to the root of the<br>
-hierarchy there is a layer including the memory allocated for the<br>
+<p>The creation of a new object (the memory allocation part only) is
+a recursive process, requiring to first create an object for the
+superclass.  A memory object representation is a layered structure:
+for each class on the path from the instance class to the root of the
+hierarchy there is a layer including the memory allocated for the
 members (both fields and methods) of that class.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> create<span class="token punctuation">(</span><span class="token keyword">Id</span><span class="token punctuation">)</span>
 
@@ -873,18 +873,18 @@ members (both fields and methods) of that class.</p>
 
   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> create<span class="token punctuation">(</span>Object<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<p>The next operation sets the current class of the current object.<br>
-This is necessary to be done at each layer, because the current class<br>
-of the object is enclosed as part of the method closures (see the<br>
+<p>The next operation sets the current class of the current object.
+This is necessary to be done at each layer, because the current class
+of the object is enclosed as part of the method closures (see the
 semantics of method declarations above).</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> setCrntClass<span class="token punctuation">(</span><span class="token keyword">Id</span><span class="token punctuation">)</span>
 
   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> setCrntClass<span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>crntClass<span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> C <span class="token operator">&lt;</span><span class="token operator">/</span>crntClass<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<p>The next operation adds a new tagged environment layer to the<br>
-current object and gets ready for the next layer by clearing the<br>
-environment (note that <code>create</code> expects the environment to be<br>
+<p>The next operation adds a new tagged environment layer to the
+current object and gets ready for the next layer by clearing the
+environment (note that <code>create</code> expects the environment to be
 empty).</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;addEnvLayer&quot;</span>
 
@@ -894,12 +894,12 @@ empty).</p>
        <span class="token operator">&lt;</span>envStack<span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">=</span><span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span>envStackFrame<span class="token punctuation">(</span>Class<span class="token punctuation">,</span> Env<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>envStack<span class="token operator">&gt;</span>
     <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
-<p>The following operation stores the created object at the location<br>
-reserved by <code>new</code>.  Note that the location reserved by<br>
-<code>new</code> was temporarily stored in the <code>crntObj</code> cell<br>
-precisely for this purpose.  Now that the newly created object is<br>
-stored at its location and that all method closures are aware of it,<br>
-the location is unnecessary and thus we delete it from the<br>
+<p>The following operation stores the created object at the location
+reserved by <code>new</code>.  Note that the location reserved by
+<code>new</code> was temporarily stored in the <code>crntObj</code> cell
+precisely for this purpose.  Now that the newly created object is
+stored at its location and that all method closures are aware of it,
+the location is unnecessary and thus we delete it from the
 <code>crntObj</code> cell.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;storeObj&quot;</span>
 
@@ -908,29 +908,29 @@ the location is unnecessary and thus we delete it from the<br>
        <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span>Map <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> objectClosure<span class="token punctuation">(</span>CC<span class="token punctuation">,</span> ES<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="self-reference">Self reference</h2>
-<p>The semantics of <code>this</code> is straightforward: evaluate to the<br>
+<p>The semantics of <code>this</code> is straightforward: evaluate to the
 current object.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> this <span class="token operator">=</span><span class="token operator">&gt;</span> objectClosure<span class="token punctuation">(</span>CC<span class="token punctuation">,</span> ES<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>crntObj<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>crntClass<span class="token operator">&gt;</span> CC <span class="token operator">&lt;</span><span class="token operator">/</span>crntClass<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>envStack<span class="token operator">&gt;</span> ES <span class="token operator">&lt;</span><span class="token operator">/</span>envStack<span class="token operator">&gt;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>crntObj<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="object-member-access">Object member access</h2>
-<p>We can access an object member (field or method) either explicitly,<br>
-using the construct <code>e.x</code>, or implicitly, using only the member<br>
-name <code>x</code> directly.  The borrowed semantics of SIMPLE will<br>
-already lookup a sole name in the local environment.  The first rule<br>
-below reduces implicit member access to explicit access when the name<br>
-cannot be found in the local environment.  There are two cases to<br>
-analyze for explicit object member access, depending upon whether the<br>
-object is a proper object or it is just a redirection to the parent<br>
-class via the construct <code>super</code>.  In the first case, we<br>
-evaluate the object expression and lookup the member starting with the<br>
-current class (static scoping).  Note the use of the conditional<br>
-evaluation context.  In the second case, we just lookup the member<br>
-starting with the superclass of the current class.  In both cases,<br>
-the <code>lookupMember</code> task eventually yields a <code>lookup(L)</code><br>
-task for some appropriate location <code>L</code>, which will be further<br>
-solved with the corresponding rule borrowed from SIMPLE.  Note that the<br>
-current object is not altered by <code>super</code>, so future method<br>
+<p>We can access an object member (field or method) either explicitly,
+using the construct <code>e.x</code>, or implicitly, using only the member
+name <code>x</code> directly.  The borrowed semantics of SIMPLE will
+already lookup a sole name in the local environment.  The first rule
+below reduces implicit member access to explicit access when the name
+cannot be found in the local environment.  There are two cases to
+analyze for explicit object member access, depending upon whether the
+object is a proper object or it is just a redirection to the parent
+class via the construct <code>super</code>.  In the first case, we
+evaluate the object expression and lookup the member starting with the
+current class (static scoping).  Note the use of the conditional
+evaluation context.  In the second case, we just lookup the member
+starting with the superclass of the current class.  In both cases,
+the <code>lookupMember</code> task eventually yields a <code>lookup(L)</code>
+task for some appropriate location <code>L</code>, which will be further
+solved with the corresponding rule borrowed from SIMPLE.  Note that the
+current object is not altered by <code>super</code>, so future method
 invocations see the entire object, as needed for dynamic method dispatch.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> X<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span><span class="token operator">&gt;</span> this <span class="token punctuation">.</span> X <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env<span class="token punctuation">:</span>Map <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
     when notBool<span class="token punctuation">(</span>X in keys<span class="token punctuation">(</span>Env<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
@@ -968,24 +968,24 @@ invocations see the entire object, as needed for dynamic method dispatch.</p>
     when Class <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>K Class&apos;  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="method-invocation">Method invocation</h2>
-<p>Unlike in SIMPLE, in KOOL application was declared strict only in its<br>
-second argument.  That is because we want to ensure dynamic method<br>
-dispatch when the first argument is a method access.  As a<br>
-consequence, we need to consider all the cases of interest for the<br>
-first argument and to explicitly say what to do in each case.  In all<br>
-cases except for method access in a proper object (i.e., not<br>
-<code>super</code>), we want the same behavior for the first argument as<br>
-if it was not in a method invocation position.  When it is a member<br>
-access (the third rule below), we look it up starting with the<br>
-instance class of the corresponding object.  This ensures dynamic<br>
-dispatch for methods; it actually dynamically dispatches field<br>
-accesses, too, which is correct in KOOL, because one can assign method<br>
-closures to fields and the field appeared in a method invocation<br>
-context.  The last context declaration below says that method<br>
-applications or array accesses are also allowed as first argument to<br>
-applications; that is because methods are allowed to return methods<br>
-and arrays are allowed to hold methods in KOOL, since it is<br>
-higher-order.  If that is the case, then we want to evaluate the<br>
+<p>Unlike in SIMPLE, in KOOL application was declared strict only in its
+second argument.  That is because we want to ensure dynamic method
+dispatch when the first argument is a method access.  As a
+consequence, we need to consider all the cases of interest for the
+first argument and to explicitly say what to do in each case.  In all
+cases except for method access in a proper object (i.e., not
+<code>super</code>), we want the same behavior for the first argument as
+if it was not in a method invocation position.  When it is a member
+access (the third rule below), we look it up starting with the
+instance class of the corresponding object.  This ensures dynamic
+dispatch for methods; it actually dynamically dispatches field
+accesses, too, which is correct in KOOL, because one can assign method
+closures to fields and the field appeared in a method invocation
+context.  The last context declaration below says that method
+applications or array accesses are also allowed as first argument to
+applications; that is because methods are allowed to return methods
+and arrays are allowed to hold methods in KOOL, since it is
+higher-order.  If that is the case, then we want to evaluate the
 method call or the array access.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> <span class="token punctuation">(</span>X<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span><span class="token operator">&gt;</span> V<span class="token punctuation">)</span><span class="token punctuation">(</span>_<span class="token punctuation">:</span>Exps<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> X <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> L <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
@@ -1025,19 +1025,19 @@ method call or the array access.</p>
     when getKLabel(HOLE) ==K #klabel(`_(_)`) orBool getKLabel(HOLE) ==K #klabel(`_[_]`)
   */</span>
 </code></pre>
-<p>Eventually, each of the rules above produces a <code>lookup(L)</code><br>
-task as a replacement for the method.  When that happens, we just<br>
+<p>Eventually, each of the rules above produces a <code>lookup(L)</code>
+task as a replacement for the method.  When that happens, we just
 lookup the value at location <code>L</code>:</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> <span class="token punctuation">(</span>lookup<span class="token punctuation">(</span>L<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> V<span class="token punctuation">)</span><span class="token punctuation">(</span>_<span class="token punctuation">:</span>Exps<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>store<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> L <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> V<span class="token punctuation">:</span>Val <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>store<span class="token operator">&gt;</span>
     <span class="token punctuation">[</span>lookup<span class="token punctuation">]</span>
 </code></pre>
-<p>The value <code>V</code> looked up above is expected to be a method closure,<br>
-in which case the semantics of method application given above will<br>
+<p>The value <code>V</code> looked up above is expected to be a method closure,
+in which case the semantics of method application given above will
 apply.  Otherwise, the execution will get stuck.</p>
 <h2 id="instance-of">Instance Of</h2>
-<p>It searches the object environment for a layer corresponding to the<br>
-desired class.  It returns <code>true</code> iff it can find the class,<br>
-otherwise it returns <code>false</code>; it only gets stuck when its first<br>
+<p>It searches the object environment for a layer corresponding to the
+desired class.  It returns <code>true</code> iff it can find the class,
+otherwise it returns <code>false</code>; it only gets stuck when its first
 argument does not evaluate to an object.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> objectClosure<span class="token punctuation">(</span>_<span class="token punctuation">,</span> ListItem<span class="token punctuation">(</span>envStackFrame<span class="token punctuation">(</span>C<span class="token punctuation">,</span>_<span class="token punctuation">)</span><span class="token punctuation">)</span> _<span class="token punctuation">)</span>
        instanceOf C <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">true</span>
@@ -1049,27 +1049,27 @@ argument does not evaluate to an object.</p>
   <span class="token keyword">rule</span> objectClosure<span class="token punctuation">(</span>_<span class="token punctuation">,</span> <span class="token punctuation">.</span>List<span class="token punctuation">)</span> instanceOf _ <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">false</span>
 </code></pre>
 <h2 id="cast">Cast</h2>
-<p>In untyped KOOL, we prefer to not check the validity of casting.  In<br>
-other words, any cast is allowed on any object, simply changing the<br>
-current class of the object to the desired class.  The execution will<br>
-get stuck later if one attempts to access a field which is not<br>
-available.  Moreover, the execution may complete successfully even<br>
-in the presence of invalid casts, provided that each accessed member<br>
+<p>In untyped KOOL, we prefer to not check the validity of casting.  In
+other words, any cast is allowed on any object, simply changing the
+current class of the object to the desired class.  The execution will
+get stuck later if one attempts to access a field which is not
+available.  Moreover, the execution may complete successfully even
+in the presence of invalid casts, provided that each accessed member
 during the current execution is, or happens to be, available.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token punctuation">(</span>C<span class="token punctuation">)</span> objectClosure<span class="token punctuation">(</span>_ <span class="token punctuation">,</span> EnvStack<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> objectClosure<span class="token punctuation">(</span>C <span class="token punctuation">,</span>EnvStack<span class="token punctuation">)</span>
 </code></pre>
 <h2 id="kool-specific-auxiliary-declarations-and-operations">KOOL-specific auxiliary declarations and operations</h2>
-<p>Here we define all the auxiliary constructs used in the above<br>
-KOOL-specific semantics (those used in the SIMPLE fragment<br>
+<p>Here we define all the auxiliary constructs used in the above
+KOOL-specific semantics (those used in the SIMPLE fragment
 have already been defined in a corresponding section above).</p>
 <h2 id="objects-as-lvalues">Objects as lvalues</h2>
-<p>The current machinery borrowed with the semantics of SIMPLE allows us<br>
-to enrich the set of lvalues, this way allowing new means to assign<br>
-values to locations.  In KOOL, we want object member names to be<br>
-lvalues, so that we can assign values to them using the already<br>
-existing machinery.  The first rule below ensures that the object is<br>
-always explicit, the evaluation context enforces the object to be<br>
-evaluated, and finally the second rule initiates the lookup for the<br>
+<p>The current machinery borrowed with the semantics of SIMPLE allows us
+to enrich the set of lvalues, this way allowing new means to assign
+values to locations.  In KOOL, we want object member names to be
+lvalues, so that we can assign values to them using the already
+existing machinery.  The first rule below ensures that the object is
+always explicit, the evaluation context enforces the object to be
+evaluated, and finally the second rule initiates the lookup for the
 member&apos;s location based on the current class of the object.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> lvalue<span class="token punctuation">(</span>X<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span><span class="token operator">&gt;</span> this <span class="token punctuation">.</span> X<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
     when notBool<span class="token punctuation">(</span>X in keys<span class="token punctuation">(</span>Env<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
@@ -1090,7 +1090,7 @@ member&apos;s location based on the current class of the object.</p>
     when Class <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span>K Class&apos;  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="lookup-member">Lookup member</h2>
-<p>It searches for the given member in the given environment stack,<br>
+<p>It searches for the given member in the given environment stack,
 starting with the most concrete class and going up in the hierarchy.</p>
 <pre class="language-k"><code>  <span class="token comment">// TODO(KORE): clarify sort inferences #1803</span>
   <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> lookupMember<span class="token punctuation">(</span>List<span class="token punctuation">,</span> <span class="token keyword">Id</span><span class="token punctuation">)</span>  <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
@@ -1112,7 +1112,7 @@ starting with the most concrete class and going up in the hierarchy.</p>
 
 <span class="token keyword">endmodule</span>
 </code></pre>
-<p>Go to <a href="../../../2_typed/1_dynamic/kool-typed-dynamic/">Lesson 2, KOOL typed dynamic</a>.</p>
+<p>Go to <a href="../../2_typed/1_dynamic/kool-typed-dynamic/">Lesson 2, KOOL typed dynamic</a>.</p>
 </body></html>
           </div>
         </main>

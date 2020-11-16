@@ -129,7 +129,7 @@
           role="main"
         >
           <div class="introduction markdown-preview">
-            <html><head></head><body><p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.<br>
+            <html><head></head><body><p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.
 Use the tag <code>k</code> to tell the compiler which blocks to select.</p>
 <p>Inside <code>.k</code> files, C/Java-like comments are available.</p>
 <pre class="language-k"><code><span class="token comment">// Single line comment</span>
@@ -140,32 +140,32 @@ comments */</span>
 <p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
 <h3 id="abstract">Abstract</h3>
-<p>This file defines a simple functional language in <strong>K</strong>, called LAMBDA,<br>
-using a substitution style.  The explicit objective here is to teach some<br>
-<strong>K</strong> concepts and how they work in the K tool, and not to teach<br>
-&#x3BB;-calculus or to argue for one definitional style against another<br>
-(e.g., some may prefer environment/closure-based definitions of such<br>
+<p>This file defines a simple functional language in <strong>K</strong>, called LAMBDA,
+using a substitution style.  The explicit objective here is to teach some
+<strong>K</strong> concepts and how they work in the K tool, and not to teach
+&#x3BB;-calculus or to argue for one definitional style against another
+(e.g., some may prefer environment/closure-based definitions of such
 languages).</p>
-<p>Note that the subsequent definition is so simple, that it hardly shows any<br>
-of the strengths of <strong>K</strong>.  Perhaps the most interesting <strong>K</strong> aspect it shows is<br>
-that substitution can be defined fully generically, and then used to give<br>
+<p>Note that the subsequent definition is so simple, that it hardly shows any
+of the strengths of <strong>K</strong>.  Perhaps the most interesting <strong>K</strong> aspect it shows is
+that substitution can be defined fully generically, and then used to give
 semantics to various constructs in various languages.</p>
-<p>Note:<br>
-<strong>K</strong> follows the<br>
-<a href="https://en.wikipedia.org/wiki/Literate_programming" target="_blank" rel="noopener">literate programming</a><br>
-approach. The various semantic features defined in a <strong>K</strong><br>
-module can be reordered at will and can be commented using normal<br>
-comments like in C/C++/Java.<br>
-While comments are useful in general, they can annoy the expert user<br>
-of <strong>K</strong>. To turn them off, you can do one of the following (unless you<br>
+<p>Note:
+<strong>K</strong> follows the
+<a href="https://en.wikipedia.org/wiki/Literate_programming" target="_blank" rel="noopener">literate programming</a>
+approach. The various semantic features defined in a <strong>K</strong>
+module can be reordered at will and can be commented using normal
+comments like in C/C++/Java.
+While comments are useful in general, they can annoy the expert user
+of <strong>K</strong>. To turn them off, you can do one of the following (unless you
 want to remove them manually):<br>
-(1) Use an <a href="https://github.com/kframework/k-editor-support" target="_blank" rel="noopener">editor</a> which can<br>
+(1) Use an <a href="https://github.com/kframework/k-editor-support" target="_blank" rel="noopener">editor</a> which can
 hide or highlight Markdown and conventional C-like comments; or<br>
-(2) Run <code>kompile --debug &lt;def&gt;</code>. Inside <code>./.kompiled-xxx/.md2.k/</code> you will find<br>
+(2) Run <code>kompile --debug &lt;def&gt;</code>. Inside <code>./.kompiled-xxx/.md2.k/</code> you will find
 all the K code extracted from the markdown files as used for compilation.</p>
 <h3 id="substitution">Substitution</h3>
-<p>We need the predefined substitution module, so we require it with the command<br>
-below.  Then we should make sure we import its module called SUBSTITUTION<br>
+<p>We need the predefined substitution module, so we require it with the command
+below.  Then we should make sure we import its module called SUBSTITUTION
 in our LAMBDA module below.</p>
 <pre class="language-k"><code><span class="token keyword">require</span> <span class="token string">&quot;substitution.md&quot;</span>
 
@@ -174,17 +174,17 @@ in our LAMBDA module below.</p>
   <span class="token keyword">imports</span> SUBSTITUTION
 </code></pre>
 <h3 id="basic-call-by-value-%CE%BB-calculus">Basic Call-by-value &#x3BB;-Calculus</h3>
-<p>We first define a conventional call-by-value &#x3BB;-calculus, making sure<br>
-we declare the lambda abstraction construct to be a binder, the<br>
-lambda application to be strict, and the parentheses used for grouping as<br>
+<p>We first define a conventional call-by-value &#x3BB;-calculus, making sure
+we declare the lambda abstraction construct to be a binder, the
+lambda application to be strict, and the parentheses used for grouping as
 a bracket.</p>
-<p>Note:<br>
-Syntax in <strong>K</strong> is defined using the familiar BNF notation, with<br>
-terminals enclosed in quotes and nonterminals starting with capital<br>
-letters. <strong>K</strong> actually extends BNF with several attributes, which will be<br>
+<p>Note:
+Syntax in <strong>K</strong> is defined using the familiar BNF notation, with
+terminals enclosed in quotes and nonterminals starting with capital
+letters. <strong>K</strong> actually extends BNF with several attributes, which will be
 described in this tutorial.</p>
-<p>Note:<br>
-The <code>strict</code> constructs can evaluate their arguments in any (fully<br>
+<p>Note:
+The <code>strict</code> constructs can evaluate their arguments in any (fully
 interleaved) order.</p>
 <p>The initial syntax of our &#x3BB;-calculus:</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> KVar
@@ -198,13 +198,13 @@ interleaved) order.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token punctuation">(</span>lambda X<span class="token punctuation">:</span>KVar <span class="token punctuation">.</span> E<span class="token punctuation">:</span>Exp<span class="token punctuation">)</span> V<span class="token punctuation">:</span>Val <span class="token operator">=</span><span class="token operator">&gt;</span> E<span class="token punctuation">[</span>V <span class="token operator">/</span> X<span class="token punctuation">]</span>
 </code></pre>
 <h3 id="integer-and-boolean-builtins">Integer and Boolean Builtins</h3>
-<p>The LAMBDA arithmetic and Boolean expression constructs are simply rewritten<br>
-to their builtin counterparts once their arguments are evaluated.<br>
-The annotated operators in the right-hand side of the rules below are<br>
-builtin and come with the corresponding builtin sort. Note that the<br>
-variables appearing in these rules have integer sort. That means that these<br>
-rules will only be applied after the arguments of the arithmetic constructs<br>
-are fully evaluated to <strong>K</strong> results; this will happen thanks to their strictness<br>
+<p>The LAMBDA arithmetic and Boolean expression constructs are simply rewritten
+to their builtin counterparts once their arguments are evaluated.
+The annotated operators in the right-hand side of the rules below are
+builtin and come with the corresponding builtin sort. Note that the
+variables appearing in these rules have integer sort. That means that these
+rules will only be applied after the arguments of the arithmetic constructs
+are fully evaluated to <strong>K</strong> results; this will happen thanks to their strictness
 attributes declared as annotations to their syntax declarations (below).</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Bool</span>
   <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Exp <span class="token string">&quot;*&quot;</span> Exp          <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">]</span>
@@ -228,8 +228,8 @@ attributes declared as annotations to their syntax declarations (below).</p>
   <span class="token keyword">rule</span> let X <span class="token operator">=</span> E in E<span class="token string">&apos;:Exp =&gt; (lambda X . E&apos;</span><span class="token punctuation">)</span> E                         <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
 </code></pre>
 <h3 id="letrec-binder">Letrec Binder</h3>
-<p>We prefer a definition based on the &#x3BC; construct.  Note that &#x3BC; is not<br>
-really necessary, but it makes the definition of letrec easier to understand<br>
+<p>We prefer a definition based on the &#x3BC; construct.  Note that &#x3BC; is not
+really necessary, but it makes the definition of letrec easier to understand
 and faster to execute.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;letrec&quot;</span> KVar KVar <span class="token string">&quot;=&quot;</span> Exp <span class="token string">&quot;in&quot;</span> Exp
                <span class="token operator">|</span> <span class="token string">&quot;mu&quot;</span> KVar <span class="token string">&quot;.&quot;</span> Exp                  <span class="token punctuation">[</span><span class="token class-name">binder</span><span class="token punctuation">,</span> <span class="token class-name">latex</span><span class="token punctuation">(</span>\mu<span class="token punctuation">{</span>#<span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token punctuation">{</span>#<span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span>

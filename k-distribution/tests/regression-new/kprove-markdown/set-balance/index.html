@@ -200,7 +200,7 @@
 </code></pre>
 <h2 id="public-getters">Public Getters</h2>
 <h3 id="total_balance"><code>total_balance</code></h3>
-<p>Retrieves the total balance of an account.  This includes both the free and<br>
+<p>Retrieves the total balance of an account.  This includes both the free and
 reserved balances.</p>
 <pre class="language-k"><code>    <span class="token keyword">syntax</span> <span class="token keyword">Int</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;total_balance&quot;</span> <span class="token string">&quot;(&quot;</span> AccountId <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">]</span>
  <span class="token comment">// -----------------------------------------------------------------------</span>
@@ -208,7 +208,7 @@ reserved balances.</p>
 </code></pre>
 <h3 id="free_balance"><code>free_balance</code></h3>
 <p>Gets the free balance of an account.</p>
-<p>Other than when this module is executing, this will never be strictly between<br>
+<p>Other than when this module is executing, this will never be strictly between
 <code>EXISTENTIAL_DEPOSIT</code> and zero.</p>
 <pre class="language-k"><code>    <span class="token keyword">syntax</span> <span class="token keyword">Int</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;free_balance&quot;</span> <span class="token string">&quot;(&quot;</span> AccountId <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">]</span>
  <span class="token comment">// ----------------------------------------------------------------------</span>
@@ -222,7 +222,7 @@ reserved balances.</p>
 </code></pre>
 <h3 id="reserved_balance"><code>reserved_balance</code></h3>
 <p>Gets the reserved balance of an account.</p>
-<p>Other than when this module is executing, this will never be strictly between<br>
+<p>Other than when this module is executing, this will never be strictly between
 <code>EXISTENTIAL_DEPOSIT</code> and zero.</p>
 <pre class="language-k"><code>    <span class="token keyword">syntax</span> <span class="token keyword">Int</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;reserved_balance&quot;</span> <span class="token string">&quot;(&quot;</span> AccountId <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">]</span>
  <span class="token comment">// --------------------------------------------------------------------------</span>
@@ -235,8 +235,8 @@ reserved balances.</p>
          <span class="token operator">&lt;</span><span class="token operator">/</span>account<span class="token operator">&gt;</span>
 </code></pre>
 <h3 id="can_slash"><code>can_slash</code></h3>
-<p>Determines if an account&#x2019;s free balance is over the value provided.  This is<br>
-often used to determine if an account has enough balance to cover a potential<br>
+<p>Determines if an account&#x2019;s free balance is over the value provided.  This is
+often used to determine if an account has enough balance to cover a potential
 slash, hence the name.</p>
 <pre class="language-k"><code>    <span class="token keyword">syntax</span> <span class="token keyword">Bool</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;can_slash&quot;</span> <span class="token string">&quot;(&quot;</span> AccountId <span class="token string">&quot;,&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">]</span>
  <span class="token comment">// ----------------------------------------------------------------------------</span>
@@ -249,8 +249,8 @@ slash, hence the name.</p>
          <span class="token operator">&lt;</span><span class="token operator">/</span>account<span class="token operator">&gt;</span>
 </code></pre>
 <h3 id="total_issuance"><code>total_issuance</code></h3>
-<p>Retrieves the total outstanding amount of currency outstanding.  This will<br>
-always be equal to the sum of all free and reserved balances in all active<br>
+<p>Retrieves the total outstanding amount of currency outstanding.  This will
+always be equal to the sum of all free and reserved balances in all active
 accounts, except when the balances module is executing.</p>
 <pre class="language-k"><code>    <span class="token keyword">syntax</span> <span class="token keyword">Int</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;total_issuance&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> functional<span class="token punctuation">]</span>
  <span class="token comment">// ------------------------------------------------------</span>
@@ -259,15 +259,15 @@ accounts, except when the balances module is executing.</p>
 </code></pre>
 <h3 id="issue"><code>issue</code></h3>
 <p>Issues currency, creating an imbalance.</p>
-<p>This is not specified, since these semantics do not include the concept of an<br>
-imbalance.  Without the concept of destructors and move semantics, it would be<br>
+<p>This is not specified, since these semantics do not include the concept of an
+imbalance.  Without the concept of destructors and move semantics, it would be
 almost impossible to use correctly.</p>
 <h3 id="burn"><code>burn</code></h3>
 <p>Burns currency.</p>
 <p>This is not part of the semantics for the same reason <code>burn</code> is not.</p>
 <h2 id="actions-and-results">Actions and Results</h2>
-<p>An <code>Action</code> is an execution step (or the result of an execution step).<br>
-An <code>EntryAction</code> is an <code>Action</code> that can be invoked externally.<br>
+<p>An <code>Action</code> is an execution step (or the result of an execution step).
+An <code>EntryAction</code> is an <code>Action</code> that can be invoked externally.
 A <code>Result</code> is considered an <code>Action</code>, as is an <code>EntryAction</code>.</p>
 <pre class="language-k"><code>    <span class="token keyword">syntax</span> Action <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Result <span class="token operator">|</span> EntryAction
  <span class="token comment">// --------------------------------------</span>
@@ -430,9 +430,9 @@ A <code>Result</code> is considered an <code>Action</code>, as is an <code>Entry
 </code></pre>
 <h3 id="transfer_raw"><code>transfer_raw</code></h3>
 <p>Transfer some liquid free balance to another account.</p>
-<p><code>transfer</code> will set the <code>FreeBalance</code> of the sender and receiver.<br>
-It will decrease the total issuance of the system by the <code>TransferFee</code>.<br>
-If the sender&apos;s account is below the existential deposit as a result<br>
+<p><code>transfer</code> will set the <code>FreeBalance</code> of the sender and receiver.
+It will decrease the total issuance of the system by the <code>TransferFee</code>.
+If the sender&apos;s account is below the existential deposit as a result
 of the transfer, the account will be reaped.</p>
 <p>The dispatch origin for this call must be <code>Signed</code> by the transactor.</p>
 <pre class="language-k"><code>    <span class="token keyword">syntax</span> ExistenceRequirement <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;AllowDeath&quot;</span>
@@ -571,7 +571,7 @@ of the transfer, the account will be reaped.</p>
          <span class="token operator">&lt;</span>call<span class="token operator">-</span>stack<span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span>frame<span class="token punctuation">(</span>CONT<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token operator">&lt;</span><span class="token operator">/</span>call<span class="token operator">-</span>stack<span class="token operator">&gt;</span>
 </code></pre>
 <p>Ensure that a given amount can be withdrawn from an account.</p>
-<p><strong>FIXME</strong>: we do not account for multiple withdrawl reasons, due to K&#x2019;s<br>
+<p><strong>FIXME</strong>: we do not account for multiple withdrawl reasons, due to K&#x2019;s
 lacking polymorphism.</p>
 <pre class="language-k"><code>    <span class="token keyword">syntax</span> WithdrawReason <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;TransactionPayment&quot;</span>
                             <span class="token operator">|</span> <span class="token string">&quot;Transfer&quot;</span>

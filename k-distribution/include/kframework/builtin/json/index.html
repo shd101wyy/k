@@ -130,10 +130,10 @@
         >
           <div class="introduction markdown-preview">
             <html><head></head><body><h1 id="syntax-of-json">Syntax of JSON</h1>
-<p>K provides builtin support for reading/writing to JSON. While the <code>JSON-SYNTAX</code><br>
-module is not precisely the syntax of JSON (utilizing K&apos;s syntax for strings,<br>
-integers, and floating point numbers rather than the syntax used by JSON),<br>
-you can still convert directly to/from the actual syntax of JSON using<br>
+<p>K provides builtin support for reading/writing to JSON. While the <code>JSON-SYNTAX</code>
+module is not precisely the syntax of JSON (utilizing K&apos;s syntax for strings,
+integers, and floating point numbers rather than the syntax used by JSON),
+you can still convert directly to/from the actual syntax of JSON using
 the <code>JSON2String</code> and <code>String2JSON</code> hooks.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> JSON<span class="token operator">-</span>SYNTAX
     <span class="token keyword">imports</span> INT<span class="token operator">-</span>SYNTAX
@@ -151,9 +151,9 @@ the <code>JSON2String</code> and <code>String2JSON</code> hooks.</p>
 <span class="token keyword">endmodule</span>
 </code></pre>
 <h2 id="conversion-between-json-and-string">Conversion between <code>JSON</code> and <code>String</code></h2>
-<p>Given a string written in valid JSON, you can convert it to the <code>JSON</code><br>
-sort with the <code>String2JSON</code> function. Assuming the user has not extended<br>
-the syntax of the <code>JSON</code> sort with their own constructors, any term of sort<br>
+<p>Given a string written in valid JSON, you can convert it to the <code>JSON</code>
+sort with the <code>String2JSON</code> function. Assuming the user has not extended
+the syntax of the <code>JSON</code> sort with their own constructors, any term of sort
 <code>JSON</code> can also be converted to a <code>String</code> using the <code>JSON2String</code> function.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> JSON
     <span class="token keyword">imports</span> JSON<span class="token operator">-</span>SYNTAX

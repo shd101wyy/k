@@ -133,19 +133,19 @@
 <p>Author: Grigore Ro&#x219;u (<a href="mailto:grosu@illinois.edu" target="_blank" rel="noopener">grosu@illinois.edu</a>)<br>
 Organization: University of Illinois at Urbana-Champaign</p>
 <h3 id="abstract">Abstract</h3>
-<p>This is the <strong>K</strong> semantic definition of the classic IMP language.<br>
-IMP is considered a folklore language, without an official inventor,<br>
-and has been used in many textbooks and papers, often with slight<br>
-syntactic variations and often without being called <strong>IMP</strong>.  It includes<br>
-the most basic imperative language constructs, namely basic constructs<br>
-for arithmetic and Boolean expressions, and variable assignment,<br>
+<p>This is the <strong>K</strong> semantic definition of the classic IMP language.
+IMP is considered a folklore language, without an official inventor,
+and has been used in many textbooks and papers, often with slight
+syntactic variations and often without being called <strong>IMP</strong>.  It includes
+the most basic imperative language constructs, namely basic constructs
+for arithmetic and Boolean expressions, and variable assignment,
 conditional, while loop and sequential composition constructs for statements.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> IMP<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> DOMAINS<span class="token operator">-</span>SYNTAX
 </code></pre>
 <h3 id="syntax">Syntax</h3>
-<p>This module defines the syntax of <strong>IMP</strong>.<br>
-Note that <code>&lt;=</code> is sequentially strict, and <code>&amp;&amp;</code> is strict only in its first<br>
+<p>This module defines the syntax of <strong>IMP</strong>.
+Note that <code>&lt;=</code> is sequentially strict, and <code>&amp;&amp;</code> is strict only in its first
 argument, because we want to give it a short-circuit semantics.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> AExp  <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Id</span>
                  <span class="token operator">|</span> <span class="token string">&quot;-&quot;</span> <span class="token keyword">Int</span>                    <span class="token punctuation">[</span><span class="token class-name">format</span><span class="token punctuation">(</span><span class="token operator">%</span><span class="token number">1</span><span class="token operator">%</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
@@ -166,74 +166,74 @@ argument, because we want to give it a short-circuit semantics.</p>
                  <span class="token operator">|</span> <span class="token string">&quot;while&quot;</span> <span class="token string">&quot;(&quot;</span> BExp <span class="token string">&quot;)&quot;</span> Block <span class="token punctuation">[</span>colors<span class="token punctuation">(</span>yellow<span class="token punctuation">,</span>white<span class="token punctuation">,</span>white<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">format</span><span class="token punctuation">(</span><span class="token operator">%</span><span class="token number">1</span> <span class="token operator">%</span><span class="token number">2</span><span class="token operator">%</span><span class="token number">3</span><span class="token operator">%</span><span class="token number">4</span> <span class="token operator">%</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
                  <span class="token operator">&gt;</span> Stmt Stmt                  <span class="token punctuation">[</span><span class="token class-name">left</span><span class="token punctuation">,</span> <span class="token class-name">format</span><span class="token punctuation">(</span><span class="token operator">%</span><span class="token number">1</span><span class="token operator">%</span>n<span class="token operator">%</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
-<p>An IMP program declares a set of variables and then executes a<br>
-statement in the state obtained after initializing all those variables<br>
-to 0. <strong>K</strong> provides builtin support for generic syntactic lists:<br>
+<p>An IMP program declares a set of variables and then executes a
+statement in the state obtained after initializing all those variables
+to 0. <strong>K</strong> provides builtin support for generic syntactic lists:
 <code>List{Nonterminal,terminal}</code> stands for <code>terminal</code>-separated lists of <code>Nonterminal</code> elements.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Pgm <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;int&quot;</span> Ids <span class="token string">&quot;;&quot;</span> Stmt           <span class="token punctuation">[</span><span class="token class-name">format</span><span class="token punctuation">(</span><span class="token operator">%</span><span class="token number">1</span> <span class="token operator">%</span><span class="token number">2</span><span class="token operator">%</span><span class="token number">3</span><span class="token operator">%</span>n<span class="token operator">%</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span> colors<span class="token punctuation">(</span>yellow<span class="token punctuation">,</span>pink<span class="token punctuation">)</span><span class="token punctuation">]</span>
   <span class="token keyword">syntax</span> Ids <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> List<span class="token punctuation">{</span><span class="token keyword">Id</span><span class="token punctuation">,</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">}</span>                 <span class="token punctuation">[</span><span class="token class-name">format</span><span class="token punctuation">(</span><span class="token operator">%</span><span class="token number">1</span><span class="token operator">%</span><span class="token number">2</span> <span class="token operator">%</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
 <span class="token keyword">endmodule</span>
 </code></pre>
-<p>We are done with the definition of IMP&apos;s syntax.  Make sure<br>
-that you write and parse several interesting programs before you move to the<br>
+<p>We are done with the definition of IMP&apos;s syntax.  Make sure
+that you write and parse several interesting programs before you move to the
 semantics.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> IMP
   <span class="token keyword">imports</span> IMP<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> DOMAINS
 </code></pre>
 <h3 id="semantics">Semantics</h3>
-<p>This module defines the semantics of <strong>IMP</strong>.<br>
-Before you start adding semantic rules to a <strong>K</strong> definition, you need to<br>
-define the basic semantic infrastructure consisting of definitions for<br>
+<p>This module defines the semantics of <strong>IMP</strong>.
+Before you start adding semantic rules to a <strong>K</strong> definition, you need to
+define the basic semantic infrastructure consisting of definitions for
 <code>results</code> and the <code>configuration</code>.</p>
 <h3 id="values-and-results">Values and results</h3>
-<p>IMP only has two types of values, or results of computations: integers<br>
+<p>IMP only has two types of values, or results of computations: integers
 and Booleans.  We here use the <strong>K</strong> builtin variants for both of them.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Bool</span>
 </code></pre>
 <h3 id="configuration">Configuration</h3>
-<p>The configuration of IMP is trivial: it only contains two cells, one<br>
-for the computation and another for the state.  For good encapsulation<br>
-and clarity, we place the two cells inside another cell, the <em>top</em> cell<br>
+<p>The configuration of IMP is trivial: it only contains two cells, one
+for the computation and another for the state.  For good encapsulation
+and clarity, we place the two cells inside another cell, the <em>top</em> cell
 which is labeled <code>T</code>.</p>
 <pre class="language-k"><code>  <span class="token keyword">configuration</span> <span class="token operator">&lt;</span>T color<span class="token operator">=</span><span class="token string">&quot;yellow&quot;</span><span class="token operator">&gt;</span>
                   <span class="token operator">&lt;</span>k color<span class="token operator">=</span><span class="token string">&quot;green&quot;</span><span class="token operator">&gt;</span> $PGM<span class="token punctuation">:</span>Pgm <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
                   <span class="token operator">&lt;</span>state color<span class="token operator">=</span><span class="token string">&quot;red&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token operator">&lt;</span><span class="token operator">/</span>state<span class="token operator">&gt;</span>
                 <span class="token operator">&lt;</span><span class="token operator">/</span>T<span class="token operator">&gt;</span>
 </code></pre>
-<p>The configuration variable <em>PGM</em> tells the <strong>K</strong> tool where to<br>
-place the program.  More precisely, the command<br>
-<code>krun program</code> parses the program and places the resulting<br>
-<strong>K</strong> abstract syntax tree in the <code>k</code> cell before invoking the<br>
-semantic rules described in the sequel.  The <code>.</code> in the<br>
-<code>state</code> cell, written <code>.Map</code> in ASCII in the<br>
-<code>imp.md</code> file, is <strong>K</strong>&apos;s way to say <em>nothing</em>. Technically, it<br>
-is a constant which is the unit, or identity, of all maps in <strong>K</strong><br>
-(similar dot units exist for other <strong>K</strong> structures, such as lists, sets,<br>
+<p>The configuration variable <em>PGM</em> tells the <strong>K</strong> tool where to
+place the program.  More precisely, the command
+<code>krun program</code> parses the program and places the resulting
+<strong>K</strong> abstract syntax tree in the <code>k</code> cell before invoking the
+semantic rules described in the sequel.  The <code>.</code> in the
+<code>state</code> cell, written <code>.Map</code> in ASCII in the
+<code>imp.md</code> file, is <strong>K</strong>&apos;s way to say <em>nothing</em>. Technically, it
+is a constant which is the unit, or identity, of all maps in <strong>K</strong>
+(similar dot units exist for other <strong>K</strong> structures, such as lists, sets,
 multi-sets, etc.).</p>
 <h3 id="arithmetic-expressions">Arithmetic expressions</h3>
 <p>The <strong>K</strong> semantics of each arithmetic construct is defined below.</p>
 <h3 id="variable-lookup">Variable lookup</h3>
-<p>A program variable <code>X</code> is looked up in the state by matching a binding<br>
-of the form <code>X |-&gt; I</code> in the state cell. If such a binding does not<br>
-exist, then the rewriting process will get stuck. Thus our semantics of<br>
-IMP disallows uses of uninitialized variables.  Note that the variable<br>
-to be looked up is the first task in the <code>k</code> cell (the cell is<br>
-closed to the left and torn to the right), while the binding can be<br>
+<p>A program variable <code>X</code> is looked up in the state by matching a binding
+of the form <code>X |-&gt; I</code> in the state cell. If such a binding does not
+exist, then the rewriting process will get stuck. Thus our semantics of
+IMP disallows uses of uninitialized variables.  Note that the variable
+to be looked up is the first task in the <code>k</code> cell (the cell is
+closed to the left and torn to the right), while the binding can be
 anywhere in the <code>state</code> cell (the cell is torn at both sides).</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> X<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>state<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> X <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> I <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>state<span class="token operator">&gt;</span>
 </code></pre>
 <h3 id="arithmetic-operators">Arithmetic operators</h3>
-<p>There is nothing special about these, but recall that <strong>K</strong>&apos;s configuration<br>
-abstraction mechanism is at work here!  That means that the rewrites in the<br>
+<p>There is nothing special about these, but recall that <strong>K</strong>&apos;s configuration
+abstraction mechanism is at work here!  That means that the rewrites in the
 rules below all happen at the beginning of the <code>k</code> cell.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> I1 <span class="token operator">/</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">/</span><span class="token keyword">Int</span> I2  <span class="token keyword">requires</span> I2 <span class="token operator">=</span><span class="token operator">/</span><span class="token operator">=</span><span class="token keyword">Int</span> <span class="token number">0</span>
   <span class="token keyword">rule</span> I1 <span class="token operator">+</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">+</span><span class="token keyword">Int</span> I2
   <span class="token keyword">rule</span> <span class="token operator">-</span> I1 <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">-</span><span class="token keyword">Int</span> I1
 </code></pre>
 <h3 id="boolean-expressions">Boolean expressions</h3>
-<p>The rules below are straightforward.  Note the short-circuited semantics<br>
-of <code>&amp;&amp;</code>; this is the reason we annotated the syntax of<br>
+<p>The rules below are straightforward.  Note the short-circuited semantics
+of <code>&amp;&amp;</code>; this is the reason we annotated the syntax of
 <code>&amp;&amp;</code> with the <strong>K</strong> attribute <code>strict(1)</code> instead of <code>strict</code>.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> I1 <span class="token operator">&lt;=</span> I2 <span class="token operator">=</span><span class="token operator">&gt;</span> I1 <span class="token operator">&lt;=</span><span class="token keyword">Int</span> I2
   <span class="token keyword">rule</span> <span class="token operator">!</span> T <span class="token operator">=</span><span class="token operator">&gt;</span> notBool T
@@ -241,65 +241,65 @@ of <code>&amp;&amp;</code>; this is the reason we annotated the syntax of<br>
   <span class="token keyword">rule</span> <span class="token boolean">false</span> <span class="token operator">&amp;&amp;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">false</span>
 </code></pre>
 <h3 id="blocks-and-statements">Blocks and Statements</h3>
-<p>There is one rule per statement construct except for the conditional,<br>
+<p>There is one rule per statement construct except for the conditional,
 which needs two rules.</p>
 <h3 id="blocks">Blocks</h3>
-<p>The empty block <code>{}</code> is simply dissolved.  The <code>.</code> below is the<br>
-unit of the computation list structure <code>K</code>, that is, the empty task.<br>
-Similarly, the non-empty blocks are dissolved and replaced by their statement<br>
-contents, thus effectively giving them a bracket semantics; we can afford to<br>
-do this only because we have no block-local variable declarations yet in IMP.<br>
-Since we tagged the rules below as <em>structural</em>, the <strong>K</strong> tool structurally<br>
-erases the block constructs from the computation structure, without<br>
-considering their erasure as computational steps in the resulting transition<br>
-systems.  You can make these rules computational (dropping the attribute<br>
+<p>The empty block <code>{}</code> is simply dissolved.  The <code>.</code> below is the
+unit of the computation list structure <code>K</code>, that is, the empty task.
+Similarly, the non-empty blocks are dissolved and replaced by their statement
+contents, thus effectively giving them a bracket semantics; we can afford to
+do this only because we have no block-local variable declarations yet in IMP.
+Since we tagged the rules below as <em>structural</em>, the <strong>K</strong> tool structurally
+erases the block constructs from the computation structure, without
+considering their erasure as computational steps in the resulting transition
+systems.  You can make these rules computational (dropping the attribute
 <code>structural</code>) if you do want these to count as computational steps.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>   <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
   <span class="token keyword">rule</span> <span class="token punctuation">{</span>S<span class="token punctuation">}</span> <span class="token operator">=</span><span class="token operator">&gt;</span> S  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h3 id="assignment">Assignment</h3>
-<p>The assigned variable is updated in the state.  The variable is expected<br>
-to be declared, otherwise the semantics will get stuck.  At the same time,<br>
+<p>The assigned variable is updated in the state.  The variable is expected
+to be declared, otherwise the semantics will get stuck.  At the same time,
 the assignment is dissolved.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> X <span class="token operator">=</span> I<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>state<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> X <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>_ <span class="token operator">=</span><span class="token operator">&gt;</span> I<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>state<span class="token operator">&gt;</span>
 </code></pre>
 <h3 id="sequential-composition">Sequential composition</h3>
-<p>Sequential composition is simply structurally translated into <strong>K</strong>&apos;s<br>
-builtin task sequentialization operation.  You can make this rule<br>
-computational (i.e., remove the <code>structural</code> attribute) if you<br>
-want it to count as a computational step.  Recall that the semantics<br>
-of a program in a programming language defined in <strong>K</strong> is the transition<br>
-system obtained from the initial configuration holding that program<br>
-and counting only the steps corresponding to computational rules as<br>
-transitions (i.e., hiding the structural rules as unobservable, or<br>
+<p>Sequential composition is simply structurally translated into <strong>K</strong>&apos;s
+builtin task sequentialization operation.  You can make this rule
+computational (i.e., remove the <code>structural</code> attribute) if you
+want it to count as a computational step.  Recall that the semantics
+of a program in a programming language defined in <strong>K</strong> is the transition
+system obtained from the initial configuration holding that program
+and counting only the steps corresponding to computational rules as
+transitions (i.e., hiding the structural rules as unobservable, or
 internal steps).</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> S1<span class="token punctuation">:</span>Stmt S2<span class="token punctuation">:</span>Stmt <span class="token operator">=</span><span class="token operator">&gt;</span> S1 <span class="token operator">~</span><span class="token operator">&gt;</span> S2  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h3 id="conditional">Conditional</h3>
-<p>The conditional statement has two semantic cases, corresponding to<br>
-when its condition evaluates to <code>true</code> or to <code>false</code>.<br>
-Recall that the conditional was annotated with the attribute<br>
-<code>strict(1)</code> in the syntax module above, so only its first<br>
+<p>The conditional statement has two semantic cases, corresponding to
+when its condition evaluates to <code>true</code> or to <code>false</code>.
+Recall that the conditional was annotated with the attribute
+<code>strict(1)</code> in the syntax module above, so only its first
 argument is allowed to be evaluated.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> if <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>  S else _ <span class="token operator">=</span><span class="token operator">&gt;</span> S
   <span class="token keyword">rule</span> if <span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span> _ else S <span class="token operator">=</span><span class="token operator">&gt;</span> S
 </code></pre>
 <h3 id="while-loop">While loop</h3>
-<p>We give the semantics of the <code>while</code> loop by unrolling.<br>
+<p>We give the semantics of the <code>while</code> loop by unrolling.
 Note that we preferred to make the rule below structural.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> while <span class="token punctuation">(</span>B<span class="token punctuation">)</span> S <span class="token operator">=</span><span class="token operator">&gt;</span> if <span class="token punctuation">(</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>S while <span class="token punctuation">(</span>B<span class="token punctuation">)</span> S<span class="token punctuation">}</span> else <span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h3 id="programs">Programs</h3>
-<p>The semantics of an IMP program is that its body statement is executed<br>
-in a state initializing all its global variables to 0.  Since <strong>K</strong>&apos;s<br>
-syntactic lists are internally interpreted as cons-lists (i.e., lists<br>
-constructed with a head element followed by a tail list), we need to<br>
-distinguish two cases, one when the list has at least one element and<br>
-another when the list is empty.  In the first case we initialize the<br>
-variable to 0 in the state, but only when the variable is not already<br>
-declared (all variables are global and distinct in IMP).  We prefer to<br>
-make the second rule structural, thinking of dissolving the residual<br>
-empty <code>int;</code> declaration as a structural cleanup rather than as<br>
+<p>The semantics of an IMP program is that its body statement is executed
+in a state initializing all its global variables to 0.  Since <strong>K</strong>&apos;s
+syntactic lists are internally interpreted as cons-lists (i.e., lists
+constructed with a head element followed by a tail list), we need to
+distinguish two cases, one when the list has at least one element and
+another when the list is empty.  In the first case we initialize the
+variable to 0 in the state, but only when the variable is not already
+declared (all variables are global and distinct in IMP).  We prefer to
+make the second rule structural, thinking of dissolving the residual
+empty <code>int;</code> declaration as a structural cleanup rather than as
 a computational step.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> int <span class="token punctuation">(</span>X<span class="token punctuation">,</span>Xs <span class="token operator">=</span><span class="token operator">&gt;</span> Xs<span class="token punctuation">)</span><span class="token punctuation">;</span>_ <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>state<span class="token operator">&gt;</span> Rho<span class="token punctuation">:</span>Map <span class="token punctuation">(</span><span class="token punctuation">.</span>Map <span class="token operator">=</span><span class="token operator">&gt;</span> X<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token operator">/</span>state<span class="token operator">&gt;</span>
     <span class="token keyword">requires</span> notBool <span class="token punctuation">(</span>X in keys<span class="token punctuation">(</span>Rho<span class="token punctuation">)</span><span class="token punctuation">)</span>

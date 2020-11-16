@@ -135,26 +135,26 @@ Organization: University of Illinois at Urbana-Champaign</p>
 <p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2 id="abstract">Abstract</h2>
-<p>This is the <strong>K</strong> dynamic semantics of the typed SIMPLE language.<br>
-It is very similar to the semantics of the untyped SIMPLE, the<br>
-difference being that we now dynamically check the typing policy<br>
-described in the static semantics of typed SIMPLE.  Because of the<br>
-dynamic nature of the semantics, we can also perform some additional<br>
-checks which were not possible in the static semantics, such as<br>
-memory leaks due to accessing an array out of its bounds.  We will<br>
-highlight the differences between the dynamically typed and the<br>
-untyped SIMPLE as we proceed with the semantics.  We recommend the<br>
-reader to consult the typing policy and the syntax of types discussed<br>
+<p>This is the <strong>K</strong> dynamic semantics of the typed SIMPLE language.
+It is very similar to the semantics of the untyped SIMPLE, the
+difference being that we now dynamically check the typing policy
+described in the static semantics of typed SIMPLE.  Because of the
+dynamic nature of the semantics, we can also perform some additional
+checks which were not possible in the static semantics, such as
+memory leaks due to accessing an array out of its bounds.  We will
+highlight the differences between the dynamically typed and the
+untyped SIMPLE as we proceed with the semantics.  We recommend the
+reader to consult the typing policy and the syntax of types discussed
 in the static semantics of the typed SIMPLE language.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> SIMPLE<span class="token operator">-</span>TYPED<span class="token operator">-</span>DYNAMIC<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> DOMAINS<span class="token operator">-</span>SYNTAX
 </code></pre>
 <h2 id="syntax">Syntax</h2>
-<p>The syntax of typed SIMPLE extends that of untyped SIMPLE with support<br>
+<p>The syntax of typed SIMPLE extends that of untyped SIMPLE with support
 for declaring types to variables and functions.</p>
-<p>The syntax below is identical to that of the static semantics of typed<br>
-SIMPLE.  However, the <strong>K</strong> strictness attributes are like those of the untyped<br>
-SIMPLE, to capture the desired evaluation strategies of the various language<br>
+<p>The syntax below is identical to that of the static semantics of typed
+SIMPLE.  However, the <strong>K</strong> strictness attributes are like those of the untyped
+SIMPLE, to capture the desired evaluation strategies of the various language
 constructs.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Id</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;main&quot;</span> <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span>
 </code></pre>
@@ -202,7 +202,7 @@ constructs.</p>
                <span class="token operator">&gt;</span> <span class="token string">&quot;spawn&quot;</span> Block
                <span class="token operator">&gt;</span> Exp <span class="token string">&quot;=&quot;</span> Exp             <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">right</span><span class="token punctuation">]</span>
 </code></pre>
-<p>Like in the static semantics, there is no need for lists of identifiers<br>
+<p>Like in the static semantics, there is no need for lists of identifiers
 (because we now have lists of parameters).</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Exps <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> List<span class="token punctuation">{</span>Exp<span class="token punctuation">,</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">}</span>          <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
   <span class="token keyword">syntax</span> Val
@@ -247,10 +247,10 @@ constructs.</p>
 </code></pre>
 <h2 id="semantics">Semantics</h2>
 <h3 id="values-and-results">Values and results</h3>
-<p>These are similar to those of untyped SIMPLE, except that the array<br>
-references and the function abstrations now also hold their types.<br>
-These types are needed in order to easily compute the type of any<br>
-value in the language (see the auxiliary <code>typeOf</code> operation at<br>
+<p>These are similar to those of untyped SIMPLE, except that the array
+references and the function abstrations now also hold their types.
+These types are needed in order to easily compute the type of any
+value in the language (see the auxiliary <code>typeOf</code> operation at
 the end of this module).</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Bool</span> <span class="token operator">|</span> <span class="token keyword">String</span>
                <span class="token operator">|</span> array<span class="token punctuation">(</span>Type<span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">)</span>
@@ -261,12 +261,12 @@ the end of this module).</p>
                    <span class="token operator">|</span> Vals  <span class="token comment">// TODO: should not need this</span>
 </code></pre>
 <h3 id="configuration">Configuration</h3>
-<p>The configuration is almost identical to that of untyped SIMPLE,<br>
-except for a <code>return</code> cell inside the <code>control</code> cell.<br>
-This <code>return</code> cell will hold, like in the static semantics of<br>
-typed SIMPLE, the expected type of the value returned by the function<br>
-being executed.  The contents of this cell will be set whenever a<br>
-function is invoked and will be checked whenever the evaluation of the<br>
+<p>The configuration is almost identical to that of untyped SIMPLE,
+except for a <code>return</code> cell inside the <code>control</code> cell.
+This <code>return</code> cell will hold, like in the static semantics of
+typed SIMPLE, the expected type of the value returned by the function
+being executed.  The contents of this cell will be set whenever a
+function is invoked and will be checked whenever the evaluation of the
 function body encounters an explicit <code>return</code> statement.</p>
 <pre class="language-k"><code>  <span class="token comment">// the syntax declarations below are required because the sorts are</span>
   <span class="token comment">// referenced directly by a production and, because of the way KIL to KORE</span>
@@ -305,17 +305,17 @@ function body encounters an explicit <code>return</code> statement.</p>
 </code></pre>
 <h2 id="declarations-and-initialization">Declarations and Initialization</h2>
 <h3 id="variable-declaration">Variable Declaration</h3>
-<p>The <code>undefined</code> construct is now parameterized by a type.<br>
-A main difference between untyped SIMPLE and dynamically typed SIMPLE<br>
-is that the latter assigns a type to each of its locations and that<br>
-type cannot be changed during the execution of the program.  We do not<br>
-do any memory management in our semantic definitions here, so<br>
-locations cannot be reclaimed, garbage collected and/or reused.  Each<br>
-location corresponds precisely to an allocated variable or array<br>
-element, whose type was explicitly or implicitly declared in the<br>
-program and does not change.  It is therefore safe to type each<br>
-location and then never allow that type to change.  The typed<br>
-undefined values effectively assign both a type and an undefined value<br>
+<p>The <code>undefined</code> construct is now parameterized by a type.
+A main difference between untyped SIMPLE and dynamically typed SIMPLE
+is that the latter assigns a type to each of its locations and that
+type cannot be changed during the execution of the program.  We do not
+do any memory management in our semantic definitions here, so
+locations cannot be reclaimed, garbage collected and/or reused.  Each
+location corresponds precisely to an allocated variable or array
+element, whose type was explicitly or implicitly declared in the
+program and does not change.  It is therefore safe to type each
+location and then never allow that type to change.  The typed
+undefined values effectively assign both a type and an undefined value
 to a location.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> undefined<span class="token punctuation">(</span>Type<span class="token punctuation">)</span>  <span class="token punctuation">[</span><span class="token class-name">latex</span><span class="token punctuation">(</span>\bot_<span class="token punctuation">{</span>#<span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
 
@@ -325,8 +325,8 @@ to a location.</p>
        <span class="token operator">&lt;</span>nextLoc<span class="token operator">&gt;</span> L<span class="token punctuation">:</span><span class="token keyword">Int</span> <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span> <span class="token operator">&lt;</span><span class="token operator">/</span>nextLoc<span class="token operator">&gt;</span>
 </code></pre>
 <h3 id="array-declaration">Array Declaration</h3>
-<p>The dynamic semantics of typed array declarations is similar to that<br>
-in untyped SIMPLE, but we have to make sure that we associate the<br>
+<p>The dynamic semantics of typed array declarations is similar to that
+in untyped SIMPLE, but we have to make sure that we associate the
 right type to the allocated locations.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">[</span>N<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">=</span><span class="token operator">&gt;</span> Env<span class="token punctuation">[</span>X <span class="token operator">&lt;</span><span class="token operator">-</span> L<span class="token punctuation">]</span> <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
@@ -337,10 +337,10 @@ right type to the allocated locations.</p>
 
   <span class="token keyword">context</span> _<span class="token punctuation">:</span>Type _<span class="token punctuation">:</span><span class="token punctuation">:</span>Exp<span class="token punctuation">[</span>HOLE<span class="token punctuation">:</span><span class="token punctuation">:</span>Exps<span class="token punctuation">]</span><span class="token punctuation">;</span>
 </code></pre>
-<p>The desugaring of multi-dimensional arrays into unidimensional<br>
-ones is also similar to that in untyped SIMPLE, although we have to<br>
-make sure that all the declared variables have the right types.  The<br>
-auxiliary operation <code>T&lt;Vs&gt;</code>, defined at the end of the file,<br>
+<p>The desugaring of multi-dimensional arrays into unidimensional
+ones is also similar to that in untyped SIMPLE, although we have to
+make sure that all the declared variables have the right types.  The
+auxiliary operation <code>T&lt;Vs&gt;</code>, defined at the end of the file,
 adds the length of <code>Vs</code> dimensions to the type <code>T</code>.</p>
 <pre class="language-k"><code><span class="token comment">// TODO: Check the desugaring below to be consistent with the one for untyped simple</span>
 
@@ -357,8 +357,8 @@ adds the length of <code>Vs</code> dimensions to the type <code>T</code>.</p>
     <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h3 id="function-declaration">Function declaration</h3>
-<p>Store all function parameters, as well as the return type, as part<br>
-of the lambda abstraction.  In the spirit of dynamic typing, we will<br>
+<p>Store all function parameters, as well as the return type, as part
+of the lambda abstraction.  In the spirit of dynamic typing, we will
 make sure that parameters are well typed when the function is invoked.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type F<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">(</span>Ps<span class="token punctuation">:</span>Params<span class="token punctuation">)</span> S <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> Env <span class="token operator">=</span><span class="token operator">&gt;</span> Env<span class="token punctuation">[</span>F <span class="token operator">&lt;</span><span class="token operator">-</span> L<span class="token punctuation">]</span> <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
@@ -417,9 +417,9 @@ make sure that parameters are well typed when the function is invoked.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> sizeOf<span class="token punctuation">(</span>array<span class="token punctuation">(</span>_<span class="token punctuation">,</span>_<span class="token punctuation">,</span>N<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> N
 </code></pre>
 <h3 id="function-call">Function call</h3>
-<p>Define function call and return together, to see their relationship.<br>
-Note that the operation <code>mkDecls</code> now declares properly typed<br>
-instantiated variables, and that the semantics of <code>return</code> also<br>
+<p>Define function call and return together, to see their relationship.
+Note that the operation <code>mkDecls</code> now declares properly typed
+instantiated variables, and that the semantics of <code>return</code> also
 checks that that type of the returned value is expected one.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token punctuation">(</span>Type<span class="token punctuation">,</span>Map<span class="token punctuation">,</span>K<span class="token punctuation">,</span>ControlCellFragment<span class="token punctuation">)</span>
 
@@ -441,8 +441,8 @@ checks that that type of the returned value is expected one.</p>
        <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
     when typeOf<span class="token punctuation">(</span>V<span class="token punctuation">)</span> <span class="token operator">==</span>K T   <span class="token comment">// check the type of the returned value</span>
 </code></pre>
-<p>Like the <code>undefined</code> above, <code>nothing</code> also gets<br>
-tagged with a type now.  The empty <code>return</code> statement is<br>
+<p>Like the <code>undefined</code> above, <code>nothing</code> also gets
+tagged with a type now.  The empty <code>return</code> statement is
 completed to return the <code>nothing</code> value tagged as expected.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> nothing<span class="token punctuation">(</span>Type<span class="token punctuation">)</span>
   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> return<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> return nothing<span class="token punctuation">(</span>T<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>returnType<span class="token operator">&gt;</span> T <span class="token operator">&lt;</span><span class="token operator">/</span>returnType<span class="token operator">&gt;</span>
@@ -452,7 +452,7 @@ completed to return the <code>nothing</code> value tagged as expected.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> read<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> I <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>input<span class="token operator">&gt;</span> ListItem<span class="token punctuation">(</span>I<span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>  <span class="token punctuation">[</span>read<span class="token punctuation">]</span>
 </code></pre>
 <h3 id="assignment">Assignment</h3>
-<p>The assignment now checks that the type of the assigned location is<br>
+<p>The assignment now checks that the type of the assigned location is
 preserved:</p>
 <pre class="language-k"><code>  <span class="token keyword">context</span> <span class="token punctuation">(</span>HOLE <span class="token operator">=</span><span class="token operator">&gt;</span> lvalue<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span> _
 
@@ -484,10 +484,10 @@ preserved:</p>
   <span class="token keyword">rule</span> print<span class="token punctuation">(</span><span class="token punctuation">.</span>Vals<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h3 id="exceptions">Exceptions</h3>
-<p>Exception parameters are now typed, but note that the semantics below<br>
-works correctly only when the thrown exception has the same type as<br>
-the innermost try-catch paramete.  To keep things simple, for the time<br>
-being we can assume that SIMPLE only throws and catches integer<br>
+<p>Exception parameters are now typed, but note that the semantics below
+works correctly only when the thrown exception has the same type as
+the innermost try-catch paramete.  To keep things simple, for the time
+being we can assume that SIMPLE only throws and catches integer
 values, in which case our semantics below works fine:</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token punctuation">(</span>Param<span class="token punctuation">,</span>Stmt<span class="token punctuation">,</span>K<span class="token punctuation">,</span>Map<span class="token punctuation">,</span>ControlCellFragment<span class="token punctuation">)</span>  <span class="token comment">// Param instead of Id</span>
 
@@ -553,7 +553,7 @@ values, in which case our semantics below works fine:</p>
         <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> rendezvous V<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>  <span class="token punctuation">[</span>rendezvous<span class="token punctuation">]</span>
 </code></pre>
 <h3 id="auxiliary-declarations-and-operations">Auxiliary declarations and operations</h3>
-<p>Turns a list of parameters and a list of instance values for them<br>
+<p>Turns a list of parameters and a list of instance values for them
 into a list of variable declarations.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Stmts <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> mkDecls<span class="token punctuation">(</span>Params<span class="token punctuation">,</span>Vals<span class="token punctuation">)</span>  <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
   <span class="token keyword">rule</span> mkDecls<span class="token punctuation">(</span><span class="token punctuation">(</span>T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">,</span> Ps<span class="token punctuation">:</span>Params<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>V<span class="token punctuation">:</span>Val<span class="token punctuation">,</span> Vs<span class="token punctuation">:</span>Vals<span class="token punctuation">)</span><span class="token punctuation">)</span>

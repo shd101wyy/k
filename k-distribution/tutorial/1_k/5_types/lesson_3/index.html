@@ -130,22 +130,22 @@
         >
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="environment-based-higher-order-type-systems">Environment-Based Higher-Order Type Systems</h1>
-<p>In this lesson you learn how to define an environment-based type system for<br>
-a higher-order language, namely the LAMBDA language defined in Part 1 of the<br>
+<p>In this lesson you learn how to define an environment-based type system for
+a higher-order language, namely the LAMBDA language defined in Part 1 of the
 tutorial.</p>
-<p>The simplest and fastest way to proceed is to copy the substitution-based<br>
-type system of LAMBDA from the previous lesson and modify it into an<br>
-environment-based one. A large portion of the substitution-based definition<br>
-will remain unchanged. We only have to modify the rules that use<br>
+<p>The simplest and fastest way to proceed is to copy the substitution-based
+type system of LAMBDA from the previous lesson and modify it into an
+environment-based one. A large portion of the substitution-based definition
+will remain unchanged. We only have to modify the rules that use
 substitution.</p>
-<p>We do not need the substitution anymore, so we can remove the require and<br>
-import statements. The syntax of types and expressions stays unchanged, but<br>
+<p>We do not need the substitution anymore, so we can remove the require and
+import statements. The syntax of types and expressions stays unchanged, but
 we can now remove the <code>binder</code> tag of lambda.</p>
-<p>Like in the type system of IMP++ in Lesson 1, we need a configuration that<br>
-contains, besides the <code>&lt;k/&gt;</code> cell, a <code>&lt;tenv/&gt;</code> cell that will hold the type<br>
+<p>Like in the type system of IMP++ in Lesson 1, we need a configuration that
+contains, besides the <code>&lt;k/&gt;</code> cell, a <code>&lt;tenv/&gt;</code> cell that will hold the type
 environment.</p>
-<p>In an environment-based definition, unlike in a substitution-based one, we<br>
-need to lookup variables in the environment. So let us start with the<br>
+<p>In an environment-based definition, unlike in a substitution-based one, we
+need to lookup variables in the environment. So let us start with the
 type lookup rule:</p>
 <pre><code>rule &lt;k&gt; X:Id =&gt; T ...&lt;/k&gt; &lt;tenv&gt;... X |-&gt; T ...&lt;/k&gt;
 </code></pre>
@@ -153,28 +153,28 @@ type lookup rule:</p>
 <pre><code>rule &lt;k&gt; lambda X : T . E =&gt; (T -&gt; E) ~&gt; Rho ...&lt;/k&gt;
      &lt;tenv&gt; Rho =&gt; Rho[X &lt;- T] &lt;/tenv&gt;
 </code></pre>
-<p>So <code>X</code> is bound to its type <code>T</code> in the type environment, and then <code>T -&gt; E</code><br>
-is scheduled for processing. Recall that the arrow type construct has been<br>
-extended into a strict expression construct, so <code>E</code> will be eventually reduced<br>
-to its type. Like in other environment-based definitions, we need to make<br>
-sure that we recover the type environment after the computation in the scope<br>
+<p>So <code>X</code> is bound to its type <code>T</code> in the type environment, and then <code>T -&gt; E</code>
+is scheduled for processing. Recall that the arrow type construct has been
+extended into a strict expression construct, so <code>E</code> will be eventually reduced
+to its type. Like in other environment-based definitions, we need to make
+sure that we recover the type environment after the computation in the scope
 of the declared variable terminates.</p>
-<p>The typing rule of application does not change, so it stays as elegant as it<br>
+<p>The typing rule of application does not change, so it stays as elegant as it
 was in the substitution-based definition:</p>
 <pre><code>rule (T1 -&gt; T2) T1 =&gt; T2
 </code></pre>
-<p>So do the rules for arithmetic and Boolean constructs, and those for the<br>
+<p>So do the rules for arithmetic and Boolean constructs, and those for the
 <code>if</code>, and <code>let</code>, and <code>letrec</code>.</p>
-<p>The <code>mu</code> rule needs to change, because it was previously defined using<br>
-substitution. We modify it in the same spirit as we modified the <code>lambda</code><br>
-rule: bind <code>X</code> to its type in the environment, schedule its body for typing<br>
+<p>The <code>mu</code> rule needs to change, because it was previously defined using
+substitution. We modify it in the same spirit as we modified the <code>lambda</code>
+rule: bind <code>X</code> to its type in the environment, schedule its body for typing
 in its right context, and then recover the type environment.</p>
-<p>Finally, we give the semantics of environment recovery, making sure<br>
-the environment is recovered only after the preceding computation is<br>
+<p>Finally, we give the semantics of environment recovery, making sure
+the environment is recovered only after the preceding computation is
 reduced to a type:</p>
 <p>rule <k> _:Type ~&gt; (Rho =&gt; .) ...</k> <tenv> _ =&gt; Rho </tenv></p>
-<p>The changes that we applied to the substitution-based definition were<br>
-therefore quite systematic: each substitution invocation was replaced with<br>
+<p>The changes that we applied to the substitution-based definition were
+therefore quite systematic: each substitution invocation was replaced with
 an appropriate type environment update/recovery.</p>
 <p>Go to <a href="../lesson_4/">Lesson 4, Type Systems: A Naive Substitution-Based Type Inferencer</a>.</p>
 </body></html>

@@ -130,72 +130,72 @@
         >
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="defining-a-configuration">Defining a Configuration</h1>
-<p>Here we learn how to define a configuration in K. We also learn how to<br>
+<p>Here we learn how to define a configuration in K. We also learn how to
 initialize and how to display it.</p>
-<p>As explained in the overview presentation on K, configurations are quite<br>
-important, because all semantic rules match and apply on them.<br>
-Moreover, they are the backbone of <em>configuration abstraction</em>, which allows<br>
-you to only mention the relevant cells in each semantic rule, the rest of<br>
-the configuration context being inferred automatically. The importance of<br>
-configuration abstraction will become clear when we define more complex<br>
-languages (even in IMP++). IMP does not really need it. K configurations<br>
-are constructed making use of cells, which are labeled and can be arbitrarily<br>
+<p>As explained in the overview presentation on K, configurations are quite
+important, because all semantic rules match and apply on them.
+Moreover, they are the backbone of <em>configuration abstraction</em>, which allows
+you to only mention the relevant cells in each semantic rule, the rest of
+the configuration context being inferred automatically. The importance of
+configuration abstraction will become clear when we define more complex
+languages (even in IMP++). IMP does not really need it. K configurations
+are constructed making use of cells, which are labeled and can be arbitrarily
 nested.</p>
-<p>Configurations are defined with the keyword <code>configuration</code>. Cells are<br>
-defined using an XML-ish notation stating clearly where the cell starts<br>
+<p>Configurations are defined with the keyword <code>configuration</code>. Cells are
+defined using an XML-ish notation stating clearly where the cell starts
 and where it ends.</p>
-<p>While not enforced by the tool, we typically like to put the entire<br>
+<p>While not enforced by the tool, we typically like to put the entire
 configuration in a top-level cell, called <code>T</code>. So let&apos;s define it:</p>
 <pre><code>configuration &lt;T&gt;...&lt;/T&gt;
 </code></pre>
-<p>Cells can have other cells inside. In our case of IMP, we need a cell to<br>
-hold the remaining program, cell which we typically call <code>k</code>, and a cell to<br>
+<p>Cells can have other cells inside. In our case of IMP, we need a cell to
+hold the remaining program, cell which we typically call <code>k</code>, and a cell to
 hold the program state. Let us add them:</p>
 <pre><code>configuration &lt;T&gt; &lt;k&gt;...&lt;/k&gt; &lt;state&gt;...&lt;/state&gt; &lt;/T&gt;
 </code></pre>
-<p>K allows us to also specify how to initialize a configuration at the same<br>
-time with declaring the configuration. All we have to do is to fill in<br>
-the contents of the cells with some terms. The syntactic categories of<br>
-those terms will also indirectly define the types of the corresponding<br>
+<p>K allows us to also specify how to initialize a configuration at the same
+time with declaring the configuration. All we have to do is to fill in
+the contents of the cells with some terms. The syntactic categories of
+those terms will also indirectly define the types of the corresponding
 cells.</p>
-<p>For example, we want the <code>k</code> cell to initially hold the program that is passed<br>
-to <code>krun</code>. K provides a builtin configuration variable, called <code>$PGM</code>, which<br>
-is specifically designed for this purpose: <code>krun</code> will place its program there<br>
-(after it parses it, or course). The K tool allows users to define their own<br>
-configuration variables, too, which can be used to develop custom<br>
-initializations of program configurations with the help of <code>krun</code>; this can be<br>
-quite useful when defining complex languages, but we do not discuss it in<br>
+<p>For example, we want the <code>k</code> cell to initially hold the program that is passed
+to <code>krun</code>. K provides a builtin configuration variable, called <code>$PGM</code>, which
+is specifically designed for this purpose: <code>krun</code> will place its program there
+(after it parses it, or course). The K tool allows users to define their own
+configuration variables, too, which can be used to develop custom
+initializations of program configurations with the help of <code>krun</code>; this can be
+quite useful when defining complex languages, but we do not discuss it in
 this tutorial.</p>
 <pre><code>configuration &lt;T&gt; &lt;k&gt; $PGM &lt;/k&gt; &lt;state&gt;...&lt;/state&gt;  &lt;/T&gt;
 </code></pre>
-<p>Moreover, we want the program to be a proper <code>Pgm</code> term (because we do not<br>
-want to allow <code>krun</code> to take fragments of programs, for example, statements).<br>
+<p>Moreover, we want the program to be a proper <code>Pgm</code> term (because we do not
+want to allow <code>krun</code> to take fragments of programs, for example, statements).
 Therefore, we tag <code>$PGM</code> with the desired syntactic category, <code>Pgm</code>:</p>
 <pre><code>configuration &lt;T&gt; &lt;k&gt; $PGM:Pgm &lt;/k&gt; &lt;state&gt;...&lt;/state&gt;  &lt;/T&gt;
 </code></pre>
-<p>Like for other variable tags in K, a run-time check will be performed and the<br>
+<p>Like for other variable tags in K, a run-time check will be performed and the
 semantics will get stuck if the passed term is not a well-formed program.</p>
 <p>We next tell K that the state cell should be initialized with the empty map:</p>
 <pre><code>configuration &lt;T&gt; &lt;k&gt; $PGM:Pgm &lt;/k&gt; &lt;state&gt; .Map &lt;/state&gt;  &lt;/T&gt;
 </code></pre>
-<p>Recall that in K <code>.</code> stands for <em>nothing</em>. However, since there are various<br>
-types of nothing, to avoid confusion we can suffix the <code>.</code> with its desired<br>
-type. K has several builtin data-types, including lists, sets, bags, and<br>
+<p>Recall that in K <code>.</code> stands for <em>nothing</em>. However, since there are various
+types of nothing, to avoid confusion we can suffix the <code>.</code> with its desired
+type. K has several builtin data-types, including lists, sets, bags, and
 maps. <code>.Map</code> is the empty map.</p>
-<p>Kompile <code>imp.k</code> and run several programs to see how the configuration is<br>
+<p>Kompile <code>imp.k</code> and run several programs to see how the configuration is
 initialized as desired.</p>
-<p>Also, compile with the option <code>--pdf</code>, to see how configurations are displayed<br>
+<p>Also, compile with the option <code>--pdf</code>, to see how configurations are displayed
 in the documentation: like nested labeled bubbles, where each bubble is a cell.</p>
-<p>When configurations get large, and they do when defining large programming<br>
-languages, you may want to color the cells in order to more easily distinguish<br>
-them. This can be easily achieved using the <code>color</code> cell attribute, following<br>
+<p>When configurations get large, and they do when defining large programming
+languages, you may want to color the cells in order to more easily distinguish
+them. This can be easily achieved using the <code>color</code> cell attribute, following
 again an XML-ish style:</p>
 <pre><code>configuration &lt;T color=&quot;yellow&quot;&gt;
                 &lt;k color=&quot;green&quot;&gt; $PGM:Pgm &lt;/k&gt;
                 &lt;state color=&quot;red&quot;&gt; .Map &lt;/state&gt;
               &lt;/T&gt;
 </code></pre>
-<p>Compile again with the <code>--pdf</code> option and take a look at the new configuration.<br>
+<p>Compile again with the <code>--pdf</code> option and take a look at the new configuration.
 The cells should be now colored as indicated.</p>
 <p>In the next lesson we will learn how to write rules that involve cells.</p>
 <p>Go to <a href="../lesson_3/">Lesson 3, IMP: Computations, Results, Strictness; Rules Involving Cells</a>.</p>

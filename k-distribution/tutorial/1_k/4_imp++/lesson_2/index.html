@@ -130,13 +130,13 @@
         >
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="configuration-refinement%3B-freshness">Configuration Refinement; Freshness</h1>
-<p>To prepare for the semantics of threads and local variables, in this lesson we<br>
-split the state cell into an environment and a store. The environment and<br>
-the store will be similar to those in the definition of LAMBDA++ in Part<br>
-3 of the Tutorial. This configuration refinement will require us to change<br>
+<p>To prepare for the semantics of threads and local variables, in this lesson we
+split the state cell into an environment and a store. The environment and
+the store will be similar to those in the definition of LAMBDA++ in Part
+3 of the Tutorial. This configuration refinement will require us to change
 some of IMP&apos;s rules, namely those that used the state.</p>
-<p>To split the state map, which binds program variables to values, into an<br>
-environment mapping program variables to locations and a store mapping<br>
+<p>To split the state map, which binds program variables to values, into an
+environment mapping program variables to locations and a store mapping
 locations to values, we replace in the configuration declaration the cell</p>
 <pre><code>&lt;state color=&quot;red&quot;&gt; .Map &lt;/state&gt;
 </code></pre>
@@ -144,15 +144,15 @@ locations to values, we replace in the configuration declaration the cell</p>
 <pre><code>&lt;env color=&quot;LightSkyBlue&quot;&gt; .Map &lt;/env&gt;
 &lt;store color=&quot;red&quot;&gt; .Map &lt;/store&gt;
 </code></pre>
-<p>Structurally speaking, this split of a cell into other cells is a major<br>
-semantic change, which, unfortunately, requires us to revisit the existing<br>
-rules that used the state cell. One could, of course, argue that we could<br>
-have avoided this problem if we had followed from the very beginning the<br>
-good-practice style to work with an environment and a store, instead of a<br>
-monolithic state. While that is a valid argument, highlighting the fact that<br>
-modularity is not only a feature of the framework alone, but one should also<br>
-follow good practices to achieve it, it is also true that if all we wanted<br>
-in Part 2 of the tutorial was to define IMP as is, then the split of the state<br>
+<p>Structurally speaking, this split of a cell into other cells is a major
+semantic change, which, unfortunately, requires us to revisit the existing
+rules that used the state cell. One could, of course, argue that we could
+have avoided this problem if we had followed from the very beginning the
+good-practice style to work with an environment and a store, instead of a
+monolithic state. While that is a valid argument, highlighting the fact that
+modularity is not only a feature of the framework alone, but one should also
+follow good practices to achieve it, it is also true that if all we wanted
+in Part 2 of the tutorial was to define IMP as is, then the split of the state
 in an environment and a store is unnecessary and not really justified.</p>
 <p>The first rule which used a state cell is the lookup rule:</p>
 <pre><code>rule &lt;k&gt; X:Id =&gt; I ...&lt;/k&gt; &lt;state&gt;... X |-&gt; I ...&lt;/state&gt;
@@ -162,31 +162,31 @@ in an environment and a store is unnecessary and not really justified.</p>
      &lt;env&gt;... X |-&gt; N ...&lt;/env&gt;
      &lt;store&gt;... N |-&gt; I ...&lt;/store&gt;
 </code></pre>
-<p>So we first match the location <code>N</code> of <code>X</code> in the environment, then the value<br>
-<code>I</code> at location <code>N</code> in the store, and finally we rewrite <code>X</code> to <code>I</code> into the<br>
-computation. This rule also shows an instance of a more complex<br>
+<p>So we first match the location <code>N</code> of <code>X</code> in the environment, then the value
+<code>I</code> at location <code>N</code> in the store, and finally we rewrite <code>X</code> to <code>I</code> into the
+computation. This rule also shows an instance of a more complex
 multiset matching, where two variables (<code>X</code> and <code>N</code>) are matched each twice.</p>
 <p>The assignment rule is modified quite similarly.</p>
-<p>The variable declaration rule is trickier, though, because we need to allocate<br>
-a fresh location in the store and bind the newly declared variable to it.<br>
-This is quite similar to the way we allocated space for variables in<br>
+<p>The variable declaration rule is trickier, though, because we need to allocate
+a fresh location in the store and bind the newly declared variable to it.
+This is quite similar to the way we allocated space for variables in
 the environment-based definition of LAMBDA++ in Part 3 of the tutorial.</p>
 <pre><code>rule &lt;k&gt; int (X,Xs =&gt; Xs); ...&lt;/k&gt;
      &lt;env&gt; Rho =&gt; Rho[X &lt;- !N:Int] &lt;/env&gt;
      &lt;store&gt;... .Map =&gt; !N |-&gt; 0 ...&lt;/store&gt;
 </code></pre>
-<p>Note the use of the fresh (<code>!N</code>) variable notation above. Recall from<br>
-the LAMBDA++ tutorial that each time the rule with fresh (<code>!</code>) variables is<br>
-applied, fresh elements of corresponding sorts are generated for the fresh<br>
-variables, distinct from all the previously generated elements; also, we<br>
-cannot and should not assume anything about the particular element that is<br>
+<p>Note the use of the fresh (<code>!N</code>) variable notation above. Recall from
+the LAMBDA++ tutorial that each time the rule with fresh (<code>!</code>) variables is
+applied, fresh elements of corresponding sorts are generated for the fresh
+variables, distinct from all the previously generated elements; also, we
+cannot and should not assume anything about the particular element that is
 being generated, except that it is different from the previous ones.</p>
-<p><code>kompile</code> and <code>krun</code> <code>sum.imp</code> to see how the fresh locations have been<br>
-generated and used. There were two fresh locations needed, for the two<br>
-variables. Note also that a cell holding the counter has been added to the<br>
+<p><code>kompile</code> and <code>krun</code> <code>sum.imp</code> to see how the fresh locations have been
+generated and used. There were two fresh locations needed, for the two
+variables. Note also that a cell holding the counter has been added to the
 configuration.</p>
-<p>In the next lesson we will add the semantics of variable increment, and see<br>
-how that yields non-deterministic behaviors in programs and how to explore<br>
+<p>In the next lesson we will add the semantics of variable increment, and see
+how that yields non-deterministic behaviors in programs and how to explore
 those behaviors using the K tool.</p>
 <p>Go to <a href="../lesson_3/">Lesson 3, IMP++: Tagging; Superheat/Supercool Kompilation Options</a>.</p>
 <p><a href="http://youtu.be/f-qrqs8cMcU" target="_blank" rel="noopener">MOVIE (out of date) [04&apos;06&quot;]</a></p>

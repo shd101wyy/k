@@ -130,38 +130,38 @@
         >
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="a-naive-environment-based-type-inferencer">A Naive Environment-Based Type Inferencer</h1>
-<p>In this lesson you learn how to define a naive environment-based type<br>
-inferencer for a higher-order language. Specifically, we take the<br>
-substitution-based type inferencer for LAMBDA defined in Lesson 4 and<br>
+<p>In this lesson you learn how to define a naive environment-based type
+inferencer for a higher-order language. Specifically, we take the
+substitution-based type inferencer for LAMBDA defined in Lesson 4 and
 turn it into an environment-based one.</p>
-<p>Recall from Lesson 3, where we defined an environment-based type<br>
-checker for LAMBDA based on the substitution-based one in Lesson 2,<br>
-that the transition from a substitution-based definition to an<br>
-environment-based one was quite systematic and mechanical: each<br>
-substitution occurrence <code>E[T/X]</code> is replaced by <code>E</code>, but at the same time<br>
-the variable <code>X</code> is bound to type <code>T</code> in the type environment. One benefit<br>
-of using type environments instead of substitution is that we replace<br>
-a linear complexity operation (the substitution) with a constant<br>
+<p>Recall from Lesson 3, where we defined an environment-based type
+checker for LAMBDA based on the substitution-based one in Lesson 2,
+that the transition from a substitution-based definition to an
+environment-based one was quite systematic and mechanical: each
+substitution occurrence <code>E[T/X]</code> is replaced by <code>E</code>, but at the same time
+the variable <code>X</code> is bound to type <code>T</code> in the type environment. One benefit
+of using type environments instead of substitution is that we replace
+a linear complexity operation (the substitution) with a constant
 complexity one (the variable lookup).</p>
-<p>There is not much left to say which has not been already said in<br>
-Lesson 3: we remove the unnecessary binder annotations for the<br>
-variable binding operations, then add a <code>&lt;tenv/&gt;</code> cell to the<br>
-configuration to hold the type environment, then add a new rule for<br>
-variable lookup, and finally apply the transformation of substitutions<br>
+<p>There is not much left to say which has not been already said in
+Lesson 3: we remove the unnecessary binder annotations for the
+variable binding operations, then add a <code>&lt;tenv/&gt;</code> cell to the
+configuration to hold the type environment, then add a new rule for
+variable lookup, and finally apply the transformation of substitutions
 <code>E[T/X]</code> into <code>E</code> as explained above.</p>
-<p>The resulting type inferencer should now work exactly the same way as<br>
-the substitution-based one, except, of course, that the resulting<br>
+<p>The resulting type inferencer should now work exactly the same way as
+the substitution-based one, except, of course, that the resulting
 configurations will contain a <code>&lt;tenv/&gt;</code> cell now.</p>
-<p>As sanity check, let us consider two more LAMBDA programs that test<br>
-the static scoping nature of the inferencer. We do that because<br>
-faulty environment-based definitions often have this problem. The<br>
+<p>As sanity check, let us consider two more LAMBDA programs that test
+the static scoping nature of the inferencer. We do that because
+faulty environment-based definitions often have this problem. The
 program</p>
 <pre><code>let x = 1
 in let f = lambda a . x
    in let x = true
       in f 3
 </code></pre>
-<p>should type to <code>int</code>, not to <code>bool</code>, and so it does. Similarly, the<br>
+<p>should type to <code>int</code>, not to <code>bool</code>, and so it does. Similarly, the
 program</p>
 <pre><code>let y = 0
 in letrec f x = if x &lt;= 0
@@ -171,9 +171,9 @@ in letrec f x = if x &lt;= 0
    in f 1
 </code></pre>
 <p>should also type to <code>int</code>, not <code>bool</code>, and so it does, too.</p>
-<p>The type inferencer defined in this lesson has the same limitations,<br>
-in terms of polymorphism, as the one in Lesson 4. In the next<br>
-lesson we will see how it can be parallelized, and in further lessons<br>
+<p>The type inferencer defined in this lesson has the same limitations,
+in terms of polymorphism, as the one in Lesson 4. In the next
+lesson we will see how it can be parallelized, and in further lessons
 how to make it polymorphic.</p>
 <p>Go to <a href="../lesson_6/">Lesson 6, Type Systems: Parallel Type Checkers/Inferencers</a>.</p>
 </body></html>

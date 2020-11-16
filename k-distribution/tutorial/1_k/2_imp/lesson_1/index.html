@@ -130,85 +130,85 @@
         >
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="defining-a-more-complex-syntax">Defining a More Complex Syntax</h1>
-<p>Here we learn how to define a more complex language syntax than LAMBDA&apos;s,<br>
-namely the C-like syntax of IMP. Also, we will learn how to define languages<br>
-using multiple modules, because we are going to separate IMP&apos;s syntax from<br>
-its semantics using modules. Finally, we will also learn how to use K&apos;s<br>
+<p>Here we learn how to define a more complex language syntax than LAMBDA&apos;s,
+namely the C-like syntax of IMP. Also, we will learn how to define languages
+using multiple modules, because we are going to separate IMP&apos;s syntax from
+its semantics using modules. Finally, we will also learn how to use K&apos;s
 builtin support for syntactic lists.</p>
-<p>The K tool provides modules for grouping language features. In general, we<br>
-can organize our languages in arbitrarily complex module structures.<br>
-While there are no rigid requirements or even guidelines for how to group<br>
-language features in modules, we often separate the language syntax from the<br>
+<p>The K tool provides modules for grouping language features. In general, we
+can organize our languages in arbitrarily complex module structures.
+While there are no rigid requirements or even guidelines for how to group
+language features in modules, we often separate the language syntax from the
 language semantics in different modules.</p>
-<p>In our case here, we start by defining two modules, IMP-SYNTAX and IMP, and<br>
-import the first in the second, using the keyword <code>imports</code>. As their names<br>
-suggest, we will place all IMP&apos;s syntax definition in IMP-SYNTAX and all its<br>
+<p>In our case here, we start by defining two modules, IMP-SYNTAX and IMP, and
+import the first in the second, using the keyword <code>imports</code>. As their names
+suggest, we will place all IMP&apos;s syntax definition in IMP-SYNTAX and all its
 semantics in IMP.</p>
-<p>Note, however, that K does no more than simply includes all the<br>
-contents of the imported module in the one which imports it (making sure<br>
-that everything is only kept once, even if you import it multiple times).<br>
+<p>Note, however, that K does no more than simply includes all the
+contents of the imported module in the one which imports it (making sure
+that everything is only kept once, even if you import it multiple times).
 In other words, there is currently nothing fancy in K tool&apos;s module system.</p>
-<p>IMP has six syntactic categories, as shown in <code>imp.k</code>: <code>AExp</code> for arithmetic<br>
-expressions, <code>BExp</code> for Boolean expressions, <code>Block</code> for blocks, <code>Stmt</code> for<br>
-statements, <code>Pgm</code> for programs and <code>Ids</code> for comma-separated lists of<br>
-identifiers. Blocks are special statements, whose role is to syntactically<br>
-constrain the conditional statement and the while loop statement to only<br>
+<p>IMP has six syntactic categories, as shown in <code>imp.k</code>: <code>AExp</code> for arithmetic
+expressions, <code>BExp</code> for Boolean expressions, <code>Block</code> for blocks, <code>Stmt</code> for
+statements, <code>Pgm</code> for programs and <code>Ids</code> for comma-separated lists of
+identifiers. Blocks are special statements, whose role is to syntactically
+constrain the conditional statement and the while loop statement to only
 take blocks as branches and body, respectively.</p>
-<p>There is nothing special about arithmetic and Boolean expressions. They<br>
-are given the expected strictness attributes, except for <code>&lt;=</code> and <code>&amp;&amp;</code>,<br>
+<p>There is nothing special about arithmetic and Boolean expressions. They
+are given the expected strictness attributes, except for <code>&lt;=</code> and <code>&amp;&amp;</code>,
 for demonstration purposes.</p>
-<p>The <code>&lt;=</code> is defined to be <code>seqstrict</code>, which means that it evaluates its<br>
-arguments in order, from left-to-right (recall that the <code>strict</code> operators<br>
-can evaluate their arguments in any, fully interleaved, orders). Like<br>
-<code>strict</code>, the <code>seqstrict</code> annotation can also be configured; for example, one<br>
-can specify in which arguments and in what order. By default, <code>seqstrict</code><br>
-refers to all the arguments, in their left-to-right order. In our case here,<br>
+<p>The <code>&lt;=</code> is defined to be <code>seqstrict</code>, which means that it evaluates its
+arguments in order, from left-to-right (recall that the <code>strict</code> operators
+can evaluate their arguments in any, fully interleaved, orders). Like
+<code>strict</code>, the <code>seqstrict</code> annotation can also be configured; for example, one
+can specify in which arguments and in what order. By default, <code>seqstrict</code>
+refers to all the arguments, in their left-to-right order. In our case here,
 it is equivalent with <code>seqstrict(1 2)</code>.</p>
-<p>The <code>&amp;&amp;</code> is only strict in its first argument, because we will give it a<br>
-short-circuited semantics (its second argument will only be evaluated when<br>
-the first evaluates to true). Recall the K tool also allows us to associate<br>
-LaTex attributes to constructs, telling the document generator how to display<br>
-them. For example, we associate <code>&lt;=</code> the attribute <code>latex({#1}\leq{#2})</code>,<br>
-which makes it be displayed $\leq$ everywhere in the generated LaTex<br>
+<p>The <code>&amp;&amp;</code> is only strict in its first argument, because we will give it a
+short-circuited semantics (its second argument will only be evaluated when
+the first evaluates to true). Recall the K tool also allows us to associate
+LaTex attributes to constructs, telling the document generator how to display
+them. For example, we associate <code>&lt;=</code> the attribute <code>latex({#1}\leq{#2})</code>,
+which makes it be displayed $\leq$ everywhere in the generated LaTex
 documentation.</p>
-<p>In this tutorial we take the freedom to associate the various constructs<br>
-parsing precedences that we have already tested and we know work well, so that<br>
-we can focus on the semantics here instead of syntax. In practice, though,<br>
-you typically need to experiment with precedences until you obtain the desired<br>
+<p>In this tutorial we take the freedom to associate the various constructs
+parsing precedences that we have already tested and we know work well, so that
+we can focus on the semantics here instead of syntax. In practice, though,
+you typically need to experiment with precedences until you obtain the desired
 parser.</p>
-<p>Blocks are defined using curly brackets, and they can either be empty or<br>
+<p>Blocks are defined using curly brackets, and they can either be empty or
 hold a statement.</p>
-<p>Nothing special about the IMP statements. Note that <code>;</code> is an assignment<br>
-statement terminator, not a statement separator. Note also that blocks are<br>
+<p>Nothing special about the IMP statements. Note that <code>;</code> is an assignment
+statement terminator, not a statement separator. Note also that blocks are
 special statements.</p>
-<p>An IMP program declares a comma-separated list of variables using the keyword<br>
-<code>int</code> like in C, followed by a semicolon <code>;</code>, followed by a statement.<br>
-Syntactically, the idea here is that we can wrap any IMP program within a<br>
-<code>main(){...}</code> function and get a valid C program. IMP does not allow variable<br>
-declarations anywhere else except through this construct, at the top-level of<br>
-the program. Other languages provided with the K distribution (see, e.g., the<br>
-IMP++ language also discussed in this tutorial) remove this top-level program<br>
-construct of IMP and add instead variable declaration as a statement construct,<br>
+<p>An IMP program declares a comma-separated list of variables using the keyword
+<code>int</code> like in C, followed by a semicolon <code>;</code>, followed by a statement.
+Syntactically, the idea here is that we can wrap any IMP program within a
+<code>main(){...}</code> function and get a valid C program. IMP does not allow variable
+declarations anywhere else except through this construct, at the top-level of
+the program. Other languages provided with the K distribution (see, e.g., the
+IMP++ language also discussed in this tutorial) remove this top-level program
+construct of IMP and add instead variable declaration as a statement construct,
 which can be used anywhere in the program, not only at the top level.</p>
-<p>Note how we defined the comma-separated list of identifiers using<br>
-<code>List{Id,&quot;,&quot;}</code>. The K tool provides builtin support for generic syntactic<br>
+<p>Note how we defined the comma-separated list of identifiers using
+<code>List{Id,&quot;,&quot;}</code>. The K tool provides builtin support for generic syntactic
 lists. In general,</p>
 <pre><code>syntax B ::= List{A,T}
 </code></pre>
-<p>declares a new non-terminal, <code>B</code>, corresponding to <code>T</code>-separated sequences of<br>
-elements of <code>A</code>, where <code>A</code> is a non-terminal and <code>T</code> is a terminal. These<br>
-lists can also be empty, that is, IMP programs declaring no variable are also<br>
-allowed (e.g., <code>int; {}</code> is a valid IMP program). To instantiate and use<br>
-the K builtin lists, you should alias each instance with a (typically fresh)<br>
+<p>declares a new non-terminal, <code>B</code>, corresponding to <code>T</code>-separated sequences of
+elements of <code>A</code>, where <code>A</code> is a non-terminal and <code>T</code> is a terminal. These
+lists can also be empty, that is, IMP programs declaring no variable are also
+allowed (e.g., <code>int; {}</code> is a valid IMP program). To instantiate and use
+the K builtin lists, you should alias each instance with a (typically fresh)
 non-terminal in your syntax, like we do with the <code>Ids</code> nonterminal.</p>
-<p>Like with other K features, there are ways to configure the syntactic lists,<br>
+<p>Like with other K features, there are ways to configure the syntactic lists,
 but we do not discuss them here.</p>
-<p>Recall from Tutorial 1 (LAMBDA) that in order for strictness to work well<br>
-we also need to tell K which computations are meant to be results. We do<br>
+<p>Recall from Tutorial 1 (LAMBDA) that in order for strictness to work well
+we also need to tell K which computations are meant to be results. We do
 this as well now, in the module IMP: integers and Booleans are K results.</p>
-<p>Kompile <code>imp.k</code> and test the generated parser by running some programs.<br>
-Since IMP is a fragment of C, you may want to select the C mode in your<br>
-editor when writing these programs. This will also give your the feel that<br>
+<p>Kompile <code>imp.k</code> and test the generated parser by running some programs.
+Since IMP is a fragment of C, you may want to select the C mode in your
+editor when writing these programs. This will also give your the feel that
 you are writing programs in a real programming language.</p>
 <p>For example, here is <code>sum.imp</code>, which sums in <code>sum</code> all numbers up to <code>n</code>:</p>
 <pre><code>int n, sum;
@@ -220,7 +220,7 @@ while (!(n &lt;= 0)) {
 }
 </code></pre>
 <p>Now krun it and see how it looks parsed in the default <code>k</code> cell.</p>
-<p>The program <code>collatz.imp</code> tests the Collatz conjecture for all numbers up to<br>
+<p>The program <code>collatz.imp</code> tests the Collatz conjecture for all numbers up to
 <code>m</code> and accumulates the total number of steps in <code>s</code>:</p>
 <pre><code>int m, n, q, r, s;
 m = 10;
@@ -261,27 +261,27 @@ while (n &lt;= m) {
   n = n+1;
 }
 </code></pre>
-<p>All the programs above will run once we define the semantics of IMP. If you<br>
-want to execute them now, wrap them in a <code>main(){...}</code> function and compile<br>
+<p>All the programs above will run once we define the semantics of IMP. If you
+want to execute them now, wrap them in a <code>main(){...}</code> function and compile
 them and run them with your favorite C compiler.</p>
-<p>Before we move to the K semantics of IMP, we would like to make some<br>
-clarifications regarding the K builtin parser, <code>kast</code>. Although it is quite<br>
-powerful, you should not expect magic from it! While the K parser can parse<br>
-many non-trivial languages (see, for example, the KOOL language in<br>
-<a href="https://github.com/tutorial/2_languages">tutorial/2_languages</a>) in the K distribution), it was<br>
-never meant to be a substitute for real parsers. We often call the syntax<br>
-defined in K <em>the syntax of the semantics</em>, to highlight the fact that its<br>
-role is to serve as a convenient notation when writing the semantics, not<br>
-necessarily as a means to define concrete syntax of arbitrarily complex<br>
-programming languages. See the KERNELC language in <a href="/samples/">samples</a><br>
-for an example on how to connect an external parser for concrete syntax to<br>
+<p>Before we move to the K semantics of IMP, we would like to make some
+clarifications regarding the K builtin parser, <code>kast</code>. Although it is quite
+powerful, you should not expect magic from it! While the K parser can parse
+many non-trivial languages (see, for example, the KOOL language in
+<a href="https://github.com/tutorial/2_languages">tutorial/2_languages</a>) in the K distribution), it was
+never meant to be a substitute for real parsers. We often call the syntax
+defined in K <em>the syntax of the semantics</em>, to highlight the fact that its
+role is to serve as a convenient notation when writing the semantics, not
+necessarily as a means to define concrete syntax of arbitrarily complex
+programming languages. See the KERNELC language in <a href="/samples/">samples</a>
+for an example on how to connect an external parser for concrete syntax to
 the K tool.</p>
-<p>The above being said, we strongly encourage you to strive to make the<br>
-builtin parser work with your desired language syntax! Do not give up<br>
-simply because you don&apos;t want to deal with syntactic problems. On the<br>
-contrary, fight for your syntax! If you really cannot define your desired<br>
+<p>The above being said, we strongly encourage you to strive to make the
+builtin parser work with your desired language syntax! Do not give up
+simply because you don&apos;t want to deal with syntactic problems. On the
+contrary, fight for your syntax! If you really cannot define your desired
 syntax because of tool limitations, we would like to know. Please tell us.</p>
-<p>Until now we have only seen default configurations. In the next lesson we<br>
+<p>Until now we have only seen default configurations. In the next lesson we
 will learn how to define a K custom configuration.</p>
 <p>Go to <a href="../lesson_2/">Lesson 2, IMP: Defining a Configuration</a>.</p>
 <p><a href="http://youtu.be/F39Ta1stiCM" target="_blank" rel="noopener">MOVIE (out of date) [09&apos;15&quot;]</a></p>

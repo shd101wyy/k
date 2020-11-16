@@ -135,71 +135,71 @@ Organization: University of Illinois at Urbana-Champaign</p>
 <p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2 id="abstract">Abstract</h2>
-<p>This is the <strong>K</strong> static semantics of the typed KOOL language.<br>
-It extends the static semantics of typed SIMPLE with static semantics<br>
-for the object-oriented constructs.  Also, the static semantics of<br>
-some of the existing SIMPLE constructs need to change, in order to<br>
-become more generous with regards to the set of accepted programs,<br>
-mostly due to subtyping.  For example, the assignment construct<br>
-<code>x = e</code> required that both the variable <code>x</code> and the<br>
-expression <code>e</code> had the same type in SIMPLE.  In KOOL, the type<br>
-of <code>e</code> can be a subtype of the type of <code>x</code>.<br>
-Specifically, we define the following typing policy for KOOL,<br>
-everything else not mentioned below borrowing its semantics from<br>
+<p>This is the <strong>K</strong> static semantics of the typed KOOL language.
+It extends the static semantics of typed SIMPLE with static semantics
+for the object-oriented constructs.  Also, the static semantics of
+some of the existing SIMPLE constructs need to change, in order to
+become more generous with regards to the set of accepted programs,
+mostly due to subtyping.  For example, the assignment construct
+<code>x = e</code> required that both the variable <code>x</code> and the
+expression <code>e</code> had the same type in SIMPLE.  In KOOL, the type
+of <code>e</code> can be a subtype of the type of <code>x</code>.
+Specifically, we define the following typing policy for KOOL,
+everything else not mentioned below borrowing its semantics from
 SIMPLE:</p>
 <ul>
 <li>
-<p>Each class <code>C</code> yields a homonymous type, which can be<br>
-explicitly used in programs to type variables and methods, possibly in<br>
+<p>Each class <code>C</code> yields a homonymous type, which can be
+explicitly used in programs to type variables and methods, possibly in
 combination with other types.</p>
 </li>
 <li>
-<p>Since now we have user-defined types, we check that each type<br>
-used in a KOOL program is well-formed, that is, it is constructed only<br>
+<p>Since now we have user-defined types, we check that each type
+used in a KOOL program is well-formed, that is, it is constructed only
 from primitive and class types corresponding to declared classes.</p>
 </li>
 <li>
-<p>Class members and their types form a <strong>class type<br>
-environment</strong>.  Each class will have such a type environment.<br>
-Each member in a class is allowed to be declared only once.  Since in<br>
-KOOL we allow methods to be assigned to fields, we make no distinction<br>
-between field and method members; in other words, we reject programs<br>
+<p>Class members and their types form a <strong>class type
+environment</strong>.  Each class will have such a type environment.
+Each member in a class is allowed to be declared only once.  Since in
+KOOL we allow methods to be assigned to fields, we make no distinction
+between field and method members; in other words, we reject programs
 declaring both a field and a method with the same name.</p>
 </li>
 <li>
-<p>If an identifier is not found in the local type environment, it<br>
-will be searched for in the current class type environment.  If not<br>
-there, then it will be searched for in its superclass&apos; type<br>
-environment.  And so on and so forth.  If not found until the<br>
+<p>If an identifier is not found in the local type environment, it
+will be searched for in the current class type environment.  If not
+there, then it will be searched for in its superclass&apos; type
+environment.  And so on and so forth.  If not found until the
 <code>Object</code> class is reached, a typing error is reported.</p>
 </li>
 <li>
-<p>The assignment allows variables to be assigned values of<br>
-more concrete types.  The result type of the assignment expression<br>
-construct will be the (more abstract) type of the assigned variable,<br>
+<p>The assignment allows variables to be assigned values of
+more concrete types.  The result type of the assignment expression
+construct will be the (more abstract) type of the assigned variable,
 and not the (more concrete) type of the expression, like in Java.</p>
 </li>
 <li>
-<p>Exceptions are changed (from SIMPLE) to allow throwing and<br>
-catching only objects, like in Java.  Also, unlike in SIMPLE, we do<br>
-not check whether the type of the thrown exception matches the type of<br>
-the caught variable, because exceptions can be caught by other<br>
-<code>try/catch</code> blocks, even by ones in other methods.  To avoid<br>
-having to annotate each method with what exceptions it can throw, we<br>
-prefer to not check the type safety of exceptions (although this is an<br>
-excellent homework!).  We only check that the <code>try</code> block<br>
-type-checks and that the <code>catch</code> block type-checks after we bind<br>
+<p>Exceptions are changed (from SIMPLE) to allow throwing and
+catching only objects, like in Java.  Also, unlike in SIMPLE, we do
+not check whether the type of the thrown exception matches the type of
+the caught variable, because exceptions can be caught by other
+<code>try/catch</code> blocks, even by ones in other methods.  To avoid
+having to annotate each method with what exceptions it can throw, we
+prefer to not check the type safety of exceptions (although this is an
+excellent homework!).  We only check that the <code>try</code> block
+type-checks and that the <code>catch</code> block type-checks after we bind
 the caught variable to its claimed type.</p>
 </li>
 <li>
-<p>Class declarations are not allowed to have any cycles in their<br>
-extends relation.  Such cycles would lead to non-termination of<br>
-<code>new</code>, as it actually does in the dynamic semantics of KOOL<br>
+<p>Class declarations are not allowed to have any cycles in their
+extends relation.  Such cycles would lead to non-termination of
+<code>new</code>, as it actually does in the dynamic semantics of KOOL
 where no such circularity checks are performed.</p>
 </li>
 <li>
-<p>Methods overriding other methods should be in the right subtyping<br>
-relationship with the overridden methods: co-variant in the codomain<br>
+<p>Methods overriding other methods should be in the right subtyping
+relationship with the overridden methods: co-variant in the codomain
 and contra-variant in the domain.</p>
 </li>
 </ul>
@@ -207,41 +207,41 @@ and contra-variant in the domain.</p>
   <span class="token keyword">imports</span> DOMAINS<span class="token operator">-</span>SYNTAX
 </code></pre>
 <h2 id="syntax">Syntax</h2>
-<p>The syntax of statically typed KOOL is identical to that of<br>
-dynamically typed KOOL, they both taking as input the same programs.<br>
-What differs is the <strong>K</strong> strictness attributes.  Like in statically<br>
-typed SIMPLE, almost all language constructs are strict now, since we<br>
-want each to type its arguments almost all the time.  Like in the<br>
-other two KOOL definitions, we prefer to copy and then modify/extend<br>
+<p>The syntax of statically typed KOOL is identical to that of
+dynamically typed KOOL, they both taking as input the same programs.
+What differs is the <strong>K</strong> strictness attributes.  Like in statically
+typed SIMPLE, almost all language constructs are strict now, since we
+want each to type its arguments almost all the time.  Like in the
+other two KOOL definitions, we prefer to copy and then modify/extend
 the syntax of statically typed SIMPLE.</p>
-<p><strong>Note</strong>: This paragraph is old, now we can do things better.  We keep<br>
+<p><strong>Note</strong>: This paragraph is old, now we can do things better.  We keep
 it here only for historical reasons, to see how much we used to suffer :)</p>
-<p><strong>Annoying K-tool technical problem:</strong><br>
-Currently, the <strong>K</strong> tool treats the &quot;non-terminal&quot; productions (i.e.,<br>
-productions consisting of just one non-terminal), also called<br>
-&quot;subsorting&quot; production, differently from the other productions.<br>
-Specifically, it does not insert a node in the AST for them.  This may<br>
-look desirable at first, but it has a big problem: it does not allow<br>
-us to treat the subsort differently in different context.  For<br>
-example, since we want <em><code>Id</code></em> to be both a type (a class name) and a<br>
-program variable, and since we want expressions to reduce to their<br>
-types, we are in an impossible situations in which we do not know how<br>
-to treat an identifier in the semantics: as a type, i.e., a result of<br>
-computations, or as a program variable, i.e., a non-result.  Ideally,<br>
-we would like to tag the identifiers at parse-time with their local<br>
-interpretation, but that, unfortunately, is not possible with the<br>
-current parsing capabilities of the <strong>K</strong> tool, because it requires to<br>
-insert additional information in the AST for the subsort productions.<br>
-This will be fixed soon.  Until then, unfortunately, we have to do the<br>
-job of the parser manually.  Instead of subsorting <em><code>Id</code></em> directly<br>
-to <em><code>Type</code></em>, we &quot;wrap&quot; it first, say with a wrapper called<br>
-<code>class(...)</code>, exactly how the parser should have done.<br>
-The major drawback of this is that all the typed KOOL programs<br>
-in <code>kool/typed/programs</code> need to also be modified to always<br>
-declare class types accordingly.  The modified programs can be found<br>
-in <code>kool/typed/static/programs</code>.  So make sure you execute the<br>
-static semantics of KOOL using the modified programs.  To avoid seeing<br>
-the wrapper in the generated documentation, we associate it an<br>
+<p><strong>Annoying K-tool technical problem:</strong>
+Currently, the <strong>K</strong> tool treats the &quot;non-terminal&quot; productions (i.e.,
+productions consisting of just one non-terminal), also called
+&quot;subsorting&quot; production, differently from the other productions.
+Specifically, it does not insert a node in the AST for them.  This may
+look desirable at first, but it has a big problem: it does not allow
+us to treat the subsort differently in different context.  For
+example, since we want <em><code>Id</code></em> to be both a type (a class name) and a
+program variable, and since we want expressions to reduce to their
+types, we are in an impossible situations in which we do not know how
+to treat an identifier in the semantics: as a type, i.e., a result of
+computations, or as a program variable, i.e., a non-result.  Ideally,
+we would like to tag the identifiers at parse-time with their local
+interpretation, but that, unfortunately, is not possible with the
+current parsing capabilities of the <strong>K</strong> tool, because it requires to
+insert additional information in the AST for the subsort productions.
+This will be fixed soon.  Until then, unfortunately, we have to do the
+job of the parser manually.  Instead of subsorting <em><code>Id</code></em> directly
+to <em><code>Type</code></em>, we &quot;wrap&quot; it first, say with a wrapper called
+<code>class(...)</code>, exactly how the parser should have done.
+The major drawback of this is that all the typed KOOL programs
+in <code>kool/typed/programs</code> need to also be modified to always
+declare class types accordingly.  The modified programs can be found
+in <code>kool/typed/static/programs</code>.  So make sure you execute the
+static semantics of KOOL using the modified programs.  To avoid seeing
+the wrapper in the generated documentation, we associate it an
 &quot;invisibility&quot; latex attribute below.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Id</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;Object&quot;</span> <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token string">&quot;Main&quot;</span> <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span>
 </code></pre>
@@ -340,56 +340,56 @@ the wrapper in the generated documentation, we associate it an<br>
 <span class="token keyword">endmodule</span>
 </code></pre>
 <h2 id="static-semantics">Static semantics</h2>
-<p>We first discuss the configuration, then give the static semantics<br>
-taken over unchanged from SIMPLE, then discuss the static semantics of<br>
-SIMPLE syntactic constructs that needs to change, and in the end we<br>
-discuss the static semantics and additional checks specifically<br>
+<p>We first discuss the configuration, then give the static semantics
+taken over unchanged from SIMPLE, then discuss the static semantics of
+SIMPLE syntactic constructs that needs to change, and in the end we
+discuss the static semantics and additional checks specifically
 related to the KOOL proper syntax.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> KOOL<span class="token operator">-</span>TYPED<span class="token operator">-</span>STATIC
   <span class="token keyword">imports</span> KOOL<span class="token operator">-</span>TYPED<span class="token operator">-</span>STATIC<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> DOMAINS
 </code></pre>
 <h2 id="configuration">Configuration</h2>
-<p>The configuration of our type system consists of a <code>tasks</code><br>
-cell with the same meaning like in statically typed SIMPLE, of an<br>
-<code>out</code> cell streamed to the standard output that will be used to<br>
-display typing error messages, and of a cell <code>classes</code> holding<br>
-data about each class in a separate <code>class</code> cell.  The<br>
-<code>task</code> cells now have two additional optional subcells, namely<br>
-<code>ctenvT</code> and <code>inClass</code>.  The former holds a temporary<br>
-class type environment; its contents will be transferred into the<br>
-<code>ctenv</code> cell of the corresponding class as soon as all the<br>
-fields and methods in the task are processed.  In fact, there will be<br>
-three types of tasks in the subsequent semantics, each determined by<br>
+<p>The configuration of our type system consists of a <code>tasks</code>
+cell with the same meaning like in statically typed SIMPLE, of an
+<code>out</code> cell streamed to the standard output that will be used to
+display typing error messages, and of a cell <code>classes</code> holding
+data about each class in a separate <code>class</code> cell.  The
+<code>task</code> cells now have two additional optional subcells, namely
+<code>ctenvT</code> and <code>inClass</code>.  The former holds a temporary
+class type environment; its contents will be transferred into the
+<code>ctenv</code> cell of the corresponding class as soon as all the
+fields and methods in the task are processed.  In fact, there will be
+three types of tasks in the subsequent semantics, each determined by
 the subset of cells that it holds:</p>
 <ol>
 <li>
-<p><strong>Main task</strong>, holding only a <code>k</code> cell holding the<br>
-original program as a set of classes.  The role of this task is to<br>
+<p><strong>Main task</strong>, holding only a <code>k</code> cell holding the
+original program as a set of classes.  The role of this task is to
 process each class, generating a class task (see next) for each.</p>
 </li>
 <li>
-<p><strong>Class task</strong>, holding <code>k</code>, <code>ctenvT</code>, and<br>
-<code>inClass</code> subcells.  The role of this task type is to process<br>
-a class&apos; contents, generating a class type environment in the<br>
-<code>ctenvT</code> cell and a method task (see next) for each method in<br>
-the class.  To avoid interference with object member lookup rules<br>
-below, it is important to add the class type environment to a class<br>
-atomically; this is the reason for which we use <code>ctenvT</code><br>
-temporary cells within class tasks (instead of adding each member<br>
+<p><strong>Class task</strong>, holding <code>k</code>, <code>ctenvT</code>, and
+<code>inClass</code> subcells.  The role of this task type is to process
+a class&apos; contents, generating a class type environment in the
+<code>ctenvT</code> cell and a method task (see next) for each method in
+the class.  To avoid interference with object member lookup rules
+below, it is important to add the class type environment to a class
+atomically; this is the reason for which we use <code>ctenvT</code>
+temporary cells within class tasks (instead of adding each member
 incrementally to the class&apos; type environment).</p>
 </li>
 <li>
-<p><strong>Method task</strong>, holding <code>k</code>, <code>tenv</code> and<br>
-<code>return</code> cells.  These tasks are similar to SIMPLE&apos;s function<br>
+<p><strong>Method task</strong>, holding <code>k</code>, <code>tenv</code> and
+<code>return</code> cells.  These tasks are similar to SIMPLE&apos;s function
 tasks, so we do not discuss them here any further.</p>
 </li>
 </ol>
-<p>Each <code>class</code> cell hods its name (in the <code>className</code><br>
-cell) and the name of the class it extends (in the <code>extends</code><br>
-cell), as well as its type environment (in the <code>ctenv</code> cell)<br>
-and the set of all its superclasses (in the <code>extendsAll</code> cell).<br>
-The later is useful for example for checking whether there are cycles<br>
+<p>Each <code>class</code> cell hods its name (in the <code>className</code>
+cell) and the name of the class it extends (in the <code>extends</code>
+cell), as well as its type environment (in the <code>ctenv</code> cell)
+and the set of all its superclasses (in the <code>extendsAll</code> cell).
+The later is useful for example for checking whether there are cycles
 in the class extends relation.</p>
 <pre class="language-k"><code>  <span class="token keyword">configuration</span> <span class="token operator">&lt;</span>T multiplicity<span class="token operator">=</span><span class="token string">&quot;?&quot;</span> color<span class="token operator">=</span><span class="token string">&quot;yellow&quot;</span><span class="token operator">&gt;</span>
                   <span class="token operator">&lt;</span>tasks color<span class="token operator">=</span><span class="token string">&quot;orange&quot;</span> multiplicity<span class="token operator">=</span><span class="token string">&quot;?&quot;</span><span class="token operator">&gt;</span>
@@ -414,7 +414,7 @@ in the class extends relation.</p>
                 <span class="token operator">&lt;</span>output color<span class="token operator">=</span><span class="token string">&quot;brown&quot;</span> stream<span class="token operator">=</span><span class="token string">&quot;stdout&quot;</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>List <span class="token operator">&lt;</span><span class="token operator">/</span>output<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="unchanged-semantics-from-statically-typed-simple">Unchanged semantics from statically typed SIMPLE</h2>
-<p>The syntax and rules below are borrowed unchanged from statically<br>
+<p>The syntax and rules below are borrowed unchanged from statically
 typed SIMPLE, so we do not discuss them much here.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Type
   <span class="token keyword">syntax</span> Exps <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Types
@@ -524,34 +524,34 @@ typed SIMPLE, so we do not discuss them much here.</p>
   <span class="token keyword">rule</span> getTypes<span class="token punctuation">(</span><span class="token punctuation">.</span>Params<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> void<span class="token punctuation">,</span> <span class="token punctuation">.</span>Types
 </code></pre>
 <h2 id="changes-to-the-existing-statically-typed-simple-semantics">Changes to the existing statically typed SIMPLE semantics</h2>
-<p>Below we give the new static semantics for language constructs that<br>
-come from SIMPLE, but whose SIMPLE static semantics was too<br>
+<p>Below we give the new static semantics for language constructs that
+come from SIMPLE, but whose SIMPLE static semantics was too
 restrictive or too permissive and thus had to change.</p>
 <h2 id="local-variable-declaration">Local variable declaration</h2>
-<p>Since we can define new types in KOOL (corresponding to classes), the<br>
-variable declaration needs to now check that the claimed types exist.<br>
-The operation <code>checkType</code>, defined at the end of this module,<br>
-checks whether the argument type is correct (it actually works with<br>
+<p>Since we can define new types in KOOL (corresponding to classes), the
+variable declaration needs to now check that the claimed types exist.
+The operation <code>checkType</code>, defined at the end of this module,
+checks whether the argument type is correct (it actually works with
 lists of types as well).</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> checkType<span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> stmt <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>tenv<span class="token operator">&gt;</span> Rho <span class="token operator">=</span><span class="token operator">&gt;</span> Rho<span class="token punctuation">[</span>X <span class="token operator">&lt;</span><span class="token operator">-</span> T<span class="token punctuation">]</span> <span class="token operator">&lt;</span><span class="token operator">/</span>tenv<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="class-member-declaration">Class member declaration</h2>
-<p>In class tasks, variable declarations mean class member declarations.<br>
-Since we reduce method declarations to variable declarations (see<br>
-below), a variable declaration in a class task can mean either a field<br>
-or a method declaration.  Unlike local variable declarations, which<br>
-can shadow previous homonymous local or member declarations, member<br>
-declarations are regarded as a set, so we disallow multiple<br>
-declarations for the same member (one could improve upon this, like in<br>
-Java, by treating members with different types or number of arguments<br>
-as different, etc., but we do not do it here).  We also issue an error<br>
-message if one attempts to redeclare the same class member.  The<br>
-framed variable declaration in the second rule below should be read<br>
-&quot;stuck&quot;.  In fact, it is nothing but a unary operation called<br>
-<code>stuck</code>, which takes a <strong>K</strong>-term as argument and does nothing<br>
-with it; this <code>stuck</code> operation is displayed as a frame in this<br>
-PDF document because of its latex attribute (see the ASCII .k file,<br>
+<p>In class tasks, variable declarations mean class member declarations.
+Since we reduce method declarations to variable declarations (see
+below), a variable declaration in a class task can mean either a field
+or a method declaration.  Unlike local variable declarations, which
+can shadow previous homonymous local or member declarations, member
+declarations are regarded as a set, so we disallow multiple
+declarations for the same member (one could improve upon this, like in
+Java, by treating members with different types or number of arguments
+as different, etc., but we do not do it here).  We also issue an error
+message if one attempts to redeclare the same class member.  The
+framed variable declaration in the second rule below should be read
+&quot;stuck&quot;.  In fact, it is nothing but a unary operation called
+<code>stuck</code>, which takes a <strong>K</strong>-term as argument and does nothing
+with it; this <code>stuck</code> operation is displayed as a frame in this
+PDF document because of its latex attribute (see the ASCII .k file,
 at the end of this module).</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> checkType<span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> stmt <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>ctenvT<span class="token operator">&gt;</span> Rho <span class="token punctuation">(</span><span class="token punctuation">.</span>Map <span class="token operator">=</span><span class="token operator">&gt;</span> X <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> T<span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token operator">/</span>ctenvT<span class="token operator">&gt;</span>
@@ -567,18 +567,18 @@ at the end of this module).</p>
     <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="method-declaration">Method declaration</h2>
-<p>A method declaration requires two conceptual checks to be performed:<br>
-first, that the method&apos;s type is consistent with the type of the<br>
-homonymous method that it overrides, if any; and second, that its body<br>
-types correctly.  At the same time, it should also be added to the<br>
-type environment of its class.  The first conceptual task is performed<br>
-using the <code>checkMethod</code> operation defined below, and the second<br>
-by generating a corresponding method task.  To add it to the class<br>
-type environment, we take advantage of the fact that KOOL is higher<br>
-order and reduce the problem to a field declaration problem, which we<br>
-have already defined.  The role of the <code>ctenvT</code> cell in the<br>
-rule below is to structurally ensure that the method declaration takes<br>
-place in a class task (we do not want to allow methods to be declared,<br>
+<p>A method declaration requires two conceptual checks to be performed:
+first, that the method&apos;s type is consistent with the type of the
+homonymous method that it overrides, if any; and second, that its body
+types correctly.  At the same time, it should also be added to the
+type environment of its class.  The first conceptual task is performed
+using the <code>checkMethod</code> operation defined below, and the second
+by generating a corresponding method task.  To add it to the class
+type environment, we take advantage of the fact that KOOL is higher
+order and reduce the problem to a field declaration problem, which we
+have already defined.  The role of the <code>ctenvT</code> cell in the
+rule below is to structurally ensure that the method declaration takes
+place in a class task (we do not want to allow methods to be declared,
 for example, inside other methods).</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type F<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">(</span>Ps<span class="token punctuation">:</span>Params<span class="token punctuation">)</span> S
         <span class="token operator">=</span><span class="token operator">&gt;</span> checkMethod<span class="token punctuation">(</span>F<span class="token punctuation">,</span> getTypes<span class="token punctuation">(</span>Ps<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span>T<span class="token punctuation">,</span> C&apos;<span class="token punctuation">)</span>
@@ -598,26 +598,26 @@ for example, inside other methods).</p>
     <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="assignment">Assignment</h2>
-<p>A more concrete value is allowed to be assigned to a more abstract<br>
-variable.  The operation <code>checkSubtype</code> is defined at the end<br>
+<p>A more concrete value is allowed to be assigned to a more abstract
+variable.  The operation <code>checkSubtype</code> is defined at the end
 of the module and it also works with pairs of lists of types.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> T<span class="token punctuation">:</span>Type <span class="token operator">=</span> T<span class="token string">&apos;:Type =&gt; checkSubtype(T&apos;</span><span class="token punctuation">,</span> T<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> T
 </code></pre>
 <h2 id="method-invocation-and-return">Method invocation and return</h2>
-<p>Methods can be applied on values of more concrete types than their<br>
+<p>Methods can be applied on values of more concrete types than their
 arguments:</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token punctuation">(</span>Ts<span class="token punctuation">:</span>Types <span class="token operator">-</span><span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type<span class="token punctuation">)</span> <span class="token punctuation">(</span>Ts<span class="token string">&apos;:Types) =&gt; checkSubtype(Ts&apos;</span><span class="token punctuation">,</span>Ts<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> T
 </code></pre>
-<p>Similarly, we allow values of more concrete types to be returned by<br>
+<p>Similarly, we allow values of more concrete types to be returned by
 methods:</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> return T<span class="token punctuation">:</span>Type<span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> checkSubtype<span class="token punctuation">(</span>T<span class="token punctuation">,</span>T&apos;<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> stmt <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>returnType<span class="token operator">&gt;</span> T&apos;<span class="token punctuation">:</span>Type <span class="token operator">&lt;</span><span class="token operator">/</span>returnType<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="exceptions">Exceptions</h2>
-<p>Exceptions can throw and catch values of any types.  Since unlike in Java<br>
-KOOL&apos;s methods do not declare the exception types that they can throw,<br>
-we cannot test the full type safety of exceptions.  Instead, we<br>
-only check that the <code>try</code> and the <code>catch</code> statements<br>
+<p>Exceptions can throw and catch values of any types.  Since unlike in Java
+KOOL&apos;s methods do not declare the exception types that they can throw,
+we cannot test the full type safety of exceptions.  Instead, we
+only check that the <code>try</code> and the <code>catch</code> statements
 type correctly.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> try block catch<span class="token punctuation">(</span>T<span class="token punctuation">:</span>Type X<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">)</span> S <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>T X<span class="token punctuation">;</span> S<span class="token punctuation">}</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
   <span class="token keyword">rule</span> throw T<span class="token punctuation">:</span>Type <span class="token punctuation">;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> stmt
@@ -637,13 +637,13 @@ type correctly.</p>
 </code></pre>
 <h2 id="semantics-of-the-new-kool-constructs">Semantics of the new KOOL constructs</h2>
 <h2 id="class-declaration">Class declaration</h2>
-<p>We process each class in the main task, adding the corresponding data<br>
-into its <code>class</code> cell and also adding a class task for it.  We<br>
+<p>We process each class in the main task, adding the corresponding data
+into its <code>class</code> cell and also adding a class task for it.  We
 also perform some well-formedness checks on the class hierarchy.</p>
 <p><strong>Initiate class processing</strong><br>
-We create a class cell and a class task for each task.  Also, we start<br>
-the class task with a check that the class it extends is declared<br>
-(this delays the task until that class is processed using another<br>
+We create a class cell and a class task for each task.  Also, we start
+the class task with a check that the class it extends is declared
+(this delays the task until that class is processed using another
 instance of this rule).</p>
 <pre class="language-k"><code><span class="token comment">// There seems to be some error with the configuration concretization,</span>
 <span class="token comment">// as the rule below does not work when rewriting . to both the task</span>
@@ -695,11 +695,11 @@ syntax Type ::= &quot;stmtStop&quot;
     <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <p><strong>Check for cycles in class hierarchy</strong><br>
-We check for cycles in the class hierarchy by transitively closing the<br>
-class extends relation using the <code>extendsAll</code> cells, and<br>
-checking that a class will never appear in its own <code>extendsAll</code><br>
-cell.  The first rule below initiates the transitive closure of the<br>
-superclass relation, the second transitively closes it, and the third<br>
+We check for cycles in the class hierarchy by transitively closing the
+class extends relation using the <code>extendsAll</code> cells, and
+checking that a class will never appear in its own <code>extendsAll</code>
+cell.  The first rule below initiates the transitive closure of the
+superclass relation, the second transitively closes it, and the third
 checks for cycles.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>baseClass<span class="token operator">&gt;</span> C <span class="token operator">&lt;</span><span class="token operator">/</span>baseClass<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>baseClasses<span class="token operator">&gt;</span> <span class="token punctuation">.</span>Set <span class="token operator">=</span><span class="token operator">&gt;</span> SetItem<span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token operator">&lt;</span><span class="token operator">/</span>baseClasses<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
@@ -719,24 +719,24 @@ checks for cycles.</p>
     <span class="token punctuation">[</span>inheritance<span class="token operator">-</span>cycle<span class="token punctuation">]</span>
 </code></pre>
 <h2 id="new">New</h2>
-<p>To type <code>new</code> we only need to check that the class constructor<br>
-can be called with arguments of the given types, so we initiate a call<br>
-to the constructor method in the corresponding class.  If that<br>
-succeeds, meaning that it types to <code>stmt</code>, then we discard the<br>
-<code>stmt</code> type and produce instead the corresponding class type of<br>
-the new object.  The auxiliary <code>discard</code> operation is defined<br>
+<p>To type <code>new</code> we only need to check that the class constructor
+can be called with arguments of the given types, so we initiate a call
+to the constructor method in the corresponding class.  If that
+succeeds, meaning that it types to <code>stmt</code>, then we discard the
+<code>stmt</code> type and produce instead the corresponding class type of
+the new object.  The auxiliary <code>discard</code> operation is defined
 also at the end of this module.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> new C<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">(</span>Ts<span class="token punctuation">:</span>Types<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> class<span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token punctuation">.</span> C <span class="token punctuation">(</span>Ts<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> discard <span class="token operator">~</span><span class="token operator">&gt;</span> class<span class="token punctuation">(</span>C<span class="token punctuation">)</span>
 </code></pre>
 <h2 id="self-reference">Self reference</h2>
-<p>The typing rule for <code>this</code> is straightforward: reduce to the<br>
+<p>The typing rule for <code>this</code> is straightforward: reduce to the
 current class type.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> this <span class="token operator">=</span><span class="token operator">&gt;</span> class<span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>inClass<span class="token operator">&gt;</span> C<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">&lt;</span><span class="token operator">/</span>inClass<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="super">Super</h2>
-<p>Similarly, <code>super</code> types to the parent class type.<br>
-Note that for typing concerns, super can be considered as an object<br>
+<p>Similarly, <code>super</code> types to the parent class type.
+Note that for typing concerns, super can be considered as an object
 (recall that this was not the case in the dynamic semantics).</p>
 <pre class="language-k"><code>   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> super <span class="token operator">=</span><span class="token operator">&gt;</span> class<span class="token punctuation">(</span>C&apos;<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
         <span class="token operator">&lt;</span>inClass<span class="token operator">&gt;</span> C<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">&lt;</span><span class="token operator">/</span>inClass<span class="token operator">&gt;</span>
@@ -744,32 +744,32 @@ Note that for typing concerns, super can be considered as an object<br>
         <span class="token operator">&lt;</span>baseClass<span class="token operator">&gt;</span> C&apos;<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">&lt;</span><span class="token operator">/</span>baseClass<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="object-member-access">Object member access</h2>
-<p>There are several cases to consider here.  First, if we are in a class<br>
-task, we should lookup the member into the temporary class type<br>
-environemnt in cell <code>ctenvT</code>.  That is because we want to allow<br>
-initialized field declarations in classes, such as <code>int x=10;</code>.<br>
-This is desugared to a declaration of <code>x</code>, which is added to<br>
-<code>ctenvT</code> during the class task processing, followed by an<br>
-assignment of <code>x</code> to 10.  In order for the assignment to type<br>
-check, we need to know that <code>x</code> has been declared with type<br>
-<code>int</code>; this information can only be found in the<br>
-<code>ctenvT</code> cell.  Second, we should redirect non-local variable<br>
-lookups in method tasks to corresponding member accesses (the<br>
-local variables are handled by the rule borrowed from SIMPLE).<br>
-This is what the second rule below does.  Third, we should allow<br>
-object member accesses as lvalues, which is done by the third rule<br>
-below.  These last two rules therefore ensure that each necessary<br>
-object member access is explicitly allowed for evaluation.  Recall<br>
-from the annotated syntax module above that the member access<br>
-operation is strict in the object.  That means that the object is<br>
-expected to evaluate to a class type.  The next two rules below define<br>
-the actual member lookup operation, moving the search to the<br>
-superclass when the member is not found in the current class.  Note<br>
-that this works because we create the class type environments<br>
-atomically; thus, a class either has its complete type environment<br>
-available, in which case these rules can safely apply, or its cell<br>
-<code>ctenv</code> is not yet available, in which case these rules have to<br>
-wait.  Finally, the sixth rule below reports an error when the<br>
+<p>There are several cases to consider here.  First, if we are in a class
+task, we should lookup the member into the temporary class type
+environemnt in cell <code>ctenvT</code>.  That is because we want to allow
+initialized field declarations in classes, such as <code>int x=10;</code>.
+This is desugared to a declaration of <code>x</code>, which is added to
+<code>ctenvT</code> during the class task processing, followed by an
+assignment of <code>x</code> to 10.  In order for the assignment to type
+check, we need to know that <code>x</code> has been declared with type
+<code>int</code>; this information can only be found in the
+<code>ctenvT</code> cell.  Second, we should redirect non-local variable
+lookups in method tasks to corresponding member accesses (the
+local variables are handled by the rule borrowed from SIMPLE).
+This is what the second rule below does.  Third, we should allow
+object member accesses as lvalues, which is done by the third rule
+below.  These last two rules therefore ensure that each necessary
+object member access is explicitly allowed for evaluation.  Recall
+from the annotated syntax module above that the member access
+operation is strict in the object.  That means that the object is
+expected to evaluate to a class type.  The next two rules below define
+the actual member lookup operation, moving the search to the
+superclass when the member is not found in the current class.  Note
+that this works because we create the class type environments
+atomically; thus, a class either has its complete type environment
+available, in which case these rules can safely apply, or its cell
+<code>ctenv</code> is not yet available, in which case these rules have to
+wait.  Finally, the sixth rule below reports an error when the
 <code>Object</code> class is reached.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> X<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span><span class="token operator">&gt;</span> T <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>ctenvT<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> X <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> T <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>ctenvT<span class="token operator">&gt;</span>
@@ -800,10 +800,10 @@ wait.  Finally, the sixth rule below reports an error when the<br>
     <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="instance-of-and-casting">Instance of and casting</h2>
-<p>As it is hard to check statically whether casting is always safe,<br>
-the programmer is simply trusted from a typing perspective.  We only<br>
-do some basic upcasting and downcasting checks, to reject casts which<br>
-will absolutely fail.  However, dynamic semantics or implementations<br>
+<p>As it is hard to check statically whether casting is always safe,
+the programmer is simply trusted from a typing perspective.  We only
+do some basic upcasting and downcasting checks, to reject casts which
+will absolutely fail.  However, dynamic semantics or implementations
 of the language need to insert runtime checks for downcasting to be safe.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> class<span class="token punctuation">(</span>C1<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">)</span> instanceOf C2<span class="token punctuation">:</span><span class="token keyword">Id</span> <span class="token operator">=</span><span class="token operator">&gt;</span> bool
   <span class="token keyword">rule</span> <span class="token punctuation">(</span>C<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">)</span> class<span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> class<span class="token punctuation">(</span>C<span class="token punctuation">)</span>
@@ -831,18 +831,18 @@ of the language need to insert runtime checks for downcasting to be safe.</p>
     <span class="token comment">// extendsAll is populated); strategies will solve the problem nicely.</span>
 </code></pre>
 <h2 id="cleanup-tasks">Cleanup tasks</h2>
-<p>Finally, we need to clean up the terminated tasks.  Each of the three<br>
-types of tasks is handled differently.  The main task is replaced by a<br>
-method task holding <code>new main();</code>, which will ensure that a<br>
-<code>main</code> class with a <code>main()</code> method actually exists<br>
-(first rule below).  A class task moves its temporary class type<br>
-environment into its class&apos; cell, and then it dissolves itself (second<br>
-rule).  A method task simply dissolves when terminated (third rule);<br>
-the presence of the <code>tenv</code> cell in that rule ensures that that<br>
-task is a method task.<br>
-Finally, when all the tasks are cleaned up, we can also remove the<br>
-<code>tasks</code> cell, issuing a corresponding message.  Note that<br>
-checking for cycles or duplicate methods can still be performed after<br>
+<p>Finally, we need to clean up the terminated tasks.  Each of the three
+types of tasks is handled differently.  The main task is replaced by a
+method task holding <code>new main();</code>, which will ensure that a
+<code>main</code> class with a <code>main()</code> method actually exists
+(first rule below).  A class task moves its temporary class type
+environment into its class&apos; cell, and then it dissolves itself (second
+rule).  A method task simply dissolves when terminated (third rule);
+the presence of the <code>tenv</code> cell in that rule ensures that that
+task is a method task.
+Finally, when all the tasks are cleaned up, we can also remove the
+<code>tasks</code> cell, issuing a corresponding message.  Note that
+checking for cycles or duplicate methods can still be performed after
 the <code>tasks</code> cell has been removed.</p>
 <pre class="language-k"><code><span class="token comment">// discard main task when done, issuing a &quot;new main();&quot; command to</span>
 <span class="token comment">// make sure that the class main and the method main() are declared.</span>
@@ -904,7 +904,7 @@ the <code>tasks</code> cell has been removed.</p>
   <span class="token keyword">rule</span> checkSubtype<span class="token punctuation">(</span><span class="token punctuation">.</span>Types<span class="token punctuation">,</span>void<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="checking-well-formedness-of-types">Checking well-formedness of types</h2>
-<p>Since now any <em><code>Id</code></em> can be used as the type of a class, we need to<br>
+<p>Since now any <em><code>Id</code></em> can be used as the type of a class, we need to
 check that the types used in the program actually exists</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> checkType<span class="token punctuation">(</span>Types<span class="token punctuation">)</span>
 
@@ -922,12 +922,12 @@ check that the types used in the program actually exists</p>
   <span class="token keyword">rule</span> checkType<span class="token punctuation">(</span>T<span class="token punctuation">:</span>Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> checkType<span class="token punctuation">(</span>T<span class="token punctuation">)</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="checking-correct-overiding-of-methods">Checking correct  overiding of methods</h2>
-<p>The <code>checkMethod</code> operation below searches to see whether<br>
-the current method overrides some other method in some superclass.<br>
-If yes, then it issues an additional check that the new method&apos;s type<br>
-is more concrete than the overridden method&apos;s.  The types <code>T</code> and <code>T&apos;</code><br>
-below can only be function types.  See the definition of<br>
-<code>checkSubtype</code> on function types at the end of this module (it<br>
+<p>The <code>checkMethod</code> operation below searches to see whether
+the current method overrides some other method in some superclass.
+If yes, then it issues an additional check that the new method&apos;s type
+is more concrete than the overridden method&apos;s.  The types <code>T</code> and <code>T&apos;</code>
+below can only be function types.  See the definition of
+<code>checkSubtype</code> on function types at the end of this module (it
 is co-variant in the codomain and contra-variant in the domain).</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> checkMethod<span class="token punctuation">(</span><span class="token keyword">Id</span><span class="token punctuation">,</span>Type<span class="token punctuation">,</span><span class="token keyword">Id</span><span class="token punctuation">)</span>
 

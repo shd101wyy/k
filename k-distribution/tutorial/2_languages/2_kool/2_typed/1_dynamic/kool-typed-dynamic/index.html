@@ -135,32 +135,32 @@ Organization: University of Illinois at Urbana-Champaign</p>
 <p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2 id="abstract">Abstract</h2>
-<p>This is the <strong>K</strong> dynamic semantics of the typed KOOL language.  It is<br>
-very similar to the semantics of the untyped KOOL, the difference<br>
-being that we now check the typing policy dynamically.  Since we have<br>
-to now declare the types of variables and methods, we adopt a syntax<br>
-for those which is close to Java.  Like in the semantics of<br>
-untyped KOOL, where we borrowed almost all the semantics of untyped<br>
-SIMPLE, we are going to also borrow much of the semantics of<br>
-dynamically typed SIMPLE here.  We will highlight the differences<br>
-between the dynamically typed and the untyped KOOL as we proceed with<br>
-the semantics.  In general, the type policy of the typed KOOL language<br>
-is similar to that of Java.  You may find it useful to also read<br>
-the discussion in the preamble of the static semantics of typed KOOL<br>
+<p>This is the <strong>K</strong> dynamic semantics of the typed KOOL language.  It is
+very similar to the semantics of the untyped KOOL, the difference
+being that we now check the typing policy dynamically.  Since we have
+to now declare the types of variables and methods, we adopt a syntax
+for those which is close to Java.  Like in the semantics of
+untyped KOOL, where we borrowed almost all the semantics of untyped
+SIMPLE, we are going to also borrow much of the semantics of
+dynamically typed SIMPLE here.  We will highlight the differences
+between the dynamically typed and the untyped KOOL as we proceed with
+the semantics.  In general, the type policy of the typed KOOL language
+is similar to that of Java.  You may find it useful to also read
+the discussion in the preamble of the static semantics of typed KOOL
 before proceeding.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> KOOL<span class="token operator">-</span>TYPED<span class="token operator">-</span>DYNAMIC<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> DOMAINS<span class="token operator">-</span>SYNTAX
 </code></pre>
 <h2 id="syntax">Syntax</h2>
-<p>Like for the untyped KOOL language, the syntax of typed KOOL extends<br>
-that of typed SIMPLE with object-oriented constructs.<br>
-The syntax below was produced by copying and modifying/extending the<br>
-syntax of dynamically typed SIMPLE.  In fact, the only change we made<br>
-to the existing syntax of dynamically typed SIMPLE was to change the<br>
-strictness of the application construct like in untyped KOOL, from<br>
-<code>strict</code> to <code>strict(2)</code> (because application is not<br>
-strict in the first argument anymore due to dynamic method dispatch).<br>
-The KOOL-specific syntactic extensions are identical to those in<br>
+<p>Like for the untyped KOOL language, the syntax of typed KOOL extends
+that of typed SIMPLE with object-oriented constructs.
+The syntax below was produced by copying and modifying/extending the
+syntax of dynamically typed SIMPLE.  In fact, the only change we made
+to the existing syntax of dynamically typed SIMPLE was to change the
+strictness of the application construct like in untyped KOOL, from
+<code>strict</code> to <code>strict(2)</code> (because application is not
+strict in the first argument anymore due to dynamic method dispatch).
+The KOOL-specific syntactic extensions are identical to those in
 untyped KOOL.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> <span class="token keyword">Id</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;Object&quot;</span> <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token string">&quot;Main&quot;</span> <span class="token punctuation">[</span><span class="token class-name">token</span><span class="token punctuation">]</span>
 </code></pre>
@@ -259,20 +259,20 @@ untyped KOOL.</p>
 <span class="token keyword">endmodule</span>
 </code></pre>
 <h2 id="semantics">Semantics</h2>
-<p>We first discuss the new configuration, then we include the semantics of<br>
-the constructs borrowed from SIMPLE which stay unchanged, then those<br>
-whose semantics had to change, and finally the semantics of the<br>
+<p>We first discuss the new configuration, then we include the semantics of
+the constructs borrowed from SIMPLE which stay unchanged, then those
+whose semantics had to change, and finally the semantics of the
 KOOL-specific constructs.</p>
 <pre class="language-k"><code><span class="token keyword">module</span> KOOL<span class="token operator">-</span>TYPED<span class="token operator">-</span>DYNAMIC
   <span class="token keyword">imports</span> KOOL<span class="token operator">-</span>TYPED<span class="token operator">-</span>DYNAMIC<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> DOMAINS
 </code></pre>
 <h2 id="configuration">Configuration</h2>
-<p>The configuration of dynamically typed KOOL is almost identical to<br>
-that of its untyped variant.  The only difference is the cell<br>
-<code>return</code>, inside the <code>control</code> cell, whose role is to<br>
-hold the expected return type of the invoked method.  That is because<br>
-we want to dynamically check that the value that a method returns has<br>
+<p>The configuration of dynamically typed KOOL is almost identical to
+that of its untyped variant.  The only difference is the cell
+<code>return</code>, inside the <code>control</code> cell, whose role is to
+hold the expected return type of the invoked method.  That is because
+we want to dynamically check that the value that a method returns has
 the expected type.</p>
 <pre class="language-k"><code>  <span class="token comment">// the syntax declarations below are required because the sorts are</span>
   <span class="token comment">// referenced directly by a production and, because of the way KIL to KORE</span>
@@ -324,15 +324,15 @@ the expected type.</p>
                 <span class="token operator">&lt;</span><span class="token operator">/</span>T<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="unchanged-semantics-from-dynamically-typed-simple">Unchanged semantics from dynamically typed SIMPLE</h2>
-<p>The semantics below is taken over from dynamically typed SIMPLE<br>
-unchanged.  Like for untyped KOOL, the semantics of function/method<br>
-declaration and invocation, and of program initialization needs to<br>
-change.  Moreover, due to subtyping, the semantics of several imported<br>
-SIMPLE constructs can be made more general, such as that of the<br>
-return statement, that of the assignment, and that of the exceptions.<br>
-We removed all these from the imported semantics of SIMPLE below and<br>
-gave their modified semantics right after, together with the extended<br>
-semantics of thread spawning (which is identical to that of untyped<br>
+<p>The semantics below is taken over from dynamically typed SIMPLE
+unchanged.  Like for untyped KOOL, the semantics of function/method
+declaration and invocation, and of program initialization needs to
+change.  Moreover, due to subtyping, the semantics of several imported
+SIMPLE constructs can be made more general, such as that of the
+return statement, that of the assignment, and that of the exceptions.
+We removed all these from the imported semantics of SIMPLE below and
+gave their modified semantics right after, together with the extended
+semantics of thread spawning (which is identical to that of untyped
 KOOL).</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span> <span class="token operator">|</span> <span class="token keyword">Bool</span> <span class="token operator">|</span> <span class="token keyword">String</span>
                <span class="token operator">|</span> array<span class="token punctuation">(</span>Type<span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">)</span>
@@ -516,8 +516,8 @@ KOOL).</p>
   <span class="token keyword">rule</span> getTypes<span class="token punctuation">(</span><span class="token punctuation">.</span>Params<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> void<span class="token punctuation">,</span> <span class="token punctuation">.</span>Types
 </code></pre>
 <h2 id="changes-to-the-existing-dynamically-typed-simple-semantics">Changes to the existing dynamically typed SIMPLE semantics</h2>
-<p>We extend/change the semantics of several SIMPLE constructs in order<br>
-to take advantage of the richer KOOL semantic infrastructure and thus<br>
+<p>We extend/change the semantics of several SIMPLE constructs in order
+to take advantage of the richer KOOL semantic infrastructure and thus
 get more from the existing SIMPLE constructs.</p>
 <h2 id="program-initialization">Program initialization</h2>
 <p>Like in untyped KOOL.</p>
@@ -525,27 +525,27 @@ get more from the existing SIMPLE constructs.</p>
   <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> execute <span class="token operator">=</span><span class="token operator">&gt;</span> new Main<span class="token punctuation">(</span><span class="token punctuation">.</span>Exps<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> <span class="token punctuation">.</span>Map <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="method-application">Method application</h2>
-<p>The only change to untyped KOOL&apos;s values is that method closures are<br>
+<p>The only change to untyped KOOL&apos;s values is that method closures are
 now typed (their first argument holds their type):</p>
 <pre class="language-k"><code> <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> objectClosure<span class="token punctuation">(</span><span class="token keyword">Id</span><span class="token punctuation">,</span>List<span class="token punctuation">)</span>
               <span class="token operator">|</span> methodClosure<span class="token punctuation">(</span>Type<span class="token punctuation">,</span><span class="token keyword">Id</span><span class="token punctuation">,</span><span class="token keyword">Int</span><span class="token punctuation">,</span>Params<span class="token punctuation">,</span>Stmt<span class="token punctuation">)</span>
 </code></pre>
-<p>The type held by a method clossure will be the entire type of the<br>
-method, not only its result type like the lambda-closure of typed<br>
-SIMPLE.  The reason for this change comes from the the need to<br>
-dynamically upcast values when passed to contexts where values of<br>
-superclass types are expected; since we want method closures to be<br>
-first-class-citizen values in our language, we have to be able to<br>
-dynamically upcast them, and in order to do that elegantly it is<br>
-convenient to store the entire ``current type&apos;&apos; of the method closure<br>
-instead of just its result type.  Note that this was unnecessary in<br>
+<p>The type held by a method clossure will be the entire type of the
+method, not only its result type like the lambda-closure of typed
+SIMPLE.  The reason for this change comes from the the need to
+dynamically upcast values when passed to contexts where values of
+superclass types are expected; since we want method closures to be
+first-class-citizen values in our language, we have to be able to
+dynamically upcast them, and in order to do that elegantly it is
+convenient to store the entire ``current type&apos;&apos; of the method closure
+instead of just its result type.  Note that this was unnecessary in
 the semantics of the dynamically typed SIMPLE language.</p>
-<p>Method closure application needs to also set a new return type in<br>
-the <code>return</code> cell, like in dynamically typed SIMPLE, in order<br>
-for the values returned by its body to be checked against the return<br>
-type of the method.  To do this correctly, we also need to stack the<br>
-current status of the <code>return</code> cell and then pop it when the<br>
-method returns.  We have to do the same with the current object<br>
+<p>Method closure application needs to also set a new return type in
+the <code>return</code> cell, like in dynamically typed SIMPLE, in order
+for the values returned by its body to be checked against the return
+type of the method.  To do this correctly, we also need to stack the
+current status of the <code>return</code> cell and then pop it when the
+method returns.  We have to do the same with the current object
 environment, so we group them together in the stack frame.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> fstackFrame<span class="token punctuation">(</span>Map<span class="token punctuation">,</span> K<span class="token punctuation">,</span> List<span class="token punctuation">,</span> Type<span class="token punctuation">,</span> K<span class="token punctuation">)</span>
 
@@ -561,12 +561,12 @@ environment, so we group them together in the stack frame.</p>
           <span class="token operator">&lt;</span>crntObj<span class="token operator">&gt;</span> Obj&apos; <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token operator">&lt;</span>crntClass<span class="token operator">&gt;</span> Class <span class="token operator">&lt;</span><span class="token operator">/</span>crntClass<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>envStack<span class="token operator">&gt;</span> EStack <span class="token operator">&lt;</span><span class="token operator">/</span>envStack<span class="token operator">&gt;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>crntObj<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span><span class="token operator">/</span>control<span class="token operator">&gt;</span>
 </code></pre>
-<p>At method return, we have to check that the type of the returned<br>
-value is a subtype of the expected return type.  Moreover, if that is<br>
-the case, then we also upcast the returned value to one of the<br>
-expected type.  The computation item <code>unsafeCast(V,T)</code> changes<br>
-the typeof <code>V</code> to <code>T</code> without any additional checks; however, it only<br>
-does it when <code>V</code> is an object or a method, otherwise it returns <code>V</code><br>
+<p>At method return, we have to check that the type of the returned
+value is a subtype of the expected return type.  Moreover, if that is
+the case, then we also upcast the returned value to one of the
+expected type.  The computation item <code>unsafeCast(V,T)</code> changes
+the typeof <code>V</code> to <code>T</code> without any additional checks; however, it only
+does it when <code>V</code> is an object or a method, otherwise it returns <code>V</code>
 unchanged.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> return V<span class="token punctuation">:</span>Val<span class="token punctuation">;</span> <span class="token operator">~</span><span class="token operator">&gt;</span> _
            <span class="token operator">=</span><span class="token operator">&gt;</span> subtype<span class="token punctuation">(</span>typeOf<span class="token punctuation">(</span>V<span class="token punctuation">)</span><span class="token punctuation">,</span> T<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> <span class="token boolean">true</span><span class="token operator">?</span> <span class="token operator">~</span><span class="token operator">&gt;</span> unsafeCast<span class="token punctuation">(</span>V<span class="token punctuation">,</span> T<span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> K
@@ -580,16 +580,16 @@ unchanged.</p>
        <span class="token operator">&lt;</span>env<span class="token operator">&gt;</span> _ <span class="token operator">=</span><span class="token operator">&gt;</span> Env <span class="token operator">&lt;</span><span class="token operator">/</span>env<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="assignment">Assignment</h2>
-<p>Typed KOOL allows to assign subtype instance values to supertype<br>
-lvalues.  The semantics of assignment below is similar in spirit to<br>
-dynamically typed SIMPLE&apos;s, but a check is performed that the assigned<br>
-value&apos;s type is a subtype of the location&apos;s type.  If that is the<br>
-case, then the assigned value is returned as a result and stored, but<br>
-it is upcast appropriately first, so the context will continue to see<br>
-a value of the expected type of the location.  Note that the type of a<br>
-location is implicit in the type of its contents and it never changes<br>
-during the execution of a program; its type is assigned when the<br>
-location is allocated and initialized, and then only type-preserving<br>
+<p>Typed KOOL allows to assign subtype instance values to supertype
+lvalues.  The semantics of assignment below is similar in spirit to
+dynamically typed SIMPLE&apos;s, but a check is performed that the assigned
+value&apos;s type is a subtype of the location&apos;s type.  If that is the
+case, then the assigned value is returned as a result and stored, but
+it is upcast appropriately first, so the context will continue to see
+a value of the expected type of the location.  Note that the type of a
+location is implicit in the type of its contents and it never changes
+during the execution of a program; its type is assigned when the
+location is allocated and initialized, and then only type-preserving
 values are allowed to be stored in each location.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> loc<span class="token punctuation">(</span>L<span class="token punctuation">)</span> <span class="token operator">=</span> V<span class="token punctuation">:</span>Val
            <span class="token operator">=</span><span class="token operator">&gt;</span> subtype<span class="token punctuation">(</span>typeOf<span class="token punctuation">(</span>V<span class="token punctuation">)</span><span class="token punctuation">,</span>typeOf<span class="token punctuation">(</span>V&apos;<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">~</span><span class="token operator">&gt;</span> <span class="token boolean">true</span><span class="token operator">?</span>
@@ -598,7 +598,7 @@ values are allowed to be stored in each location.</p>
     <span class="token punctuation">[</span>assignment<span class="token punctuation">]</span>
 </code></pre>
 <h2 id="typed-exceptions">Typed exceptions</h2>
-<p>Exceptions are propagated now until a catch that can handle them is<br>
+<p>Exceptions are propagated now until a catch that can handle them is
 encountered.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> xstackFrame<span class="token punctuation">(</span>Param<span class="token punctuation">,</span> Stmt<span class="token punctuation">,</span> K<span class="token punctuation">,</span> Map<span class="token punctuation">,</span> K<span class="token punctuation">)</span>
   <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;popx&quot;</span>
@@ -648,9 +648,9 @@ encountered.</p>
        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>classes<span class="token operator">&gt;</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="method-declaration">Method declaration</h2>
-<p>Methods are now typed and we need to store their types in their<br>
-closures, so that their type contract can be checked at invocation<br>
-time.  The rule below is conceptually similar to that of untyped KOOL;<br>
+<p>Methods are now typed and we need to store their types in their
+closures, so that their type contract can be checked at invocation
+time.  The rule below is conceptually similar to that of untyped KOOL;
 the only difference is the addition of the types.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token operator">&lt;</span>k<span class="token operator">&gt;</span> T<span class="token punctuation">:</span>Type F<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">(</span>Ps<span class="token punctuation">:</span>Params<span class="token punctuation">)</span> S <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>k<span class="token operator">&gt;</span>
        <span class="token operator">&lt;</span>crntClass<span class="token operator">&gt;</span> C <span class="token operator">&lt;</span><span class="token operator">/</span>crntClass<span class="token operator">&gt;</span>
@@ -660,12 +660,12 @@ the only difference is the addition of the types.</p>
        <span class="token operator">&lt;</span>nextLoc<span class="token operator">&gt;</span> L <span class="token operator">=</span><span class="token operator">&gt;</span> L <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span> <span class="token operator">&lt;</span><span class="token operator">/</span>nextLoc<span class="token operator">&gt;</span>
 </code></pre>
 <h2 id="new">New</h2>
-<p>The semantics of <code>new</code> in dynamically typed KOOL is also<br>
-similar to that in untyped KOOL, the main difference being the<br>
-management of the return types.  Indeed, when a new object is created<br>
-we also have to stack the current type in the <code>return</code> cell in<br>
-order to be recovered after the creation of the new object.  Only the<br>
-first rule below needs to be changed; the others are identical to<br>
+<p>The semantics of <code>new</code> in dynamically typed KOOL is also
+similar to that in untyped KOOL, the main difference being the
+management of the return types.  Indeed, when a new object is created
+we also have to stack the current type in the <code>return</code> cell in
+order to be recovered after the creation of the new object.  Only the
+first rule below needs to be changed; the others are identical to
 those in untyped KOOL.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> envStackFrame<span class="token punctuation">(</span><span class="token keyword">Id</span><span class="token punctuation">,</span> Map<span class="token punctuation">)</span>
 
@@ -816,7 +816,7 @@ those in untyped KOOL.</p>
   <span class="token keyword">rule</span> objectClosure<span class="token punctuation">(</span>_<span class="token punctuation">,</span> <span class="token punctuation">.</span>List<span class="token punctuation">)</span> instanceOf _ <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">false</span>
 </code></pre>
 <h2 id="cast">Cast</h2>
-<p>Unlike in untyped KOOL, in typed KOOL we actually check that the object<br>
+<p>Unlike in untyped KOOL, in typed KOOL we actually check that the object
 can indeed be cast to the claimed type.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> <span class="token punctuation">(</span>C<span class="token punctuation">:</span><span class="token keyword">Id</span><span class="token punctuation">)</span> objectClosure<span class="token punctuation">(</span>Irrelevant<span class="token punctuation">,</span> EStack<span class="token punctuation">)</span>
     <span class="token operator">=</span><span class="token operator">&gt;</span> objectClosure<span class="token punctuation">(</span>Irrelevant<span class="token punctuation">,</span> EStack<span class="token punctuation">)</span> instanceOf C <span class="token operator">~</span><span class="token operator">&gt;</span> <span class="token boolean">true</span><span class="token operator">?</span>
@@ -887,7 +887,7 @@ can indeed be cast to the claimed type.</p>
   <span class="token keyword">rule</span> subtype<span class="token punctuation">(</span><span class="token punctuation">.</span>Types<span class="token punctuation">,</span><span class="token punctuation">.</span>Types<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">true</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 </code></pre>
 <h2 id="unsafe-casting">Unsafe Casting</h2>
-<p>Performs unsafe casting.  One should only use it in combination with<br>
+<p>Performs unsafe casting.  One should only use it in combination with
 the subtype relation above.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Val <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> unsafeCast<span class="token punctuation">(</span>Val<span class="token punctuation">,</span>Type<span class="token punctuation">)</span>  <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
 
@@ -899,14 +899,14 @@ the subtype relation above.</p>
   <span class="token keyword">rule</span> unsafeCast<span class="token punctuation">(</span>V<span class="token punctuation">:</span>Val<span class="token punctuation">,</span> T<span class="token punctuation">:</span>Type<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> V  <span class="token keyword">requires</span> typeOf<span class="token punctuation">(</span>V<span class="token punctuation">)</span> <span class="token operator">==</span>K T
 </code></pre>
 <h2 id="generic-guard">Generic guard</h2>
-<p>A generic computational guard: it allows the computation to continue<br>
+<p>A generic computational guard: it allows the computation to continue
 only if a prefix guard evaluates to true.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> KItem <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;true?&quot;</span>
   <span class="token keyword">rule</span> <span class="token boolean">true</span> <span class="token operator">~</span><span class="token operator">&gt;</span> <span class="token boolean">true</span><span class="token operator">?</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">.</span>  <span class="token punctuation">[</span><span class="token class-name">structural</span><span class="token punctuation">]</span>
 
 <span class="token keyword">endmodule</span>
 </code></pre>
-<p>Go to <a href="../../../2_static/kool-typed-static/">Lesson 3, KOOL typed static</a>.</p>
+<p>Go to <a href="../../2_static/kool-typed-static/">Lesson 3, KOOL typed static</a>.</p>
 </body></html>
           </div>
         </main>

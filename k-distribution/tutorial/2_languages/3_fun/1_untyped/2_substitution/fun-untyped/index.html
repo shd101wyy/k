@@ -135,8 +135,8 @@ Organization: University of Illinois at Urbana-Champaign</p>
 <p>Author: Traian Florin &#x218;erb&#x103;nu&#x21B;&#x103; (<a href="mailto:traian.serbanuta@unibuc.ro" target="_blank" rel="noopener">traian.serbanuta@unibuc.ro</a>)<br>
 Organization: University of Bucharest</p>
 <h2 id="abstract">Abstract</h2>
-<p>This is the substitution-based definition of FUN.  For additional<br>
-explanations regarding the semantics of the various FUN constructs,<br>
+<p>This is the substitution-based definition of FUN.  For additional
+explanations regarding the semantics of the various FUN constructs,
 the reader should consult the emvironment-based definition of FUN.</p>
 <h2 id="syntax">Syntax</h2>
 <pre class="language-k"><code><span class="token keyword">require</span> <span class="token string">&quot;substitution.md&quot;</span>
@@ -267,7 +267,7 @@ the reader should consult the emvironment-based definition of FUN.</p>
 
   <span class="token keyword">rule</span> datatype T <span class="token operator">=</span> TCs E <span class="token operator">=</span><span class="token operator">&gt;</span> E                               <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
 </code></pre>
-<p>mu needed for letrec, but we put it here so we can also write<br>
+<p>mu needed for letrec, but we put it here so we can also write
 programs with mu in them, which is particularly useful for testing.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;mu&quot;</span> Case
 
@@ -345,21 +345,21 @@ programs with mu in them, which is particularly useful for testing.</p>
 <span class="token comment">//  rule (fun P-&gt;E | _) V:Val =&gt; E[getMatching(P,V)]  when isMatching(P,V)</span>
 <span class="token comment">//  rule (fun (P-&gt;_ | Cs:Cases =&gt; Cs)) V:Val  when notBool isMatching(P,V)</span>
 </code></pre>
-<p>We can reduce multiple bindings to one list binding, and then<br>
-apply the usual desugaring of let into function application.<br>
-It is important that the rule below is a macro, so let is eliminated<br>
+<p>We can reduce multiple bindings to one list binding, and then
+apply the usual desugaring of let into function application.
+It is important that the rule below is a macro, so let is eliminated
 immediately, otherwise it may interfere in ugly ways with substitution.</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> let Bs in E <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>fun <span class="token punctuation">[</span>names<span class="token punctuation">(</span>Bs<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-</span><span class="token operator">&gt;</span> E<span class="token punctuation">)</span> <span class="token punctuation">[</span>exps<span class="token punctuation">(</span>Bs<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>    <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
 </code></pre>
-<p>We only give the semantics of one-binding letrec.<br>
+<p>We only give the semantics of one-binding letrec.
 Multipe bindings are left as an exercise.</p>
 <pre class="language-k"><code>  <span class="token comment">// changed because of parsing error</span>
   <span class="token comment">//rule mu X:Name -&gt; E =&gt; E[(mu X -&gt; E) / X]</span>
   <span class="token keyword">rule</span> mu X<span class="token punctuation">:</span>Name <span class="token operator">-</span><span class="token operator">&gt;</span> E <span class="token operator">=</span><span class="token operator">&gt;</span> E<span class="token punctuation">[</span>X <span class="token operator">|</span><span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>mu X <span class="token operator">-</span><span class="token operator">&gt;</span> E<span class="token punctuation">)</span><span class="token punctuation">]</span>
   <span class="token keyword">rule</span> letrec F<span class="token punctuation">:</span>Name <span class="token operator">=</span> E in E<span class="token string">&apos; =&gt; let F = (mu F -&gt; E) in E&apos;</span>  <span class="token punctuation">[</span><span class="token class-name">macro</span><span class="token punctuation">]</span>
 </code></pre>
-<p>We cannot have <code>&amp;</code> anymore, but we can give direct<br>
-semantics to <code>ref</code>.  We also have to declare <code>ref</code> to<br>
+<p>We cannot have <code>&amp;</code> anymore, but we can give direct
+semantics to <code>ref</code>.  We also have to declare <code>ref</code> to
 be a value, so that we will never heat on it.</p>
 <pre class="language-k"><code><span class="token comment">//  rule &lt;k&gt; &amp; X =&gt; L ...&lt;/k&gt;  &lt;env&gt;... X |-&gt; L &lt;/env&gt;</span>
   <span class="token keyword">rule</span> isVal<span class="token punctuation">(</span>ref<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">true</span>
@@ -413,8 +413,8 @@ be a value, so that we will never heat on it.</p>
   <span class="token keyword">rule</span> mergeMatching<span class="token punctuation">(</span>matchFailure<span class="token punctuation">,</span> matchResult<span class="token punctuation">(</span>_<span class="token punctuation">:</span>Map<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> matchFailure
   <span class="token keyword">rule</span> mergeMatching<span class="token punctuation">(</span>matchFailure<span class="token punctuation">,</span> matchFailure<span class="token punctuation">)</span>       <span class="token operator">=</span><span class="token operator">&gt;</span> matchFailure
 </code></pre>
-<p>Besides the generic decomposition rules for patterns and values,<br>
-we also want to allow <code>[head|tail]</code> matching for lists, so we add<br>
+<p>Besides the generic decomposition rules for patterns and values,
+we also want to allow <code>[head|tail]</code> matching for lists, so we add
 the following custom pattern decomposition rule:</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> getMatching<span class="token punctuation">(</span><span class="token punctuation">[</span>H<span class="token punctuation">:</span>Exp <span class="token operator">|</span> T<span class="token punctuation">:</span>Exp<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>V<span class="token punctuation">:</span>Val<span class="token punctuation">,</span> Vs<span class="token punctuation">:</span>Vals<span class="token punctuation">]</span><span class="token punctuation">)</span>
     <span class="token operator">=</span><span class="token operator">&gt;</span> getMatchingAux<span class="token punctuation">(</span><span class="token punctuation">(</span>H<span class="token punctuation">,</span> T<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>V<span class="token punctuation">,</span> <span class="token punctuation">[</span>Vs<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>

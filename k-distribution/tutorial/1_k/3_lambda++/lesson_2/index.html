@@ -130,16 +130,16 @@
         >
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="semantic-(non-syntactic)-computation-items">Semantic (Non-Syntactic) Computation Items</h1>
-<p>In this lesson we start another semantic definition of LAMBDA++, which<br>
-follows a style based on environments instead of substitution.  In terms of<br>
-K, we will learn how easy it is to add new items to the syntactic category<br>
+<p>In this lesson we start another semantic definition of LAMBDA++, which
+follows a style based on environments instead of substitution.  In terms of
+K, we will learn how easy it is to add new items to the syntactic category
 of computations <code>K</code>, even ones which do not have a syntactic nature.</p>
-<p>An environment binds variable names of interest to locations where their<br>
-values are stored.  The idea of environment-based definitions is to maintain<br>
-a global <em>store</em> mapping locations to values, and then have environments<br>
-available when we evaluate expressions telling where the variables are<br>
-located in the store.  Since LAMBDA++ is a relatively simple language, we<br>
-only need to maintain one global environment.  Following a similar style<br>
+<p>An environment binds variable names of interest to locations where their
+values are stored.  The idea of environment-based definitions is to maintain
+a global <em>store</em> mapping locations to values, and then have environments
+available when we evaluate expressions telling where the variables are
+located in the store.  Since LAMBDA++ is a relatively simple language, we
+only need to maintain one global environment.  Following a similar style
 like in IMP, we place all cells into a top cell <code>T</code>:</p>
 <pre><code>configuration &lt;T&gt;
                 &lt;k&gt; $PGM:Exp &lt;/k&gt;
@@ -147,33 +147,33 @@ like in IMP, we place all cells into a top cell <code>T</code>:</p>
                 &lt;store&gt; .Map &lt;/store&gt;
               &lt;/T&gt;
 </code></pre>
-<p>Recall that <code>$PGM</code> is where the program is placed by <code>krun</code> after parsing.  So<br>
+<p>Recall that <code>$PGM</code> is where the program is placed by <code>krun</code> after parsing.  So
 the program execution starts with an empty environment and an empty store.</p>
-<p>In environment-based definitions of lambda-calculi, lambda abstractions<br>
+<p>In environment-based definitions of lambda-calculi, lambda abstractions
 evaluate to so-called <em>closures</em>:</p>
 <pre><code>rule &lt;k&gt; lambda X:Id . E =&gt; closure(Rho,X,E) ...&lt;/k&gt;
      &lt;env&gt; Rho &lt;/env&gt;
 </code></pre>
-<p>A closure is like a lambda abstraction, but it also holds the environment<br>
-in which it was declared.  This way, when invoked, a closure knows where to<br>
-find in the store the values of all the variables that its body expression<br>
+<p>A closure is like a lambda abstraction, but it also holds the environment
+in which it was declared.  This way, when invoked, a closure knows where to
+find in the store the values of all the variables that its body expression
 refers to.  We will define the lookup rule shortly.</p>
-<p>Therefore, unlike in the substitution-based definitions of LAMBDA and<br>
-LAMBDA++, neither the lambda abstractions nor the identifiers are values<br>
-anymore here, because they both evaluate further: lambda abstractions to<br>
-closures and identifiers to their values in the store.  In fact, the only<br>
-values at this moment are the closures, and they are purely semantic entities,<br>
-which cannot be used explicitly in programs.  That&apos;s why we modified the<br>
-original syntax of the language to include no <code>Val</code> syntactic category<br>
-anymore, and that&apos;s why we need to add closures as values now; same like<br>
-before, we add a <code>Val</code> syntactic category which is subsorted<br>
-to <code>KResult</code>.  In general, whenever you have any strictness attributes,<br>
+<p>Therefore, unlike in the substitution-based definitions of LAMBDA and
+LAMBDA++, neither the lambda abstractions nor the identifiers are values
+anymore here, because they both evaluate further: lambda abstractions to
+closures and identifiers to their values in the store.  In fact, the only
+values at this moment are the closures, and they are purely semantic entities,
+which cannot be used explicitly in programs.  That&apos;s why we modified the
+original syntax of the language to include no <code>Val</code> syntactic category
+anymore, and that&apos;s why we need to add closures as values now; same like
+before, we add a <code>Val</code> syntactic category which is subsorted
+to <code>KResult</code>.  In general, whenever you have any strictness attributes,
 your should also define some K results.</p>
-<p>Invoking a closure is a bit more involved than the substitution-based<br>
-beta-reduction: we need to switch to the closure&apos;s environment, then create a<br>
-new, or fresh, binding for the closure&apos;s parameter to the value passed to the<br>
-closure, then evaluate the closure&apos;s body, and then switch back to the<br>
-caller&apos;s environment, which needs to be stored somewhere in the meanwhile.<br>
+<p>Invoking a closure is a bit more involved than the substitution-based
+beta-reduction: we need to switch to the closure&apos;s environment, then create a
+new, or fresh, binding for the closure&apos;s parameter to the value passed to the
+closure, then evaluate the closure&apos;s body, and then switch back to the
+caller&apos;s environment, which needs to be stored somewhere in the meanwhile.
 We can do all these with one rule:</p>
 <pre><code>rule &lt;k&gt; closure(Rho,X,E) V:Val =&gt; E ~&gt; Rho&apos; ...&lt;/k&gt;
      &lt;env&gt; Rho&apos; =&gt; Rho[X &lt;- !N] &lt;/env&gt;
@@ -181,102 +181,102 @@ We can do all these with one rule:</p>
 </code></pre>
 <p>Therefore, we atomically do all the following:</p>
 <ul>
-<li>switch the computation to the closure&apos;s body, <code>E</code>, followed by a<br>
-caller-environment-recovery task <code>Rho&apos;</code> (note that <code>Rho&apos;</code> is the<br>
+<li>switch the computation to the closure&apos;s body, <code>E</code>, followed by a
+caller-environment-recovery task <code>Rho&apos;</code> (note that <code>Rho&apos;</code> is the
 current environment),</li>
-<li>generate a fresh location <code>!N</code> (the <code>!</code> is important, we discuss it below),<br>
-bind <code>X</code> to <code>!N</code> in closure&apos;s environment and switch the current environment<br>
+<li>generate a fresh location <code>!N</code> (the <code>!</code> is important, we discuss it below),
+bind <code>X</code> to <code>!N</code> in closure&apos;s environment and switch the current environment
 <code>Rho&apos;</code> to that one,</li>
 <li>write the value passed to the closure, <code>V</code>, at location <code>!N</code>.</li>
 </ul>
-<p>This was the most complex K rule we&apos;ve seen so far in the tutorial.  Note,<br>
-however, that this one rule achieves a lot.  It is, in fact, quite compact<br>
-considering how much it does.  Note also that everything that this K rule<br>
-mentions is needed also conceptually in order to achieve this task, so it<br>
-is minimal from that point of view.  That would not be the case if we<br>
-used, instead, a conventional rewrite rule, because we would have had to<br>
-mention the remaining store, say <code>Sigma</code>, in both sides of the rule, to say<br>
+<p>This was the most complex K rule we&apos;ve seen so far in the tutorial.  Note,
+however, that this one rule achieves a lot.  It is, in fact, quite compact
+considering how much it does.  Note also that everything that this K rule
+mentions is needed also conceptually in order to achieve this task, so it
+is minimal from that point of view.  That would not be the case if we
+used, instead, a conventional rewrite rule, because we would have had to
+mention the remaining store, say <code>Sigma</code>, in both sides of the rule, to say
 it stays unchanged.  Here we just use <code>...</code>.</p>
-<p>The declaration of the <em>fresh</em> variable above, <code>!N</code>, is new and needs<br>
-some explanation.  First, note that <code>!N</code> appears only in the right-hand-side<br>
-terms in the rule, that is, it is not matched when the rule is applied.<br>
-Instead, a fresh <code>Nat</code> element is generated each time the rule is applied.<br>
-In K, we can define syntactic categories which have the capability to<br>
-generate fresh elements like above, using unbound variables whose name starts<br>
-with a <code>!</code>.  The details of how to do that are beyond the scope of this<br>
-tutorial (see Tutorial 6).  All we need to know here is that an arbitrary<br>
-fresh element of that syntactic category is generated each time the rule<br>
-is applied.  We cannot rely on the particular name or value of the generated<br>
-element, because that can change with the next version of the K tool, or<br>
-even from execution to execution with the same version.  All you can rely<br>
-on is that each newly generated element is distinct from the previously<br>
+<p>The declaration of the <em>fresh</em> variable above, <code>!N</code>, is new and needs
+some explanation.  First, note that <code>!N</code> appears only in the right-hand-side
+terms in the rule, that is, it is not matched when the rule is applied.
+Instead, a fresh <code>Nat</code> element is generated each time the rule is applied.
+In K, we can define syntactic categories which have the capability to
+generate fresh elements like above, using unbound variables whose name starts
+with a <code>!</code>.  The details of how to do that are beyond the scope of this
+tutorial (see Tutorial 6).  All we need to know here is that an arbitrary
+fresh element of that syntactic category is generated each time the rule
+is applied.  We cannot rely on the particular name or value of the generated
+element, because that can change with the next version of the K tool, or
+even from execution to execution with the same version.  All you can rely
+on is that each newly generated element is distinct from the previously
 generated elements for the same syntactic category.</p>
 <p>Unlike in the substitution-based definition, we now also need a lookup rule:</p>
 <pre><code>rule &lt;k&gt; X =&gt; V ...&lt;/k&gt;
      &lt;env&gt;... X |-&gt; N ...&lt;/env&gt;
      &lt;store&gt;... N |-&gt; V ...&lt;/store&gt;
 </code></pre>
-<p>This rule speaks for itself: replace <code>X</code> by the value <code>V</code> located in the store<br>
+<p>This rule speaks for itself: replace <code>X</code> by the value <code>V</code> located in the store
 at <code>X</code>&apos;s location <code>N</code> in the current environment.</p>
 <p>The only thing left to define is the auxiliary environment-recovery operation:</p>
 <p>rule <k> _:Val ~&gt; (Rho =&gt; .) ...</k> <env> _ =&gt; Rho </env></p>
-<p>When the item preceding the environment recovery task <code>Rho</code> in the<br>
-computation becomes a value, replace the current environment with <code>Rho</code><br>
+<p>When the item preceding the environment recovery task <code>Rho</code> in the
+computation becomes a value, replace the current environment with <code>Rho</code>
 and dissolve <code>Rho</code> from the computation.</p>
-<p>Before we kompile, let us make this rule and the lambda evaluation rule<br>
+<p>Before we kompile, let us make this rule and the lambda evaluation rule
 structural, because we do not want these to count as transitions.</p>
 <p>Let us kompile and ... fail:</p>
 <pre><code>kompile lambda
 </code></pre>
-<p>gives a parsing error saying that <code>V:Val</code> does not fit there in the closure<br>
-invocation rule.  That&apos;s because <code>Val</code> and <code>Exp</code> are currently completely<br>
-disconnected, so K rightfully complains that we want to apply a value to<br>
-another one, because application was defined to work with expressions, not<br>
+<p>gives a parsing error saying that <code>V:Val</code> does not fit there in the closure
+invocation rule.  That&apos;s because <code>Val</code> and <code>Exp</code> are currently completely
+disconnected, so K rightfully complains that we want to apply a value to
+another one, because application was defined to work with expressions, not
 values.  What we forgot here was to state that <code>Exp</code> includes <code>Val</code>:</p>
 <pre><code>syntax Exp ::= Val
 </code></pre>
 <p>Now everything works, but it is a good time to reflect a bit.</p>
-<p>So we added closures, which are inherently semantic entities, to the syntax<br>
-of expressions.  Does that mean that we can now write LAMBDA programs with<br>
-closures in them?  Interestingly, with our current definition of LAMBDA,<br>
-which purposely did not follow the nice organization of IMP into syntax and<br>
-semantic modules, and with K&apos;s default parser, <code>kast</code>, you can.  But you are<br>
-not supposed to speculate this!  In fact, if you use an external parser, that<br>
-parser will reject programs with explicit closures.  Also, if we split the<br>
-LAMBDA definition into two modules, one called LAMBDA-SYNTAX containing<br>
-exclusively the desired program syntax and one called LAMBDA importing the<br>
-former and defining the syntax of the auxiliary operations and the semantics,<br>
-then even K&apos;s default parser will reject programs using auxiliary syntactic<br>
+<p>So we added closures, which are inherently semantic entities, to the syntax
+of expressions.  Does that mean that we can now write LAMBDA programs with
+closures in them?  Interestingly, with our current definition of LAMBDA,
+which purposely did not follow the nice organization of IMP into syntax and
+semantic modules, and with K&apos;s default parser, <code>kast</code>, you can.  But you are
+not supposed to speculate this!  In fact, if you use an external parser, that
+parser will reject programs with explicit closures.  Also, if we split the
+LAMBDA definition into two modules, one called LAMBDA-SYNTAX containing
+exclusively the desired program syntax and one called LAMBDA importing the
+former and defining the syntax of the auxiliary operations and the semantics,
+then even K&apos;s default parser will reject programs using auxiliary syntactic
 constructs.</p>
-<p>Indeed, when you kompile a language, say <code>lang.k</code>, the tool will by default<br>
-attempt to find a module LANG-SYNTAX and generate the program parser from<br>
-that.  If it cannot find it, then it will use the module LANG instead.  There<br>
-are also ways to tell kompile precisely which syntax module you want to use<br>
-for the program parser if you don&apos;t like the default convention.<br>
+<p>Indeed, when you kompile a language, say <code>lang.k</code>, the tool will by default
+attempt to find a module LANG-SYNTAX and generate the program parser from
+that.  If it cannot find it, then it will use the module LANG instead.  There
+are also ways to tell kompile precisely which syntax module you want to use
+for the program parser if you don&apos;t like the default convention.
 See <code>kompile --help</code>.</p>
-<p>Another insightful thought to reflect upon, is the relationship between your<br>
-language&apos;s values and other syntactic categories.  It is often the case that<br>
-values form a subset of the original language syntax, like in IMP (Part 2 of<br>
-the tutorial), but sometimes that is not true, like in our case here.  When<br>
-that happens, in order for the semantics to be given smoothly and uniformly<br>
-using the original syntax, you need to extend your language&apos;s original<br>
-syntactic categories with the new values.  The same holds true in other<br>
-semantic approaches, not only in K, even in ones which are considered purely<br>
-syntactic.  As it should be clear by now, K does not enforce you to use a<br>
-purely syntactic style in your definitions; nevertheless, K does allow you to<br>
-develop purely syntactic definitions, like LAMBDA in Part 1 of the tutorial,<br>
+<p>Another insightful thought to reflect upon, is the relationship between your
+language&apos;s values and other syntactic categories.  It is often the case that
+values form a subset of the original language syntax, like in IMP (Part 2 of
+the tutorial), but sometimes that is not true, like in our case here.  When
+that happens, in order for the semantics to be given smoothly and uniformly
+using the original syntax, you need to extend your language&apos;s original
+syntactic categories with the new values.  The same holds true in other
+semantic approaches, not only in K, even in ones which are considered purely
+syntactic.  As it should be clear by now, K does not enforce you to use a
+purely syntactic style in your definitions; nevertheless, K does allow you to
+develop purely syntactic definitions, like LAMBDA in Part 1 of the tutorial,
 if you prefer those.</p>
-<p><code>krun</code> some programs, such as those provided in Lesson 1 of the LAMBDA<br>
-tutorial (Part 1).  Note the closures, both as results in the <code>&lt;k/&gt;</code> cell,<br>
-and as values in the store.  Also, since variables are not values anymore,<br>
-expressions that contain free variables may get stuck with one of those on<br>
-top of their computation.  See, for example, <code>free-variable-capture.lambda</code>,<br>
-which gets stuck on <code>z</code>, because <code>z</code> is free, so it cannot evaluate it.<br>
-If you want, you can go ahead and manually provide a configuration with<br>
-<code>z</code> mapped to some location in the environment and that location mapped to<br>
-some value in the store, and then you can also execute this program.  The<br>
+<p><code>krun</code> some programs, such as those provided in Lesson 1 of the LAMBDA
+tutorial (Part 1).  Note the closures, both as results in the <code>&lt;k/&gt;</code> cell,
+and as values in the store.  Also, since variables are not values anymore,
+expressions that contain free variables may get stuck with one of those on
+top of their computation.  See, for example, <code>free-variable-capture.lambda</code>,
+which gets stuck on <code>z</code>, because <code>z</code> is free, so it cannot evaluate it.
+If you want, you can go ahead and manually provide a configuration with
+<code>z</code> mapped to some location in the environment and that location mapped to
+some value in the store, and then you can also execute this program.  The
 program <code>omega.lambda</code> should still loop.</p>
-<p>Although we completely changed the definitional style of LAMBDA, the semantics<br>
+<p>Although we completely changed the definitional style of LAMBDA, the semantics
 of the other constructs do not need to change, as seen in the next lesson.</p>
 <p>Go to <a href="../lesson_3/">Lesson 3, LAMBDA++: Reusing Existing Semantics</a>.</p>
 <p><a href="http://youtu.be/BYhQQW6swfc" target="_blank" rel="noopener">MOVIE (out of date) [8&apos;02&quot;]</a></p>

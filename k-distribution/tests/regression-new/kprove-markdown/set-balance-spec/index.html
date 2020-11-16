@@ -153,8 +153,8 @@
           <span class="token operator">&lt;</span><span class="token operator">/</span>account<span class="token operator">&gt;</span>
 </code></pre>
 <h3 id="no-zero-balance-accounts-exist">No Zero-Balance Accounts Exist</h3>
-<p>This property shows that <code>set_balance</code> will not result in a zero-balance attack.<br>
-<strong>TODO</strong>: Generalize to any EntryAction.<br>
+<p>This property shows that <code>set_balance</code> will not result in a zero-balance attack.
+<strong>TODO</strong>: Generalize to any EntryAction.
 <strong>TODO</strong>: Assertions about log events.</p>
 <pre class="language-text"><code>    rule &lt;k&gt; set_balance(Root, WHO, FREE_BALANCE&apos;, RESERVED_BALANCE&apos;) =&gt; . ... &lt;/k&gt;
          &lt;totalIssuance&gt; TOTAL_ISSUANCE =&gt; TOTAL_ISSUANCE +Int ( FREE_BALANCE&apos; -Int FREE_BALANCE ) +Int ( RESERVED_BALANCE&apos; -Int RESERVED_BALANCE ) &lt;/totalIssuance&gt;

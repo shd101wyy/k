@@ -130,46 +130,46 @@
         >
           <div class="introduction markdown-preview">
             <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="generating-documentation%3B-latex-attributes">Generating Documentation; Latex Attributes</h1>
-<p>In this lesson we learn how to generate formatted documentation from K<br>
-language definitions.  We also learn how to use Latex attributes to control<br>
-the formatting of language constructs, particularly of ones which have a<br>
+<p>In this lesson we learn how to generate formatted documentation from K
+language definitions.  We also learn how to use Latex attributes to control
+the formatting of language constructs, particularly of ones which have a
 mathematical flavor and we want to display accordingly.</p>
-<p>To generate PDF documentation, all we have to do is to call the <code>kdoc</code> command<br>
-in the folder where the kompiled definition is.  This command generates a<br>
+<p>To generate PDF documentation, all we have to do is to call the <code>kdoc</code> command
+in the folder where the kompiled definition is.  This command generates a
 <code>lambda.pdf</code> file, which contains the formatted K definition.</p>
-<p>Open this file using your favorite PDF reader.  The syntactic details are not<br>
-shown in the generated PDF, because we typically want to focus on semantics at<br>
-this stage.  The main notational difference between the original <code>.k</code> and the<br>
-generated PDF is how rules are displayed.  In the PDF, the rule <code>left =&gt; right</code><br>
-is replaced by its representation in K (see papers on K), which is harder to<br>
-write in ASCII.  Specifically, <code>left</code> is underlined and <code>right</code> is written<br>
-under the line.  The metaphor here is that the underlined terms change, as<br>
-indicated under the lines.  In K, rules can have a more general form than shown<br>
-in lambda.k, where several sub-terms in a term can rewrite concurrently and<br>
-atomically.  The K rules will be explained in their full generality in the IMP<br>
+<p>Open this file using your favorite PDF reader.  The syntactic details are not
+shown in the generated PDF, because we typically want to focus on semantics at
+this stage.  The main notational difference between the original <code>.k</code> and the
+generated PDF is how rules are displayed.  In the PDF, the rule <code>left =&gt; right</code>
+is replaced by its representation in K (see papers on K), which is harder to
+write in ASCII.  Specifically, <code>left</code> is underlined and <code>right</code> is written
+under the line.  The metaphor here is that the underlined terms change, as
+indicated under the lines.  In K, rules can have a more general form than shown
+in lambda.k, where several sub-terms in a term can rewrite concurrently and
+atomically.  The K rules will be explained in their full generality in the IMP
 and IMP++ tutorials.</p>
-<p>To enhance readability, we may want to replace the keyword <code>lambda</code> by the<br>
-mathematical lambda symbol in the generated documentation.  We can control<br>
-the way we display language constructs in the generated documentation<br>
+<p>To enhance readability, we may want to replace the keyword <code>lambda</code> by the
+mathematical lambda symbol in the generated documentation.  We can control
+the way we display language constructs in the generated documentation
 by associating them Latex attributes.</p>
-<p>This is actually quite easy.  All we have to do is to associate a <code>latex</code><br>
-attribute to the production defining the construct in question, following<br>
+<p>This is actually quite easy.  All we have to do is to associate a <code>latex</code>
+attribute to the production defining the construct in question, following
 the Latex syntax for defining new commands (or macros).</p>
-<p>In our case, we associate the attribute <code>latex(\lambda{#1}.{#2})</code> to the<br>
-production declaring the lambda abstraction (recall that in Latex, <code>#n</code> refers<br>
+<p>In our case, we associate the attribute <code>latex(\lambda{#1}.{#2})</code> to the
+production declaring the lambda abstraction (recall that in Latex, <code>#n</code> refers
 to the n-th argument of the defined new command).</p>
-<p>Let us now compile the new <code>lambda.k</code> using the option <code>--pdf</code>, and note how<br>
+<p>Let us now compile the new <code>lambda.k</code> using the option <code>--pdf</code>, and note how
 the latex attribute is being used in the produced output.</p>
-<p>Note that it is also possible to generates HTML documentation.  See<br>
+<p>Note that it is also possible to generates HTML documentation.  See
 <code>kdoc --help</code> for the exact command line options.</p>
-<p>We will later see, in Lesson 9, that we can add arbitrarily complex Latex<br>
-comments and headers to our language definitions, which give us maximum<br>
+<p>We will later see, in Lesson 9, that we can add arbitrarily complex Latex
+comments and headers to our language definitions, which give us maximum
 flexibility in formatting our language definitions.</p>
-<p>Now we have a simple programming language, with a nice documentation.  However,<br>
-it is not easy to write interesting programs in this language.  Almost all<br>
-programming languages build upon existing data-types and libraries.  The K<br>
+<p>Now we have a simple programming language, with a nice documentation.  However,
+it is not easy to write interesting programs in this language.  Almost all
+programming languages build upon existing data-types and libraries.  The K
 tool provides a few of these (and you can add more).</p>
-<p>In the next lesson we show how we can add builtin integers and Booleans to<br>
+<p>In the next lesson we show how we can add builtin integers and Booleans to
 LAMBDA, so we can start to evaluate meaningful expressions.</p>
 <p>Go to <a href="../lesson_5/">Lesson 5, LAMBDA: Adding Builtins; Side Conditions</a>.</p>
 <p><a href="http://youtu.be/ULXA4e_6-DY" target="_blank" rel="noopener">MOVIE (out of date) [3&apos;13&quot;]</a></p>

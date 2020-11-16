@@ -139,19 +139,19 @@
 <li>Docker Images</li>
 <li>Platform Independent K Binary</li>
 </ul>
-<p><strong>NOTE</strong>: We do not currently support running K on native Windows. To use K on<br>
-Windows, you are encouraged to install<br>
-<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener">Windows Subsystem for Linux</a><br>
+<p><strong>NOTE</strong>: We do not currently support running K on native Windows. To use K on
+Windows, you are encouraged to install
+<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener">Windows Subsystem for Linux</a>
 and follow the instructions for Ubuntu Bionic.</p>
-<p><strong>NOTE</strong>: The distributed packages do <strong>not</strong> include the OCAML backend<br>
-dependency setup. See the end of this file for instructons on using the OCAML<br>
+<p><strong>NOTE</strong>: The distributed packages do <strong>not</strong> include the OCAML backend
+dependency setup. See the end of this file for instructons on using the OCAML
 backend with the package-installed K.</p>
 <h2 id="download-packages">Download Packages</h2>
-<p>Download the appropriate package from the GitHub, via the<br>
-<a href="https://github.com/kframework/k/releases" target="_blank" rel="noopener">Releases</a> page.<br>
+<p>Download the appropriate package from the GitHub, via the
+<a href="https://github.com/kframework/k/releases" target="_blank" rel="noopener">Releases</a> page.
 Releases are generated as often as possible from <code>master</code> build.</p>
 <h2 id="install-packages">Install Packages</h2>
-<p>For version <code>X.Y.Z</code>, disto <code>DISTRO</code>, and package ID <code>ID</code>, the following<br>
+<p>For version <code>X.Y.Z</code>, disto <code>DISTRO</code>, and package ID <code>ID</code>, the following
 instructions tell you how to install on each system.</p>
 <h3 id="ubuntu-bionic-(18.04)%2Fdebian-buster">Ubuntu Bionic (18.04)/Debian Buster</h3>
 <pre class="language-text"><code>sudo apt install ./kframework_X.Y.Z_amd64_DISTRO.deb
@@ -160,46 +160,46 @@ instructions tell you how to install on each system.</p>
 <pre class="language-text"><code>pacman -U ./kframework-git-X.Y.Z-1-x86_64.pkg.tar.zst
 </code></pre>
 <h3 id="macos-x-mojave%2Fhomebrew">MacOS X Mojave/Homebrew</h3>
-<p><a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> (or just brew) is a third-party package manager<br>
-for MacOS.<br>
-If you have not installed brew, you must do so before installing the K<br>
+<p><a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> (or just brew) is a third-party package manager
+for MacOS.
+If you have not installed brew, you must do so before installing the K
 Framework brew package.</p>
-<p>With brew installed, do the following to install the K Framework brew package<br>
+<p>With brew installed, do the following to install the K Framework brew package
 (with build number <code>BN</code>):</p>
 <pre class="language-text"><code>brew install kframework--X.Y.Z.ID.bottle.BN.tar.gz -v
 </code></pre>
-<p>Note: the brew package should install on MacOS X Catalina systems even though<br>
+<p>Note: the brew package should install on MacOS X Catalina systems even though
 the package was built for Mojave.</p>
 <h4 id="homebrew-alternate-installation">Homebrew Alternate Installation</h4>
-<p>To directly install the latest K Framework brew package without needing to<br>
+<p>To directly install the latest K Framework brew package without needing to
 download it separately, do the following:</p>
 <pre class="language-text"><code>brew install kframework/k/kframework
 </code></pre>
-<p>Or, to streamline future K Framework upgrades, you can <code>tap</code> the K Framework<br>
-package repository. This lets future installations/upgrades/etc... use the<br>
+<p>Or, to streamline future K Framework upgrades, you can <code>tap</code> the K Framework
+package repository. This lets future installations/upgrades/etc... use the
 unprefixed package name.</p>
 <pre class="language-text"><code>brew tap kframework/k
 brew install kframework
 </code></pre>
 <h3 id="docker-images">Docker Images</h3>
-<p>Docker images with K pre-installed are available at the<br>
+<p>Docker images with K pre-installed are available at the
 <a href="https://hub.docker.com/repository/docker/runtimeverificationinc/kframework-k" target="_blank" rel="noopener">runtimeverification/kframework-k Docker Hub repository</a>.</p>
-<p>Each release at <code>COMMIT_ID</code> has an image associated with it at<br>
-<code>runtimeverificationinc/kframework-k:ubuntu-bionic-COMMIT_ID</code>.<br>
-The latest <code>master</code> build Docker image can be accessed with <code>COMMIT_ID</code> set to<br>
+<p>Each release at <code>COMMIT_ID</code> has an image associated with it at
+<code>runtimeverificationinc/kframework-k:ubuntu-bionic-COMMIT_ID</code>.
+The latest <code>master</code> build Docker image can be accessed with <code>COMMIT_ID</code> set to
 <code>master</code>.</p>
 <p>To run the image directly:</p>
 <pre class="language-text"><code>docker run -it runtimeverificationinc/kframework-k:ubuntu-bionic-COMMIT_ID
 </code></pre>
-<p>and to make a Docker Image based on it, use the following line in your<br>
+<p>and to make a Docker Image based on it, use the following line in your
 <code>Dockerfile</code>:</p>
 <pre class="language-text"><code>FROM runtimeverificationinc/kframework-k:ubuntu-bionic-COMMIT_ID
 </code></pre>
 <h3 id="platform-independent-k-binary">Platform Independent K Binary</h3>
-<p>The platform independent K binary is a best-attempt at making a portable<br>
-distribution of K. When possible, prefer the platform specific packages.<br>
-We have only tested this on Ubuntu, although it may work on other distributions.<br>
-Appropriate installation instructions and bug reports are welcome from<br>
+<p>The platform independent K binary is a best-attempt at making a portable
+distribution of K. When possible, prefer the platform specific packages.
+We have only tested this on Ubuntu, although it may work on other distributions.
+Appropriate installation instructions and bug reports are welcome from
 contributors.</p>
 <ol>
 <li>
@@ -221,30 +221,30 @@ mv k /PATH/TO/INSTALL/k
 </li>
 <li>
 <p>Test:</p>
-<p>Go to one of the examples (say <code>k/tutorial/2_languages/1_simple/1_untyped/</code>).<br>
-Assuming <code>k/bin</code> is in your <code>$PATH</code>, you can compile and test a definition by<br>
-running the <code>make</code> command. To execute a program you can use e.g.<br>
-<code>krun tests/diverse/factorial.simple</code>. K supports the LLVM/Haskell/Java<br>
-backends for concrete execution and the Haskell/Java backend for symbolic<br>
+<p>Go to one of the examples (say <code>k/tutorial/2_languages/1_simple/1_untyped/</code>).
+Assuming <code>k/bin</code> is in your <code>$PATH</code>, you can compile and test a definition by
+running the <code>make</code> command. To execute a program you can use e.g.
+<code>krun tests/diverse/factorial.simple</code>. K supports the LLVM/Haskell/Java
+backends for concrete execution and the Haskell/Java backend for symbolic
 execution and program verification (with <code>kompile --backend [haskell|java]</code>).</p>
 </li>
 </ol>
 <h2 id="ocaml-backend-(optional)">OCAML Backend (Optional)</h2>
-<p><strong>NOTE</strong>: It is <em>strongly</em> recommended that you use the LLVM backend instead of<br>
+<p><strong>NOTE</strong>: It is <em>strongly</em> recommended that you use the LLVM backend instead of
 the OCAML backend. The OCAML backend is being sunsetted.</p>
-<p>To use the OCAML backend requires an installation of the OCAML package manager<br>
-OPAM. Instructions on installing OPAM are available here:<br>
-<a href="https://opam.ocaml.org/doc/Install.html" target="_blank" rel="noopener">https://opam.ocaml.org/doc/Install.html</a>.<br>
-You should install on Windows by following the instructions for the Linux<br>
+<p>To use the OCAML backend requires an installation of the OCAML package manager
+OPAM. Instructions on installing OPAM are available here:
+<a href="https://opam.ocaml.org/doc/Install.html" target="_blank" rel="noopener">https://opam.ocaml.org/doc/Install.html</a>.
+You should install on Windows by following the instructions for the Linux
 distribution you installed for Windows Subsystem for Linux.</p>
-<p>Once <code>opam</code> is installed, you can prepare the installation to run the OCAML<br>
+<p>Once <code>opam</code> is installed, you can prepare the installation to run the OCAML
 backend by running (for a user-local install):</p>
 <pre class="language-text"><code>k-configure-opam
 eval $(opam config env)
 </code></pre>
-<p><code>k-configure-opam</code> is in the <code>k/bin</code> directory, and the <code>eval</code> command sets up<br>
-your OCAML environment. You can optionally control where the OCAML dependencies<br>
-are installed by setting the <code>OPAMROOT</code> environment variable before running the<br>
+<p><code>k-configure-opam</code> is in the <code>k/bin</code> directory, and the <code>eval</code> command sets up
+your OCAML environment. You can optionally control where the OCAML dependencies
+are installed by setting the <code>OPAMROOT</code> environment variable before running the
 above commands with <code>export OPAMROOT=/path/to/opam/root</code>.</p>
 </body></html>
           </div>
