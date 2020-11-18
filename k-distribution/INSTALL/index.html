@@ -185,16 +185,17 @@ brew install kframework
 <p>Docker images with K pre-installed are available at the
 <a href="https://hub.docker.com/repository/docker/runtimeverificationinc/kframework-k" target="_blank" rel="noopener">runtimeverification/kframework-k Docker Hub repository</a>.</p>
 <p>Each release at <code>COMMIT_ID</code> has an image associated with it at
-<code>runtimeverificationinc/kframework-k:ubuntu-bionic-COMMIT_ID</code>.
+<code>runtimeverificationinc/kframework-k:ubuntu-focal-COMMIT_ID</code>.
 The latest <code>master</code> build Docker image can be accessed with <code>COMMIT_ID</code> set to
 <code>master</code>.</p>
 <p>To run the image directly:</p>
-<pre class="language-text"><code>docker run -it runtimeverificationinc/kframework-k:ubuntu-bionic-COMMIT_ID
+<pre class="language-text"><code>docker run -it runtimeverificationinc/kframework-k:ubuntu-focal-COMMIT_ID
 </code></pre>
 <p>and to make a Docker Image based on it, use the following line in your
 <code>Dockerfile</code>:</p>
-<pre class="language-text"><code>FROM runtimeverificationinc/kframework-k:ubuntu-bionic-COMMIT_ID
+<pre class="language-text"><code>FROM runtimeverificationinc/kframework-k:ubuntu-focal-COMMIT_ID
 </code></pre>
+<p>We also create Ubuntu 18.04 images with the <code>ubuntu-bionic-COMMIT_ID</code> tags.</p>
 <h3 id="platform-independent-k-binary">Platform Independent K Binary</h3>
 <p>The platform independent K binary is a best-attempt at making a portable
 distribution of K. When possible, prefer the platform specific packages.
