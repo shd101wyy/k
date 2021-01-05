@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../../../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../../../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,18 +129,12 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="wrapping-up-larger-languages">Wrapping up Larger Languages</h1>
+          <div class="introduction markdown-preview"><!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="wrapping-up-larger-languages">Wrapping up Larger Languages</h1>
 <p>In this lesson we wrap up IMP++&apos;s semantics and also generate its poster.
 While doing so, we also learn how to display larger configurations in order
 to make them easier to read and print.</p>
 <p>Note that we rearrange a bit the semantics, to group the semantics of old
 IMP&apos;s constructs together, and separate it from the new IMP++&apos;s semantics.</p>
-<p>Once we are done adding all the comments, we <code>kompile</code> with the documentation
-option <code>--pdf</code>, and then visualize the generated PDF document.</p>
-<p>Everything looks good, except the configuration. We can move the store, in
-and out cells on the next line. The html-ish tag <code>&lt;br/&gt;</code> inserts a line break
-in the configuration layout, as you can see in the generated document.</p>
 <p>There is a detailed discussion at the end of the document about the
 <code>--transition</code> option of <code>kompile</code>, because that is important and we want
 the poster to include everything we learned in this part of the tutorial.</p>
@@ -152,8 +147,7 @@ spaces, etc.</p>
 of K framework&apos;s features and how to use the K tool. You can now define or
 design your own programming languages, and then execute and analyze programs.</p>
 <p><a href="http://youtu.be/QV1AGagktzk" target="_blank" rel="noopener">MOVIE (out of date) [06&apos;26&quot;]</a></p>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -186,19 +180,6 @@ design your own programming languages, and then execute and analyze programs.</p
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../../../assets/js/index.js"></script>
@@ -235,6 +216,20 @@ design your own programming languages, and then execute and analyze programs.</p
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>

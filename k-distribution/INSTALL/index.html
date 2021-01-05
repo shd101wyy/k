@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,8 +129,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <html><head></head><body><h1 id="installing-the-k-framework-package">Installing the K Framework Package</h1>
+          <div class="introduction markdown-preview"><html><head></head><body><h1 id="installing-the-k-framework-package">Installing the K Framework Package</h1>
 <p>We currently strive to provide packages for the following platforms:</p>
 <ul>
 <li>Ubuntu Bionic (18.04)</li>
@@ -153,8 +153,17 @@ Releases are generated as often as possible from <code>master</code> build.</p>
 <h2 id="install-packages">Install Packages</h2>
 <p>For version <code>X.Y.Z</code>, disto <code>DISTRO</code>, and package ID <code>ID</code>, the following
 instructions tell you how to install on each system.</p>
-<h3 id="ubuntu-bionic-(18.04)%2Fdebian-buster">Ubuntu Bionic (18.04)/Debian Buster</h3>
-<pre class="language-text"><code>sudo apt install ./kframework_X.Y.Z_amd64_DISTRO.deb
+<h3 id="ubuntu-bionic-(18.04)">Ubuntu Bionic (18.04)</h3>
+<pre class="language-text"><code>sudo apt install ./kframework_X.Y.Z_amd64_bionic.deb
+</code></pre>
+<h3 id="ubuntu-focal-(20.04)">Ubuntu Focal (20.04)</h3>
+<pre class="language-text"><code>sudo apt install ./kframework_X.Y.Z_amd64_focal.deb
+</code></pre>
+<h3 id="debian-buster">Debian Buster</h3>
+<p>K requires at least LLVM 8, but Debian Buster by default has LLVM 7.
+As a result, you need to enable the Debian Backports apt repository for Debian.</p>
+<pre class="language-text"><code>echo &quot;deb http://deb.debian.org/debian buster-backports main&quot; &gt; /etc/apt/sources.list.d/buster-backports.list
+sudo apt install ./kframework_X.Y.Z_amd64_buster.deb
 </code></pre>
 <h3 id="arch-linux">Arch Linux</h3>
 <pre class="language-text"><code>pacman -U ./kframework-git-X.Y.Z-1-x86_64.pkg.tar.zst
@@ -247,8 +256,7 @@ eval $(opam config env)
 your OCAML environment. You can optionally control where the OCAML dependencies
 are installed by setting the <code>OPAMROOT</code> environment variable before running the
 above commands with <code>export OPAMROOT=/path/to/opam/root</code>.</p>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -281,19 +289,6 @@ above commands with <code>export OPAMROOT=/path/to/opam/root</code>.</p>
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../assets/js/index.js"></script>
@@ -330,6 +325,20 @@ above commands with <code>export OPAMROOT=/path/to/opam/root</code>.</p>
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>

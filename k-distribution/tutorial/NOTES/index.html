@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,8 +129,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><p><em>Dear reader: these <code>NOTES.md</code> documents are mostly for myself (Grigore), to
+          <div class="introduction markdown-preview"><!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><p><em>Dear reader: these <code>NOTES.md</code> documents are mostly for myself (Grigore), to
 keep track of changes and updates that need to be made as things evolve
 in the K framework.  You can safely ignore them.  However, if you are curious
 how things will change and decide to read them, I would be grateful if you
@@ -185,11 +185,6 @@ polymorphism, because the types are not universally quantified.  Explain that be
 <p>Modify the entire tutorial to use <code>.</code> or, if needed, <code>.::Map</code>, etc.,
 instead of <code>.Map</code>, etc..  Check for each instance specifically, because
 the surrounding text may also need to be modified.</p>
-<p>We are still using the <code>--pdf</code> option to <code>kompile</code> at many places in the
-tutorial, although in some places at the beginning we replaced it with the
-new approach, <code>kdoc</code>.  It is actually not clear that we should switch to
-<code>kdoc</code>, because after all the Latex generation is still a backend.  So it
-makes sense to implement it as such, instead of as a different tool.</p>
 <p>We sometimes use &quot;Kompile&quot;, or &quot;kompile&quot;, as a verb instead of &quot;Compile&quot;,
 or &quot;compile&quot;, to indicate that we mean compilation with K.  Similarly for
 &quot;Krun&quot;, or &quot;krun&quot;, instead of &quot;Run&quot; or &quot;run&quot;.</p>
@@ -214,8 +209,7 @@ in any examples, except for demonstration purposes.</p>
 IMP++: evaluates and prints each of its arguments in order (as opposed to
 first evaluate all of them and then print them---for example, if the second
 argument performs a division by zero, I still want to print the first argument.)</p>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -248,19 +242,6 @@ argument performs a division by zero, I still want to print the first argument.)
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../assets/js/index.js"></script>
@@ -297,6 +278,20 @@ argument performs a division by zero, I still want to print the first argument.)
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>

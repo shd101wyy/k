@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../../../../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../../../../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,8 +129,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <html><head></head><body><p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.
+          <div class="introduction markdown-preview"><html><head></head><body><p><strong>K</strong> code can be nested inside Markdown using annotated code blocks.
 Use the tag <code>k</code> to tell the compiler which blocks to select.</p>
 <p>Inside <code>.k</code> files, C/Java-like comments are available.</p>
 <pre class="language-k"><code><span class="token comment">// Single line comment</span>
@@ -237,8 +237,7 @@ and faster to execute.</p>
   <span class="token keyword">rule</span> mu X <span class="token punctuation">.</span> E <span class="token operator">=&gt;</span> E<span class="token punctuation">[</span><span class="token punctuation">(</span>mu X <span class="token punctuation">.</span> E<span class="token punctuation">)</span> <span class="token operator">/</span> X<span class="token punctuation">]</span>
 <span class="token keyword">endmodule</span>
 </code></pre>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -271,19 +270,6 @@ and faster to execute.</p>
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../../../../assets/js/index.js"></script>
@@ -320,6 +306,20 @@ and faster to execute.</p>
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>

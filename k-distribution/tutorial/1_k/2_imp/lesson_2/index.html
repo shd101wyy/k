@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../../../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../../../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,8 +129,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="defining-a-configuration">Defining a Configuration</h1>
+          <div class="introduction markdown-preview"><!-- Copyright (c) 2010-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="defining-a-configuration">Defining a Configuration</h1>
 <p>Here we learn how to define a configuration in K. We also learn how to
 initialize and how to display it.</p>
 <p>As explained in the overview presentation on K, configurations are quite
@@ -184,8 +184,6 @@ type. K has several builtin data-types, including lists, sets, bags, and
 maps. <code>.Map</code> is the empty map.</p>
 <p>Kompile <code>imp.k</code> and run several programs to see how the configuration is
 initialized as desired.</p>
-<p>Also, compile with the option <code>--pdf</code>, to see how configurations are displayed
-in the documentation: like nested labeled bubbles, where each bubble is a cell.</p>
 <p>When configurations get large, and they do when defining large programming
 languages, you may want to color the cells in order to more easily distinguish
 them. This can be easily achieved using the <code>color</code> cell attribute, following
@@ -195,13 +193,10 @@ again an XML-ish style:</p>
                 &lt;state color=&quot;red&quot;&gt; .Map &lt;/state&gt;
               &lt;/T&gt;
 </code></pre>
-<p>Compile again with the <code>--pdf</code> option and take a look at the new configuration.
-The cells should be now colored as indicated.</p>
 <p>In the next lesson we will learn how to write rules that involve cells.</p>
 <p>Go to <a href="../lesson_3/">Lesson 3, IMP: Computations, Results, Strictness; Rules Involving Cells</a>.</p>
 <p><a href="http://youtu.be/jkwLyGdt70U" target="_blank" rel="noopener">MOVIE (out of date) [04&apos;21&quot;]</a></p>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -234,19 +229,6 @@ The cells should be now colored as indicated.</p>
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../../../assets/js/index.js"></script>
@@ -283,6 +265,20 @@ The cells should be now colored as indicated.</p>
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>

@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../../../../../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../../../../../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,8 +129,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><p>Define LAMBDA using the S/K combinators instead of substitution.
+          <div class="introduction markdown-preview"><!-- Copyright (c) 2014-2019 K Team. All Rights Reserved. --><html><head></head><body><p>Define LAMBDA using the S/K combinators instead of substitution.
 You new definition will not require the <code>substitution.k</code> module anymore,
 and will not use environments (discussed in future lectures), either.</p>
 <p>Recall that the <code>S</code> and <code>K</code> combinators are defined as follows:</p>
@@ -169,8 +169,7 @@ predicate that all the expressions that involve builtin functions and
 yield functions are values; for example, <code>isVal(cond V:Val) =&gt; true</code> and
 <code>isVal(cond V1:Val V2:Val) =&gt; true</code> need to be added, but obviously not
 <code>isVal(cond V1:Val V2:Val V3:Val) =&gt; true</code>.</p>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -203,19 +202,6 @@ yield functions are values; for example, <code>isVal(cond V:Val) =&gt; true</cod
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../../../../../assets/js/index.js"></script>
@@ -252,6 +238,20 @@ yield functions are values; for example, <code>isVal(cond V:Val) =&gt; true</cod
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>

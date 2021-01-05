@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../../../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../../../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,26 +129,11 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="generating-documentation%3B-latex-attributes">Generating Documentation; Latex Attributes</h1>
+          <div class="introduction markdown-preview"><!-- Copyright (c) 2012-2019 K Team. All Rights Reserved. --><html><head></head><body><h1 id="generating-documentation%3B-latex-attributes">Generating Documentation; Latex Attributes</h1>
 <p>In this lesson we learn how to generate formatted documentation from K
 language definitions.  We also learn how to use Latex attributes to control
 the formatting of language constructs, particularly of ones which have a
 mathematical flavor and we want to display accordingly.</p>
-<p>To generate PDF documentation, all we have to do is to call the <code>kdoc</code> command
-in the folder where the kompiled definition is.  This command generates a
-<code>lambda.pdf</code> file, which contains the formatted K definition.</p>
-<p>Open this file using your favorite PDF reader.  The syntactic details are not
-shown in the generated PDF, because we typically want to focus on semantics at
-this stage.  The main notational difference between the original <code>.k</code> and the
-generated PDF is how rules are displayed.  In the PDF, the rule <code>left =&gt; right</code>
-is replaced by its representation in K (see papers on K), which is harder to
-write in ASCII.  Specifically, <code>left</code> is underlined and <code>right</code> is written
-under the line.  The metaphor here is that the underlined terms change, as
-indicated under the lines.  In K, rules can have a more general form than shown
-in lambda.k, where several sub-terms in a term can rewrite concurrently and
-atomically.  The K rules will be explained in their full generality in the IMP
-and IMP++ tutorials.</p>
 <p>To enhance readability, we may want to replace the keyword <code>lambda</code> by the
 mathematical lambda symbol in the generated documentation.  We can control
 the way we display language constructs in the generated documentation
@@ -158,10 +144,6 @@ the Latex syntax for defining new commands (or macros).</p>
 <p>In our case, we associate the attribute <code>latex(\lambda{#1}.{#2})</code> to the
 production declaring the lambda abstraction (recall that in Latex, <code>#n</code> refers
 to the n-th argument of the defined new command).</p>
-<p>Let us now compile the new <code>lambda.k</code> using the option <code>--pdf</code>, and note how
-the latex attribute is being used in the produced output.</p>
-<p>Note that it is also possible to generates HTML documentation.  See
-<code>kdoc --help</code> for the exact command line options.</p>
 <p>We will later see, in Lesson 9, that we can add arbitrarily complex Latex
 comments and headers to our language definitions, which give us maximum
 flexibility in formatting our language definitions.</p>
@@ -173,8 +155,7 @@ tool provides a few of these (and you can add more).</p>
 LAMBDA, so we can start to evaluate meaningful expressions.</p>
 <p>Go to <a href="../lesson_5/">Lesson 5, LAMBDA: Adding Builtins; Side Conditions</a>.</p>
 <p><a href="http://youtu.be/ULXA4e_6-DY" target="_blank" rel="noopener">MOVIE (out of date) [3&apos;13&quot;]</a></p>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -207,19 +188,6 @@ LAMBDA, so we can start to evaluate meaningful expressions.</p>
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../../../assets/js/index.js"></script>
@@ -256,6 +224,20 @@ LAMBDA, so we can start to evaluate meaningful expressions.</p>
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>

@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -602,7 +603,7 @@ be heated or cooled.</p>
 </code></pre>
 <p>The user may also write the K cell explicitly in the context declaration
 if they want to match on another cell as well, for example:</p>
-<pre class="language-k"><code><span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>kl</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>state</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">.</span>Map <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>state</span><span class="token punctuation">&gt;</span></span>
+<pre class="language-k"><code><span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>state</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">.</span>Map <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>state</span><span class="token punctuation">&gt;</span></span>
 </code></pre>
 <p>This context will now only heat or cool if the <code>state</code> cell is empty.</p>
 <h3 id="side-conditions-in-context-declarations">Side conditions in context declarations</h3>
@@ -612,7 +613,7 @@ so:</p>
 </code></pre>
 <p>This side condition will be appended verbatim to the heating rule that is
 generated, however, it will not affect the cooling rule that is generated:</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> requirese baz<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
+<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">requires</span> baz<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
 <span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Bar <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
 </code></pre>
 <h3 id="rewrites-in-context-declarations">Rewrites in context declarations</h3>
@@ -680,8 +681,8 @@ be instantiated against particular productions using the <code>strict</code> and
 <p>This defines the evaluation strategy during the translation phase of a C++
 program for the assignment operator. It is equivalent to writing the following
 context declarations:</p>
-<pre class="language-k"><code><span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Expr <span class="token operator">=</span> I<span class="token punctuation">:</span>Init <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> I <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span>
-<span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Expr <span class="token operator">=</span> I<span class="token punctuation">:</span>Init <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> I <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>result<span class="token punctuation">(</span>ExecResult<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<pre class="language-k"><code><span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Expr <span class="token operator">=</span> I<span class="token punctuation">:</span>Init <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Expr <span class="token operator">=</span> I<span class="token punctuation">:</span>Init <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>result<span class="token punctuation">(</span>ExecResult<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
 <p>What this is saying is, if the <code>evaluate</code> cell is false, evaluate the term
 like normal to a <code>KResult</code>. But if the <code>evaluate</code> cell is true, instead
@@ -1894,7 +1895,7 @@ K gives you complete control over how you want to unparse the symbol.</p>
 tell K how to unparse the symbol. Escape sequences begin with a &apos;%&apos; and are
 followed by either an integer, or a single non-digit character. Below is a
 list of escape sequences recognized by the formatter:</p>
-<table>
+<table class="table">
 <thead>
 <tr>
 <th>Escape Sequence</th>
@@ -2231,20 +2232,21 @@ sed &apos;s/hook(//&apos; | sed &apos;s/)//&apos; | sort | uniq | grep -v org.kf
   </div>
 </footer>
 
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../assets/js/index.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
+    </script>
   </body>
 </html>

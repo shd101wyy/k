@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../../../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../../../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,8 +129,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <html><head></head><body><h1 id="basic-builtin-types-in-k">Basic Builtin Types in K</h1>
+          <div class="introduction markdown-preview"><html><head></head><body><h1 id="basic-builtin-types-in-k">Basic Builtin Types in K</h1>
 <p>A major piece of the K prelude consists of a series of modules that contain
 implementations of basic data types and language features in K. You do not need
 to require this file yourself; it is required automatically in every K
@@ -200,7 +200,8 @@ value in O(log(N)) time, or effectively constant.</p>
 <h3 id="multiple-array-update">Multiple array update</h3>
 <p>You can create a new <code>Array</code> from a <code>List</code> <code>L</code> of size <code>N</code> where the <code>N</code>
 elements starting at <code>index</code> are replaced with the contents of <code>L</code>, in
-O(N*log(K)) time (where K is the size of the array), or effectively linear.</p>
+O(N*log(K)) time (where K is the size of the array), or effectively linear.
+Having <code>index + N &gt; K</code> yields an exception.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> Array <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> updateArray<span class="token punctuation">(</span>Array<span class="token punctuation">,</span> index<span class="token punctuation">:</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> List<span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>ARRAY<span class="token punctuation">.</span>updateAll<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
 <h3 id="array-fill">Array fill</h3>
@@ -241,7 +242,8 @@ of any of the syntax defined in any of these modules.</p>
   <span class="token keyword">rule</span> arr<span class="token punctuation">(</span>_      <span class="token punctuation">,</span> _<span class="token punctuation">,</span> D<span class="token punctuation">:</span><span class="token punctuation">:</span>KItem<span class="token punctuation">)</span> <span class="token punctuation">[</span> _        <span class="token punctuation">]</span> <span class="token operator">=&gt;</span> D      <span class="token punctuation">[</span>owise<span class="token punctuation">]</span>
 
   <span class="token keyword">syntax</span> List <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> ensureOffsetList<span class="token punctuation">(</span>List<span class="token punctuation">,</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> KItem<span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">]</span>
-  <span class="token keyword">rule</span> ensureOffsetList<span class="token punctuation">(</span>L<span class="token punctuation">:</span><span class="token punctuation">:</span>List<span class="token punctuation">,</span> IDX<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> D<span class="token punctuation">:</span><span class="token punctuation">:</span>KItem<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> #if IDX <span class="token operator">&gt;=</span><span class="token keyword">Int</span> size<span class="token punctuation">(</span>L<span class="token punctuation">)</span> #then updateList<span class="token punctuation">(</span>makeList<span class="token punctuation">(</span>IDX <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">,</span> D<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> L<span class="token punctuation">)</span> #else L #fi
+  <span class="token keyword">rule</span> ensureOffsetList<span class="token punctuation">(</span>L<span class="token punctuation">:</span><span class="token punctuation">:</span>List<span class="token punctuation">,</span> IDX<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> D<span class="token punctuation">:</span><span class="token punctuation">:</span>KItem<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> updateList<span class="token punctuation">(</span>makeList<span class="token punctuation">(</span>IDX <span class="token operator">+</span><span class="token keyword">Int</span> <span class="token number">1</span><span class="token punctuation">,</span> D<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> L<span class="token punctuation">)</span> <span class="token keyword">requires</span>         IDX <span class="token operator">&gt;=</span><span class="token keyword">Int</span> size<span class="token punctuation">(</span>L<span class="token punctuation">)</span>
+  <span class="token keyword">rule</span> ensureOffsetList<span class="token punctuation">(</span>L<span class="token punctuation">:</span><span class="token punctuation">:</span>List<span class="token punctuation">,</span> IDX<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> _<span class="token punctuation">:</span><span class="token punctuation">:</span>KItem<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> L                                         <span class="token keyword">requires</span> notBool IDX <span class="token operator">&gt;=</span><span class="token keyword">Int</span> size<span class="token punctuation">(</span>L<span class="token punctuation">)</span>
 
   <span class="token keyword">rule</span> arr<span class="token punctuation">(</span>L<span class="token punctuation">:</span><span class="token punctuation">:</span>List<span class="token punctuation">,</span> I<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">Int</span><span class="token punctuation">,</span> D<span class="token punctuation">:</span><span class="token punctuation">:</span>KItem<span class="token punctuation">)</span> <span class="token punctuation">[</span> IDX<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">Int</span> &lt;<span class="token operator">-</span> VAL<span class="token punctuation">:</span><span class="token punctuation">:</span>KItem <span class="token punctuation">]</span> <span class="token operator">=&gt;</span> arr<span class="token punctuation">(</span>ensureOffsetList<span class="token punctuation">(</span>L<span class="token punctuation">,</span> IDX<span class="token punctuation">,</span> D<span class="token punctuation">)</span> <span class="token punctuation">[</span> IDX &lt;<span class="token operator">-</span> VAL <span class="token punctuation">]</span><span class="token punctuation">,</span> I<span class="token punctuation">,</span> D<span class="token punctuation">)</span>
 
@@ -581,7 +583,7 @@ time.</p>
 <h3 id="multiple-list-update">Multiple list update</h3>
 <p>You can create a new <code>List</code> which is equal to <code>dest</code> except the <code>N</code> elements
 starting at <code>index</code> are replaced with the contents of <code>src</code> in O(N*log(K)) time
-(where K is the size of <code>dest</code>), or effectively linear.</p>
+(where <code>K</code> is the size of <code>dest</code>and <code>N</code> is the size of <code>src</code>), or effectively linear. Having <code>index + N &gt; K</code> yields an exception.</p>
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> List <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> updateList<span class="token punctuation">(</span>dest<span class="token punctuation">:</span> List<span class="token punctuation">,</span> index<span class="token punctuation">:</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> src<span class="token punctuation">:</span> List<span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>LIST<span class="token punctuation">.</span>updateAll<span class="token punctuation">)</span><span class="token punctuation">]</span>
 </code></pre>
 <h3 id="list-fill">List fill</h3>
@@ -2358,8 +2360,7 @@ strategy language. No special facility is required in K in order to compose
 strategies together, so you are free to write whatever rules that manipulate
 the strategy cell you want, and thus whatever more complex strategies you can
 compose from the base builtin strategies.</p>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -2392,19 +2393,6 @@ compose from the base builtin strategies.</p>
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../../../assets/js/index.js"></script>
@@ -2441,6 +2429,20 @@ compose from the base builtin strategies.</p>
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>

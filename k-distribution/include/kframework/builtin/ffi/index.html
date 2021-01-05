@@ -100,7 +100,7 @@
       class="btn bd-search-docs-toggle d-md-none p-0 ml-3 collapsed"
       type="button"
       aria-label="Toggle docs navigation"
-      style="font-size: 1.4rem;"
+      style="font-size: 1.4rem"
     >
       <i class="fas fa-bars"></i>
     </button>
@@ -120,6 +120,7 @@
         href="../../../../../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
+      <a class="bd-toc-link" href="../../../../../semantics">Semantics in K</a>
     </div>
   </nav>
 </div>
@@ -128,8 +129,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="introduction markdown-preview">
-            <html><head></head><body><h1 id="k-foreign-function-interface">K Foreign Function Interface</h1>
+          <div class="introduction markdown-preview"><html><head></head><body><h1 id="k-foreign-function-interface">K Foreign Function Interface</h1>
 <p>The K Foreign Function Interface (FFI) module provides a way to call native
 functions directly from a K semantics using the C ABI. It also provides
 utilities for allocating and deallocating byte buffers with static addresses
@@ -279,8 +279,7 @@ memory at address <code>Addr</code> has a different value than currently contain
 <pre class="language-k"><code>  <span class="token keyword">syntax</span> K <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#nativeWrite&quot;</span> <span class="token string">&quot;(&quot;</span> <span class="token keyword">Int</span> <span class="token string">&quot;,&quot;</span> Bytes <span class="token string">&quot;)&quot;</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>FFI<span class="token punctuation">.</span>write<span class="token punctuation">)</span><span class="token punctuation">]</span>
 <span class="token keyword">endmodule</span>
 </code></pre>
-</body></html>
-          </div>
+</body></html></div>
         </main>
       </div>
     </div>
@@ -313,19 +312,6 @@ memory at address <code>Addr</code> has a different value than currently contain
     </div>
   </div>
 </footer>
-
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-163311512-1"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-163311512-1");
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../../../assets/js/index.js"></script>
@@ -362,6 +348,20 @@ memory at address <code>Addr</code> has a different value than currently contain
           }
         }
       });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9LBGDMRG32"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9LBGDMRG32");
     </script>
   </body>
 </html>
