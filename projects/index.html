@@ -120,7 +120,7 @@
         href="../k-distribution/include/kframework/builtin/"
         >Builtins</a
       >
-      <a class="bd-toc-link" href="../semantics">Semantics in K</a>
+      <a class="bd-toc-link" href="../projects">Projects using K</a>
     </div>
   </nav>
 </div>
@@ -129,41 +129,38 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="markdown-preview"><html><head></head><body><h1 id="semantics-in-k">Semantics in K</h1>
+          <div class="markdown-preview"><html><head></head><body><h1 id="projects-using-k">Projects using K</h1>
 <br>
 <h2 id="featured">Featured</h2>
+<br>
 <ul>
 <li>
 <p><strong><a href="https://github.com/kframework/c-semantics" target="_blank" rel="noopener">C (Jul 2010 - Present)</a></strong></p>
-<p>K semantics of the <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noopener">C programming language</a>. It can help catch the undefined behaviors of C programs.</p>
+<p>The K semantics of the <a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noopener">C programming language</a> specifies the translation, linking, and execution semantics of the C language according to the official C standard. It has been used to build tools like RV-Match, which detects undefined behaviors in users programs by running their test-suites through the C semantics.</p>
 </li>
 <li>
 <p><strong><a href="https://github.com/kframework/wasm-semantics" target="_blank" rel="noopener">KWasm (Aug 2015 - Present)</a></strong></p>
-<p>KWasm is the K semantics of <a href="https://webassembly.github.io/spec/" target="_blank" rel="noopener">WebAssembly</a>.</p>
-</li>
-<li>
-<p><strong><a href="https://github.com/runtimeverification/elrond-semantics" target="_blank" rel="noopener">Elrond (Aug 2015 - Present)</a></strong></p>
-<p>The semantics of Elrond and Mandos.</p>
+<p>KWasm is the K semantics of <a href="https://webassembly.github.io/spec/" target="_blank" rel="noopener">WebAssembly</a>. WebAssembly is a low-level (but simple and streamlined) assembly language that was originally developed to provide a fast execution engine for browser-based tools. More recently, it has been used in several blockchain smart-contract platforms as the underlying language for executing financial agreements. KWasm has been used for measuring coverage of test-suites over Wasm code and verifying programs which are compiled to Wasm.</p>
 </li>
 <li>
 <p><strong><a href="https://ielelang.org/" target="_blank" rel="noopener">IELE (Oct 2016 - Present)</a></strong></p>
-<p>Provides a model of IELE in K.</p>
+<p>IELE is the underlying VM integrated into the <a href="https://cardano.org/" target="_blank" rel="noopener">Cardano</a> blockchain. IELE is a register-based VM (inspired by LLVM), which attempts to avoid many of the missteps in design present in EVM.</p>
 </li>
 <li>
 <p><strong><a href="https://jellopaper.org/" target="_blank" rel="noopener">KEVM (Sep 2017 - Present)</a></strong></p>
 <p>KEVM is the K semantics of the <a href="https://ethereum.org/en/developers/docs/evm/" target="_blank" rel="noopener">Ethereum Virtual Machine</a>. It passes all of the Ethereum Test Suite, and is used for verifying EVM programs.</p>
 </li>
 <li>
-<p><strong><a href="https://github.com/kframework/ewasm-semantics" target="_blank" rel="noopener">KEwasm (Jul 2019 - Present)</a></strong></p>
-<p>KEwasm is the K semantics of <a href="https://github.com/ewasm/design" target="_blank" rel="noopener">Ewasm</a>.</p>
-</li>
-<li>
 <p><strong><a href="https://runtimeverification.github.io/michelson-semantics" target="_blank" rel="noopener">K-Michelson (Oct 2019 - Present)</a></strong></p>
-<p>K-Michelson is the K semantics of <a href="https://www.michelson.org/" target="_blank" rel="noopener">Michelson blockchain programming language</a>.</p>
+<p>K-Michelson is the K semantics of <a href="https://www.michelson.org/" target="_blank" rel="noopener">Michelson blockchain programming language</a>, which powers the <a href="https://tezos.com/" target="_blank" rel="noopener">Tezos blockchain</a>. KMichelson provides additional testing tools for developers, including a unit-testing framework which is extendable to symbolic property testing.</p>
 </li>
 <li>
 <p><strong><a href="https://github.com/kframework/boogie-semantics" target="_blank" rel="noopener">Boogie (Apr 2020 - Present)</a></strong></p>
-<p>Presents an executable formal semantics for <a href="https://github.com/boogie-org/boogie" target="_blank" rel="noopener">Boogie</a>, an intermediate language for verification.</p>
+<p>Presents an executable formal semantics for <a href="https://github.com/boogie-org/boogie" target="_blank" rel="noopener">Boogie</a>, an intermediate language for verification. The K semantics of Boogie provides an independent verification engine for programs compiled to Boogie. This, for example, allows <a href="https://www.microsoft.com/en-us/research/project/dafny-a-language-and-program-verifier-for-functional-correctness/" target="_blank" rel="noopener">Dafny</a> users to either discharge their verification goals using Boogie or using the K semantics of Boogie.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/runtimeverification/elrond-semantics" target="_blank" rel="noopener">Elrond (July 2020 - Present)</a></strong></p>
+<p>The semantics of <a href="https://elrond.com/" target="_blank" rel="noopener">Elrond</a> is a wrapper around KWasm which extends it with the Elrond blockchain primitives. This extension enables developers targeting the Elrond blockchain to measure coverage of their test-suite directly at the Wasm level.</p>
 </li>
 </ul>
 <h2 id="archived">Archived</h2>
@@ -191,6 +188,7 @@
 <li><a href="https://github.com/runtimeverification/erc777-semantics" target="_blank" rel="noopener">erc777 (2018-2018)</a></li>
 <li><a href="https://github.com/kframework/k-in-k" target="_blank" rel="noopener">k (2018-2020)</a></li>
 <li><a href="https://github.com/ethereum/yul-semantics" target="_blank" rel="noopener">yul (2019-2019)</a></li>
+<li><a href="https://github.com/kframework/ewasm-semantics" target="_blank" rel="noopener">KEwasm (2019-2020)</a></li>
 <li><a href="https://github.com/Formal-Systems-Laboratory/hybrid-programs-semantics" target="_blank" rel="noopener">hybrid programs (2020-2020)</a></li>
 </ul>
 </body></html></div>
