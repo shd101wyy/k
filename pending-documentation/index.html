@@ -13,13 +13,12 @@
 <meta name="keywords" content="runtime, verification, rv, k" />
 <meta name="author" content="K | Runtime Verification Inc" />
 <meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://kframework.org/pending-documentation/" />
 
 <!--favicon icon-->
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico" />
 
-<title>
-  K | Runtime Verification Inc
-</title>
+<title>K | Runtime Verification Inc</title>
 
 <!-- <base href="/k/" /> -->
 
@@ -109,7 +108,7 @@
     <div class="bd-toc-item">
       <a class="bd-toc-link" href="../">Homepage</a>
       <a class="bd-toc-link" href="../downloads">Downloads</a>
-      <a class="bd-toc-link" href="../k-distribution/tutorial"
+      <a class="bd-toc-link" href="../k-distribution/pl-tutorial"
         >K Tutorial</a
       >
       <a class="bd-toc-link" href="../pending-documentation/"
@@ -147,22 +146,49 @@ to instead of having to infer it from a comment or from the rule body.</p>
 <p>This syntax can be used anywhere in a K definition that expects a non-terminal.</p>
 <h3 id="klabel(_)-and-symbol-attributes"><code>klabel(_)</code> and <code>symbol</code> attributes</h3>
 <p>By default K generates for each syntax definition a long and obfuscated klabel
-string, which serves as internal identifier and also is used in kast format of
-that syntax. If we need to reference a certain syntax production externally, we
-have to manually define the klabels.</p>
+string, which serves as a unique internal identifier and also is used in kast
+format of that syntax. If we need to reference a certain syntax production
+externally, we have to manually define the klabels using the <code>klabel</code> attribute.
+One example of where you would want to do this is to be able to refer to a given
+symbol via the <code>syntax priorities</code> attribute, or to enable overloading of a
+given symbol.</p>
+<p>If you only provide the <code>klabel</code> attribute, you can use the provided <code>klabel</code> to
+refer to that symbol anywhere in the frontend K code. However, the internal
+identifier seen by the backend for that symbol will still be the long obfuscated
+generated string. Sometimes you want control over the internal identfier used as
+well, in which case you use the <code>symbol</code> attribute. This tells the frontend to
+use whatever the declared <code>klabel</code> is directly as the internal identfier.</p>
 <p>For example:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> Foo <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> #Foo<span class="token punctuation">(</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span> <span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#Foo<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">symbol</span><span class="token punctuation">]</span>
+<pre class="language-k"><code><span class="token keyword">module</span> MYMODULE
+    <span class="token keyword">syntax</span> FooBarBaz <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> #Foo<span class="token punctuation">(</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span> <span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#Foo<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">symbol</span><span class="token punctuation">]</span> <span class="token comment">// symbol1</span>
+                       <span class="token operator">|</span> #Bar<span class="token punctuation">(</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span> <span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#Bar<span class="token punctuation">)</span><span class="token punctuation">]</span>         <span class="token comment">// symbol2</span>
+                       <span class="token operator">|</span> #Baz<span class="token punctuation">(</span> <span class="token keyword">Int</span><span class="token punctuation">,</span> <span class="token keyword">Int</span> <span class="token punctuation">)</span>                        <span class="token comment">// symbol3</span>
+<span class="token keyword">endmodule</span>
 </code></pre>
-<p>Now a kast term for <code>Foo</code> will look like <code>#Foo(1,  1)</code>.
-Without <code>symbol</code>, the klabel defined for this syntax will still be a long
-obfuscated string. <code>[symbol]</code> also ensures that this attribute is unique to
-the definition. Uniqueness is not enforced by default for backwards
-compatibility. In some circumstances in Java and Ocaml backend we need multiple
-syntax definition with the same klabel. Otherwise it is recommended to use
-<code>klabel</code> and <code>symbol</code> together. One application is loading a config through
-JSON backend.</p>
-<p>KLabels are also used when terms are logged in Java Backend, when using
-logging/debugging options, or in error messages.</p>
+<p>Here, we have that:</p>
+<ul>
+<li>In frontend K, you can refer to &quot;symbol1&quot; as <code>#Foo</code> (from <code>klabel(#Foo)</code>),
+and the backend will see <code>&apos;Hash&apos;Foo</code> as the symbol name.</li>
+<li>In frontend K, you can refer to &quot;symbol2&quot; as <code>Bar</code> (from <code>klabel(#Bar)</code>),
+and the backend will see
+<code>&apos;Hash&apos;Bar&apos;LParUndsCommUndsRParUnds&apos;MYMODULE&apos;Unds&apos;FooBarBaz&apos;Unds&apos;Int&apos;Unds&apos;Int</code>
+as the symbol name.</li>
+<li>In frontend K, you can refer to &quot;symbol3&quot; as
+<code>#Baz(_,_)_MYMODULE_FooBarBaz_Int_Int</code> (from auto-generated klabel), and
+the backend will see
+<code>&apos;Hash&apos;Baz&apos;LParUndsCommUndsRParUnds&apos;MYMODULE&apos;Unds&apos;FooBarBaz&apos;Unds&apos;Int&apos;Unds&apos;Int</code>
+as the symbol name.</li>
+</ul>
+<p>The <code>symbol</code> provided <em>must</em> be unique to this definition. This is enforced by K.
+In general, it&apos;s recommended to use <code>symbol</code> attribute whenever you use <code>klabel</code>
+unless you explicitely have a reason not to (eg. you want to <em>overload</em> symbols,
+or you&apos;re using a deprecated backend). It can be very helpful use the <code>symbol</code>
+attribute for debugging, as many debugging messages are printed in Kast format
+which will be more readable with the <code>symbol</code> names you explicitely declare.
+In addition, if you are programatically manipulating definitions via the JSON
+Kast format, building terms using the user-provided pretty
+<code>symbol, klabel(...)</code> is easier and less error-prone when the auto-generation
+process for klabels changes.</p>
 <h3 id="parametric-productions-and-bracket-attributes">Parametric productions and <code>bracket</code> attributes</h3>
 <p>Some syntax productions, like the rewrite operator, the bracket operator, and
 the #if #then #else #fi operator, cannot have their precise type system
@@ -407,6 +433,17 @@ really only apply when the rightmost or leftmost item in a production is a
 nonterminal. If the rightmost nonterminal is followed by a terminal (or
 respectively the leftmost preceded), priority and associativity do not apply.
 Thus we can generalize these concepts to arbitrary context-free grammars.</p>
+<p>Note that in some cases, this is not the behavior you want. You may actually
+want to reject parses even though the leftmost and rightmost item in a
+production are terminals. You can accomplish this by means of the
+<code>applyPriority</code> attribute. When placed on a production, it tells the parser
+which nonterminals of a production the priority filter ought to reject children
+under, overriding the default behavior. For example, I might have a production
+like <code>syntax Exp ::= foo(Exp, Exp) [applyPriority(1)]</code>. This tells the parser
+to reject terms with looser priority binding under the first <code>Exp</code>, but not
+the second. By default, with this production, neither position would apply
+to the priority filter, because the first and last items of the production
+are both terminals.</p>
 <p>Associativity is specified in K grammars by means of one of two different
 mechanisms. The first, and simplest, adds the associativity of a priority block
 of symbols prior to that block. For example, we can remove the remaining
@@ -947,8 +984,8 @@ simplified similarly to a <code>function</code>.</p>
 <p>These attributes guide the prover when it tries to apply rules to discharge a
 proof obligation.</p>
 <ul>
-<li><code>smt-lemma</code> can be applied to a rule <em>without</em> side-conditions to encode
-that rule as an equality when sending queries to Z3.</li>
+<li><code>smt-lemma</code> can be applied to a rule to encode it as an equality when
+sending queries to Z3.</li>
 <li><code>lemma</code> distinguishes normal rules from lemma rules in the semantics, but
 has no affect.</li>
 <li><code>trusted</code> instructs the prover that it should not attempt proving a given
@@ -1020,6 +1057,21 @@ applied in order of their priority. <code>simplification</code> rules may not ha
 <p>Then this simplification rule will only apply if the Haskell backend can prove
 that <code>notBool N =/=Int 0</code> is unsatisfiable. This avoids an infinite cycle of
 applying this simplification lemma.</p>
+<p><strong>NOTE</strong>: The frontend and Haskell backend <strong>do not check</strong> that supplied
+simplification rules are sound, this is the developer&apos;s responsibility. In
+particular, rules with the simplification attribute must preserve definedness;
+that is, if the left-hand side refers to any partial function then:</p>
+<ul>
+<li>the right-hand side must be <code>#Bottom</code> when the left-hand side is <code>#Bottom</code>, or</li>
+<li>the rule must have an <code>ensures</code> clause that is <code>false</code> when the left-hand
+side is <code>#Bottom</code>, or</li>
+<li>the rule must have a <code>requires</code> clause that is <code>false</code> when the left-hand
+side is <code>#Bottom</code>.</li>
+</ul>
+<p>These conditions are in order of decreasing preference: the best option is to
+preserve <code>#Bottom</code> on the right-hand side, the next best option is to have an
+<code>ensures</code> clause, and the least-preferred option is to have a <code>requires</code> clause.
+The most preferred option is to write total functions and avoid the entire issue.</p>
 <h3 id="concrete-attribute%2C-%23isconcrete-and-%23isvariable-function-(java-backend)"><code>concrete</code> attribute, <code>#isConcrete</code> and <code>#isVariable</code> function (Java backend)</h3>
 <p><strong>NOTE</strong>: The Haskell backend <em>does not</em> and <em>will not</em> support the
 meta-functions <code>#isConcrete</code> and <code>#isVariable</code>. See below for information about
@@ -1820,7 +1872,7 @@ mark the sort with the <code>locations</code> attribute.</p>
 <code>K-LOCATIONS</code> module in <code>kast.md</code>). The metadata can thus be accessed with
 ordinary rewrite rules:</p>
 <pre class="language-k"><code>  <span class="token keyword">rule</span> #location<span class="token punctuation">(</span>_ <span class="token operator">/</span> <span class="token number">0</span><span class="token punctuation">,</span> File<span class="token punctuation">,</span> StartLine<span class="token punctuation">,</span> _StartColumn<span class="token punctuation">,</span> _EndLine<span class="token punctuation">,</span> _EndColumn<span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
-  <span class="token string">&quot;Error: Division by zero at &quot;</span> <span class="token operator">+</span><span class="token keyword">String</span> File <span class="token operator">+</span><span class="token keyword">String</span> <span class="token string">&quot;:&quot;</span> Int2String<span class="token punctuation">(</span>StartLine<span class="token punctuation">)</span> 
+  <span class="token string">&quot;Error: Division by zero at &quot;</span> <span class="token operator">+</span><span class="token keyword">String</span> File <span class="token operator">+</span><span class="token keyword">String</span> <span class="token string">&quot;:&quot;</span> Int2String<span class="token punctuation">(</span>StartLine<span class="token punctuation">)</span>
 </code></pre>
 <h2 id="unparsing">Unparsing</h2>
 <p>A number of factors go into how terms are unparsed in K. Here we describe some
@@ -1956,7 +2008,7 @@ each terminal or <code>%c</code> in the format attribute advances the pointer in
 by one element, and terminals and <code>%r</code> reset the current color to the default
 foreground color of the terminal afterwards.</p>
 <p>There are two ways you can construct a list of colors associated with a
-production:P</p>
+production:</p>
 <ul>
 <li>
 <p>The <code>color</code> attribute creates the entire list all with the same color, as
@@ -2202,35 +2254,40 @@ sed &apos;s/hook(//&apos; | sed &apos;s/)//&apos; | sort | uniq | grep -v org.kf
         </main>
       </div>
     </div>
-<footer class="app-footer text-md-left text-center">
+<!-- The footer is now controlled by the k-web-theme git submodule -->
+<footer id="rvsite-footer" class="app-footer text-md-left text-center">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-md-2 mb-md-0 mb-4">
-        <span class="pr-md-5 pr-0 py-3">
-          <a href="https://runtimeverification.com" target="_blank">
-            <picture>
-              <source
-                srcset="../assets/img/rv-logo-dark.png"
-                media="(prefers-color-scheme: dark)"
-              />
-              <img
-                class="pr-3 footer-logo"
-                src="../assets/img/rv-logo.png"
-                alt="Runtime Verification Inc logo"
-              />
-            </picture>
-          </a>
-        </span>
-      </div>
-      <div class="col-md-6 mb-md-0 mb-4"></div>
-      <div class="col-md-4 text-md-right">
-        <p class="copyright">
-          &copy; 2020 Runtime Verification Inc. All right reserved.
+      <div class="col-md-4 mb-md-0 mb-4">
+        <a href="https://runtimeverification.com/" target="_blank">
+          <picture>
+            <source
+              srcset="
+                https://runtimeverification.com/assets/img/rv-logo-dark.png
+              "
+              media="(prefers-color-scheme: dark)"
+            />
+            <img
+              class="logo-dark"
+              src="https://runtimeverification.com/assets/img/rv-logo.png"
+              alt="Runtime Verification logo"
+              style="height: 32px"
+            /> </picture
+        ></a>
+        <p class="mt-2 text-md-left copyright">
+          <a href="https://goo.gl/maps/NYzr2iKpXMgEmQ2F6" target="_blank"
+            >102 E Main St #500, Urbana, IL 61801</a
+          >
         </p>
+      </div>
+      <div class="col-md-4 text-md-center mb-md-0 mb-4"></div>
+      <div class="col-md-4 mb-md-0 mb-4 text-md-right">
+        <p class="copyright">2021 © all rights reserved</p>
       </div>
     </div>
   </div>
 </footer>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../assets/js/index.js"></script>

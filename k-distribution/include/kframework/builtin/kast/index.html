@@ -13,13 +13,12 @@
 <meta name="keywords" content="runtime, verification, rv, k" />
 <meta name="author" content="K | Runtime Verification Inc" />
 <meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://kframework.org/k-distribution/include/kframework/builtin/kast/" />
 
 <!--favicon icon-->
 <link rel="icon" type="image/png" href="../../../../../assets/img/favicon.ico" />
 
-<title>
-  K | Runtime Verification Inc
-</title>
+<title>K | Runtime Verification Inc</title>
 
 <!-- <base href="/k/" /> -->
 
@@ -109,7 +108,7 @@
     <div class="bd-toc-item">
       <a class="bd-toc-link" href="../../../../../">Homepage</a>
       <a class="bd-toc-link" href="../../../../../downloads">Downloads</a>
-      <a class="bd-toc-link" href="../../../../../k-distribution/tutorial"
+      <a class="bd-toc-link" href="../../../../../k-distribution/pl-tutorial"
         >K Tutorial</a
       >
       <a class="bd-toc-link" href="../../../../../pending-documentation/"
@@ -210,7 +209,7 @@ the user.</p>
              <span class="token operator">|</span> <span class="token string">&quot;.::K&quot;</span>    <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#EmptyK<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">symbol</span><span class="token punctuation">,</span> unparseAvoid<span class="token punctuation">]</span>
   <span class="token keyword">syntax</span> K <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> K <span class="token string">&quot;~&gt;&quot;</span> K  <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#KSequence<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">left</span><span class="token punctuation">,</span> assoc<span class="token punctuation">,</span> unit<span class="token punctuation">(</span>#EmptyK<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">symbol</span><span class="token punctuation">]</span>
   <span class="token keyword">syntax left</span> #KSequence
-  <span class="token keyword">syntax</span> <span class="token punctuation">{</span>Sort<span class="token punctuation">}</span> Sort     <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;(&quot;</span> Sort <span class="token string">&quot;)&quot;</span>    <span class="token punctuation">[</span><span class="token class-name">bracket</span><span class="token punctuation">]</span>
+  <span class="token keyword">syntax</span> <span class="token punctuation">{</span>Sort<span class="token punctuation">}</span> Sort     <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;(&quot;</span> Sort <span class="token string">&quot;)&quot;</span>    <span class="token punctuation">[</span><span class="token class-name">bracket</span><span class="token punctuation">,</span> defaultBracket<span class="token punctuation">,</span> applyPriority<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
 <span class="token keyword">endmodule</span>
 </code></pre>
 <h2 id="syntax-of-matching-logic">Syntax of Matching Logic</h2>
@@ -238,7 +237,7 @@ logical assistance to proofs and symbolic execution in the Haskell Backend.</p>
 <li><code>#wEF</code> - <code>weakExistsFinally</code></li>
 <li><code>#wAF</code> - <code>weakAlwaysFinally</code></li>
 </ul>
-<pre class="language-k"><code><span class="token keyword">module</span> ML<span class="token operator">-</span>SYNTAX
+<pre class="language-k"><code><span class="token keyword">module</span> ML<span class="token operator">-</span>SYNTAX <span class="token punctuation">[</span>not<span class="token operator">-</span>lr1<span class="token punctuation">]</span>
   <span class="token keyword">imports</span> SORT<span class="token operator">-</span>K
 
   <span class="token keyword">syntax</span> <span class="token punctuation">{</span>Sort<span class="token punctuation">}</span> Sort <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token string">&quot;#Top&quot;</span> <span class="token punctuation">[</span><span class="token class-name">klabel</span><span class="token punctuation">(</span>#Top<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">symbol</span><span class="token punctuation">,</span> mlUnary<span class="token punctuation">]</span>
@@ -565,9 +564,9 @@ for the purposes of parsing K rules. If you wish to declare a language with
 no layout productions, simply create a sort declaration for the <code>#Layout</code> sort
 in your code (e.g. <code>syntax #Layout</code>).</p>
 <pre class="language-k"><code><span class="token keyword">module</span> DEFAULT<span class="token operator">-</span>LAYOUT
-    <span class="token keyword">syntax</span> #Layout <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> r<span class="token string">&quot;(\\/\\*([^\\*]|(\\*+([^\\*\\/])))*\\*+\\/)&quot;</span>
-                     <span class="token operator">|</span> r<span class="token string">&quot;(\\/\\/[^\\n\\r]*)&quot;</span>
-                     <span class="token operator">|</span> r<span class="token string">&quot;([\\ \\n\\r\\t])&quot;</span>
+    <span class="token keyword">syntax</span> #Layout <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> r<span class="token string">&quot;(\\/\\*([^\\*]|(\\*+([^\\*\\/])))*\\*+\\/)&quot;</span> <span class="token comment">// C-style multi-line comments</span>
+                     <span class="token operator">|</span> r<span class="token string">&quot;(\\/\\/[^\\n\\r]*)&quot;</span>                         <span class="token comment">// C-style single-line comments</span>
+                     <span class="token operator">|</span> r<span class="token string">&quot;([\\ \\n\\r\\t])&quot;</span>                           <span class="token comment">// Whitespace</span>
 <span class="token keyword">endmodule</span>
 </code></pre>
 <h2 id="default-configuration">Default Configuration</h2>
@@ -614,35 +613,40 @@ are generated by the parser.</p>
         </main>
       </div>
     </div>
-<footer class="app-footer text-md-left text-center">
+<!-- The footer is now controlled by the k-web-theme git submodule -->
+<footer id="rvsite-footer" class="app-footer text-md-left text-center">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-md-2 mb-md-0 mb-4">
-        <span class="pr-md-5 pr-0 py-3">
-          <a href="https://runtimeverification.com" target="_blank">
-            <picture>
-              <source
-                srcset="../../../../../assets/img/rv-logo-dark.png"
-                media="(prefers-color-scheme: dark)"
-              />
-              <img
-                class="pr-3 footer-logo"
-                src="../../../../../assets/img/rv-logo.png"
-                alt="Runtime Verification Inc logo"
-              />
-            </picture>
-          </a>
-        </span>
-      </div>
-      <div class="col-md-6 mb-md-0 mb-4"></div>
-      <div class="col-md-4 text-md-right">
-        <p class="copyright">
-          &copy; 2020 Runtime Verification Inc. All right reserved.
+      <div class="col-md-4 mb-md-0 mb-4">
+        <a href="https://runtimeverification.com/" target="_blank">
+          <picture>
+            <source
+              srcset="
+                https://runtimeverification.com/assets/img/rv-logo-dark.png
+              "
+              media="(prefers-color-scheme: dark)"
+            />
+            <img
+              class="logo-dark"
+              src="https://runtimeverification.com/assets/img/rv-logo.png"
+              alt="Runtime Verification logo"
+              style="height: 32px"
+            /> </picture
+        ></a>
+        <p class="mt-2 text-md-left copyright">
+          <a href="https://goo.gl/maps/NYzr2iKpXMgEmQ2F6" target="_blank"
+            >102 E Main St #500, Urbana, IL 61801</a
+          >
         </p>
+      </div>
+      <div class="col-md-4 text-md-center mb-md-0 mb-4"></div>
+      <div class="col-md-4 mb-md-0 mb-4 text-md-right">
+        <p class="copyright">2021 © all rights reserved</p>
       </div>
     </div>
   </div>
 </footer>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Typist/1.2/typist.min.js"></script>
     <script src="../../../../../assets/js/index.js"></script>
