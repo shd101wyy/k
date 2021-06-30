@@ -108,8 +108,11 @@
     <div class="bd-toc-item">
       <a class="bd-toc-link" href="../../../../">Homepage</a>
       <a class="bd-toc-link" href="../../../../downloads">Downloads</a>
-      <a class="bd-toc-link" href="../../../../k-distribution/pl-tutorial"
+      <a class="bd-toc-link" href="../../../../k-distribution/k-tutorial"
         >K Tutorial</a
+      >
+      <a class="bd-toc-link" href="../../../../k-distribution/pl-tutorial"
+        >K PL Tutorial</a
       >
       <a class="bd-toc-link" href="../../../../pending-documentation/"
         >User documentation</a
@@ -133,7 +136,7 @@
 separate modules and files and how these distinct components combine into a
 complete K definition.</p>
 <h2 id="k&apos;s-outer-syntax">K&apos;s outer syntax</h2>
-<p>Recall from <a href="../03_parsing/">Lesson 3</a> that K&apos;s grammar is broken into
+<p>Recall from <a href="../03_parsing/">Lesson 1.3</a> that K&apos;s grammar is broken into
 two components: the <strong>outer syntax</strong> of K and the <strong>inner syntax</strong> of K. Outer
 syntax, as previously mentioned, consists of <strong>requires</strong>, <strong>modules</strong>,
 <strong>imports</strong>, and <strong>sentences</strong>. A K semantics is expressed by the set of
@@ -255,7 +258,8 @@ of those files together, and uses them collectively as the set of modules to
 which <code>imports</code> statements can refer.</p>
 <h2 id="putting-it-all-together">Putting it all together</h2>
 <p>Putting it all together, here is one possible way in which we could break the
-definition <code>lesson-02-c.k</code> from Lesson 2 into multiple files and modules:</p>
+definition <code>lesson-02-c.k</code> from <a href="../02_basics/">Lesson 1.2</a> into
+multiple files and modules:</p>
 <p><code>colors.k</code>:</p>
 <pre class="language-k"><code><span class="token keyword">module</span> COLORS
   <span class="token keyword">syntax</span> Color <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Yellow<span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -305,7 +309,7 @@ in which case these directories are prepended on the beginning of the list.</p>
 <h2 id="exercises">Exercises</h2>
 <ol>
 <li>
-<p>Take the solution to Lesson 4, Problem 1 which included the explicit
+<p>Take the solution to lesson 1.4, problem 1 which included the explicit
 priority and associativity declarations, and modify the definition so that
 the syntax of integers and brackets is in one module, the syntax of addition,
 subtraction, and unary negation is in another module, and the syntax of
@@ -313,11 +317,11 @@ multiplication and division is in a third module. Make sure you can still parse
 the same set of expressions as before.</p>
 </li>
 <li>
-<p>Modify <code>lesson-02-d.k</code> from Lesson 2 so that the rules and syntax are in
+<p>Modify <code>lesson-02-d.k</code> from lesson 1.2 so that the rules and syntax are in
 separate modules in separate files.</p>
 </li>
 <li>
-<p>Place the file containing the syntax from Problem 2 in another directory,
+<p>Place the file containing the syntax from problem 2 in another directory,
 then recompile the definition. Observe why a compilation error occurs. Then
 fix the compiler error by passing <code>-I</code> to kompile.</p>
 </li>

@@ -108,8 +108,11 @@
     <div class="bd-toc-item">
       <a class="bd-toc-link" href="../../../../">Homepage</a>
       <a class="bd-toc-link" href="../../../../downloads">Downloads</a>
-      <a class="bd-toc-link" href="../../../../k-distribution/pl-tutorial"
+      <a class="bd-toc-link" href="../../../../k-distribution/k-tutorial"
         >K Tutorial</a
+      >
+      <a class="bd-toc-link" href="../../../../k-distribution/pl-tutorial"
+        >K PL Tutorial</a
       >
       <a class="bd-toc-link" href="../../../../pending-documentation/"
         >User documentation</a
@@ -190,7 +193,7 @@ What this means, in practice, is that this rule has lower priority than other
 rules, and will only be tried to be applied after all the other,
 higher-priority rules have been tried and they have failed.</p>
 <p>For example, in the above exercise, we had to add a side condition containing
-two boolean comparisons to the rule we wrote to handle <code>letter-B</code> grades.
+two Boolean comparisons to the rule we wrote to handle <code>letter-B</code> grades.
 However, in practice this meant that we compare the percentile to 90 twice. We
 can more efficiently and more idiomatically write the <code>letter-B</code> case for the
 <code>gradeFromPercentile</code> rule using the <code>owise</code> attribute (<code>lesson-07-b.k</code>):</p>
@@ -222,7 +225,7 @@ followed by all the <code>owise</code> rules, in any order.</p>
 <h3 id="exercise-1">Exercise</h3>
 <p>Write another implementation of <code>gradeFromPercentile</code> which handles only the
 cases for <code>D</code> and <code>F</code>, and uses the <code>owise</code> attribute to avoid redundant
-boolean comparisons. Test that various percentiles in the range [0, 70) are
+Boolean comparisons. Test that various percentiles in the range [0, 70) are
 evaluated correctly.</p>
 <h2 id="rule-priority">Rule Priority</h2>
 <p>As it happens, the <code>owise</code> attribute is a specific case of a more general
@@ -291,12 +294,12 @@ explicit priority.</p>
 <li>
 <p>Write a function <code>isEven</code> that returns whether an integer is an even number.
 Use two rules and one side condition. The right hand side of the rules should
-be boolean literals. Refer back to
+be Boolean literals. Refer back to
 <a href="../../../include/kframework/builtin/domains/">domains.md</a> for the relevant
 integer operations.</p>
 </li>
 <li>
-<p>Modify the calculator application from lesson 6, problem 2, so that division
+<p>Modify the calculator application from lesson 1.6, problem 2, so that division
 by zero will no longer make <code>krun</code> crash with a &quot;Divison by zero&quot; exception.
 Instead, the <code>/</code> function should not match any of its rules if the denominator
 is zero.</p>

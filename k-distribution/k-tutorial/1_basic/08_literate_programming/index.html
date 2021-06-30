@@ -108,8 +108,11 @@
     <div class="bd-toc-item">
       <a class="bd-toc-link" href="../../../../">Homepage</a>
       <a class="bd-toc-link" href="../../../../downloads">Downloads</a>
-      <a class="bd-toc-link" href="../../../../k-distribution/pl-tutorial"
+      <a class="bd-toc-link" href="../../../../k-distribution/k-tutorial"
         >K Tutorial</a
+      >
+      <a class="bd-toc-link" href="../../../../k-distribution/pl-tutorial"
+        >K PL Tutorial</a
       >
       <a class="bd-toc-link" href="../../../../pending-documentation/"
         >User documentation</a
@@ -208,7 +211,7 @@ with the <code>k</code> selector. However, this is merely a specific instance of
 principle, namely, that K allows you to control which selectors get included
 in your K definition. This is done by means of the <code>--md-selector</code> flag to
 <code>kompile</code>. This flag accepts a <strong>Markdown selector expression</strong>, which you
-can essentially think of as a kind of boolean algebra over Markdown selectors.
+can essentially think of as a kind of Boolean algebra over Markdown selectors.
 Each selector becomes an atom, and you can combine these atoms via the <code>&amp;</code>,
 <code>|</code>, <code>!</code>, and <code>()</code> operators.</p>
 <p>Here is a grammar, written in K, of the language of Markdown selector
@@ -240,12 +243,12 @@ that you get a parser error if you try to evaluate the <code>foo</code> function
 resulting definition.</p>
 </li>
 <li>
-<p>Compile <a href="../03_parsing/">Lesson 3</a> as a K definition. Identify
+<p>Compile <a href="../03_parsing/">Lesson 1.3</a> as a K definition. Identify
 why it fails to compile. Then pass an appropriate <code>--md-selector</code> to the
 compiler in order to make it compile.</p>
 </li>
 <li>
-<p>Modify your calculator application from lesson 7, problem 2, to be written
+<p>Modify your calculator application from lesson 1.7, problem 2, to be written
 in a literate style. Consider what text might be appropriate to turn the
 resulting markdown file into documentation for your calculator.</p>
 </li>

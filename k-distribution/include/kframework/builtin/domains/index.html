@@ -108,8 +108,11 @@
     <div class="bd-toc-item">
       <a class="bd-toc-link" href="../../../../../">Homepage</a>
       <a class="bd-toc-link" href="../../../../../downloads">Downloads</a>
-      <a class="bd-toc-link" href="../../../../../k-distribution/pl-tutorial"
+      <a class="bd-toc-link" href="../../../../../k-distribution/k-tutorial"
         >K Tutorial</a
+      >
+      <a class="bd-toc-link" href="../../../../../k-distribution/pl-tutorial"
+        >K PL Tutorial</a
       >
       <a class="bd-toc-link" href="../../../../../pending-documentation/"
         >User documentation</a
@@ -1392,10 +1395,25 @@ others are also modified. Care should be taken not to rely on this fact however
 as this is not the case in symbolic backends and thus you will experience
 divergent behavior unless the <code>Bytes</code> type is used in a manner that preserves
 consistency.</p>
-<pre class="language-k"><code><span class="token keyword">module</span> BYTES<span class="token operator">-</span>HOOKED
+<pre class="language-k"><code><span class="token keyword">module</span> BYTES<span class="token operator">-</span>SYNTAX
   <span class="token keyword">imports</span> STRING<span class="token operator">-</span>SYNTAX
 
   <span class="token keyword">syntax</span> Bytes <span class="token punctuation">[</span>hook<span class="token punctuation">(</span>BYTES<span class="token punctuation">.</span>Bytes<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">token</span><span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
+</code></pre>
+<pre class="language-k"><code><span class="token keyword">module</span> BYTES<span class="token operator">-</span>STRING<span class="token operator">-</span>ENCODE <span class="token punctuation">[</span>kore<span class="token punctuation">,</span> symbolic<span class="token punctuation">]</span>
+  <span class="token keyword">imports</span> BYTES<span class="token operator">-</span>SYNTAX
+</code></pre>
+<h3 id="encoding%2Fdecoding-between-bytes-and-string">Encoding/decoding between Bytes and String</h3>
+<p>You can encode/decode between Bytes and String using <code>UTF-8</code>, <code>UTF-16LE</code>, <code>UTF-16BE</code>, <code>UTF-32LE</code>, and <code>UTF-32BE</code></p>
+<pre class="language-k"><code>    <span class="token keyword">syntax</span> <span class="token keyword">String</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> decodeBytes <span class="token punctuation">(</span> encoding<span class="token punctuation">:</span> <span class="token keyword">String</span> <span class="token punctuation">,</span> contents<span class="token punctuation">:</span> Bytes <span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>BYTES<span class="token punctuation">.</span>decodeBytes<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">syntax</span> Bytes <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> encodeBytes <span class="token punctuation">(</span> encoding<span class="token punctuation">:</span> <span class="token keyword">String</span> <span class="token punctuation">,</span> contents<span class="token punctuation">:</span> <span class="token keyword">String</span> <span class="token punctuation">)</span> <span class="token punctuation">[</span>function<span class="token punctuation">,</span> hook<span class="token punctuation">(</span>BYTES<span class="token punctuation">.</span>encodeBytes<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">endmodule</span>
+</code></pre>
+<pre class="language-k"><code><span class="token keyword">module</span> BYTES<span class="token operator">-</span>HOOKED
+  <span class="token keyword">imports</span> STRING<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> BYTES<span class="token operator">-</span>SYNTAX
+  <span class="token keyword">imports</span> BYTES<span class="token operator">-</span>STRING<span class="token operator">-</span>ENCODE
 </code></pre>
 <h3 id="empty-byte-array">Empty byte array</h3>
 <p>The byte array of length zero is represented by <code>.Bytes</code>.</p>
