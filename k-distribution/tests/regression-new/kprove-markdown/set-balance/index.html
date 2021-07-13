@@ -788,6 +788,205 @@ lacking polymorphism.</p>
 </code></pre>
 </body></html></div>
         </main>
+
+        <!-- Page ToC -->
+        <div class="col-12 col-md-3 col-xl-2 py-md-3 bd-sidebar page-toc mb-3">
+          
+<div>
+  <div style="padding:0.25rem 0;">
+    <strong>On this page</strong>
+  </div>
+<details style="margin-left: 0px;;padding:0.25rem 0;" open>
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#set_balance-spec" class="bd-toc-link"><code>set_balance</code> spec</a></summary>
+            <div>
+              <div style="padding:0.25rem 0;">
+              <a
+                href="#state-model"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                State Model
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#data"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Data
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#results"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Results
+              </a></div><details style="margin-left: 8px;;padding:0.25rem 0;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#public-getters" class="bd-toc-link">Public Getters</a></summary>
+            <div>
+              <div style="padding:0.25rem 0;">
+              <a
+                href="#total_balance"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>total_balance</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#free_balance"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>free_balance</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#reserved_balance"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>reserved_balance</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#can_slash"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>can_slash</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#total_issuance"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>total_issuance</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#issue"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>issue</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#burn"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>burn</code>
+              </a></div>
+            </div>
+          </details>
+        <details style="margin-left: 8px;;padding:0.25rem 0;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#actions-and-results" class="bd-toc-link">Actions and Results</a></summary>
+            <div>
+              <div style="padding:0.25rem 0;">
+              <a
+                href="#account_exists"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>account_exists</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#create_account"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>create_account</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#set_free_balance"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>set_free_balance</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#set_reserved_balance"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>set_reserved_balance</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#set_balance"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>set_balance</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#transfer_raw"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>transfer_raw</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#force_transfer"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>force_transfer</code>
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#withdraw"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>withdraw</code>
+              </a></div>
+            </div>
+          </details>
+        <div style="padding:0.25rem 0;">
+              <a
+                href="#call-frames"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Call Frames
+              </a></div><details style="margin-left: 8px;;padding:0.25rem 0;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#slashing-and-repatriation-of-reserved-balances" class="bd-toc-link">Slashing and repatriation of reserved balances</a></summary>
+            <div>
+              <div style="padding:0.25rem 0;">
+              <a
+                href="#slashing"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Slashing
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#reservation-and-unreservation-of-balances"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Reservation and unreservation of balances
+              </a></div>
+            </div>
+          </details>
+        <div style="padding:0.25rem 0;">
+              <a
+                href="#vesting"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Vesting
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#deposits"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Deposits
+              </a></div>
+            </div>
+          </details>
+        
+</div>
+
+        </div>
+        <div class="btn btn-rv-blue page-toc-toggle-btn"></div>
+        <!-- End Page ToC -->
       </div>
     </div>
 <!-- The footer is now controlled by the k-web-theme git submodule -->

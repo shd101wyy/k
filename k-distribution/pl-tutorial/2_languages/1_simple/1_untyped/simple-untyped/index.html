@@ -1155,6 +1155,334 @@ IMP++ tutorial for what the transition option means how to use it.</p>
 <p>Go to <a href="../../2_typed/1_static/simple-typed-static/">Lesson 2, SIMPLE typed static</a></p>
 </body></html></div>
         </main>
+
+        <!-- Page ToC -->
+        <div class="col-12 col-md-3 col-xl-2 py-md-3 bd-sidebar page-toc mb-3">
+          
+<div>
+  <div style="padding:0.25rem 0;">
+    <strong>On this page</strong>
+  </div>
+<details style="margin-left: 0px;;padding:0.25rem 0;" open>
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#simple-%E2%80%94-untyped" class="bd-toc-link">SIMPLE &#x2014; Untyped</a></summary>
+            <div>
+              <div style="padding:0.25rem 0;">
+              <a
+                href="#abstract"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Abstract
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#syntax"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Syntax
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#identifiers"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Identifiers
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#declarations"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Declarations
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#expressions"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Expressions
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#statements"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Statements
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#desugared-syntax"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Desugared Syntax
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#basic-semantic-infrastructure"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Basic Semantic Infrastructure
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#values"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Values
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#configuration"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Configuration
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#declarations-and-initialization"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Declarations and Initialization
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#variable-declaration"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Variable Declaration
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#array-declaration"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Array Declaration
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#function-declaration"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Function declaration
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#expressions-1"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Expressions
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#variable-lookup"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Variable lookup
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#variable%2Farray-increment"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Variable/Array increment
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#arithmetic-operators"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Arithmetic operators
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#array-lookup"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Array lookup
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#size-of-an-array"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Size of an array
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#function-call"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Function call
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#read"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Read
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#assignment"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Assignment
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#statements-1"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Statements
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#blocks"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Blocks
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#sequential-composition"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Sequential composition
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#expression-statements"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Expression statements
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#conditional"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Conditional
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#while-loop"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                While loop
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#print"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Print
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#exceptions"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Exceptions
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#threads"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Threads
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#thread-creation"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Thread creation
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#thread-termination"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Thread termination
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#thread-joining"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Thread joining
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#acquire-lock"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Acquire lock
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#release-lock"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Release lock
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#rendezvous-synchronization"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Rendezvous synchronization
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#auxiliary-declarations-and-operations"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Auxiliary declarations and operations
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#making-declarations"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Making declarations
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#location-lookup"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Location lookup
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#environment-recovery"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Environment recovery
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#lvalue-and-loc"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                lvalue and loc
+              </a></div><div style="padding:0.25rem 0;">
+              <a
+                href="#initializing-multiple-locations"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Initializing multiple locations
+              </a></div>
+            </div>
+          </details>
+        
+</div>
+
+        </div>
+        <div class="btn btn-rv-blue page-toc-toggle-btn"></div>
+        <!-- End Page ToC -->
       </div>
     </div>
 <!-- The footer is now controlled by the k-web-theme git submodule -->
