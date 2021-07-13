@@ -13,7 +13,7 @@
 <meta name="keywords" content="runtime, verification, rv, k" />
 <meta name="author" content="K | Runtime Verification Inc" />
 <meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://kframework.org/pending-documentation/" />
+<link rel="canonical" href="https://kframework.org/USER_MANUAL/" />
 
 <!--favicon icon-->
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico" />
@@ -105,6 +105,627 @@
     </button>
   </form>
   <nav class="collapse bd-links" aria-label="Main navigation">
+    
+<div style="padding-left:1.5rem;">
+<details style="margin-left: 0px;" open>
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#k-user-manual" class="bd-toc-link">K User Manual</a></summary>
+            <div>
+              <details style="margin-left: 8px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#syntax-declaration" class="bd-toc-link">Syntax Declaration</a></summary>
+            <div>
+              <div>
+              <a
+                href="#named-non-terminals"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Named Non-Terminals
+              </a></div><div>
+              <a
+                href="#klabel(_)-and-symbol-attributes"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>klabel(_)</code> and <code>symbol</code> attributes
+              </a></div><div>
+              <a
+                href="#parametric-productions-and-bracket-attributes"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Parametric productions and <code>bracket</code> attributes
+              </a></div><div>
+              <a
+                href="#function-and-functional-attributes"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>function</code> and <code>functional</code> attributes
+              </a></div><div>
+              <a
+                href="#freshgenerator-attribute"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>freshGenerator</code> attribute
+              </a></div><div>
+              <a
+                href="#token-attribute"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>token</code> attribute
+              </a></div><div>
+              <a
+                href="#converting-between-%5Btoken%5D-sorts"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Converting between <code>[token]</code> sorts
+              </a></div><div>
+              <a
+                href="#parsing-comments%2C-and-the-%23layout-sort"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Parsing comments, and the <code>#Layout</code> sort
+              </a></div><div>
+              <a
+                href="#prec-attribute"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>prec</code> attribute
+              </a></div><div>
+              <a
+                href="#unused-attribute"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>unused</code> attribute
+              </a></div><div>
+              <a
+                href="#symbol-priority-and-associativity"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Symbol priority and associativity
+              </a></div><div>
+              <a
+                href="#lexical-identifiers"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Lexical identifiers
+              </a></div><div>
+              <a
+                href="#assoc%2C-comm%2C-idem%2C-and-unit-attributes"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>assoc</code>, <code>comm</code>, <code>idem</code>, and <code>unit</code> attributes
+              </a></div>
+            </div>
+          </details>
+        <details style="margin-left: 8px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#configuration-declaration" class="bd-toc-link">Configuration Declaration</a></summary>
+            <div>
+              <div>
+              <a
+                href="#exit-attribute"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>exit</code> attribute
+              </a></div><div>
+              <a
+                href="#collection-cells%3A-multiplicity-and-type-attributes"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Collection Cells: <code>multiplicity</code> and <code>type</code> attributes
+              </a></div>
+            </div>
+          </details>
+        <details style="margin-left: 8px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#rule-declaration" class="bd-toc-link">Rule Declaration</a></summary>
+            <div>
+              <div>
+              <a
+                href="#pattern-matching-operator"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Pattern Matching operator
+              </a></div><div>
+              <a
+                href="#anonymous-function-applications"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Anonymous function applications
+              </a></div><div>
+              <a
+                href="#macros-and-aliases"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Macros and Aliases
+              </a></div><div>
+              <a
+                href="#anywhere-rules"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>anywhere</code> rules
+              </a></div><div>
+              <a
+                href="#smt-lemma%2C-lemma%2C-and-trusted-attributes"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>smt-lemma</code>, <code>lemma</code>, and <code>trusted</code> attributes
+              </a></div><div>
+              <a
+                href="#projection-and-predicate-functions"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Projection and Predicate functions
+              </a></div><div>
+              <a
+                href="#simplification-attribute-(haskell-backend)"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>simplification</code> attribute (Haskell backend)
+              </a></div><div>
+              <a
+                href="#concrete-attribute%2C-%23isconcrete-and-%23isvariable-function-(java-backend)"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>concrete</code> attribute, <code>#isConcrete</code> and <code>#isVariable</code> function (Java backend)
+              </a></div><div>
+              <a
+                href="#concrete-and-symbolic-attributes-(haskell-backend)"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>concrete</code> and <code>symbolic</code> attributes (Haskell backend)
+              </a></div><div>
+              <a
+                href="#the-unboundvariables-attribute"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                The <code>unboundVariables</code> attribute
+              </a></div><details style="margin-left: 16px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#the-memo-attribute" class="bd-toc-link">The <code>memo</code> attribute</a></summary>
+            <div>
+              <div>
+              <a
+                href="#limitations-of-memoization-with-the-haskell-backend"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Limitations of memoization with the Haskell backend
+              </a></div>
+            </div>
+          </details>
+        <div>
+              <a
+                href="#variable-sort-inference"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Variable Sort Inference
+              </a></div><div>
+              <a
+                href="#casting"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Casting
+              </a></div><div>
+              <a
+                href="#semantic-casts"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Semantic casts
+              </a></div><div>
+              <a
+                href="#strict-casts"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Strict casts
+              </a></div><div>
+              <a
+                href="#projection-casts"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Projection casts
+              </a></div><div>
+              <a
+                href="#owise-and-priority-attributes."
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>owise</code> and <code>priority</code> attributes.
+              </a></div>
+            </div>
+          </details>
+        <details style="margin-left: 8px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#evaluation-strategy" class="bd-toc-link">Evaluation Strategy</a></summary>
+            <div>
+              <div>
+              <a
+                href="#strict-and-seqstrict-attributes"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>strict</code> and <code>seqstrict</code> attributes
+              </a></div><div>
+              <a
+                href="#context-declaration"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Context Declaration
+              </a></div><div>
+              <a
+                href="#side-conditions-in-context-declarations"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Side conditions in context declarations
+              </a></div><div>
+              <a
+                href="#rewrites-in-context-declarations"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Rewrites in context declarations
+              </a></div><div>
+              <a
+                href="#result-attribute"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>result</code> attribute
+              </a></div><div>
+              <a
+                href="#hybrid-attribute"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>hybrid</code> attribute
+              </a></div><div>
+              <a
+                href="#context-aliases"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Context aliases
+              </a></div>
+            </div>
+          </details>
+        <details style="margin-left: 8px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#pattern-matching" class="bd-toc-link">Pattern Matching</a></summary>
+            <div>
+              <div>
+              <a
+                href="#as-patterns"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                As Patterns
+              </a></div><div>
+              <a
+                href="#record-like-kapply-patterns"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Record-like KApply Patterns
+              </a></div><div>
+              <a
+                href="#or-patterns"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Or Patterns
+              </a></div><div>
+              <a
+                href="#matching-global-context-in-function-rules"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Matching global context in function rules
+              </a></div><div>
+              <a
+                href="#collection-patterns"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Collection patterns
+              </a></div><div>
+              <a
+                href="#matching-on-cell-fragments"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Matching on cell fragments
+              </a></div><div>
+              <a
+                href="#all-path-and-one-path-attributes-to-distinguish-reachability-claims"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>all-path</code> and <code>one-path</code> attributes to distinguish reachability claims
+              </a></div><details style="margin-left: 16px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#set-variables" class="bd-toc-link">Set Variables</a></summary>
+            <div>
+              <div>
+              <a
+                href="#motivation"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Motivation
+              </a></div><div>
+              <a
+                href="#syntax"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Syntax
+              </a></div><div>
+              <a
+                href="#example"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Example
+              </a></div><div>
+              <a
+                href="#smt-translation"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                SMT Translation
+              </a></div><div>
+              <a
+                href="#caution"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Caution
+              </a></div>
+            </div>
+          </details>
+        <details style="margin-left: 16px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#variables-occurring-only-in-the-rhs-of-a-rule" class="bd-toc-link">Variables occurring only in the RHS of a rule</a></summary>
+            <div>
+              <div>
+              <a
+                href="#summary"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Summary
+              </a></div><div>
+              <a
+                href="#introduction"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Introduction
+              </a></div><details style="margin-left: 24px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#example%3A-verification-claims" class="bd-toc-link">Example: Verification claims</a></summary>
+            <div>
+              <div>
+              <a
+                href="#one-path-interpretation"
+                class="bd-toc-link"
+                style="margin-left: 32px;;display:inline;padding:0.25rem 0;"
+              >
+                One-path interpretation
+              </a></div><div>
+              <a
+                href="#all-path-interpretation"
+                class="bd-toc-link"
+                style="margin-left: 32px;;display:inline;padding:0.25rem 0;"
+              >
+                All-path interpretation
+              </a></div>
+            </div>
+          </details>
+        <details style="margin-left: 24px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#example%3A-random-number-construct-rand()" class="bd-toc-link">Example: Random Number Construct <code>rand()</code></a></summary>
+            <div>
+              <div>
+              <a
+                href="#rand-like-examples"
+                class="bd-toc-link"
+                style="margin-left: 32px;;display:inline;padding:0.25rem 0;"
+              >
+                Rand-like examples
+              </a></div>
+            </div>
+          </details>
+        <div>
+              <a
+                href="#example%3A-fresh-integer-construct-fresh(is)"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Example: Fresh Integer Construct <code>fresh(Is)</code>
+              </a></div><details style="margin-left: 24px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#example%3A-arbitrary-number-(unspecific-function)-arb()" class="bd-toc-link">Example: Arbitrary Number (Unspecific Function) <code>arb()</code></a></summary>
+            <div>
+              <div>
+              <a
+                href="#variants"
+                class="bd-toc-link"
+                style="margin-left: 32px;;display:inline;padding:0.25rem 0;"
+              >
+                Variants
+              </a></div>
+            </div>
+          </details>
+        <div>
+              <a
+                href="#example%3A-interval-(non-function-symbols)-interval()"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                Example: Interval (Non-function Symbols) <code>interval()</code>
+              </a></div>
+            </div>
+          </details>
+        
+            </div>
+          </details>
+        <div>
+              <a
+                href="#parser-generation"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Parser Generation
+              </a></div><div>
+              <a
+                href="#location-information"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Location Information
+              </a></div><details style="margin-left: 8px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#unparsing" class="bd-toc-link">Unparsing</a></summary>
+            <div>
+              <div>
+              <a
+                href="#brackets"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Brackets
+              </a></div><div>
+              <a
+                href="#commutative-collections"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Commutative collections
+              </a></div><div>
+              <a
+                href="#substitution-filtering"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Substitution filtering
+              </a></div><div>
+              <a
+                href="#variable-alpha-renaming"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Variable alpha renaming
+              </a></div><div>
+              <a
+                href="#macro-expansion"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Macro expansion
+              </a></div><details style="margin-left: 16px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#formatting" class="bd-toc-link">Formatting</a></summary>
+            <div>
+              <div>
+              <a
+                href="#format-attribute"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>format</code> attribute
+              </a></div><div>
+              <a
+                href="#color-and-colors-attributes"
+                class="bd-toc-link"
+                style="margin-left: 24px;;display:inline;padding:0.25rem 0;"
+              >
+                <code>color</code> and <code>colors</code> attributes
+              </a></div>
+            </div>
+          </details>
+        
+            </div>
+          </details>
+        <details style="margin-left: 8px;" >
+            <summary><a style="display:inline;padding:0.25rem 0;" href="#debugging" class="bd-toc-link">Debugging</a></summary>
+            <div>
+              <div>
+              <a
+                href="#the-k-definition"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                The K Definition
+              </a></div><div>
+              <a
+                href="#stepping"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Stepping
+              </a></div><div>
+              <a
+                href="#breaking-on-a-specific-rule"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Breaking on a specific rule
+              </a></div><div>
+              <a
+                href="#breaking-on-a-function"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Breaking on a function
+              </a></div><div>
+              <a
+                href="#breaking-on-a-set-of-rules-or-functions"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Breaking on a set of rules or functions
+              </a></div><div>
+              <a
+                href="#other-debugger-issues"
+                class="bd-toc-link"
+                style="margin-left: 16px;;display:inline;padding:0.25rem 0;"
+              >
+                Other debugger issues
+              </a></div>
+            </div>
+          </details>
+        <div>
+              <a
+                href="#pending-documentation"
+                class="bd-toc-link"
+                style="margin-left: 8px;;display:inline;padding:0.25rem 0;"
+              >
+                Pending Documentation
+              </a></div>
+            </div>
+          </details>
+        
+</div>
+
+    <hr>
     <div class="bd-toc-item">
       <a class="bd-toc-link" href="../">Homepage</a>
       <a class="bd-toc-link" href="../downloads">Downloads</a>
@@ -114,7 +735,7 @@
       <a class="bd-toc-link" href="../k-distribution/pl-tutorial"
         >K PL Tutorial</a
       >
-      <a class="bd-toc-link" href="../pending-documentation/"
+      <a class="bd-toc-link" href="../USER_MANUAL/"
         >User documentation</a
       >
       <a
@@ -131,7 +752,7 @@
           class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content"
           role="main"
         >
-          <div class="markdown-preview"><html><head></head><body><h1 id="k-manual">K Manual</h1>
+          <div class="markdown-preview"><html><head></head><body><h1 id="k-user-manual">K User Manual</h1>
 <p><strong>Under Construction</strong></p>
 <p>This document contains documentation that has been written up to some extent
 but still needs to be ultimately included in the K manual which has not been
@@ -545,217 +1166,6 @@ axioms related to each of these concepts into your definition for you
 automatically. It will also automatically sort associative-commutative
 collections, and flatten the indentation of associative collections, when
 unparsing.</p>
-<h2 id="evaluation-strategy">Evaluation Strategy</h2>
-<h3 id="strict-and-seqstrict-attributes"><code>strict</code> and <code>seqstrict</code> attributes</h3>
-<p>The strictness attributes allow defining evaluation strategies without having
-to explicitely make rules which implement them. This is done by injecting
-<em>heating</em> and <em>cooling</em> rules for the subterms. For this to work, you need to
-define what a <em>result</em> is for K, by extending the  <code>KResult</code> sort.</p>
-<p>For example:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> AExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span>
-              <span class="token operator">|</span> AExp <span class="token string">&quot;+&quot;</span> AExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
-</code></pre>
-<p>This generates two heating rules (where the hole syntaxes <code>&quot;[]&quot; &quot;+&quot; AExp</code> and
-<code>AExp &quot;+&quot; &quot;[]&quot;</code> is automatically added to create an evaluation context):</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>AExp <span class="token operator">+</span>  AE2<span class="token punctuation">:</span>AExp <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">+</span> AE2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span>  AE1<span class="token punctuation">:</span>AExp <span class="token operator">+</span> HOLE<span class="token punctuation">:</span>AExp <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> AE1 <span class="token operator">+</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
-</code></pre>
-<p>And two corresponding cooling rules:</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>AExp <span class="token operator">~&gt;</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">+</span> AE2 <span class="token operator">=&gt;</span> HOLE <span class="token operator">+</span>  AE2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>AExp <span class="token operator">~&gt;</span> AE1 <span class="token operator">+</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span>  AE1 <span class="token operator">+</span> HOLE <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
-</code></pre>
-<p>You will note that these rules can apply one after another infinitely. In
-practice, the <code>KResult</code> sort is used to break this cycle by ensuring that only
-terms that are not part of the <code>KResult</code> sort will be heated. The <code>heat</code> and
-<code>cool</code> attributes are used to tell the compiler that these are heating and
-cooling rules and should be handled in the manner just described. Nothing stops
-the user from writing such heating and cooling rules directly if they wish,
-although we describe other more convenient syntax for most of the advanced
-cases below.</p>
-<p>One other thing to note is that in the above sentences, <code>HOLE</code> is just a
-variable, but it has special meaning in the context of sentences with the
-<code>heat</code> or <code>cool</code> attribute. In heating or cooling rules, the variable named
-<code>HOLE</code> is considered to be the term being heated or cooled and the compiler
-will generate <code>isKResult(HOLE)</code> and <code>notBool isKResult(HOLE)</code> side conditions
-appropriately to ensure that the backend does not loop infinitely.</p>
-<p>In order for this functionality to work, you need to define the <code>KResult</code> sort.
-For instance, we tell K that a term is fully evaluated once it becomes an <code>Int</code>
-here:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span>
-</code></pre>
-<p>Note that you can also say that a given expression is only strict only in
-specific argument positions. Here we use this to define &quot;short-circuiting&quot;
-boolean operators.</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
-
-<span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
-              <span class="token operator">|</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-              <span class="token operator">|</span> BExp <span class="token string">&quot;&amp;&amp;&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span>  <span class="token operator">||</span> _    <span class="token operator">=&gt;</span> <span class="token boolean">true</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token operator">||</span> REST <span class="token operator">=&gt;</span> REST <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span>  <span class="token operator">&amp;&amp;</span> REST <span class="token operator">=&gt;</span> REST  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token operator">&amp;&amp;</span> _    <span class="token operator">=&gt;</span> <span class="token boolean">false</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-<p>If you want to force a specific evaluation order of the arguments, you can use
-the variant <code>seqstrict</code> to do so. For example, this would make the boolean
-operators short-circuit in their <em>second</em> argument first:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
-
-<span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
-              <span class="token operator">|</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">seqstrict</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-              <span class="token operator">|</span> BExp <span class="token string">&quot;&amp;&amp;&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">seqstrict</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> _    <span class="token operator">||</span> <span class="token boolean">true</span>  <span class="token operator">=&gt;</span> <span class="token boolean">true</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> REST <span class="token operator">||</span> <span class="token boolean">false</span> <span class="token operator">=&gt;</span> REST <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> REST <span class="token operator">&amp;&amp;</span> <span class="token boolean">true</span>  <span class="token operator">=&gt;</span> REST  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> _    <span class="token operator">&amp;&amp;</span> <span class="token boolean">false</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-<p>This will generate rules like this in the case of <code>_||_</code> (note that <code>BE1</code> will
-not be heated unless <code>isKResult(BE2)</code> is true, meaning that <code>BE2</code> must be
-evaluated first):</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span>  BE1<span class="token punctuation">:</span>BExp <span class="token operator">||</span> HOLE<span class="token punctuation">:</span>BExp <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> BE1 <span class="token operator">||</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>BExp <span class="token operator">||</span>  BE2<span class="token punctuation">:</span>BExp <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">||</span> BE2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">requires</span> isKResult<span class="token punctuation">(</span>BE2<span class="token punctuation">)</span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
-
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>BExp <span class="token operator">~&gt;</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">||</span> BE2 <span class="token operator">=&gt;</span> HOLE <span class="token operator">||</span>  BE2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>BExp <span class="token operator">~&gt;</span> BE1 <span class="token operator">||</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span>  BE1 <span class="token operator">||</span> HOLE <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
-</code></pre>
-<h3 id="context-declaration">Context Declaration</h3>
-<p>Sometimes more advanced evaluation strategies are needed. By default, the
-<code>strict</code> and <code>seqstrict</code> attributes are limited in that they cannot describe
-the <em>context</em> in which heating or cooling should occur. When this type of
-control over the evaluation strategy is required, <code>context</code> sentences can be
-used to simplify the process of declaring heating and cooling when it would be
-unnecessarily verbose to write heating and cooling rules directly.</p>
-<p>For example, if the user wants to heat a term if it exists under a <code>foo</code>
-constructor if the term to be heated is of sort <code>bar</code>, one might write the
-following context:</p>
-<pre class="language-k"><code><span class="token keyword">context</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span>
-</code></pre>
-<p>Once again, note that <code>HOLE</code> is just a variable, but one that has special
-meaning to the compiler indicating the position in the context that should
-be heated or cooled.</p>
-<p>This will automatically generate the following sentences:</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Bar <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
-</code></pre>
-<p>The user may also write the K cell explicitly in the context declaration
-if they want to match on another cell as well, for example:</p>
-<pre class="language-k"><code><span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>state</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">.</span>Map <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>state</span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-<p>This context will now only heat or cool if the <code>state</code> cell is empty.</p>
-<h3 id="side-conditions-in-context-declarations">Side conditions in context declarations</h3>
-<p>The user is allowed to write a side condition in a context declaration, like
-so:</p>
-<pre class="language-k"><code><span class="token keyword">context</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token keyword">requires</span> baz<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span>
-</code></pre>
-<p>This side condition will be appended verbatim to the heating rule that is
-generated, however, it will not affect the cooling rule that is generated:</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">requires</span> baz<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Bar <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
-</code></pre>
-<h3 id="rewrites-in-context-declarations">Rewrites in context declarations</h3>
-<p>The user can also include exactly one rewrite operation in a context
-declaration if that rule rewrites the variable <code>HOLE</code> on the left hand side
-to a term containing <code>HOLE</code> on the right hand side. For exampl;e:</p>
-<pre class="language-k"><code><span class="token keyword">context</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar <span class="token operator">=&gt;</span> bar<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
-<p>In this case, the code generated will be as follows:</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> bar<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
-<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> bar<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
-</code></pre>
-<p>This can be useful if the user wishes to evaluate a term using a different
-set of rules than normal.</p>
-<h3 id="result-attribute"><code>result</code> attribute</h3>
-<p>Sometimes it is necessary to be able to evaluate a term to a different sort
-than <code>KResult</code>. This is done by means of adding the <code>result</code> attribute to
-a strict production, a context, or an explicit heating or cooling rule:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
-              <span class="token operator">|</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">seqstrict</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> result<span class="token punctuation">(</span><span class="token keyword">Bool</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-</code></pre>
-<p>In this case, the sort check used by <code>seqstrict</code> and by the <code>heat</code> and <code>cool</code>
-attributes will be <code>isBool</code> instead of <code>isKResult</code>. This particular example
-does not really require use of the <code>result</code> attribute, but if the user wishes
-to evaluate a term of sort KResult further, the result attribute would be
-required.</p>
-<h3 id="hybrid-attribute"><code>hybrid</code> attribute</h3>
-<p>In certain situations, it is desirable to treat a particular production which
-has the <code>strict</code> attribute as a result if the term has had its arguments fully
-evaluated. This can be accomplished by means of the <code>hybrid</code> attribute:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
-
-<span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
-              <span class="token operator">|</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> hybrid<span class="token punctuation">]</span>
-</code></pre>
-<p>This attribute is equivalent in this case to the following additional axiom
-being added to the definition of <code>isKResult</code>:</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> isKResult<span class="token punctuation">(</span>BE1<span class="token punctuation">:</span>BExp <span class="token operator">||</span> BE2<span class="token punctuation">:</span>BExp<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span> <span class="token keyword">requires</span> isKResult<span class="token punctuation">(</span>BE1<span class="token punctuation">)</span>
-</code></pre>
-<p>Sometimes you wish to declare a production hybrid with respect to a predicate
-other than <code>isKResult</code>. You can do this by specifying a sort as the body of the
-<code>hybrid</code> attribute, e.g.:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> hybrid<span class="token punctuation">(</span>Foo<span class="token punctuation">)</span><span class="token punctuation">]</span>
-</code></pre>
-<p>generates the rule:</p>
-<pre class="language-k"><code><span class="token keyword">rule</span> isFoo<span class="token punctuation">(</span>BE1<span class="token punctuation">:</span>BExp <span class="token operator">||</span> BE2<span class="token punctuation">:</span>BExp<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span> <span class="token keyword">requires</span> isFoo<span class="token punctuation">(</span>BE1<span class="token punctuation">)</span>
-</code></pre>
-<p>Properly speaking, <code>hybrid</code> takes an optional comma-separated list of sort
-names. If the list is empty, the attribute is equivalent to <code>hybrid(KResult)</code>.
-Otherwise, it generates hybrid predicates for exactly the sorts named.</p>
-<h3 id="context-aliases">Context aliases</h3>
-<p>Sometimes it is necessary to define a fairly complicated evaluation strategy
-for a lot of different operators. In this case, the user <em>could</em> simply write
-a number of complex <code>context</code> declarations, however, this quickly becomes
-tedious. For this purpose, K has a concept called a <em>context alias</em>. A context
-alias is a bit like a template for describing contexts. The template can then
-be instantiated against particular productions using the <code>strict</code> and
-<code>seqstrict</code> attributes.</p>
-<p>Here is a (simplified) example taken from the K semantics of C++:</p>
-<pre class="language-k"><code><span class="token keyword">context alias</span> <span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HERE<span class="token punctuation">:</span>K <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span>
-<span class="token keyword">context alias</span> <span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HERE<span class="token punctuation">:</span>K <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>result<span class="token punctuation">(</span>ExecResult<span class="token punctuation">)</span><span class="token punctuation">]</span>
-
-<span class="token keyword">syntax</span> Expr <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Expr <span class="token string">&quot;=&quot;</span> Init <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span>c<span class="token punctuation">;</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-</code></pre>
-<p>This defines the evaluation strategy during the translation phase of a C++
-program for the assignment operator. It is equivalent to writing the following
-context declarations:</p>
-<pre class="language-k"><code><span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Expr <span class="token operator">=</span> I<span class="token punctuation">:</span>Init <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span>
-<span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Expr <span class="token operator">=</span> I<span class="token punctuation">:</span>Init <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>result<span class="token punctuation">(</span>ExecResult<span class="token punctuation">)</span><span class="token punctuation">]</span>
-</code></pre>
-<p>What this is saying is, if the <code>evaluate</code> cell is false, evaluate the term
-like normal to a <code>KResult</code>. But if the <code>evaluate</code> cell is true, instead
-evaluate it to the <code>ExecResult</code> sort.</p>
-<p>Essentially, we have given a name to this evaluation strategy in the form of
-the rule label on the context alias sentences (in this case, <code>c</code>). We can
-then say that we want to use this evaluation strategy to evaluate particular
-arguments of particular productions by referring to it by name in a <code>strict</code>
-attribute. For example, <code>strict(c)</code> will instantiate these contexts once for
-each argument of the production, whereas <code>strict(c; 1)</code> will instantiate it
-only for the first argument. The special variable <code>HERE</code> is used to tell the
-compiler where you want to place the production that is to be heated or cooled.</p>
-<p>You can also specify multiple context aliases for different parts of a production,
-for example:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> foo<span class="token punctuation">(</span>Exp<span class="token punctuation">,</span> Exp<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token class-name">left</span><span class="token punctuation">;</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token class-name">right</span><span class="token punctuation">;</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-</code></pre>
-<p>This says that we can evaluate the left and right arguments in either order, but to evaluate
-the left using the <code>left</code> context alias and the right using the <code>right</code> context alias.</p>
-<p>We can also say <code>seqstrict(left; 1; right; 2)</code>, in which case we additionally must evaluate
-the left argument before the right argument. Note, all strict positions are considered collectively
-when determining the evaluation order of <code>seqstrict</code> or the <code>hybrid</code> predicates.</p>
-<p>A <code>strict</code> attribute with no rule label associated with it is equivalent to
-a <code>strict</code> attribute given with the following context alias:</p>
-<pre class="language-k"><code><span class="token keyword">context alias</span> <span class="token punctuation">[</span>default<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HERE<span class="token punctuation">:</span>K <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-<p>One syntactic convenience that is provided is that if you wish to declare the following context:</p>
-<pre class="language-k"><code><span class="token keyword">context</span> foo<span class="token punctuation">(</span>HOLE <span class="token operator">=&gt;</span> bar<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
-<p>you can simply write the following:</p>
-<pre class="language-k"><code><span class="token keyword">syntax</span> Foo <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> foo<span class="token punctuation">(</span>Bar<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span>alias<span class="token punctuation">)</span><span class="token punctuation">]</span>
-
-<span class="token keyword">context alias</span> <span class="token punctuation">[</span>alias<span class="token punctuation">]</span><span class="token punctuation">:</span> HERE <span class="token punctuation">[</span><span class="token keyword">context</span><span class="token punctuation">(</span>bar<span class="token punctuation">)</span><span class="token punctuation">]</span>
-</code></pre>
 <h2 id="configuration-declaration">Configuration Declaration</h2>
 <h3 id="exit-attribute"><code>exit</code> attribute</h3>
 <p>A single configuration cell containing an integer may have the &quot;exit&quot;
@@ -1308,6 +1718,217 @@ to provide guidance to the pattern matching algorithm when it would otherwise
 make bad choices about which rules to try first. You generally should not
 give any rule a priority within this region unless you know exactly what the
 implications are with respect to how the llvm backend orders matches.</p>
+<h2 id="evaluation-strategy">Evaluation Strategy</h2>
+<h3 id="strict-and-seqstrict-attributes"><code>strict</code> and <code>seqstrict</code> attributes</h3>
+<p>The strictness attributes allow defining evaluation strategies without having
+to explicitely make rules which implement them. This is done by injecting
+<em>heating</em> and <em>cooling</em> rules for the subterms. For this to work, you need to
+define what a <em>result</em> is for K, by extending the  <code>KResult</code> sort.</p>
+<p>For example:</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> AExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span>
+              <span class="token operator">|</span> AExp <span class="token string">&quot;+&quot;</span> AExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">]</span>
+</code></pre>
+<p>This generates two heating rules (where the hole syntaxes <code>&quot;[]&quot; &quot;+&quot; AExp</code> and
+<code>AExp &quot;+&quot; &quot;[]&quot;</code> is automatically added to create an evaluation context):</p>
+<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>AExp <span class="token operator">+</span>  AE2<span class="token punctuation">:</span>AExp <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">+</span> AE2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span>  AE1<span class="token punctuation">:</span>AExp <span class="token operator">+</span> HOLE<span class="token punctuation">:</span>AExp <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> AE1 <span class="token operator">+</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
+</code></pre>
+<p>And two corresponding cooling rules:</p>
+<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>AExp <span class="token operator">~&gt;</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">+</span> AE2 <span class="token operator">=&gt;</span> HOLE <span class="token operator">+</span>  AE2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>AExp <span class="token operator">~&gt;</span> AE1 <span class="token operator">+</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span>  AE1 <span class="token operator">+</span> HOLE <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
+</code></pre>
+<p>You will note that these rules can apply one after another infinitely. In
+practice, the <code>KResult</code> sort is used to break this cycle by ensuring that only
+terms that are not part of the <code>KResult</code> sort will be heated. The <code>heat</code> and
+<code>cool</code> attributes are used to tell the compiler that these are heating and
+cooling rules and should be handled in the manner just described. Nothing stops
+the user from writing such heating and cooling rules directly if they wish,
+although we describe other more convenient syntax for most of the advanced
+cases below.</p>
+<p>One other thing to note is that in the above sentences, <code>HOLE</code> is just a
+variable, but it has special meaning in the context of sentences with the
+<code>heat</code> or <code>cool</code> attribute. In heating or cooling rules, the variable named
+<code>HOLE</code> is considered to be the term being heated or cooled and the compiler
+will generate <code>isKResult(HOLE)</code> and <code>notBool isKResult(HOLE)</code> side conditions
+appropriately to ensure that the backend does not loop infinitely.</p>
+<p>In order for this functionality to work, you need to define the <code>KResult</code> sort.
+For instance, we tell K that a term is fully evaluated once it becomes an <code>Int</code>
+here:</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Int</span>
+</code></pre>
+<p>Note that you can also say that a given expression is only strict only in
+specific argument positions. Here we use this to define &quot;short-circuiting&quot;
+boolean operators.</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
+
+<span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
+              <span class="token operator">|</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+              <span class="token operator">|</span> BExp <span class="token string">&quot;&amp;&amp;&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span>  <span class="token operator">||</span> _    <span class="token operator">=&gt;</span> <span class="token boolean">true</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token operator">||</span> REST <span class="token operator">=&gt;</span> REST <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span>  <span class="token operator">&amp;&amp;</span> REST <span class="token operator">=&gt;</span> REST  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token operator">&amp;&amp;</span> _    <span class="token operator">=&gt;</span> <span class="token boolean">false</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>If you want to force a specific evaluation order of the arguments, you can use
+the variant <code>seqstrict</code> to do so. For example, this would make the boolean
+operators short-circuit in their <em>second</em> argument first:</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
+
+<span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
+              <span class="token operator">|</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">seqstrict</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+              <span class="token operator">|</span> BExp <span class="token string">&quot;&amp;&amp;&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">seqstrict</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> _    <span class="token operator">||</span> <span class="token boolean">true</span>  <span class="token operator">=&gt;</span> <span class="token boolean">true</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> REST <span class="token operator">||</span> <span class="token boolean">false</span> <span class="token operator">=&gt;</span> REST <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> REST <span class="token operator">&amp;&amp;</span> <span class="token boolean">true</span>  <span class="token operator">=&gt;</span> REST  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> _    <span class="token operator">&amp;&amp;</span> <span class="token boolean">false</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>This will generate rules like this in the case of <code>_||_</code> (note that <code>BE1</code> will
+not be heated unless <code>isKResult(BE2)</code> is true, meaning that <code>BE2</code> must be
+evaluated first):</p>
+<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span>  BE1<span class="token punctuation">:</span>BExp <span class="token operator">||</span> HOLE<span class="token punctuation">:</span>BExp <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> BE1 <span class="token operator">||</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>BExp <span class="token operator">||</span>  BE2<span class="token punctuation">:</span>BExp <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">||</span> BE2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">requires</span> isKResult<span class="token punctuation">(</span>BE2<span class="token punctuation">)</span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
+
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>BExp <span class="token operator">~&gt;</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">||</span> BE2 <span class="token operator">=&gt;</span> HOLE <span class="token operator">||</span>  BE2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>BExp <span class="token operator">~&gt;</span> BE1 <span class="token operator">||</span>  <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span>  BE1 <span class="token operator">||</span> HOLE <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
+</code></pre>
+<h3 id="context-declaration">Context Declaration</h3>
+<p>Sometimes more advanced evaluation strategies are needed. By default, the
+<code>strict</code> and <code>seqstrict</code> attributes are limited in that they cannot describe
+the <em>context</em> in which heating or cooling should occur. When this type of
+control over the evaluation strategy is required, <code>context</code> sentences can be
+used to simplify the process of declaring heating and cooling when it would be
+unnecessarily verbose to write heating and cooling rules directly.</p>
+<p>For example, if the user wants to heat a term if it exists under a <code>foo</code>
+constructor if the term to be heated is of sort <code>bar</code>, one might write the
+following context:</p>
+<pre class="language-k"><code><span class="token keyword">context</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span>
+</code></pre>
+<p>Once again, note that <code>HOLE</code> is just a variable, but one that has special
+meaning to the compiler indicating the position in the context that should
+be heated or cooled.</p>
+<p>This will automatically generate the following sentences:</p>
+<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Bar <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
+</code></pre>
+<p>The user may also write the K cell explicitly in the context declaration
+if they want to match on another cell as well, for example:</p>
+<pre class="language-k"><code><span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>state</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">.</span>Map <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>state</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>This context will now only heat or cool if the <code>state</code> cell is empty.</p>
+<h3 id="side-conditions-in-context-declarations">Side conditions in context declarations</h3>
+<p>The user is allowed to write a side condition in a context declaration, like
+so:</p>
+<pre class="language-k"><code><span class="token keyword">context</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token keyword">requires</span> baz<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span>
+</code></pre>
+<p>This side condition will be appended verbatim to the heating rule that is
+generated, however, it will not affect the cooling rule that is generated:</p>
+<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> HOLE <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">requires</span> baz<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Bar <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
+</code></pre>
+<h3 id="rewrites-in-context-declarations">Rewrites in context declarations</h3>
+<p>The user can also include exactly one rewrite operation in a context
+declaration if that rule rewrites the variable <code>HOLE</code> on the left hand side
+to a term containing <code>HOLE</code> on the right hand side. For exampl;e:</p>
+<pre class="language-k"><code><span class="token keyword">context</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar <span class="token operator">=&gt;</span> bar<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>In this case, the code generated will be as follows:</p>
+<pre class="language-k"><code><span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> bar<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>heat<span class="token punctuation">]</span>
+<span class="token keyword">rule</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> bar<span class="token punctuation">(</span>HOLE<span class="token punctuation">:</span>Bar<span class="token punctuation">)</span> <span class="token operator">~&gt;</span> foo<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> foo<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>cool<span class="token punctuation">]</span>
+</code></pre>
+<p>This can be useful if the user wishes to evaluate a term using a different
+set of rules than normal.</p>
+<h3 id="result-attribute"><code>result</code> attribute</h3>
+<p>Sometimes it is necessary to be able to evaluate a term to a different sort
+than <code>KResult</code>. This is done by means of adding the <code>result</code> attribute to
+a strict production, a context, or an explicit heating or cooling rule:</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
+              <span class="token operator">|</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">seqstrict</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> result<span class="token punctuation">(</span><span class="token keyword">Bool</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>In this case, the sort check used by <code>seqstrict</code> and by the <code>heat</code> and <code>cool</code>
+attributes will be <code>isBool</code> instead of <code>isKResult</code>. This particular example
+does not really require use of the <code>result</code> attribute, but if the user wishes
+to evaluate a term of sort KResult further, the result attribute would be
+required.</p>
+<h3 id="hybrid-attribute"><code>hybrid</code> attribute</h3>
+<p>In certain situations, it is desirable to treat a particular production which
+has the <code>strict</code> attribute as a result if the term has had its arguments fully
+evaluated. This can be accomplished by means of the <code>hybrid</code> attribute:</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> KResult <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
+
+<span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> <span class="token keyword">Bool</span>
+              <span class="token operator">|</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> hybrid<span class="token punctuation">]</span>
+</code></pre>
+<p>This attribute is equivalent in this case to the following additional axiom
+being added to the definition of <code>isKResult</code>:</p>
+<pre class="language-k"><code><span class="token keyword">rule</span> isKResult<span class="token punctuation">(</span>BE1<span class="token punctuation">:</span>BExp <span class="token operator">||</span> BE2<span class="token punctuation">:</span>BExp<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span> <span class="token keyword">requires</span> isKResult<span class="token punctuation">(</span>BE1<span class="token punctuation">)</span>
+</code></pre>
+<p>Sometimes you wish to declare a production hybrid with respect to a predicate
+other than <code>isKResult</code>. You can do this by specifying a sort as the body of the
+<code>hybrid</code> attribute, e.g.:</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> BExp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> BExp <span class="token string">&quot;||&quot;</span> BExp <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> hybrid<span class="token punctuation">(</span>Foo<span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>generates the rule:</p>
+<pre class="language-k"><code><span class="token keyword">rule</span> isFoo<span class="token punctuation">(</span>BE1<span class="token punctuation">:</span>BExp <span class="token operator">||</span> BE2<span class="token punctuation">:</span>BExp<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span> <span class="token keyword">requires</span> isFoo<span class="token punctuation">(</span>BE1<span class="token punctuation">)</span>
+</code></pre>
+<p>Properly speaking, <code>hybrid</code> takes an optional comma-separated list of sort
+names. If the list is empty, the attribute is equivalent to <code>hybrid(KResult)</code>.
+Otherwise, it generates hybrid predicates for exactly the sorts named.</p>
+<h3 id="context-aliases">Context aliases</h3>
+<p>Sometimes it is necessary to define a fairly complicated evaluation strategy
+for a lot of different operators. In this case, the user <em>could</em> simply write
+a number of complex <code>context</code> declarations, however, this quickly becomes
+tedious. For this purpose, K has a concept called a <em>context alias</em>. A context
+alias is a bit like a template for describing contexts. The template can then
+be instantiated against particular productions using the <code>strict</code> and
+<code>seqstrict</code> attributes.</p>
+<p>Here is a (simplified) example taken from the K semantics of C++:</p>
+<pre class="language-k"><code><span class="token keyword">context alias</span> <span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HERE<span class="token punctuation">:</span>K <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">context alias</span> <span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HERE<span class="token punctuation">:</span>K <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>result<span class="token punctuation">(</span>ExecResult<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token keyword">syntax</span> Expr <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> Expr <span class="token string">&quot;=&quot;</span> Init <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span>c<span class="token punctuation">;</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>This defines the evaluation strategy during the translation phase of a C++
+program for the assignment operator. It is equivalent to writing the following
+context declarations:</p>
+<pre class="language-k"><code><span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Expr <span class="token operator">=</span> I<span class="token punctuation">:</span>Init <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">false</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">context</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HOLE<span class="token punctuation">:</span>Expr <span class="token operator">=</span> I<span class="token punctuation">:</span>Init <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token boolean">true</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>evaluate</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">[</span>result<span class="token punctuation">(</span>ExecResult<span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>What this is saying is, if the <code>evaluate</code> cell is false, evaluate the term
+like normal to a <code>KResult</code>. But if the <code>evaluate</code> cell is true, instead
+evaluate it to the <code>ExecResult</code> sort.</p>
+<p>Essentially, we have given a name to this evaluation strategy in the form of
+the rule label on the context alias sentences (in this case, <code>c</code>). We can
+then say that we want to use this evaluation strategy to evaluate particular
+arguments of particular productions by referring to it by name in a <code>strict</code>
+attribute. For example, <code>strict(c)</code> will instantiate these contexts once for
+each argument of the production, whereas <code>strict(c; 1)</code> will instantiate it
+only for the first argument. The special variable <code>HERE</code> is used to tell the
+compiler where you want to place the production that is to be heated or cooled.</p>
+<p>You can also specify multiple context aliases for different parts of a production,
+for example:</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> Exp <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> foo<span class="token punctuation">(</span>Exp<span class="token punctuation">,</span> Exp<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span><span class="token class-name">left</span><span class="token punctuation">;</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token class-name">right</span><span class="token punctuation">;</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>This says that we can evaluate the left and right arguments in either order, but to evaluate
+the left using the <code>left</code> context alias and the right using the <code>right</code> context alias.</p>
+<p>We can also say <code>seqstrict(left; 1; right; 2)</code>, in which case we additionally must evaluate
+the left argument before the right argument. Note, all strict positions are considered collectively
+when determining the evaluation order of <code>seqstrict</code> or the <code>hybrid</code> predicates.</p>
+<p>A <code>strict</code> attribute with no rule label associated with it is equivalent to
+a <code>strict</code> attribute given with the following context alias:</p>
+<pre class="language-k"><code><span class="token keyword">context alias</span> <span class="token punctuation">[</span>default<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>k</span><span class="token punctuation">&gt;</span></span> HERE<span class="token punctuation">:</span>K <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>k</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>One syntactic convenience that is provided is that if you wish to declare the following context:</p>
+<pre class="language-k"><code><span class="token keyword">context</span> foo<span class="token punctuation">(</span>HOLE <span class="token operator">=&gt;</span> bar<span class="token punctuation">(</span>HOLE<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>you can simply write the following:</p>
+<pre class="language-k"><code><span class="token keyword">syntax</span> Foo <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">=</span> foo<span class="token punctuation">(</span>Bar<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token class-name">strict</span><span class="token punctuation">(</span>alias<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token keyword">context alias</span> <span class="token punctuation">[</span>alias<span class="token punctuation">]</span><span class="token punctuation">:</span> HERE <span class="token punctuation">[</span><span class="token keyword">context</span><span class="token punctuation">(</span>bar<span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
 <h2 id="pattern-matching">Pattern Matching</h2>
 <h3 id="as-patterns">As Patterns</h3>
 <p>New syntax has been added to K for matching a pattern and binding the resulting
@@ -2194,7 +2815,7 @@ stack frame would exist once the tail call was performed.</p>
 <li><code>(gdb) break definition.kore:break -&gt; No source file named definition.kore.</code>
 send <code>-ccopt -g</code> to kompile in order to generate debug info symbols.</li>
 </ul>
-<h2 id="undocumented">Undocumented</h2>
+<h2 id="pending-documentation">Pending Documentation</h2>
 <p>Backend features not yet given documentation:</p>
 <ul>
 <li>Parser of KORE terms and definitions</li>
